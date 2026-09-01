@@ -120,34 +120,7 @@ export default function PracticeCatalogPage() {
         </div>
       </div>
 
-      {/* Adaptive Recommendation Banner */}
-      {adaptiveRec && (
-        <div className="p-6 sm:p-8 border-4 border-white bg-white text-black flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <span className="bg-black text-white px-2 py-0.5 text-xs font-black uppercase font-mono">
-                ADAPTIVE WEAKNESS RECOMMENDATION
-              </span>
-              <span className="text-xs font-mono font-bold uppercase">
-                3X SAMPLING WEIGHT
-              </span>
-            </div>
-            <h3 className="text-2xl font-black uppercase">
-              {adaptiveRec.sessionTitle}
-            </h3>
-            <p className="text-xs sm:text-sm font-sans max-w-3xl leading-relaxed">
-              {adaptiveRec.reason}
-            </p>
-          </div>
 
-          <button
-            onClick={() => setSelectedDefect(adaptiveRec.suggestedDefectCategory)}
-            className="px-6 py-3.5 bg-black text-white font-black uppercase text-xs hover:bg-zinc-800 transition-none shrink-0 cursor-pointer"
-          >
-            FILTER WEAK QUESTIONS ➔
-          </button>
-        </div>
-      )}
 
       {/* Filter Controls Bar */}
       <div className="p-6 border-4 border-white bg-[#121416] space-y-6">
