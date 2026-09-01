@@ -3,24 +3,16 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { SEED_QUESTIONS } from "@/data/seed-questions";
-import { QuestionItem } from "@/types/question";
-import { getStoredSubmissions, getStoredProfile, getBookmarks, toggleBookmark } from "@/lib/storage";
-import { getAdaptiveRecommendation } from "@/lib/core/adaptive-selector";
+import { getStoredSubmissions, getBookmarks, toggleBookmark } from "@/lib/storage";
 import { getDefectMeta } from "@/lib/core/defect-pipeline";
 import { getAvailableLanguages, getLanguageLabel } from "@/lib/language-utils";
 import { cn } from "@/lib/utils";
 import {
   Search,
-  Filter,
-  Code2,
   Bookmark,
   BookmarkCheck,
-  CheckCircle2,
-  AlertTriangle,
-  Sparkles,
-  ArrowRight,
-  Target,
-  Layers,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 export default function PracticeCatalogPage() {
@@ -29,16 +21,22 @@ export default function PracticeCatalogPage() {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("all");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [selectedDefect, setSelectedDefect] = useState<string>("all");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const ITEMS_PER_PAGE = 6;
 
   const [submissions, setSubmissions] = useState<Record<string, any>>({});
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
     setSubmissions(getStoredSubmissions());
     setBookmarks(getBookmarks());
-    setProfile(getStoredProfile());
   }, []);
+
+  // Reset page to 1 when any filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedTopic, selectedLanguage, selectedDifficulty, selectedDefect]);
 
   const handleBookmarkToggle = (e: React.MouseEvent, qId: string) => {
     e.preventDefault();
@@ -46,8 +44,6 @@ export default function PracticeCatalogPage() {
     const updated = toggleBookmark(qId);
     setBookmarks(updated);
   };
-
-  const adaptiveRec = profile ? getAdaptiveRecommendation(profile, SEED_QUESTIONS) : null;
 
   // Filtered Questions
   const filteredQuestions = SEED_QUESTIONS.filter((q) => {
@@ -64,6 +60,10 @@ export default function PracticeCatalogPage() {
 
     return matchesSearch && matchesTopic && matchesLanguage && matchesDifficulty && matchesDefect;
   });
+
+  const totalPages = Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE) || 1;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedQuestions = filteredQuestions.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const topics = [
     { key: "all", label: "ALL TOPICS" },
@@ -94,6 +94,33 @@ export default function PracticeCatalogPage() {
     { key: "hard", label: "HARD" },
   ];
 
+  // Helper to generate page numbers with ellipsis
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 4) {
+        for (let i = 1; i <= 5; i++) pages.push(i);
+        pages.push("...");
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(1);
+        pages.push("...");
+        for (let i = totalPages - 4; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        pages.push("...");
+        pages.push(currentPage - 1);
+        pages.push(currentPage);
+        pages.push(currentPage + 1);
+        pages.push("...");
+        pages.push(totalPages);
+      }
+    }
+    return pages;
+  };
+
   return (
     <div className="max-w-[1600px] mx-auto px-4 sm:px-8 py-8 space-y-8 font-['Hanken_Grotesk'] text-white">
       {/* Page Header */}
@@ -106,7 +133,7 @@ export default function PracticeCatalogPage() {
             PRACTICE REVIEW STUDIO ({SEED_QUESTIONS.length})
           </h1>
           <p className="text-sm sm:text-base text-zinc-300 font-mono mt-2">
-            AUDIT AI-GENERATED CODE SNIPPETS ACROSS CALIBRATED DEFECT CATEGORIES
+            AUDIT AI-GENERATED CODE SNIPPETS ACROSS CALIBRATED DEFECT CATEGORIES &bull; 6 PER PAGE
           </p>
         </div>
 
@@ -119,8 +146,6 @@ export default function PracticeCatalogPage() {
           </Link>
         </div>
       </div>
-
-
 
       {/* Filter Controls Bar */}
       <div className="p-6 border-4 border-white bg-[#121416] space-y-6">
@@ -189,7 +214,9 @@ export default function PracticeCatalogPage() {
 
       {/* Showing count indicator */}
       <div className="flex items-center justify-between text-xs font-mono uppercase px-1">
-        <span>SHOWING <strong>{filteredQuestions.length}</strong> OF <strong>{SEED_QUESTIONS.length}</strong> QUESTIONS</span>
+        <span>
+          SHOWING <strong>{Math.min(filteredQuestions.length, startIndex + 1)} - {Math.min(filteredQuestions.length, startIndex + ITEMS_PER_PAGE)}</strong> OF <strong>{filteredQuestions.length}</strong> QUESTIONS (PAGE {currentPage} OF {totalPages})
+        </span>
         {(selectedTopic !== "all" || selectedDifficulty !== "all" || selectedLanguage !== "all" || searchQuery) && (
           <button
             onClick={() => {
@@ -206,9 +233,9 @@ export default function PracticeCatalogPage() {
         )}
       </div>
 
-      {/* Questions Grid */}
+      {/* Questions Grid (6 per page) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredQuestions.map((q) => {
+        {paginatedQuestions.map((q) => {
           const subData = submissions[q.id];
           const hasAttempted = !!subData;
           const score = subData?.result?.overall_score;
@@ -299,6 +326,66 @@ export default function PracticeCatalogPage() {
           );
         })}
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="p-6 border-4 border-white bg-[#121416] flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
+          <button
+            onClick={() => {
+              setCurrentPage((p) => Math.max(1, p - 1));
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            disabled={currentPage === 1}
+            className="w-full sm:w-auto px-6 py-3 border-2 border-white bg-[#121416] text-white hover:bg-white hover:text-black disabled:opacity-30 disabled:hover:bg-[#121416] disabled:hover:text-white font-black text-xs uppercase transition-none flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            <span>PREVIOUS</span>
+          </button>
+
+          {/* Page numbers */}
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {getPageNumbers().map((page, idx) => {
+              if (page === "...") {
+                return (
+                  <span key={`ellipsis-${idx}`} className="px-2 text-zinc-500 font-black">
+                    ...
+                  </span>
+                );
+              }
+              const isCurrent = currentPage === page;
+              return (
+                <button
+                  key={`page-${page}`}
+                  onClick={() => {
+                    setCurrentPage(page as number);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className={cn(
+                    "w-10 h-10 border-2 font-black text-xs uppercase transition-none cursor-pointer flex items-center justify-center",
+                    isCurrent
+                      ? "bg-white text-black border-white"
+                      : "bg-[#121416] text-zinc-300 border-white hover:bg-white hover:text-black"
+                  )}
+                >
+                  {page}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={() => {
+              setCurrentPage((p) => Math.min(totalPages, p + 1));
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            disabled={currentPage === totalPages}
+            className="w-full sm:w-auto px-6 py-3 border-2 border-white bg-[#121416] text-white hover:bg-white hover:text-black disabled:opacity-30 disabled:hover:bg-[#121416] disabled:hover:text-white font-black text-xs uppercase transition-none flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+          >
+            <span>NEXT</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
