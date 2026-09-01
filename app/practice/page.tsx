@@ -132,15 +132,11 @@ export default function PracticeCatalogPage() {
         {/* Header Section */}
         <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-4 sm:pb-6 border-b border-white/10">
           <div className="space-y-2 sm:space-y-3">
-            <div className="inline-block neu-badge px-3 py-1 rounded text-xs font-bold tracking-widest uppercase text-gray-300">
-              BENCHMARK CATALOG
-            </div>
+
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-none uppercase">
               PRACTICE REVIEW STUDIO <span className="text-gray-500 font-normal">({SEED_QUESTIONS.length})</span>
             </h1>
-            <p className="text-xs sm:text-sm font-mono text-gray-400 uppercase tracking-wide">
-              AUDIT AI CODE SNIPPETS &bull; 6 PER PAGE
-            </p>
+
           </div>
 
           <div>

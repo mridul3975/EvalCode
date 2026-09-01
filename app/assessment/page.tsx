@@ -55,12 +55,6 @@ export default function AssessmentOnboardingPage() {
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         {/* Top Header */}
         <div className="space-y-4 max-w-3xl">
-          <div className="flex items-center gap-2">
-            <span className="obsidian-chip-optimal flex items-center gap-1.5">
-              <Timer className="w-3.5 h-3.5" />
-              <span>SIMULATED SCREENING EXAM</span>
-            </span>
-          </div>
 
           <h1 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-none">
             TIMED MOCK ASSESSMENT
@@ -142,11 +136,8 @@ export default function AssessmentOnboardingPage() {
               STEP 2: CHOOSE FOCUS AREA
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-              SELECT EVALUATION TRACK
+              SELECT CODING LANGUAGE
             </h2>
-            <p className="text-xs sm:text-sm text-[#b9cbc1] font-mono uppercase">
-              CHOOSE YOUR PRIMARY LANGUAGE OR TAKE THE GENERAL MULTI-LANGUAGE TRACK
-            </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">

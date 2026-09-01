@@ -34,10 +34,7 @@ export default function LandingPage() {
           {/* Left Hero Content */}
           <div className="flex-1 space-y-6 text-center lg:text-left">
             <div className="inline-flex items-center gap-2">
-              <span className="obsidian-chip-optimal flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>AI EVALUATION & RLHF ASSESSMENT SIMULATOR</span>
-              </span>
+
             </div>
 
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[0.95] uppercase">
@@ -154,30 +151,15 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* PLATFORM LOGO STRIP */}
-        <section className="obsidian-card p-6 flex flex-wrap items-center justify-between gap-6 font-mono font-bold text-xs uppercase text-[#b9cbc1]">
-          <span>CALIBRATED FOR SCREENINGS AT:</span>
-          <div className="flex flex-wrap items-center gap-8 text-white">
-            <span className="hover:text-white transition-colors">ALIGNERR</span>
-            <span className="hover:text-white transition-colors">MINDRIFT</span>
-            <span className="hover:text-white transition-colors">SCALE AI / OUTLIER</span>
-            <span className="hover:text-white transition-colors">TURING RLHF</span>
-            <span className="hover:text-white transition-colors">ENTERPRISE CODE AUDIT</span>
-          </div>
-        </section>
+
 
         {/* COMPARISON SECTION: SYNTHESIS VS EVALUATION */}
         <section className="space-y-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono font-bold text-[#b9cbc1] uppercase tracking-widest">
-              PARADIGM SHIFT
-            </span>
+
             <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
               CODE SYNTHESIS VS. CODE EVALUATION
             </h2>
-            <p className="text-sm sm:text-base text-[#b9cbc1] font-mono uppercase">
-              WHY 90% OF LEETCODE PRACTITIONERS FAIL AI-TRAINER SCREENERS ON THEIR FIRST TRY
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -240,15 +222,11 @@ export default function LandingPage() {
         {/* 6-DIMENSIONAL RUBRIC MATRIX */}
         <section className="space-y-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono font-bold text-[#b9cbc1] uppercase tracking-widest">
-              RUBRIC STANDARDS
-            </span>
+
             <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
               THE 6-DIMENSIONAL RUBRIC MATRIX
             </h2>
-            <p className="text-sm sm:text-base text-[#b9cbc1] font-mono uppercase">
-              EVERY SUBMISSION GRADED AGAINST STANDARD RLHF EVALUATION CRITERIA
-            </p>
+
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

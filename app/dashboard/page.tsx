@@ -63,9 +63,7 @@ export default function DashboardPage() {
         {/* Start Audit CTA Action Pod */}
         <section className="obsidian-card p-8 sm:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           <div className="space-y-2 max-w-2xl">
-            <span className="text-xs font-mono font-bold text-[#b9cbc1] uppercase tracking-widest">
-              SCREENING BENCHMARKS & DRILLS
-            </span>
+
             <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
               START CODE AUDITING
             </h2>
@@ -99,9 +97,6 @@ export default function DashboardPage() {
           {/* Radar Chart Card */}
           <div className="obsidian-card p-6 sm:p-10 flex flex-col justify-between space-y-6">
             <div className="border-b border-[rgba(255,255,255,0.06)] pb-4">
-              <span className="text-xs font-mono font-bold text-[#b9cbc1] uppercase tracking-widest">
-                6-DIMENSIONAL ACUITY
-              </span>
               <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight mt-1">
                 COMPETENCY RADAR
               </h3>

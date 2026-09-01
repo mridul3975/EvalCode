@@ -36,9 +36,6 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
     <div className="obsidian-card p-6 sm:p-10 space-y-8 font-['Hanken_Grotesk']">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[rgba(255,255,255,0.06)] pb-6">
         <div>
-          <span className="text-xs font-mono font-bold text-[#b9cbc1] uppercase tracking-widest">
-            TAXONOMIC BREAKDOWN
-          </span>
           <h3 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mt-1">
             DIMENSIONAL TAXONOMY
           </h3>
@@ -119,8 +116,8 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
                         isCalibrated
                           ? "obsidian-chip-optimal"
                           : stat.attempts > 0
-                          ? "obsidian-chip-critical"
-                          : "obsidian-chip-neutral"
+                            ? "obsidian-chip-critical"
+                            : "obsidian-chip-neutral"
                       )}
                     >
                       {isCalibrated ? "CALIBRATED" : stat.attempts > 0 ? "DEFICIT" : "NOT STARTED"}

@@ -13,19 +13,19 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
   const statusLabel = isReady
     ? "READY"
     : isBorderline
-    ? "BORDERLINE"
-    : hasActivity
-    ? "IN TRAINING"
-    : "NOT READY";
+      ? "BORDERLINE"
+      : hasActivity
+        ? "IN TRAINING"
+        : "NOT READY";
 
   const percentileText = hasActivity
     ? profile.readiness_score >= 90
       ? "TOP 5%"
       : profile.readiness_score >= 80
-      ? "TOP 15%"
-      : profile.readiness_score >= 70
-      ? "TOP 35%"
-      : "IN PROGRESS"
+        ? "TOP 15%"
+        : profile.readiness_score >= 70
+          ? "TOP 35%"
+          : "IN PROGRESS"
     : "UNRANKED";
 
   return (
@@ -33,14 +33,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
       {/* Left 65%: Massive Tactile Title & Overview */}
       <div className="lg:w-2/3 p-8 sm:p-12 lg:p-14 flex flex-col justify-between space-y-8">
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <span className="obsidian-chip-optimal">
-              CANDIDATE READINESS PROFILE
-            </span>
-            <span className="text-xs font-mono text-[#b9cbc1] uppercase">
-              EXPONENTIAL DECAY WEIGHTED
-            </span>
-          </div>
+
 
           <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tight leading-[0.9] text-white uppercase font-['Hanken_Grotesk']">
             Eval<br />
@@ -92,8 +85,8 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
               isReady
                 ? "obsidian-chip-optimal"
                 : isBorderline
-                ? "obsidian-chip-neutral"
-                : "obsidian-chip-critical"
+                  ? "obsidian-chip-neutral"
+                  : "obsidian-chip-critical"
             )}
           >
             {statusLabel}
