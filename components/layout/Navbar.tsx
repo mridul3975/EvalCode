@@ -14,7 +14,6 @@ import {
   Flame,
   ShieldCheck,
 } from "lucide-react";
-
 import { UserDropdown } from "@/components/auth/UserDropdown";
 
 export function Navbar() {
@@ -30,25 +29,25 @@ export function Navbar() {
   }, []);
 
   const navItems = [
-    { href: "/practice", label: "Practice Studio", icon: Code2 },
-    { href: "/assessment", label: "Mock Assessment", icon: Timer, highlight: true },
-    { href: "/dashboard", label: "Profile & Analytics", icon: BarChart3 },
+    { href: "/practice", label: "PRACTICE STUDIO", icon: Code2 },
+    { href: "/assessment", label: "MOCK ASSESSMENT", icon: Timer, highlight: true },
+    { href: "/dashboard", label: "PROFILE & ANALYTICS", icon: BarChart3 },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-800/80 bg-zinc-950/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-[#242830] bg-[#0a0b0d]/95 backdrop-blur-md">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         {/* Logo / Brand */}
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-sky-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-              <CheckSquare className="w-4 h-4 text-zinc-950 stroke-[2.5]" />
+            <div className="w-8 h-8 rounded-none bg-[#00ffc2] text-[#0a0b0d] flex items-center justify-center font-mono font-black text-sm border border-[#00ffc2] shadow-[0_0_12px_rgba(0,255,194,0.25)] group-hover:bg-white transition-colors">
+              EF
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
-                EvalForge
-                <span className="text-[10px] uppercase font-semibold px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                  RLHF Sim
+              <span className="text-sm font-extrabold tracking-wider text-white flex items-center gap-1.5 font-mono">
+                EVALFORGE
+                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-none bg-[#00ffc2]/10 text-[#00ffc2] border border-[#00ffc2]/30">
+                  BRUTALIST
                 </span>
               </span>
             </div>
@@ -64,11 +63,11 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
+                    "flex items-center gap-2 px-3 py-1.5 rounded-none text-xs font-mono font-bold tracking-wider transition-colors border",
                     isActive
-                      ? "bg-zinc-800 text-white shadow-sm"
-                      : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900",
-                    item.highlight && !isActive && "text-emerald-400 hover:text-emerald-300"
+                      ? "bg-[#16181c] text-[#00ffc2] border-[#00ffc2]/40"
+                      : "text-zinc-400 hover:text-white hover:bg-[#121417] border-transparent",
+                    item.highlight && !isActive && "text-[#00ffc2] hover:text-white"
                   )}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -85,12 +84,12 @@ export function Navbar() {
           {profile && (
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-colors"
+              className="flex items-center gap-2 px-3 py-1 rounded-none bg-[#121417] border border-[#242830] hover:border-[#00ffc2]/50 transition-colors"
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <div className="flex items-center gap-1 text-xs">
-                <span className="text-zinc-400 font-medium hidden sm:inline">Readiness:</span>
-                <span className="font-bold text-emerald-400 font-mono">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#00ffc2]" />
+              <div className="flex items-center gap-1 text-xs font-mono">
+                <span className="text-zinc-400 font-medium hidden sm:inline">READINESS:</span>
+                <span className="font-bold text-[#00ffc2]">
                   {profile.readiness_score.toFixed(1)}%
                 </span>
               </div>
@@ -99,9 +98,9 @@ export function Navbar() {
 
           {/* Streak pill */}
           {profile && (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-medium">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-none bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold">
               <Flame className="w-3.5 h-3.5 fill-amber-400" />
-              <span>{profile.current_streak_days}d</span>
+              <span>{profile.current_streak_days}D</span>
             </div>
           )}
 
