@@ -17,9 +17,12 @@ import { CodeViewer } from "@/components/review-studio/CodeViewer";
 import { EvaluationForm } from "@/components/review-studio/EvaluationForm";
 import { WorkspaceSkeleton } from "@/components/boneyard/WorkspaceSkeleton";
 import { getLanguageLabel } from "@/lib/language-utils";
+import { cn } from "@/lib/utils";
 import {
   AlertTriangle,
   X,
+  Code2,
+  FileEdit,
 } from "lucide-react";
 
 export default function ActiveAssessmentSessionPage() {
@@ -28,6 +31,7 @@ export default function ActiveAssessmentSessionPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [selectedLineForCite, setSelectedLineForCite] = useState<number | null>(null);
+  const [mobileTab, setMobileTab] = useState<"code" | "form">("code");
 
   // Load or initialize session
   useEffect(() => {
@@ -116,6 +120,8 @@ export default function ActiveAssessmentSessionPage() {
 
     if (isLastQuestion) {
       setShowSubmitModal(true);
+    } else {
+      setMobileTab("code"); // Return to code for next question
     }
   };
 
@@ -169,24 +175,68 @@ export default function ActiveAssessmentSessionPage() {
         onToggleFlag={handleToggleFlag}
       />
 
+      {/* Mobile Tab Switcher (< lg) */}
+      <div className="lg:hidden flex border-b border-[rgba(255,255,255,0.08)] bg-[#16181a] px-4 py-2 sticky top-[106px] z-20 font-mono text-xs">
+        <div className="grid grid-cols-2 w-full gap-2 p-1 bg-[#121416] rounded-xl border border-black/40">
+          <button
+            onClick={() => setMobileTab("code")}
+            className={cn(
+              "flex items-center justify-center gap-1.5 py-2.5 rounded-lg font-bold uppercase transition-all",
+              mobileTab === "code"
+                ? "bg-white text-[#121416] shadow-sm font-black"
+                : "text-[#b9cbc1] hover:text-white"
+            )}
+          >
+            <Code2 className="w-3.5 h-3.5" />
+            <span>PROBLEM & CODE</span>
+          </button>
+
+          <button
+            onClick={() => setMobileTab("form")}
+            className={cn(
+              "flex items-center justify-center gap-1.5 py-2.5 rounded-lg font-bold uppercase transition-all",
+              mobileTab === "form"
+                ? "bg-white text-[#121416] shadow-sm font-black"
+                : "text-[#b9cbc1] hover:text-white"
+            )}
+          >
+            <FileEdit className="w-3.5 h-3.5" />
+            <span>AUDIT FORM {activeSubmission ? "(SAVED)" : ""}</span>
+          </button>
+        </div>
+      </div>
+
       {/* Main Split Test Workspace */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 sm:p-6 lg:p-8 max-w-[1750px] w-full mx-auto">
         {/* Left Viewport: Problem Spec + Code Snippet */}
-        <div className="flex flex-col gap-6 min-h-[500px]">
-          <div className="flex-1 min-h-[300px]">
+        <div
+          className={cn(
+            "flex flex-col gap-6",
+            mobileTab === "form" ? "hidden lg:flex" : "flex"
+          )}
+        >
+          <div className="flex-1 min-h-[260px]">
             <ProblemContextPane question={activeQuestion} />
           </div>
           <div className="flex-1 min-h-[360px]">
             <CodeViewer
               code={activeQuestion.ai_response.code}
               language={getLanguageLabel(activeQuestion.language)}
-              onSelectLine={(line) => setSelectedLineForCite(line)}
+              onSelectLine={(line) => {
+                setSelectedLineForCite(line);
+                setMobileTab("form"); // Auto switch to form when line is cited on mobile
+              }}
             />
           </div>
         </div>
 
         {/* Right Viewport: Candidate Evaluation Form */}
-        <div className="flex flex-col min-h-[680px]">
+        <div
+          className={cn(
+            "flex flex-col min-h-[500px]",
+            mobileTab === "code" ? "hidden lg:flex" : "flex"
+          )}
+        >
           <EvaluationForm
             key={activeQuestion.id}
             question={activeQuestion}
@@ -200,7 +250,7 @@ export default function ActiveAssessmentSessionPage() {
       {/* Final Submit Confirmation Modal */}
       {showSubmitModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="relative w-full max-w-md obsidian-card p-8 space-y-6">
+          <div className="relative w-full max-w-md obsidian-card p-6 sm:p-8 space-y-6">
             <button
               onClick={() => setShowSubmitModal(false)}
               className="absolute top-5 right-5 p-1 text-[#b9cbc1] hover:text-white transition-colors"
@@ -210,7 +260,7 @@ export default function ActiveAssessmentSessionPage() {
 
             <div className="space-y-2">
               <span className="obsidian-chip-optimal">FINAL SUBMISSION</span>
-              <h3 className="text-2xl font-bold text-white uppercase">
+              <h3 className="text-xl sm:text-2xl font-bold text-white uppercase">
                 COMPLETE ASSESSMENT?
               </h3>
               <p className="text-xs sm:text-sm font-mono text-[#b9cbc1]">
@@ -219,7 +269,7 @@ export default function ActiveAssessmentSessionPage() {
             </div>
 
             {answeredIds.length < session.question_ids.length && (
-              <div className="p-4 rounded-xl bg-[#a90219]/20 border border-[#a90219]/40 flex items-start gap-3 text-xs text-[#ffdad6]">
+              <div className="p-3.5 rounded-xl bg-[#a90219]/20 border border-[#a90219]/40 flex items-start gap-2.5 text-xs text-[#ffdad6]">
                 <AlertTriangle className="w-4 h-4 text-[#ffb3ae] shrink-0 mt-0.5" />
                 <span>
                   You have unanswered questions. Unsubmitted problems will receive a score of 0%.
@@ -227,18 +277,18 @@ export default function ActiveAssessmentSessionPage() {
               </div>
             )}
 
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
               <button
                 type="button"
                 onClick={() => setShowSubmitModal(false)}
-                className="flex-1 obsidian-btn-secondary py-3 text-xs font-bold uppercase tracking-wider cursor-pointer"
+                className="w-full sm:flex-1 obsidian-btn-secondary py-3 text-xs font-bold uppercase tracking-wider cursor-pointer text-center"
               >
                 RETURN TO TEST
               </button>
               <button
                 type="button"
                 onClick={() => handleFinalSubmit(session)}
-                className="flex-1 obsidian-btn-primary py-3 text-xs font-bold uppercase tracking-wider cursor-pointer"
+                className="w-full sm:flex-1 obsidian-btn-primary py-3 text-xs font-bold uppercase tracking-wider cursor-pointer text-center"
               >
                 SUBMIT NOW ➔
               </button>

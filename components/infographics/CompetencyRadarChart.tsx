@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Radar,
   RadarChart,
@@ -29,8 +29,25 @@ export interface CompetencyRadarChartProps {
 export function CompetencyRadarChart({
   data,
   benchmark = 90,
-  height = 500,
+  height = 480,
 }: CompetencyRadarChartProps) {
+  const [chartHeight, setChartHeight] = useState(height);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setChartHeight(320);
+      } else if (window.innerWidth < 1024) {
+        setChartHeight(400);
+      } else {
+        setChartHeight(height);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [height]);
+
   const chartData = [
     {
       subject: "CORRECTNESS",
@@ -72,13 +89,13 @@ export function CompetencyRadarChart({
 
   return (
     <div className="w-full flex flex-col items-center justify-center font-mono">
-      <div className="w-full" style={{ height }}>
+      <div className="w-full" style={{ height: chartHeight }}>
         <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="82%" data={chartData}>
+          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chartData}>
             <PolarGrid stroke="#282a2c" strokeWidth={1.5} />
             <PolarAngleAxis
               dataKey="subject"
-              tick={{ fill: "#e2e2e5", fontSize: 11, fontWeight: 700, fontFamily: "monospace" }}
+              tick={{ fill: "#e2e2e5", fontSize: 10, fontWeight: 700, fontFamily: "monospace" }}
             />
             <PolarRadiusAxis
               angle={30}
@@ -111,7 +128,7 @@ export function CompetencyRadarChart({
                 borderColor: "#282a2c",
                 borderWidth: "1px",
                 borderRadius: "8px",
-                fontSize: "12px",
+                fontSize: "11px",
                 fontFamily: "monospace",
                 color: "#e2e2e5",
                 boxShadow: "0 8px 24px rgba(0,0,0,0.7)",
@@ -122,14 +139,14 @@ export function CompetencyRadarChart({
         </ResponsiveContainer>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-6 mt-2 text-xs text-[#b9cbc1] font-mono font-bold uppercase">
+      <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-2 text-[11px] sm:text-xs text-[#b9cbc1] font-mono font-bold uppercase">
         <div className="flex items-center gap-2">
-          <div className="w-3.5 h-3.5 rounded-sm bg-white/30 border border-white" />
+          <div className="w-3 h-3 rounded-sm bg-white/30 border border-white" />
           <span>CANDIDATE COMPETENCY</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-0.5 border-t border-dashed border-white" />
-          <span>TARGET BENCHMARK (90%)</span>
+          <span>TARGET (90%)</span>
         </div>
       </div>
     </div>

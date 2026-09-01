@@ -14,10 +14,14 @@ import { getStoredSubmissions, saveStoredSubmission } from "@/lib/storage";
 import { evaluateSubmission } from "@/lib/scoring-engine";
 import { getCodeForLanguage, getAvailableLanguages, getLanguageLabel } from "@/lib/language-utils";
 import { WorkspaceSkeleton } from "@/components/boneyard/WorkspaceSkeleton";
+import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
   Share2,
   Check,
+  Code2,
+  FileEdit,
+  BarChart3,
 } from "lucide-react";
 
 export default function ReviewStudioPage() {
@@ -32,6 +36,7 @@ export default function ReviewStudioPage() {
   const [copiedLink, setCopiedLink] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState<QuestionLanguage>("python");
+  const [mobileTab, setMobileTab] = useState<"code" | "form">("code");
 
   useEffect(() => {
     const q = SEED_QUESTIONS.find((item) => item.id === questionId);
@@ -46,6 +51,7 @@ export default function ReviewStudioPage() {
     if (stored) {
       setSubmission(stored.submission);
       setResult(stored.result);
+      setMobileTab("form"); // switch to results on mobile if already evaluated
     } else {
       setSubmission(null);
       setResult(null);
@@ -80,6 +86,7 @@ export default function ReviewStudioPage() {
         question.ground_truth.defect_type || question.ground_truth.error_categories[0]
       );
       setIsSubmitting(false);
+      setMobileTab("form"); // Switch to show results matrix on mobile
     }, 400);
   };
 
@@ -96,30 +103,30 @@ export default function ReviewStudioPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#121416] text-white font-['Hanken_Grotesk']">
       {/* Header Bar */}
-      <div className="border-b-4 border-white bg-[#121416] px-4 sm:px-8 py-3 flex items-center justify-between sticky top-14 z-30">
-        <div className="flex items-center gap-4">
+      <div className="border-b-2 border-white/15 bg-[#121416] px-4 sm:px-8 py-3 flex items-center justify-between sticky top-14 z-30 shadow-md">
+        <div className="flex items-center gap-3">
           <Link
             href="/practice"
-            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider bg-white text-black px-3 py-1.5 border-2 border-white hover:bg-black hover:text-white transition-none cursor-pointer"
+            className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider bg-white text-black px-2.5 py-1.5 rounded-md hover:bg-zinc-200 transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">CATALOG</span>
           </Link>
 
-          <div className="flex items-center gap-3 font-mono">
+          <div className="flex items-center gap-2 font-mono">
             <span className="text-xs font-bold text-zinc-400 hidden md:inline">
               #{currentIndex + 1} / {SEED_QUESTIONS.length}:
             </span>
-            <h2 className="text-sm sm:text-base font-black text-white uppercase truncate max-w-xs sm:max-w-md">
+            <h2 className="text-xs sm:text-sm md:text-base font-bold text-white uppercase truncate max-w-[160px] sm:max-w-xs md:max-w-md">
               {question.title}
             </h2>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             onClick={handleShare}
-            className="flex items-center gap-2 px-3 py-1.5 bg-[#121416] text-white border-2 border-white font-mono text-xs font-bold uppercase hover:bg-white hover:text-black transition-none cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md obsidian-inset text-white text-xs font-mono font-bold uppercase hover:bg-white/10 transition-colors cursor-pointer"
           >
             {copiedLink ? (
               <>
@@ -136,18 +143,57 @@ export default function ReviewStudioPage() {
         </div>
       </div>
 
-      {/* Main 2-Column Split Workspace */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 sm:p-8 max-w-[1750px] w-full mx-auto">
+      {/* Mobile Tab Switcher (< lg) */}
+      <div className="lg:hidden flex border-b border-[rgba(255,255,255,0.08)] bg-[#16181a] px-4 py-2 sticky top-[106px] z-20 font-mono text-xs">
+        <div className="grid grid-cols-2 w-full gap-2 p-1 bg-[#121416] rounded-xl border border-black/40">
+          <button
+            onClick={() => setMobileTab("code")}
+            className={cn(
+              "flex items-center justify-center gap-1.5 py-2.5 rounded-lg font-bold uppercase transition-all",
+              mobileTab === "code"
+                ? "bg-white text-[#121416] shadow-sm font-black"
+                : "text-[#b9cbc1] hover:text-white"
+            )}
+          >
+            <Code2 className="w-3.5 h-3.5" />
+            <span>CODE & CONTEXT</span>
+          </button>
+
+          <button
+            onClick={() => setMobileTab("form")}
+            className={cn(
+              "flex items-center justify-center gap-1.5 py-2.5 rounded-lg font-bold uppercase transition-all",
+              mobileTab === "form"
+                ? "bg-white text-[#121416] shadow-sm font-black"
+                : "text-[#b9cbc1] hover:text-white"
+            )}
+          >
+            {result ? <BarChart3 className="w-3.5 h-3.5" /> : <FileEdit className="w-3.5 h-3.5" />}
+            <span>{result ? "RESULTS MATRIX" : "AUDIT FORM"}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Main Split Workspace */}
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 sm:p-6 lg:p-8 max-w-[1750px] w-full mx-auto">
         {/* Left Viewport: Problem Context + Code Viewer */}
-        <div className="flex flex-col gap-6 min-h-[500px]">
-          <div className="flex-1 min-h-[300px]">
+        <div
+          className={cn(
+            "flex flex-col gap-6",
+            mobileTab === "form" ? "hidden lg:flex" : "flex"
+          )}
+        >
+          <div className="flex-1 min-h-[260px]">
             <ProblemContextPane question={question} selectedLanguage={selectedLanguage} />
           </div>
           <div className="flex-1 min-h-[360px]">
             <CodeViewer
               code={activeCode}
               language={getLanguageLabel(selectedLanguage)}
-              onSelectLine={(line) => setSelectedLineForCite(line)}
+              onSelectLine={(line) => {
+                setSelectedLineForCite(line);
+                setMobileTab("form"); // Auto switch to form when line is cited on mobile
+              }}
               availableLanguages={availableLanguages}
               selectedLanguage={selectedLanguage}
               onLanguageChange={setSelectedLanguage}
@@ -156,7 +202,12 @@ export default function ReviewStudioPage() {
         </div>
 
         {/* Right Viewport: Evaluation Form OR Disagreement Matrix */}
-        <div className="flex flex-col min-h-[680px]">
+        <div
+          className={cn(
+            "flex flex-col min-h-[500px]",
+            mobileTab === "code" ? "hidden lg:flex" : "flex"
+          )}
+        >
           {result && submission ? (
             <DisagreementMatrix
               question={question}
