@@ -2,21 +2,20 @@
 
 import React from "react";
 import { UserProfileStats } from "@/types/submission";
-import { ReadinessGauge } from "@/components/infographics/ReadinessGauge";
 import { cn } from "@/lib/utils";
-import {
-  ShieldCheck,
-  CheckCircle2,
-  Trophy,
-  Flame,
-  Clock,
-  TrendingUp,
-  Target,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight, Trophy } from "lucide-react";
 
 export function ReadinessProfileCard({ profile }: { profile: UserProfileStats }) {
   const hasActivity = profile.total_evaluations_count > 0;
+  const isReady = profile.readiness_score >= 90;
+  const statusLabel = isReady
+    ? "READY"
+    : profile.readiness_score >= 80
+    ? "BORDERLINE"
+    : hasActivity
+    ? "IN TRAINING"
+    : "NOT READY";
+
   const percentileText = hasActivity
     ? profile.readiness_score >= 90
       ? "TOP 5%"
@@ -28,171 +27,150 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
     : "UNRANKED";
 
   return (
-    <div className="p-6 rounded-none bg-[#121417] border-2 border-[#242830] flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
-      {/* Editorial Border Accent */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-[#00ffc2]" />
-
-      {/* Left: Overall Readiness & Target */}
-      <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-3">
-        <div className="flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-[#00ffc2]" />
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#00ffc2]">
+    <section className="flex flex-col lg:flex-row w-full border-4 border-white bg-[#121416] text-white">
+      {/* Massive 70% Title & Overview Area */}
+      <div className="lg:w-2/3 p-6 sm:p-12 lg:p-16 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-white relative overflow-hidden">
+        <div className="z-10">
+          <div className="text-xs font-black uppercase tracking-widest mb-4 px-2 py-1 bg-white text-black inline-block border-2 border-white">
             CANDIDATE READINESS PROFILE
-          </span>
-        </div>
-        <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight font-mono uppercase">
-          EVALUATION ACUITY
-        </h2>
-        <p className="text-xs sm:text-sm text-zinc-400 max-w-md leading-relaxed">
-          Aggregated performance across Practice Mode and Timed Mock Assessments computed via exponential decay weighting.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 pt-2 font-mono">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-[#0a0b0d] border border-[#242830] text-xs">
-            <Target className="w-3.5 h-3.5 text-[#00ffc2]" />
-            <span className="text-zinc-400">BENCHMARK:</span>
-            <span className="font-bold text-white">90.0%+</span>
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-[#0a0b0d] border border-[#242830] text-xs">
-            <TrendingUp className="w-3.5 h-3.5 text-sky-400" />
-            <span className="text-zinc-400">PERCENTILE:</span>
-            <span className="font-bold text-sky-400">{percentileText}</span>
+          <h1 className="font-['Hanken_Grotesk'] font-black text-6xl sm:text-8xl lg:text-[8vw] leading-[0.85] tracking-tighter uppercase mb-8 break-words">
+            Eval<br />Acuity
+          </h1>
+          <p className="text-base sm:text-xl lg:text-2xl font-light max-w-2xl border-l-8 border-white pl-6 leading-relaxed text-zinc-200">
+            Aggregated performance across Practice Mode and Timed Mock Assessments computed via exponential decay weighting.
+          </p>
+        </div>
+
+        <div className="mt-12 flex flex-wrap gap-6 z-10 font-['Hanken_Grotesk']">
+          <div className="border-4 border-black p-6 bg-white text-black shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
+            <div className="text-xs font-black uppercase tracking-widest mb-1 font-mono">BENCHMARK</div>
+            <div className="text-3xl sm:text-4xl font-black">90.0%+</div>
+          </div>
+          <div className="border-4 border-white p-6 bg-[#121416] text-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.3)]">
+            <div className="text-xs font-black uppercase tracking-widest mb-1 font-mono">PERCENTILE</div>
+            <div className="text-3xl sm:text-4xl font-black text-white">{percentileText}</div>
           </div>
         </div>
       </div>
 
-      {/* Center Gauge */}
-      <ReadinessGauge score={profile.readiness_score} size={200} />
-
-      {/* Right Stats Grid */}
-      <div className="grid grid-cols-2 gap-3 w-full lg:w-auto font-mono">
-        <div className="p-3.5 rounded-none bg-[#0a0b0d] border border-[#242830] flex flex-col gap-1">
-          <div className="flex items-center gap-1.5 text-zinc-400 text-xs uppercase font-bold">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#00ffc2]" />
-            <span>ACCURACY</span>
+      {/* 30% Gauge & 2x2 Stats Area */}
+      <div className="lg:w-1/3 flex flex-col bg-white text-black">
+        {/* Massive Gauge Block */}
+        <div className="flex-1 flex flex-col items-center justify-center p-8 sm:p-12 border-b-4 border-black bg-white text-black relative">
+          <div className="text-7xl sm:text-9xl font-['Hanken_Grotesk'] font-black tracking-tighter mb-4 relative z-10">
+            {profile.readiness_score.toFixed(1)}%
           </div>
-          <span className="text-xl font-black text-white">
-            {profile.verdict_accuracy.toFixed(1)}%
-          </span>
-          <span className="text-[10px] text-zinc-500">
-            {Math.round((profile.verdict_accuracy / 100) * profile.total_evaluations_count)} / {profile.total_evaluations_count} VERIFIED
-          </span>
+          <div className="bg-black text-white px-6 py-2 text-xl font-black uppercase tracking-widest border-2 border-black z-10 font-['Hanken_Grotesk']">
+            {statusLabel}
+          </div>
+          {/* Abstract background graphic */}
+          <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <line stroke="black" strokeWidth="4" x1="0" x2="100" y1="100" y2="0" />
+            <line stroke="black" strokeWidth="4" x1="0" x2="100" y1="0" y2="100" />
+            <circle cx="50" cy="50" fill="none" r="40" stroke="black" strokeWidth="8" />
+          </svg>
         </div>
 
-        <div className="p-3.5 rounded-none bg-[#0a0b0d] border border-[#242830] flex flex-col gap-1">
-          <div className="flex items-center gap-1.5 text-zinc-400 text-xs uppercase font-bold">
-            <Flame className="w-3.5 h-3.5 text-amber-400" />
-            <span>STREAK</span>
+        {/* 2x2 Stats Grid */}
+        <div className="grid grid-cols-2 bg-white text-black font-['Hanken_Grotesk']">
+          <div className="p-5 border-r-4 border-b-4 border-black flex flex-col justify-center">
+            <div className="text-[10px] font-black uppercase tracking-widest mb-1 font-mono text-zinc-600">VERDICT ACCURACY</div>
+            <div className="text-3xl sm:text-4xl font-black">{profile.verdict_accuracy.toFixed(1)}%</div>
+            <div className="text-xs font-mono text-zinc-600 mt-1">{Math.round((profile.verdict_accuracy / 100) * profile.total_evaluations_count)} / {profile.total_evaluations_count} verified</div>
           </div>
-          <span className="text-xl font-black text-amber-400">
-            {profile.current_streak_days} DAYS
-          </span>
-          <span className="text-[10px] text-zinc-500">
-            BEST: {profile.best_streak_days} DAYS
-          </span>
-        </div>
-
-        <div className="p-3.5 rounded-none bg-[#0a0b0d] border border-[#242830] flex flex-col gap-1">
-          <div className="flex items-center gap-1.5 text-zinc-400 text-xs uppercase font-bold">
-            <Trophy className="w-3.5 h-3.5 text-sky-400" />
-            <span>MOCK AVG</span>
+          <div className="p-5 border-b-4 border-black flex flex-col justify-center bg-zinc-100">
+            <div className="text-[10px] font-black uppercase tracking-widest mb-1 font-mono text-zinc-600">ACTIVE STREAK</div>
+            <div className="text-3xl sm:text-4xl font-black">{profile.current_streak_days}D</div>
+            <div className="text-xs font-mono text-zinc-600 mt-1">Best: {profile.best_streak_days}D</div>
           </div>
-          <span className="text-xl font-black text-white">
-            {profile.mock_average_score.toFixed(1)}%
-          </span>
-          <span className="text-[10px] text-zinc-500">
-            {profile.total_mocks_count} MOCK TESTS
-          </span>
-        </div>
-
-        <div className="p-3.5 rounded-none bg-[#0a0b0d] border border-[#242830] flex flex-col gap-1">
-          <div className="flex items-center gap-1.5 text-zinc-400 text-xs uppercase font-bold">
-            <Clock className="w-3.5 h-3.5 text-purple-400" />
-            <span>PRACTICE AVG</span>
+          <div className="p-5 border-r-4 border-black flex flex-col justify-center">
+            <div className="text-[10px] font-black uppercase tracking-widest mb-1 font-mono text-zinc-600">MOCK AVG</div>
+            <div className="text-3xl sm:text-4xl font-black">{profile.mock_average_score.toFixed(1)}%</div>
+            <div className="text-xs font-mono text-zinc-600 mt-1">{profile.total_mocks_count} taken</div>
           </div>
-          <span className="text-xl font-black text-white">
-            {profile.practice_average_score.toFixed(1)}%
-          </span>
-          <span className="text-[10px] text-zinc-500">
-            {profile.total_evaluations_count - profile.total_mocks_count} AUDITS
-          </span>
+          <div className="p-5 flex flex-col justify-center bg-zinc-100">
+            <div className="text-[10px] font-black uppercase tracking-widest mb-1 font-mono text-zinc-600">PRACTICE AVG</div>
+            <div className="text-3xl sm:text-4xl font-black">{profile.practice_average_score.toFixed(1)}%</div>
+            <div className="text-xs font-mono text-zinc-600 mt-1">{profile.total_evaluations_count - profile.total_mocks_count} audits</div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
 export function MockHistoryTable({ history = [] }: { history?: any[] }) {
   if (history.length === 0) {
     return (
-      <div className="p-8 rounded-none bg-[#121417] border-2 border-[#242830] text-center space-y-4 font-mono">
-        <div className="w-12 h-12 rounded-none bg-[#0a0b0d] border border-[#242830] flex items-center justify-center mx-auto text-zinc-400">
-          <Trophy className="w-6 h-6 text-zinc-500" />
-        </div>
-        <div className="space-y-1">
-          <h4 className="text-base font-black text-white uppercase tracking-wider">NO ASSESSMENTS COMPLETED YET</h4>
-          <p className="text-xs text-zinc-400 max-w-md mx-auto font-sans leading-relaxed">
-            You haven't taken any mock assessments yet. Take a timed 3-question evaluation test to benchmark your readiness and unlock your certification scorecard.
+      <section className="p-8 sm:p-16 flex flex-col items-center justify-center text-center border-4 border-white bg-[#121416] w-full">
+        <div className="bg-white text-black p-8 sm:p-12 border-4 border-black shadow-[16px_16px_0px_0px_rgba(255,255,255,1)] max-w-3xl w-full">
+          <h3 className="font-['Hanken_Grotesk'] font-black text-4xl sm:text-6xl uppercase tracking-tighter mb-4 leading-none">
+            ZERO ASSESSMENTS
+          </h3>
+          <p className="text-base sm:text-xl font-bold uppercase mb-8 font-mono">
+            You haven't taken any mock assessments yet. Take a timed 3-question evaluation test.
           </p>
+          <a
+            href="/assessment"
+            className="block bg-black text-white font-['Hanken_Grotesk'] font-black uppercase text-xl sm:text-2xl px-8 py-6 hover:bg-zinc-800 transition-none w-full shadow-[8px_8px_0px_0px_rgba(120,120,120,1)] text-center cursor-pointer"
+          >
+            LAUNCH MOCK NOW ➔
+          </a>
         </div>
-        <a
-          href="/assessment"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#00ffc2] hover:bg-white text-[#0a0b0d] font-mono font-black text-xs shadow-md transition-colors"
-        >
-          <span>LAUNCH MOCK ASSESSMENT</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </a>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="p-6 rounded-none bg-[#121417] border-2 border-[#242830] space-y-4 font-mono">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-black uppercase tracking-widest text-zinc-300">
-          RECENT ASSESSMENT & AUDIT HISTORY
+    <div className="border-4 border-white bg-[#121416] text-white p-6 sm:p-10 space-y-6">
+      <div className="flex items-center justify-between border-b-4 border-white pb-4">
+        <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-['Hanken_Grotesk']">
+          ASSESSMENT & AUDIT LOGS
+        </h3>
+        <span className="text-xs font-mono uppercase bg-white text-black px-3 py-1 font-bold">
+          {history.length} RECORDED
         </span>
-        <span className="text-[11px] text-zinc-500">{history.length} ASSESSMENTS RECORDED</span>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs border-collapse">
+        <table className="w-full text-left text-xs font-mono border-collapse">
           <thead>
-            <tr className="border-b border-[#242830] text-zinc-400 font-black uppercase tracking-wider text-[11px]">
+            <tr className="border-b-4 border-white text-white font-black uppercase text-xs">
               <th className="py-3 px-4">DATE</th>
-              <th className="py-3 px-4">ASSESSMENT ID</th>
+              <th className="py-3 px-4">SESSION ID</th>
               <th className="py-3 px-4">SCORE</th>
-              <th className="py-3 px-4">TIME SPENT</th>
+              <th className="py-3 px-4">DURATION</th>
               <th className="py-3 px-4">STATUS</th>
               <th className="py-3 px-4 text-right">ACTION</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#242830] font-mono">
+          <tbody className="divide-y-2 divide-white font-mono">
             {history.map((session) => (
-              <tr key={session.id} className="hover:bg-[#1a1d24] transition-colors">
-                <td className="py-3.5 px-4 text-zinc-400">
+              <tr key={session.id} className="hover:bg-white hover:text-black transition-none">
+                <td className="py-3.5 px-4 font-bold">
                   {new Date(session.started_at).toLocaleDateString()}
                 </td>
-                <td className="py-3.5 px-4 font-bold text-zinc-200">
+                <td className="py-3.5 px-4 font-bold">
                   #{session.id.slice(0, 8).toUpperCase()}
                 </td>
-                <td className="py-3.5 px-4 font-black text-[#00ffc2]">
+                <td className="py-3.5 px-4 text-sm font-black">
                   {session.total_score ? session.total_score.toFixed(0) : "0"} / 100
                 </td>
-                <td className="py-3.5 px-4 text-zinc-400">
+                <td className="py-3.5 px-4 font-bold">
                   {session.time_spent_seconds ? `${Math.floor(session.time_spent_seconds / 60)}m ${session.time_spent_seconds % 60}s` : "TIMED"}
                 </td>
                 <td className="py-3.5 px-4">
-                  <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-none text-[#00ffc2] bg-[#00ffc2]/10 border border-[#00ffc2]/30">
+                  <span className="px-2 py-0.5 bg-white text-black border border-black font-black text-[10px] uppercase">
                     COMPLETED
                   </span>
                 </td>
                 <td className="py-3.5 px-4 text-right">
                   <a
                     href="/assessment/results"
-                    className="inline-flex items-center gap-1 text-[#00ffc2] hover:text-white font-bold underline underline-offset-4"
+                    className="font-bold uppercase underline underline-offset-4"
                   >
-                    <span>VIEW SCORECARD</span>
+                    SCORECARD ➔
                   </a>
                 </td>
               </tr>

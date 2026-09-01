@@ -1,63 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;900&family=Hanken+Grotesk:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: #0a0b0d;
-    --foreground: #e2e8f0;
-    --card: #121417;
-    --card-foreground: #e2e8f0;
+    --background: #121416;
+    --foreground: #ffffff;
+    --card: #121416;
+    --card-foreground: #ffffff;
     --popover: #121417;
-    --popover-foreground: #e2e8f0;
-    --primary: #00ffc2;
-    --primary-foreground: #0a0b0d;
+    --popover-foreground: #ffffff;
+    --primary: #ffffff;
+    --primary-foreground: #000000;
     --secondary: #1a1d24;
-    --secondary-foreground: #e2e8f0;
+    --secondary-foreground: #ffffff;
     --muted: #1a1d24;
     --muted-foreground: #8e9bb0;
-    --accent: #1a1d24;
-    --accent-foreground: #e2e8f0;
+    --accent: #ffffff;
+    --accent-foreground: #000000;
     --destructive: #ff4d4d;
     --destructive-foreground: #ffffff;
-    --border: #242830;
-    --input: #1a1d24;
-    --ring: #00ffc2;
+    --border: #ffffff;
+    --input: #121416;
+    --ring: #ffffff;
   }
 }
 
 body {
-  background-color: #0a0b0d;
-  color: #e2e8f0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #121416;
+  color: #ffffff;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 32px 32px;
 }
 
-/* Editorial Brutalism sharp technical scrollbar */
+h1, h2, h3, h4, .display-text {
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.brutal-border {
+  border: 4px solid currentColor;
+}
+
+.brutal-border-2 {
+  border: 2px solid currentColor;
+}
+
+.brutal-border-b {
+  border-bottom: 4px solid currentColor;
+}
+
+.brutal-border-t {
+  border-top: 4px solid currentColor;
+}
+
+.brutal-border-l {
+  border-left: 4px solid currentColor;
+}
+
+.brutal-border-r {
+  border-right: 4px solid currentColor;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  animation: marquee 22s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Hard Drop Shadows */
+.brutal-shadow {
+  box-shadow: 8px 8px 0px 0px rgba(255, 255, 255, 1);
+}
+
+.brutal-shadow-black {
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.brutal-shadow-lg {
+  box-shadow: 16px 16px 0px 0px rgba(255, 255, 255, 1);
+}
+
+/* Technical scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0b0d;
-  border-left: 1px solid #1a1d24;
+  background: #121416;
+  border-left: 2px solid #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #242830;
+  background: #ffffff;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #00ffc2;
-}
-
-/* Selection highlight */
 ::selection {
-  background: #00ffc2;
-  color: #0a0b0d;
+  background: #ffffff;
+  color: #000000;
 }

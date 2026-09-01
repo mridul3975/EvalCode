@@ -6,15 +6,8 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { getStoredProfile } from "@/lib/storage";
 import { UserProfileStats } from "@/types/submission";
-import {
-  Code2,
-  CheckSquare,
-  Timer,
-  BarChart3,
-  Flame,
-  ShieldCheck,
-} from "lucide-react";
 import { UserDropdown } from "@/components/auth/UserDropdown";
+import { CheckSquare } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -29,82 +22,59 @@ export function Navbar() {
   }, []);
 
   const navItems = [
-    { href: "/practice", label: "PRACTICE STUDIO", icon: Code2 },
-    { href: "/assessment", label: "MOCK ASSESSMENT", icon: Timer, highlight: true },
-    { href: "/dashboard", label: "PROFILE & ANALYTICS", icon: BarChart3 },
+    { href: "/practice", label: "PRACTICE" },
+    { href: "/assessment", label: "MOCK" },
+    { href: "/dashboard", label: "PROFILE" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#242830] bg-[#0a0b0d]/95 backdrop-blur-md">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-        {/* Logo / Brand */}
-        <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-none bg-[#00ffc2] text-[#0a0b0d] flex items-center justify-center font-mono font-black text-sm border border-[#00ffc2] shadow-[0_0_12px_rgba(0,255,194,0.25)] group-hover:bg-white transition-colors">
+    <header className="w-full bg-[#121416] text-white border-b-4 border-white sticky top-0 z-50">
+      <div className="flex justify-between items-center w-full px-4 sm:px-8 py-3.5 uppercase tracking-tighter">
+        {/* Brand */}
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-8 h-8 bg-white text-black flex items-center justify-center font-black text-base border-2 border-white group-hover:bg-black group-hover:text-white transition-none">
               EF
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-extrabold tracking-wider text-white flex items-center gap-1.5 font-mono">
-                EVALFORGE
-                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-none bg-[#00ffc2]/10 text-[#00ffc2] border border-[#00ffc2]/30">
-                  BRUTALIST
-                </span>
-              </span>
-            </div>
+            <span className="text-xl sm:text-2xl font-black tracking-tighter text-white font-['Hanken_Grotesk'] leading-none">
+              EvalForge
+            </span>
+            <span className="px-2 py-0.5 bg-white text-black text-[10px] font-black tracking-widest border-2 border-white">
+              SIM
+            </span>
           </Link>
-
-          {/* Navigation links */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center gap-2 px-3 py-1.5 rounded-none text-xs font-mono font-bold tracking-wider transition-colors border",
-                    isActive
-                      ? "bg-[#16181c] text-[#00ffc2] border-[#00ffc2]/40"
-                      : "text-zinc-400 hover:text-white hover:bg-[#121417] border-transparent",
-                    item.highlight && !isActive && "text-[#00ffc2] hover:text-white"
-                  )}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
         </div>
 
-        {/* Right side stats badge & Auth */}
-        <div className="flex items-center gap-3">
-          {/* Readiness Score pill */}
-          {profile && (
-            <Link
-              href="/dashboard"
-              className="flex items-center gap-2 px-3 py-1 rounded-none bg-[#121417] border border-[#242830] hover:border-[#00ffc2]/50 transition-colors"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-[#00ffc2]" />
-              <div className="flex items-center gap-1 text-xs font-mono">
-                <span className="text-zinc-400 font-medium hidden sm:inline">READINESS:</span>
-                <span className="font-bold text-[#00ffc2]">
-                  {profile.readiness_score.toFixed(1)}%
-                </span>
-              </div>
-            </Link>
-          )}
+        {/* Navigation */}
+        <nav className="hidden lg:flex items-center gap-4 text-xs font-black tracking-widest font-['Hanken_Grotesk']">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "px-4 py-1.5 transition-none border-2 tracking-wider",
+                  isActive
+                    ? "bg-white text-black border-white"
+                    : "border-transparent text-zinc-300 hover:bg-white hover:text-black hover:border-white"
+                )}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
 
-          {/* Streak pill */}
+        {/* Profile & Live Readiness Info */}
+        <div className="flex items-center gap-4 sm:gap-6">
           {profile && (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-none bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold">
-              <Flame className="w-3.5 h-3.5 fill-amber-400" />
-              <span>{profile.current_streak_days}D</span>
+            <div className="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider font-mono">
+              <span>READINESS: <strong className="text-base text-white">{profile.readiness_score.toFixed(1)}%</strong></span>
+              <span>STREAK: <strong className="text-base text-white">{profile.current_streak_days}D</strong></span>
             </div>
           )}
 
-          {/* User Auth Dropdown */}
           <UserDropdown />
         </div>
       </div>

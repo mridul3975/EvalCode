@@ -19,43 +19,43 @@ export function DiscrepancyDiffChart({
   const hallPct = total > 0 ? (hallucinatedCount / total) * 100 : 0;
 
   return (
-    <div className="flex flex-col gap-2.5 p-4 rounded-none bg-[#0a0b0d] border border-[#242830] font-mono">
-      <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider">
-        <span className="text-zinc-300">DIAGNOSTIC DISCREPANCY RATIO</span>
-        <span className="text-zinc-500">{matchedCount} MATCHED / {total} ITEMS</span>
+    <div className="flex flex-col gap-3 p-6 border-4 border-white bg-[#121416] text-white font-mono">
+      <div className="flex items-center justify-between text-xs font-black uppercase tracking-widest">
+        <span>DIAGNOSTIC DISCREPANCY RATIO</span>
+        <span className="text-zinc-400">{matchedCount} MATCHED / {total} ITEMS</span>
       </div>
 
-      {/* Segmented multi-color progress bar */}
-      <div className="h-3 w-full bg-[#121417] border border-[#242830] rounded-none overflow-hidden flex gap-0.5 p-0.5">
+      {/* Segmented brutalist progress bar */}
+      <div className="h-5 w-full bg-[#121416] border-2 border-white flex gap-1 p-0.5">
         {matchPct > 0 && (
           <div
             style={{ width: `${matchPct}%` }}
-            className="bg-[#00ffc2] transition-all duration-700"
+            className="bg-white transition-all duration-500"
             title={`Matched: ${matchedCount}`}
           />
         )}
         {missedPct > 0 && (
           <div
             style={{ width: `${missedPct}%` }}
-            className="bg-[#ff4d4d] transition-all duration-700"
-            title={`Missed (False Negatives): ${missedCount}`}
+            className="bg-rose-500 transition-all duration-500"
+            title={`Missed: ${missedCount}`}
           />
         )}
         {hallPct > 0 && (
           <div
             style={{ width: `${hallPct}%` }}
-            className="bg-amber-400 transition-all duration-700"
-            title={`Hallucinated (False Positives): ${hallucinatedCount}`}
+            className="bg-amber-400 transition-all duration-500"
+            title={`Hallucinated: ${hallucinatedCount}`}
           />
         )}
       </div>
 
-      <div className="flex items-center justify-between text-xs pt-1 border-t border-[#242830] font-bold">
-        <div className="flex items-center gap-1.5 text-[#00ffc2]">
+      <div className="flex items-center justify-between text-xs pt-2 border-t-2 border-white font-black uppercase">
+        <div className="flex items-center gap-1.5 text-white">
           <CheckCircle2 className="w-3.5 h-3.5" />
           <span>MATCHED: {matchedCount}</span>
         </div>
-        <div className="flex items-center gap-1.5 text-[#ff4d4d]">
+        <div className="flex items-center gap-1.5 text-rose-400">
           <XCircle className="w-3.5 h-3.5" />
           <span>MISSED (FN): {missedCount}</span>
         </div>
@@ -81,55 +81,34 @@ export function ReadinessProgressBar({
   delta?: number;
   className?: string;
 }) {
-  const isCritical = value < 60 && value > 0;
+  const isCritical = value < 60;
   const isOptimal = value >= target;
 
   return (
-    <div className={cn("flex flex-col gap-1 font-mono", className)}>
-      <div className="flex items-center justify-between text-xs">
-        <span className="font-bold text-zinc-300 flex items-center gap-2 uppercase tracking-wide">
-          {label}
-          {isCritical && (
-            <span className="text-[9px] uppercase font-black tracking-widest px-1.5 py-0.2 rounded-none bg-[#ff4d4d]/20 text-[#ff4d4d] border border-[#ff4d4d]/40">
-              CRITICAL DEFICIT
-            </span>
-          )}
-        </span>
-        <div className="flex items-center gap-2">
-          {delta !== undefined && (
-            <span
-              className={cn(
-                "text-[10px] font-mono font-bold",
-                delta > 0 ? "text-[#00ffc2]" : delta < 0 ? "text-[#ff4d4d]" : "text-zinc-500"
-              )}
-            >
+    <div className={cn("flex flex-col border-b-2 border-black pb-4 font-['Hanken_Grotesk']", className)}>
+      <div className="flex justify-between items-end mb-2">
+        <span className="text-base sm:text-lg font-black uppercase">{label}</span>
+        <div className="flex items-baseline gap-2">
+          {delta !== undefined && delta !== 0 && (
+            <span className={cn("text-xs font-mono font-bold", delta > 0 ? "text-emerald-700" : "text-rose-600")}>
               {delta > 0 ? `+${delta.toFixed(1)}%` : `${delta.toFixed(1)}%`}
             </span>
           )}
-          <span className="font-black text-white">{value.toFixed(1)}%</span>
+          <span className="text-2xl sm:text-3xl font-black">{value.toFixed(1)}%</span>
         </div>
       </div>
-      <div className="h-2 w-full bg-[#0a0b0d] border border-[#242830] rounded-none overflow-hidden relative">
-        {/* Target line at 90% */}
-        <div
-          className="absolute top-0 bottom-0 w-0.5 bg-[#00ffc2] z-10 opacity-75"
-          style={{ left: `${target}%` }}
-        />
-        <div
-          className={cn(
-            "h-full rounded-none transition-all duration-700",
-            isCritical
-              ? "bg-[#ff4d4d]"
-              : isOptimal
-              ? "bg-[#00ffc2]"
-              : value >= 80
-              ? "bg-amber-400"
-              : value > 0
-              ? "bg-orange-400"
-              : "bg-zinc-700"
-          )}
-          style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
-        />
+      <div className="flex gap-4 items-center">
+        <span className="bg-black text-white px-2 py-0.5 text-[10px] font-black uppercase tracking-widest shrink-0 font-mono">
+          {isCritical ? "CRITICAL DEFICIT" : isOptimal ? "OPTIMAL" : "DEVELOPING"}
+        </span>
+        <div className="flex-1 h-3.5 bg-white border-2 border-black relative overflow-hidden">
+          {/* Target line at 90% */}
+          <div className="absolute right-[10%] top-0 bottom-0 w-1 bg-black z-10" />
+          <div
+            className="h-full bg-black transition-all duration-700"
+            style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
+          />
+        </div>
       </div>
     </div>
   );
