@@ -4,7 +4,76 @@ import React, { useState, useRef, useEffect } from "react";
 import { QuestionItem } from "@/types/question";
 import { askGeminiFollowUp } from "@/lib/gemini";
 import { cn } from "@/lib/utils";
-import { Sparkles, Send, User, Bot, Loader2, Lightbulb } from "lucide-react";
+import { Sparkles, Send, User, Bot, Loader2, Lightbulb, Copy, Check } from "lucide-react";
+
+function FormattedMarkdown({ text, isUser }: { text: string; isUser: boolean }) {
+  const parts = text.split(/(```[\s\S]*?```)/g);
+
+  return (
+    <div className="space-y-2">
+      {parts.map((part, idx) => {
+        if (part.startsWith("```") && part.endsWith("```")) {
+          const rawBlock = part.slice(3, -3).trim();
+          const firstLineEnd = rawBlock.indexOf("\n");
+          let lang = "CODE";
+          let codeText = rawBlock;
+
+          if (firstLineEnd !== -1) {
+            const possibleLang = rawBlock.substring(0, firstLineEnd).trim();
+            if (possibleLang && !possibleLang.includes(" ") && possibleLang.length < 15) {
+              lang = possibleLang.toUpperCase();
+              codeText = rawBlock.substring(firstLineEnd + 1);
+            }
+          }
+
+          return (
+            <div key={idx} className="my-3 rounded-lg overflow-hidden border border-black/30 font-mono text-xs shadow-lg">
+              <div className="bg-[#121416] text-[#b9cbc1] px-3.5 py-1.5 flex justify-between items-center text-[10px] uppercase font-bold border-b border-[#282a2c]">
+                <span className="text-white">{lang}</span>
+                <span className="text-gray-500">AI CODE SNIPPET</span>
+              </div>
+              <div className="bg-[#0c0e10] text-[#e2e2e5] p-3.5 overflow-x-auto leading-relaxed font-mono">
+                <pre><code>{codeText}</code></pre>
+              </div>
+            </div>
+          );
+        }
+
+        const inlineParts = part.split(/(\*\*.*?\*\*|`.*?`)/g);
+
+        return (
+          <div key={idx} className="whitespace-pre-wrap font-sans text-xs leading-relaxed">
+            {inlineParts.map((sub, sIdx) => {
+              if (sub.startsWith("**") && sub.endsWith("**")) {
+                return (
+                  <strong key={sIdx} className={cn("font-extrabold", isUser ? "text-white" : "text-black")}>
+                    {sub.slice(2, -2)}
+                  </strong>
+                );
+              }
+              if (sub.startsWith("`") && sub.endsWith("`")) {
+                return (
+                  <code
+                    key={sIdx}
+                    className={cn(
+                      "px-1.5 py-0.5 rounded font-mono text-[11px] font-bold mx-0.5 border",
+                      isUser
+                        ? "bg-[#121416] text-[#e2e2e5] border-white/20"
+                        : "bg-gray-200 text-black border-gray-300"
+                    )}
+                  >
+                    {sub.slice(1, -1)}
+                  </code>
+                );
+              }
+              return sub;
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export function AIChatAssistant({
   question,
@@ -94,7 +163,7 @@ export function AIChatAssistant({
       </div>
 
       {/* Messages Trajectory */}
-      <div className="code-inset rounded-xl p-4 sm:p-5 max-h-[360px] overflow-y-auto space-y-4 font-mono text-xs border border-white/5">
+      <div className="code-inset rounded-xl p-4 sm:p-5 max-h-[420px] overflow-y-auto space-y-4 font-mono text-xs border border-white/5">
         {messages.map((msg, idx) => (
           <div
             key={idx}
@@ -110,13 +179,11 @@ export function AIChatAssistant({
             ) : (
               <Bot className="w-4 h-4 text-[#121416] shrink-0 mt-0.5" />
             )}
-            <div className="space-y-1 overflow-hidden">
-              <span className={cn("text-[10px] font-bold uppercase block tracking-wider", msg.role === "user" ? "text-gray-400" : "text-gray-600")}>
+            <div className="space-y-1.5 overflow-hidden flex-1">
+              <span className={cn("text-[10px] font-bold uppercase block tracking-wider font-mono", msg.role === "user" ? "text-gray-400" : "text-gray-600")}>
                 {msg.role === "user" ? "YOU (EVALUATOR)" : "GEMINI AI ASSISTANT"}
               </span>
-              <p className={cn("text-xs leading-relaxed whitespace-pre-wrap font-sans", msg.role === "user" ? "text-white" : "text-gray-900 font-medium")}>
-                {msg.text}
-              </p>
+              <FormattedMarkdown text={msg.text} isUser={msg.role === "user"} />
             </div>
           </div>
         ))}
