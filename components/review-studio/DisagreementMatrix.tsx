@@ -6,6 +6,7 @@ import { QuestionItem, QuestionLanguage } from "@/types/question";
 import { EvaluationSubmission, EvaluationResult } from "@/types/submission";
 import { DiscrepancyDiffChart } from "@/components/infographics/DiscrepancyDiffChart";
 import { CodeDiffViewer } from "@/components/review-studio/CodeDiffViewer";
+import { AIChatAssistant } from "@/components/review-studio/AIChatAssistant";
 import { getCodeForLanguage, getLanguageLabel } from "@/lib/language-utils";
 import { cn } from "@/lib/utils";
 import {
@@ -115,6 +116,9 @@ export function DisagreementMatrix({
           language={getLanguageLabel(selectedLanguage)}
         />
       </div>
+
+      {/* Interactive Gemini AI Chat Studio */}
+      <AIChatAssistant question={question} candidateVerdict={submission.verdict} />
 
       {/* Action Footer */}
       <div className="border-t border-[rgba(255,255,255,0.08)] pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 mt-auto font-mono text-xs">

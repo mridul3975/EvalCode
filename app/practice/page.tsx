@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { SEED_QUESTIONS } from "@/data/seed-questions";
-import { getStoredSubmissions, getBookmarks, toggleBookmark } from "@/lib/storage";
+import { QuestionItem } from "@/types/question";
+import { getStoredSubmissions, getBookmarks, toggleBookmark, getCustomQuestions } from "@/lib/storage";
+import { AddQuestionModal } from "@/components/practice/AddQuestionModal";
 import { getDefectMeta } from "@/lib/core/defect-pipeline";
 import { getAvailableLanguages, getLanguageLabel } from "@/lib/language-utils";
 import { cn } from "@/lib/utils";
@@ -14,7 +16,8 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowRight,
-  Filter,
+  Sparkles,
+  Plus,
 } from "lucide-react";
 
 export default function PracticeCatalogPage() {
@@ -24,16 +27,27 @@ export default function PracticeCatalogPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [selectedDefect, setSelectedDefect] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const ITEMS_PER_PAGE = 6;
 
   const [submissions, setSubmissions] = useState<Record<string, any>>({});
   const [bookmarks, setBookmarks] = useState<string[]>([]);
+  const [allQuestions, setAllQuestions] = useState<QuestionItem[]>(SEED_QUESTIONS);
 
   useEffect(() => {
     setSubmissions(getStoredSubmissions());
     setBookmarks(getBookmarks());
+    const custom = getCustomQuestions();
+    if (custom.length > 0) {
+      setAllQuestions([...custom, ...SEED_QUESTIONS]);
+    }
   }, []);
+
+  const handleQuestionAdded = (newQuestion: QuestionItem) => {
+    setAllQuestions((prev) => [newQuestion, ...prev]);
+    setCurrentPage(1);
+  };
 
   // Reset page to 1 when any filter changes
   useEffect(() => {
@@ -48,7 +62,7 @@ export default function PracticeCatalogPage() {
   };
 
   // Filtered Questions
-  const filteredQuestions = SEED_QUESTIONS.filter((q) => {
+  const filteredQuestions = allQuestions.filter((q) => {
     const matchesSearch =
       q.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       q.problem_statement.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -132,14 +146,21 @@ export default function PracticeCatalogPage() {
         {/* Header Section */}
         <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-4 sm:pb-6 border-b border-white/10">
           <div className="space-y-2 sm:space-y-3">
-
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-none uppercase">
-              PRACTICE REVIEW STUDIO <span className="text-gray-500 font-normal">({SEED_QUESTIONS.length})</span>
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-none uppercase flex items-center gap-3">
+              <span>PRACTICE REVIEW STUDIO</span>
+              <span className="text-gray-500 font-normal text-2xl sm:text-4xl">({allQuestions.length})</span>
             </h1>
-
           </div>
 
-          <div>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => setIsAddModalOpen(true)}
+              className="w-full sm:w-auto neu-convex px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-center space-x-2 text-white hover:text-white transition-colors cursor-pointer border border-white/20"
+            >
+              <Sparkles className="w-4 h-4 text-white" />
+              <span>+ ADD QUESTION VIA AI</span>
+            </button>
+
             <Link
               href="/assessment"
               className="w-full sm:w-auto neu-button-primary px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-center space-x-2 group cursor-pointer"
@@ -202,13 +223,12 @@ export default function PracticeCatalogPage() {
               return (
                 <button
                   key={t.key}
-                  type="button"
                   onClick={() => setSelectedTopic(t.key)}
                   className={cn(
-                    "neu-button px-3 py-1.5 rounded text-[11px] sm:text-xs font-mono uppercase transition-colors cursor-pointer shrink-0",
+                    "px-3 py-1.5 rounded-md text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer uppercase shrink-0",
                     isSelected
-                      ? "bg-white text-[#1a1b1e] font-bold"
-                      : "text-gray-400 hover:text-white"
+                      ? "neu-button-primary text-black font-bold"
+                      : "neu-convex text-gray-400 hover:text-white"
                   )}
                 >
                   {t.label}
@@ -218,161 +238,153 @@ export default function PracticeCatalogPage() {
           </div>
         </section>
 
-        {/* Results Status */}
-        <div className="text-xs font-mono text-gray-400 uppercase tracking-widest flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <span>
-            SHOWING <span className="text-white font-bold">{Math.min(filteredQuestions.length, startIndex + 1)} - {Math.min(filteredQuestions.length, startIndex + ITEMS_PER_PAGE)}</span> OF <span className="text-white font-bold">{filteredQuestions.length}</span> (PAGE {currentPage} OF {totalPages})
-          </span>
-          {(selectedTopic !== "all" || selectedDifficulty !== "all" || selectedLanguage !== "all" || searchQuery) && (
-            <button
-              onClick={() => {
-                setSelectedTopic("all");
-                setSelectedDifficulty("all");
-                setSelectedLanguage("all");
-                setSelectedDefect("all");
-                setSearchQuery("");
-              }}
-              className="text-xs underline uppercase font-bold text-gray-300 hover:text-white cursor-pointer"
-            >
-              RESET FILTERS
-            </button>
-          )}
-        </div>
+        {/* Questions Grid - High Contrast Neumorphic Light Cards */}
+        <section className="space-y-6">
+          {paginatedQuestions.length === 0 ? (
+            <div className="neu-convex p-12 text-center rounded-xl font-mono text-gray-400 space-y-3">
+              <p className="text-lg font-bold">NO BENCHMARK QUESTIONS FOUND MATCHING YOUR FILTERS.</p>
+              <p className="text-xs text-gray-500">Try clearing your search query or selecting "ALL" topics.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {paginatedQuestions.map((q) => {
+                const isBookmarked = bookmarks.includes(q.id);
+                const prevSub = submissions[q.id];
+                const primaryDefect = q.ground_truth.defect_type || q.ground_truth.error_categories[0];
+                const defectMeta = getDefectMeta(primaryDefect);
+                const isCustom = q.id.startsWith("custom_");
 
-        {/* Question Grid: 70/30 Neumorphic Internal Contrast Cards */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {paginatedQuestions.map((q) => {
-            const subData = submissions[q.id];
-            const hasAttempted = !!subData;
-            const score = subData?.result?.overall_score;
-            const isBookmarked = bookmarks.includes(q.id);
-            const defectMeta = getDefectMeta(q.ground_truth.defect_type || q.ground_truth.error_categories[0]);
-
-            return (
-              <article
-                key={q.id}
-                className="neu-convex-white flex flex-col p-5 sm:p-6 h-full border border-black/5 relative group rounded-xl"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="neu-badge-light px-2 py-0.5 rounded-sm text-[10px] font-mono text-gray-700 uppercase font-bold">
-                      {q.topic.replace("_", " ")}
-                    </span>
-                    {getAvailableLanguages(q).map((lang) => (
-                      <span key={lang} className="neu-badge-light px-2 py-0.5 rounded-sm text-[10px] font-mono text-gray-700 uppercase font-bold">
-                        {getLanguageLabel(lang)}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center gap-2.5">
-                    <span className={cn("text-xs font-black uppercase tracking-wider", getDifficultyColor(q.difficulty))}>
-                      {q.difficulty}
-                    </span>
-                    <button
-                      onClick={(e) => handleBookmarkToggle(e, q.id)}
-                      aria-label="Bookmark"
-                      className="text-gray-400 hover:text-gray-800 transition-colors p-1 cursor-pointer"
-                    >
-                      {isBookmarked ? (
-                        <BookmarkCheck className="w-5 h-5 fill-gray-900 text-gray-900" />
-                      ) : (
-                        <Bookmark className="w-5 h-5" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                <h2 className="text-lg sm:text-xl font-bold uppercase tracking-tight mb-2.5 leading-snug text-gray-900">
-                  {q.title}
-                </h2>
-
-                <div className="mb-3">
-                  <span className="inline-block border border-gray-400 px-2 py-0.5 rounded-sm text-[10px] font-mono text-gray-700 uppercase tracking-widest font-bold">
-                    {defectMeta.label}
-                  </span>
-                </div>
-
-                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed font-sans flex-grow">
-                  {q.problem_statement.description}
-                </p>
-
-                <div className="mt-6 pt-3.5 border-t border-black/10 flex justify-between items-center">
-                  <span className="text-[10px] font-mono text-gray-600 uppercase tracking-widest font-bold">
-                    {hasAttempted ? `AUDITED: ${(score * 10).toFixed(0)}%` : "NOT YET AUDITED"}
-                  </span>
-                  <Link
-                    href={`/practice/${q.id}`}
-                    className="neu-button-light px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-1.5 hover:bg-gray-900 hover:text-white transition-colors cursor-pointer"
-                  >
-                    <span>{hasAttempted ? "RE-AUDIT" : "AUDIT"}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </article>
-            );
-          })}
-        </section>
-
-        {/* Pagination Section: Neumorphic Dark Bar */}
-        {totalPages > 1 && (
-          <section className="neu-convex p-3 sm:p-4 mt-6 sm:mt-8 flex justify-between items-center rounded-xl">
-            <button
-              onClick={() => {
-                setCurrentPage((p) => Math.max(1, p - 1));
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              disabled={currentPage === 1}
-              className="neu-button px-3 sm:px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-1.5 text-gray-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">PREVIOUS</span>
-            </button>
-
-            <div className="flex space-x-1.5 sm:space-x-2 font-mono text-xs sm:text-sm">
-              {getPageNumbers().map((page, idx) => {
-                if (page === "...") {
-                  return (
-                    <span key={`ellipsis-${idx}`} className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-500 font-bold">
-                      ...
-                    </span>
-                  );
-                }
-                const isCurrent = currentPage === page;
                 return (
-                  <button
-                    key={`page-${page}`}
-                    onClick={() => {
-                      setCurrentPage(page as number);
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                    className={cn(
-                      "neu-button w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center cursor-pointer transition-colors text-xs sm:text-sm",
-                      isCurrent
-                        ? "bg-white text-[#1a1b1e] font-bold shadow-md"
-                        : "text-gray-400 hover:text-white"
-                    )}
+                  <div
+                    key={q.id}
+                    className="neu-convex-white group relative flex flex-col justify-between p-6 h-full transition-all duration-300 hover:-translate-y-1 cursor-pointer"
                   >
-                    {page}
-                  </button>
+                    {/* Top Row: Meta Tags & Bookmarking */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <span className={cn("font-mono text-xs font-black uppercase", getDifficultyColor(q.difficulty))}>
+                            {q.difficulty}
+                          </span>
+                          <span className="text-gray-300">•</span>
+                          <span className="font-mono text-xs text-gray-600 font-bold uppercase">
+                            {q.topic.replace("_", " ")}
+                          </span>
+                          {isCustom && (
+                            <span className="bg-black text-white text-[9px] font-mono px-2 py-0.5 rounded uppercase font-bold">
+                              AI CREATED
+                            </span>
+                          )}
+                        </div>
+
+                        <button
+                          onClick={(e) => handleBookmarkToggle(e, q.id)}
+                          className="text-gray-400 hover:text-black transition-colors p-1"
+                        >
+                          {isBookmarked ? (
+                            <BookmarkCheck className="w-5 h-5 text-black fill-black" />
+                          ) : (
+                            <Bookmark className="w-5 h-5" />
+                          )}
+                        </button>
+                      </div>
+
+                      {/* Question Title */}
+                      <Link href={`/practice/${q.id}`} className="block group-hover:text-gray-700 transition-colors">
+                        <h3 className="text-xl font-extrabold uppercase leading-snug tracking-tight text-gray-900 line-clamp-2">
+                          {q.title}
+                        </h3>
+                      </Link>
+
+                      {/* Description Snippet */}
+                      <p className="text-xs text-gray-600 leading-relaxed font-sans line-clamp-3">
+                        {q.problem_statement.description}
+                      </p>
+                    </div>
+
+                    {/* Bottom Row: Defect Chip & Action Button */}
+                    <div className="pt-6 mt-6 border-t border-gray-200 flex items-center justify-between gap-2">
+                      <span className="font-mono text-[10px] uppercase font-bold bg-gray-100 text-gray-800 px-2.5 py-1 rounded border border-gray-300">
+                        {defectMeta.label}
+                      </span>
+
+                      <Link
+                        href={`/practice/${q.id}`}
+                        className="neu-button-light px-4 py-2 text-xs font-mono font-bold uppercase rounded flex items-center space-x-1.5"
+                      >
+                        <span>{prevSub ? "RE-AUDIT" : "START AUDIT"}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
                 );
               })}
             </div>
+          )}
 
-            <button
-              onClick={() => {
-                setCurrentPage((p) => Math.min(totalPages, p + 1));
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              disabled={currentPage === totalPages}
-              className="neu-button px-3 sm:px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-1.5 text-gray-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >
-              <span className="hidden sm:inline">NEXT</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </section>
-        )}
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="neu-convex p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
+              <div className="text-gray-400">
+                SHOWING <span className="text-white font-bold">{startIndex + 1}</span> TO{" "}
+                <span className="text-white font-bold">
+                  {Math.min(startIndex + ITEMS_PER_PAGE, filteredQuestions.length)}
+                </span>{" "}
+                OF <span className="text-white font-bold">{filteredQuestions.length}</span> BENCHMARKS
+              </div>
+
+              <div className="flex items-center space-x-1.5">
+                <button
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="neu-convex p-2 rounded text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/5 transition-colors cursor-pointer"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                {getPageNumbers().map((num, idx) => {
+                  if (typeof num === "string") {
+                    return (
+                      <span key={idx} className="px-2 text-gray-500 select-none">
+                        ...
+                      </span>
+                    );
+                  }
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentPage(num)}
+                      className={cn(
+                        "w-8 h-8 rounded font-mono text-xs font-bold transition-all cursor-pointer",
+                        currentPage === num
+                          ? "bg-white text-black font-black"
+                          : "neu-convex text-gray-400 hover:text-white"
+                      )}
+                    >
+                      {num}
+                    </button>
+                  );
+                })}
+
+                <button
+                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="neu-convex p-2 rounded text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/5 transition-colors cursor-pointer"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+        </section>
       </main>
+
+      {/* Add Question Modal */}
+      <AddQuestionModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onQuestionAdded={handleQuestionAdded}
+      />
     </div>
   );
 }

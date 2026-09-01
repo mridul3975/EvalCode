@@ -1,4 +1,5 @@
 import { EvaluationSubmission, EvaluationResult, AssessmentSession, UserProfileStats } from "@/types/submission";
+import { QuestionItem } from "@/types/question";
 import { DEFAULT_PROFILE_STATS, updateProfileWithEvaluation } from "@/lib/core/profile-analytics";
 
 const KEYS = {
@@ -7,27 +8,39 @@ const KEYS = {
   ASSESSMENT_HISTORY: "evalforge_assessment_history_v2",
   PROFILE: "evalforge_user_profile_v2",
   BOOKMARKS: "evalforge_bookmarks_v2",
+  CUSTOM_QUESTIONS: "evalforge_custom_questions_v2",
 };
-
-// Automatically purge legacy pre-seeded localStorage cache
-if (typeof window !== "undefined") {
-  try {
-    const legacyKeys = [
-      "evalforge_submissions",
-      "evalforge_assessment_active",
-      "evalforge_assessment_history",
-      "evalforge_user_profile",
-      "evalforge_bookmarks",
-    ];
-    legacyKeys.forEach((k) => localStorage.removeItem(k));
-  } catch (e) {
-    // Ignore storage exceptions
-  }
-}
 
 // Safe localStorage access for SSR
 function isClient(): boolean {
   return typeof window !== "undefined";
+}
+
+/**
+ * Custom Questions Management
+ */
+export function getCustomQuestions(): QuestionItem[] {
+  if (!isClient()) return [];
+  try {
+    const raw = localStorage.getItem(KEYS.CUSTOM_QUESTIONS);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    console.error("Failed to load custom questions from localStorage", e);
+    return [];
+  }
+}
+
+export function saveCustomQuestion(question: QuestionItem): QuestionItem[] {
+  if (!isClient()) return [];
+  try {
+    const existing = getCustomQuestions();
+    const updated = [question, ...existing.filter((q) => q.id !== question.id)];
+    localStorage.setItem(KEYS.CUSTOM_QUESTIONS, JSON.stringify(updated));
+    return updated;
+  } catch (e) {
+    console.error("Failed to save custom question to localStorage", e);
+    return [];
+  }
 }
 
 /**
@@ -63,26 +76,33 @@ export function saveStoredSubmission(
   questionId: string,
   submission: EvaluationSubmission,
   result: EvaluationResult,
-  topic?: string,
-  defect?: string
+  topicKey?: string,
+  defectKey?: string
 ): void {
   if (!isClient()) return;
   try {
-    const all = getStoredSubmissions();
-    all[questionId] = { submission, result };
-    localStorage.setItem(KEYS.SUBMISSIONS, JSON.stringify(all));
+    const currentSubmissions = getStoredSubmissions();
+    currentSubmissions[questionId] = { submission, result };
+    localStorage.setItem(KEYS.SUBMISSIONS, JSON.stringify(currentSubmissions));
 
-    // Update user profile statistics
-    const profile = getStoredProfile();
-    const updatedProfile = updateProfileWithEvaluation(profile, result, false, topic, defect);
-    saveStoredProfile(updatedProfile);
+    // Update profile stats
+    const currentProfile = getStoredProfile();
+    const updatedProfile = updateProfileWithEvaluation(
+      currentProfile,
+      result,
+      false,
+      topicKey,
+      defectKey
+    );
 
-    // Asynchronously sync with Neon Postgres backend
+    localStorage.setItem(KEYS.PROFILE, JSON.stringify(updatedProfile));
+
+    // Sync cloud API in background
     fetch("/api/submissions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ questionId, submission, result, topic, defect }),
-    }).catch((err) => console.error("Async submission cloud sync failed:", err));
+      body: JSON.stringify({ questionId, submission, result }),
+    }).catch(() => {});
   } catch (e) {
     console.error("Failed to save submission to localStorage", e);
   }
@@ -94,19 +114,14 @@ export function getActiveAssessmentSession(): AssessmentSession | null {
     const raw = localStorage.getItem(KEYS.ASSESSMENT_ACTIVE);
     return raw ? JSON.parse(raw) : null;
   } catch (e) {
-    console.error("Failed to load active assessment session", e);
     return null;
   }
 }
 
-export function saveActiveAssessmentSession(session: AssessmentSession | null): void {
+export function saveActiveAssessmentSession(session: AssessmentSession): void {
   if (!isClient()) return;
   try {
-    if (!session) {
-      localStorage.removeItem(KEYS.ASSESSMENT_ACTIVE);
-    } else {
-      localStorage.setItem(KEYS.ASSESSMENT_ACTIVE, JSON.stringify(session));
-    }
+    localStorage.setItem(KEYS.ASSESSMENT_ACTIVE, JSON.stringify(session));
   } catch (e) {
     console.error("Failed to save active assessment session", e);
   }
@@ -118,7 +133,6 @@ export function getAssessmentHistory(): AssessmentSession[] {
     const raw = localStorage.getItem(KEYS.ASSESSMENT_HISTORY);
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
-    console.error("Failed to load assessment history", e);
     return [];
   }
 }
@@ -127,27 +141,16 @@ export function saveCompletedAssessment(session: AssessmentSession): void {
   if (!isClient()) return;
   try {
     const history = getAssessmentHistory();
-    history.unshift(session);
-    localStorage.setItem(KEYS.ASSESSMENT_HISTORY, JSON.stringify(history));
+    const updatedHistory = [session, ...history];
+    localStorage.setItem(KEYS.ASSESSMENT_HISTORY, JSON.stringify(updatedHistory));
+    localStorage.removeItem(KEYS.ASSESSMENT_ACTIVE);
 
-    // Clear active session
-    saveActiveAssessmentSession(null);
-
-    // Update profile with mock results
-    if (session.results) {
-      let profile = getStoredProfile();
-      Object.values(session.results).forEach((res) => {
-        profile = updateProfileWithEvaluation(profile, res, true);
-      });
-      saveStoredProfile(profile);
-    }
-
-    // Asynchronously sync mock session with Neon Postgres backend
+    // Sync cloud API
     fetch("/api/assessment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(session),
-    }).catch((err) => console.error("Async assessment cloud sync failed:", err));
+      body: JSON.stringify({ session }),
+    }).catch(() => {});
   } catch (e) {
     console.error("Failed to save completed assessment", e);
   }
@@ -159,24 +162,7 @@ export function getStoredProfile(): UserProfileStats {
     const raw = localStorage.getItem(KEYS.PROFILE);
     return raw ? JSON.parse(raw) : DEFAULT_PROFILE_STATS;
   } catch (e) {
-    console.error("Failed to load profile from localStorage", e);
     return DEFAULT_PROFILE_STATS;
-  }
-}
-
-export function saveStoredProfile(profile: UserProfileStats): void {
-  if (!isClient()) return;
-  try {
-    localStorage.setItem(KEYS.PROFILE, JSON.stringify(profile));
-
-    // Asynchronously sync profile with Neon Postgres backend
-    fetch("/api/profile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(profile),
-    }).catch((err) => console.error("Async profile cloud sync failed:", err));
-  } catch (e) {
-    console.error("Failed to save profile to localStorage", e);
   }
 }
 
@@ -198,14 +184,6 @@ export function toggleBookmark(questionId: string): string[] {
       ? current.filter((id) => id !== questionId)
       : [...current, questionId];
     localStorage.setItem(KEYS.BOOKMARKS, JSON.stringify(updated));
-
-    // Asynchronously sync bookmark toggle with Neon Postgres backend
-    fetch("/api/bookmarks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ questionId }),
-    }).catch((err) => console.error("Async bookmark cloud sync failed:", err));
-
     return updated;
   } catch (e) {
     return [];
@@ -215,26 +193,12 @@ export function toggleBookmark(questionId: string): string[] {
 export function clearAllProgress(): void {
   if (!isClient()) return;
   try {
-    const allKeys = [
-      KEYS.SUBMISSIONS,
-      KEYS.ASSESSMENT_ACTIVE,
-      KEYS.ASSESSMENT_HISTORY,
-      KEYS.PROFILE,
-      KEYS.BOOKMARKS,
-      "evalforge_submissions",
-      "evalforge_assessment_active",
-      "evalforge_assessment_history",
-      "evalforge_user_profile",
-      "evalforge_bookmarks",
-    ];
-    allKeys.forEach((k) => localStorage.removeItem(k));
-
-    // Also reset in cloud Neon DB
-    fetch("/api/profile", { method: "DELETE" }).catch(() => {});
-    fetch("/api/submissions", { method: "DELETE" }).catch(() => {});
-    fetch("/api/assessment", { method: "DELETE" }).catch(() => {});
-    fetch("/api/bookmarks", { method: "DELETE" }).catch(() => {});
+    localStorage.removeItem(KEYS.SUBMISSIONS);
+    localStorage.removeItem(KEYS.ASSESSMENT_ACTIVE);
+    localStorage.removeItem(KEYS.ASSESSMENT_HISTORY);
+    localStorage.removeItem(KEYS.PROFILE);
+    localStorage.removeItem(KEYS.BOOKMARKS);
   } catch (e) {
-    console.error("Failed to clear progress from localStorage", e);
+    console.error("Failed to clear progress", e);
   }
 }
