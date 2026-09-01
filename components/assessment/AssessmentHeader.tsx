@@ -2,7 +2,7 @@
 
 import React from "react";
 import { formatTime, cn } from "@/lib/utils";
-import { Flag, Send } from "lucide-react";
+import { Flag, Send, Timer } from "lucide-react";
 
 export interface AssessmentHeaderProps {
   remainingSeconds: number;
@@ -35,18 +35,18 @@ export function AssessmentHeader({
   const isCurrentFlagged = flaggedQuestions.includes(currentQuestionId);
 
   return (
-    <div className="w-full bg-[#121416] border-b-4 border-white px-4 sm:px-8 py-3 sticky top-14 z-40 text-white font-mono">
+    <div className="w-full bg-[#16181a] border-b border-[rgba(255,255,255,0.06)] px-4 sm:px-8 py-3.5 sticky top-14 z-40 text-white font-mono shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
       <div className="max-w-[1700px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Left: Assessment Mode Label & Question Pills */}
+        {/* Left: Assessment Mode Label & Question Nav Pills */}
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 bg-rose-500 animate-pulse" />
-            <span className="text-xs font-black uppercase tracking-wider text-white font-['Hanken_Grotesk']">
-              TIMED ASSESSMENT
+            <span className="w-2.5 h-2.5 rounded-full bg-[#00ffc2] animate-pulse" />
+            <span className="text-xs font-bold uppercase tracking-wider text-white font-['Hanken_Grotesk']">
+              Mock Exam Session
             </span>
           </div>
 
-          {/* Question Nav Buttons */}
+          {/* Question Nav Pills */}
           <div className="flex items-center gap-1.5">
             {Array.from({ length: totalQuestions }).map((_, idx) => {
               const isCurrent = activeQuestionIndex === idx;
@@ -56,12 +56,12 @@ export function AssessmentHeader({
                   key={idx}
                   onClick={() => onSelectQuestion(idx)}
                   className={cn(
-                    "w-9 h-8 text-xs font-black uppercase transition-none cursor-pointer flex items-center justify-center border-2",
+                    "w-9 h-8 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer flex items-center justify-center",
                     isCurrent
-                      ? "bg-white text-black border-white"
+                      ? "bg-[#00ffc2] text-[#002116] shadow-[0_2px_10px_rgba(0,255,194,0.35)] font-black scale-105"
                       : isAnswered
-                      ? "bg-zinc-800 text-white border-zinc-600"
-                      : "bg-[#0a0b0d] text-zinc-400 border-white hover:bg-white hover:text-black"
+                      ? "bg-[#282a2c] text-[#00ffc2] border border-[#00ffc2]/30"
+                      : "obsidian-inset text-[#b9cbc1] hover:text-white hover:border-[rgba(255,255,255,0.1)]"
                   )}
                 >
                   Q{idx + 1}
@@ -71,41 +71,41 @@ export function AssessmentHeader({
           </div>
         </div>
 
-        {/* Right: Flag CTA, Timer, Submit CTA */}
+        {/* Right: Flag, Timer, Finish CTA */}
         <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
           {/* Flag button */}
           <button
             onClick={() => onToggleFlag(currentQuestionId)}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase border-2 transition-none cursor-pointer",
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-colors cursor-pointer",
               isCurrentFlagged
-                ? "bg-amber-400 text-black border-amber-400 font-black"
-                : "bg-[#0a0b0d] text-zinc-300 border-white hover:bg-white hover:text-black"
+                ? "bg-[#ffe149]/20 text-[#ffe149] border border-[#ffe149]/40"
+                : "obsidian-inset text-[#b9cbc1] hover:text-white"
             )}
           >
-            <Flag className={cn("w-3.5 h-3.5", isCurrentFlagged && "fill-current")} />
+            <Flag className={cn("w-3.5 h-3.5", isCurrentFlagged && "fill-[#ffe149]")} />
             <span>{isCurrentFlagged ? "FLAGGED" : "FLAG"}</span>
           </button>
 
           {/* Live Countdown Timer */}
           <div
             className={cn(
-              "flex items-center gap-2 px-3 py-1.5 border-2 text-xs font-black uppercase",
+              "flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase font-mono shadow-[inset_2px_2px_4px_rgba(0,0,0,0.6)]",
               isCritical
-                ? "bg-rose-500 text-white border-rose-500 animate-pulse"
+                ? "bg-[#a90219] text-[#ffdad6] animate-pulse"
                 : isUrgent
-                ? "bg-amber-400 text-black border-amber-400"
-                : "bg-white text-black border-white"
+                ? "bg-[#ffe149]/20 text-[#ffe149] border border-[#ffe149]/30"
+                : "bg-[#121416] text-[#00ffc2] border border-[rgba(255,255,255,0.06)]"
             )}
           >
-            <span>REMAINING:</span>
-            <span className="text-sm font-black">{formatTime(remainingSeconds)}</span>
+            <Timer className="w-3.5 h-3.5" />
+            <span className="text-sm font-bold">{formatTime(remainingSeconds)}</span>
           </div>
 
-          {/* Final Submit Button */}
+          {/* Finish Button */}
           <button
             onClick={onSubmitSession}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-white text-black hover:bg-black hover:text-white font-black text-xs uppercase border-2 border-white transition-none cursor-pointer"
+            className="obsidian-btn-primary px-5 py-2 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
           >
             <Send className="w-3.5 h-3.5" />
             <span>FINISH EXAM</span>

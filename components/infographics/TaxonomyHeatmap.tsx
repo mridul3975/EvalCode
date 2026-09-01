@@ -25,86 +25,110 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
   ];
 
   function getTopicBadge(attempts: number, score: number) {
-    if (attempts === 0) return { badge: "NOT STARTED", bg: "bg-white text-black" };
-    if (score >= 90) return { badge: "READY", bg: "bg-white text-black font-black" };
-    if (score >= 80) return { badge: "BORDERLINE", bg: "bg-zinc-200 text-black font-bold" };
-    if (score >= 70) return { badge: "NEEDS WORK", bg: "bg-zinc-300 text-black font-bold" };
-    return { badge: "DEFICIT", bg: "bg-black text-white border border-white" };
+    if (attempts === 0) return { badge: "NOT STARTED", className: "obsidian-chip-neutral" };
+    if (score >= 90) return { badge: "OPTIMAL", className: "obsidian-chip-optimal" };
+    if (score >= 80) return { badge: "DEVELOPING", className: "obsidian-chip-neutral" };
+    if (score >= 70) return { badge: "NEEDS WORK", className: "obsidian-chip-neutral text-[#ffe149]" };
+    return { badge: "CRITICAL DEFICIT", className: "obsidian-chip-critical" };
   }
 
   return (
-    <div className="border-4 border-white w-full flex flex-col font-['Hanken_Grotesk']">
-      {/* Massive Taxonomy Header */}
-      <div className="bg-[#121416] text-white p-6 sm:p-10 border-b-4 border-white">
-        <h3 className="font-black text-5xl sm:text-7xl uppercase tracking-tighter leading-none">
-          TAXONOMY
-        </h3>
+    <div className="obsidian-card p-6 sm:p-10 space-y-8 font-['Hanken_Grotesk']">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[rgba(255,255,255,0.06)] pb-6">
+        <div>
+          <span className="text-xs font-mono font-bold text-[#b9cbc1] uppercase tracking-widest">
+            TAXONOMIC BREAKDOWN
+          </span>
+          <h3 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mt-1">
+            DIMENSIONAL TAXONOMY
+          </h3>
+        </div>
+        <span className="text-xs font-mono text-[#83958c] uppercase">
+          EVALUATED ACROSS 75+ BENCHMARKS
+        </span>
       </div>
 
-      {/* 50/50 Split: Left Dark (Topics) / Right White (Defects) */}
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        {/* Left: Topic Mastery (Dark) */}
-        <div className="p-6 sm:p-12 md:border-r-4 border-white bg-[#121416] text-white flex flex-col justify-between">
-          <div>
-            <h4 className="font-black text-2xl sm:text-3xl uppercase mb-6 pb-4 border-b-4 border-white tracking-tight">
-              TOPIC MASTERY
-            </h4>
-            <div className="flex flex-col divide-y-2 divide-zinc-800">
-              {topics.map((t) => {
-                const stat = topicStats[t.key] || { attempts: 0, avg_score: 0 };
-                const badgeInfo = getTopicBadge(stat.attempts, stat.avg_score);
-                return (
-                  <div key={t.key} className="flex justify-between items-center py-5">
-                    <div>
-                      <div className="text-xl sm:text-2xl font-black uppercase">{t.label}</div>
-                      <div className="text-xs font-mono font-bold uppercase text-zinc-400 mt-0.5">
-                        {stat.attempts} EVALUATIONS
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-end">
-                      <span className="text-3xl sm:text-4xl font-black">
-                        {stat.attempts > 0 ? `${stat.avg_score.toFixed(0)}%` : "0%"}
-                      </span>
-                      <span className={cn("text-[10px] px-2 py-0.5 font-bold uppercase mt-1", badgeInfo.bg)}>
-                        {badgeInfo.badge}
-                      </span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left: Topic Mastery */}
+        <div className="space-y-4">
+          <h4 className="text-xl font-bold uppercase tracking-tight text-white flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#00ffc2]" />
+            <span>TOPIC MASTERY</span>
+          </h4>
+
+          <div className="space-y-3">
+            {topics.map((t) => {
+              const stat = topicStats[t.key] || { attempts: 0, avg_score: 0 };
+              const badgeInfo = getTopicBadge(stat.attempts, stat.avg_score);
+              return (
+                <div
+                  key={t.key}
+                  className="obsidian-inset p-4 flex items-center justify-between hover:border-[rgba(255,255,255,0.1)] transition-colors"
+                >
+                  <div>
+                    <div className="text-base sm:text-lg font-bold text-white uppercase">{t.label}</div>
+                    <div className="text-[11px] font-mono text-[#83958c] uppercase mt-0.5">
+                      {stat.attempts} EVALUATIONS LOGGED
                     </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  <div className="flex flex-col items-end">
+                    <span className="text-2xl sm:text-3xl font-black text-white font-mono">
+                      {stat.attempts > 0 ? `${stat.avg_score.toFixed(0)}%` : "0%"}
+                    </span>
+                    <span className={cn("mt-1", badgeInfo.className)}>
+                      {badgeInfo.badge}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Right: Defect Detection (Inverted Solid White) */}
-        <div className="p-6 sm:p-12 bg-white text-black flex flex-col justify-between">
-          <div>
-            <h4 className="font-black text-2xl sm:text-3xl uppercase mb-6 pb-4 border-b-4 border-black tracking-tight">
-              DEFECT DETECTION
-            </h4>
-            <div className="flex flex-col divide-y-2 divide-zinc-200">
-              {defects.map((d) => {
-                const stat = defectStats[d.key] || { attempts: 0, detection_rate: 0 };
-                return (
-                  <div key={d.key} className="flex justify-between items-center py-5">
-                    <div>
-                      <div className="text-xl sm:text-2xl font-black uppercase">{d.label}</div>
-                      <div className="text-xs font-mono font-bold uppercase text-zinc-600 mt-0.5">
-                        TARGET &ge; 85%
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-end">
-                      <span className="text-3xl sm:text-4xl font-black">
-                        {stat.attempts > 0 ? `${stat.detection_rate.toFixed(0)}%` : "0%"}
-                      </span>
-                      <span className="text-[10px] px-2 py-0.5 font-bold uppercase mt-1 bg-black text-white">
-                        {stat.attempts > 0 && stat.detection_rate >= 85 ? "CALIBRATED" : "NOT STARTED"}
-                      </span>
+        {/* Right: Defect Detection */}
+        <div className="space-y-4">
+          <h4 className="text-xl font-bold uppercase tracking-tight text-white flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#36ffc4]" />
+            <span>DEFECT DETECTION</span>
+          </h4>
+
+          <div className="space-y-3">
+            {defects.map((d) => {
+              const stat = defectStats[d.key] || { attempts: 0, detection_rate: 0 };
+              const isCalibrated = stat.attempts > 0 && stat.detection_rate >= 85;
+              return (
+                <div
+                  key={d.key}
+                  className="obsidian-inset p-4 flex items-center justify-between hover:border-[rgba(255,255,255,0.1)] transition-colors"
+                >
+                  <div>
+                    <div className="text-base sm:text-lg font-bold text-white uppercase">{d.label}</div>
+                    <div className="text-[11px] font-mono text-[#83958c] uppercase mt-0.5">
+                      TARGET &ge; 85% RECALL
                     </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  <div className="flex flex-col items-end">
+                    <span className="text-2xl sm:text-3xl font-black text-white font-mono">
+                      {stat.attempts > 0 ? `${stat.detection_rate.toFixed(0)}%` : "0%"}
+                    </span>
+                    <span
+                      className={cn(
+                        "mt-1",
+                        isCalibrated
+                          ? "obsidian-chip-optimal"
+                          : stat.attempts > 0
+                          ? "obsidian-chip-critical"
+                          : "obsidian-chip-neutral"
+                      )}
+                    >
+                      {isCalibrated ? "CALIBRATED" : stat.attempts > 0 ? "DEFICIT" : "NOT STARTED"}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

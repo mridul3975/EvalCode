@@ -137,7 +137,6 @@ export default function ActiveAssessmentSessionPage() {
     });
 
     const avgScore = s.question_ids.length > 0 ? totalScore / s.question_ids.length : 0;
-    const timeSpent = s.duration_seconds - s.remaining_seconds;
 
     const completedSession: AssessmentSession = {
       ...s,
@@ -154,7 +153,7 @@ export default function ActiveAssessmentSessionPage() {
   const answeredIds = Object.keys(session.submissions);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#121416] text-white font-['Hanken_Grotesk']">
+    <div className="flex flex-col min-h-screen bg-[#121416] text-[#e2e2e5] font-['Hanken_Grotesk']">
       {/* Top Assessment Navigation Header */}
       <AssessmentHeader
         remainingSeconds={session.remaining_seconds}
@@ -171,7 +170,7 @@ export default function ActiveAssessmentSessionPage() {
       />
 
       {/* Main Split Test Workspace */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 sm:p-8 max-w-[1750px] w-full mx-auto">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 sm:p-6 lg:p-8 max-w-[1750px] w-full mx-auto">
         {/* Left Viewport: Problem Spec + Code Snippet */}
         <div className="flex flex-col gap-6 min-h-[500px]">
           <div className="flex-1 min-h-[300px]">
@@ -201,28 +200,29 @@ export default function ActiveAssessmentSessionPage() {
       {/* Final Submit Confirmation Modal */}
       {showSubmitModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="relative w-full max-w-md bg-white text-black border-4 border-black p-8 shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] space-y-6 font-['Hanken_Grotesk']">
+          <div className="relative w-full max-w-md obsidian-card p-8 space-y-6">
             <button
               onClick={() => setShowSubmitModal(false)}
-              className="absolute top-4 right-4 p-1 hover:bg-black hover:text-white transition-none"
+              className="absolute top-5 right-5 p-1 text-[#b9cbc1] hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="space-y-2">
-              <h3 className="text-2xl font-black uppercase">
+              <span className="obsidian-chip-optimal">FINAL SUBMISSION</span>
+              <h3 className="text-2xl font-bold text-white uppercase">
                 COMPLETE ASSESSMENT?
               </h3>
-              <p className="text-xs font-mono text-zinc-700">
+              <p className="text-xs sm:text-sm font-mono text-[#b9cbc1]">
                 You have answered <strong>{answeredIds.length}</strong> of <strong>{session.question_ids.length}</strong> questions.
               </p>
             </div>
 
             {answeredIds.length < session.question_ids.length && (
-              <div className="p-4 border-2 border-black bg-zinc-100 flex items-start gap-3 text-xs font-mono">
-                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+              <div className="p-4 rounded-xl bg-[#a90219]/20 border border-[#a90219]/40 flex items-start gap-3 text-xs text-[#ffdad6]">
+                <AlertTriangle className="w-4 h-4 text-[#ffb3ae] shrink-0 mt-0.5" />
                 <span>
-                  You have unanswered questions. Unanswered questions will receive a score of 0.
+                  You have unanswered questions. Unsubmitted problems will receive a score of 0%.
                 </span>
               </div>
             )}
@@ -231,16 +231,16 @@ export default function ActiveAssessmentSessionPage() {
               <button
                 type="button"
                 onClick={() => setShowSubmitModal(false)}
-                className="flex-1 py-3 border-2 border-black bg-white hover:bg-zinc-100 text-xs font-black uppercase transition-none cursor-pointer"
+                className="flex-1 obsidian-btn-secondary py-3 text-xs font-bold uppercase tracking-wider cursor-pointer"
               >
                 RETURN TO TEST
               </button>
               <button
                 type="button"
                 onClick={() => handleFinalSubmit(session)}
-                className="flex-1 py-3 bg-black text-white hover:bg-zinc-800 text-xs font-black uppercase transition-none cursor-pointer"
+                className="flex-1 obsidian-btn-primary py-3 text-xs font-bold uppercase tracking-wider cursor-pointer"
               >
-                CONFIRM & SUBMIT ➔
+                SUBMIT NOW ➔
               </button>
             </div>
           </div>

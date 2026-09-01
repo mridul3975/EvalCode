@@ -29,7 +29,7 @@ export interface CompetencyRadarChartProps {
 export function CompetencyRadarChart({
   data,
   benchmark = 90,
-  height = 540,
+  height = 500,
 }: CompetencyRadarChartProps) {
   const chartData = [
     {
@@ -74,61 +74,61 @@ export function CompetencyRadarChart({
     <div className="w-full flex flex-col items-center justify-center font-mono">
       <div className="w-full" style={{ height }}>
         <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="88%" data={chartData}>
-            <PolarGrid stroke="#525866" strokeWidth={1.5} />
+          <RadarChart cx="50%" cy="50%" outerRadius="82%" data={chartData}>
+            <PolarGrid stroke="#282a2c" strokeWidth={1.5} />
             <PolarAngleAxis
               dataKey="subject"
-              tick={{ fill: "#ffffff", fontSize: 13, fontWeight: 900, fontFamily: "monospace" }}
+              tick={{ fill: "#e2e2e5", fontSize: 11, fontWeight: 700, fontFamily: "monospace" }}
             />
             <PolarRadiusAxis
               angle={30}
               domain={[0, 100]}
-              tick={{ fill: "#a1a1aa", fontSize: 10, fontFamily: "monospace", fontWeight: 700 }}
-              stroke="#525866"
+              tick={{ fill: "#83958c", fontSize: 9, fontFamily: "monospace" }}
+              stroke="#282a2c"
             />
-            {/* Target 90% benchmark outline in pure dashed white */}
+            {/* Target 90% benchmark outline */}
             <Radar
               name="Target Benchmark (90%)"
               dataKey="target"
-              stroke="#ffffff"
-              strokeDasharray="6 6"
-              strokeWidth={2}
-              fill="#ffffff"
-              fillOpacity={0.08}
+              stroke="#36ffc4"
+              strokeDasharray="4 4"
+              strokeWidth={1.5}
+              fill="#00ffc2"
+              fillOpacity={0.05}
             />
-            {/* Candidate actual polygon in pure solid white */}
+            {/* Candidate actual polygon with Mint glow */}
             <Radar
               name="Candidate Score"
               dataKey="candidate"
-              stroke="#ffffff"
-              strokeWidth={3.5}
-              fill="#ffffff"
-              fillOpacity={0.35}
+              stroke="#00ffc2"
+              strokeWidth={2.5}
+              fill="#00ffc2"
+              fillOpacity={0.2}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#000000",
-                borderColor: "#ffffff",
-                borderWidth: "2px",
-                borderRadius: "0px",
+                backgroundColor: "#121416",
+                borderColor: "#282a2c",
+                borderWidth: "1px",
+                borderRadius: "8px",
                 fontSize: "12px",
                 fontFamily: "monospace",
-                fontWeight: "bold",
-                color: "#ffffff",
+                color: "#e2e2e5",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.7)",
               }}
-              itemStyle={{ color: "#ffffff" }}
+              itemStyle={{ color: "#00ffc2" }}
             />
           </RadarChart>
         </ResponsiveContainer>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-8 mt-4 text-xs text-white font-mono font-black uppercase">
+      <div className="flex flex-wrap items-center justify-center gap-6 mt-2 text-xs text-[#b9cbc1] font-mono font-bold uppercase">
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-white/40 border-2 border-white" />
+          <div className="w-3.5 h-3.5 rounded-sm bg-[#00ffc2]/30 border border-[#00ffc2]" />
           <span>CANDIDATE COMPETENCY</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-5 h-1 border-t-2 border-dashed border-white" />
+          <div className="w-4 h-0.5 border-t border-dashed border-[#36ffc4]" />
           <span>TARGET BENCHMARK (90%)</span>
         </div>
       </div>
