@@ -13,8 +13,8 @@
     --surface-container: #1e2022;
     --surface-container-high: #282a2c;
     --surface-container-highest: #333537;
-    --primary: #00ffc2;
-    --primary-foreground: #002116;
+    --primary: #ffffff;
+    --primary-foreground: #121416;
     --secondary: #ffb3ae;
     --secondary-container: #a90219;
     --card: #1e2022;
@@ -36,7 +36,7 @@ h1, h2, h3, h4, .display-text {
 }
 
 /* =========================================================================
-   Obsidian Tactile Design System Utilities
+   Obsidian Tactile Design System Utilities (High-Contrast Monochrome)
    ========================================================================= */
 
 /* 1. Extruded (Raised Neumorphic Surface) */
@@ -52,7 +52,7 @@ h1, h2, h3, h4, .display-text {
 
 .obsidian-card:hover {
   box-shadow: 
-    -6px -6px 16px rgba(255, 255, 255, 0.05), 
+    -6px -6px 16px rgba(255, 255, 255, 0.055), 
     8px 8px 22px rgba(0, 0, 0, 0.75);
 }
 
@@ -66,26 +66,26 @@ h1, h2, h3, h4, .display-text {
   border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-/* 3. Primary Mint Button (Glow Accent) */
+/* 3. Primary Crisp White Button */
 .obsidian-btn-primary {
-  background-color: #00ffc2;
-  color: #002116;
+  background-color: #ffffff;
+  color: #121416;
   font-family: 'Hanken Grotesk', sans-serif;
   font-weight: 700;
   border-radius: 0.75rem;
-  box-shadow: 0 4px 16px rgba(0, 255, 194, 0.25);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
   transition: all 0.2s ease;
 }
 
 .obsidian-btn-primary:hover {
-  background-color: #36ffc4;
-  box-shadow: 0 6px 22px rgba(0, 255, 194, 0.4);
+  background-color: #e2e2e5;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
 }
 
 .obsidian-btn-primary:active {
   transform: translateY(1px);
-  box-shadow: 0 2px 10px rgba(0, 255, 194, 0.2);
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
 /* 4. Secondary Extruded Button */
@@ -130,9 +130,9 @@ h1, h2, h3, h4, .display-text {
 }
 
 .obsidian-chip-optimal {
-  background-color: rgba(0, 255, 194, 0.15);
-  color: #00ffc2;
-  border: 1px solid rgba(0, 255, 194, 0.3);
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   font-size: 11px;
@@ -150,51 +150,6 @@ h1, h2, h3, h4, .display-text {
   letter-spacing: 0.08em;
   padding: 3px 8px;
   border-radius: 0.375rem;
-}
-
-/* Practice page neumorphism classes maintained for catalog */
-.neu-convex {
-  background: #1a1b1e;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -5px -5px 10px rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.neu-convex-white {
-  background: #f3f4f6;
-  color: #111827;
-  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5), -6px -6px 12px rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.neu-button {
-  background: #1a1b1e;
-  color: #ffffff;
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), -4px -4px 8px rgba(255, 255, 255, 0.05);
-}
-
-.neu-button-light {
-  background: #f3f4f6;
-  color: #111827;
-  box-shadow: 4px 4px 8px #d1d5db, -4px -4px 8px #ffffff;
-}
-
-.neu-button-primary {
-  background: #ffffff;
-  color: #1a1b1e;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
-}
-
-.neu-input {
-  background: #1a1b1e;
-  color: #ffffff;
-  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.5), inset -3px -3px 6px rgba(255, 255, 255, 0.05);
-}
-
-.neu-badge-light {
-  background: #f3f4f6;
-  box-shadow: 2px 2px 4px #d1d5db, -2px -2px 4px #ffffff;
 }
 
 /* Technical scrollbar */

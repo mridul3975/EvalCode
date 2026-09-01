@@ -40,7 +40,7 @@ export function AssessmentHeader({
         {/* Left: Assessment Mode Label & Question Nav Pills */}
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00ffc2] animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
             <span className="text-xs font-bold uppercase tracking-wider text-white font-['Hanken_Grotesk']">
               Mock Exam Session
             </span>
@@ -58,9 +58,9 @@ export function AssessmentHeader({
                   className={cn(
                     "w-9 h-8 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer flex items-center justify-center",
                     isCurrent
-                      ? "bg-[#00ffc2] text-[#002116] shadow-[0_2px_10px_rgba(0,255,194,0.35)] font-black scale-105"
+                      ? "bg-white text-[#121416] shadow-[0_2px_10px_rgba(255,255,255,0.25)] font-black scale-105"
                       : isAnswered
-                      ? "bg-[#282a2c] text-[#00ffc2] border border-[#00ffc2]/30"
+                      ? "bg-[#282a2c] text-white border border-white/30"
                       : "obsidian-inset text-[#b9cbc1] hover:text-white hover:border-[rgba(255,255,255,0.1)]"
                   )}
                 >
@@ -95,7 +95,7 @@ export function AssessmentHeader({
                 ? "bg-[#a90219] text-[#ffdad6] animate-pulse"
                 : isUrgent
                 ? "bg-[#ffe149]/20 text-[#ffe149] border border-[#ffe149]/30"
-                : "bg-[#121416] text-[#00ffc2] border border-[rgba(255,255,255,0.06)]"
+                : "bg-[#121416] text-white border border-[rgba(255,255,255,0.06)]"
             )}
           >
             <Timer className="w-3.5 h-3.5" />

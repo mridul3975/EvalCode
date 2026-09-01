@@ -90,20 +90,20 @@ export function CompetencyRadarChart({
             <Radar
               name="Target Benchmark (90%)"
               dataKey="target"
-              stroke="#36ffc4"
+              stroke="#ffffff"
               strokeDasharray="4 4"
               strokeWidth={1.5}
-              fill="#00ffc2"
+              fill="#ffffff"
               fillOpacity={0.05}
             />
-            {/* Candidate actual polygon with Mint glow */}
+            {/* Candidate actual polygon with White glow */}
             <Radar
               name="Candidate Score"
               dataKey="candidate"
-              stroke="#00ffc2"
+              stroke="#ffffff"
               strokeWidth={2.5}
-              fill="#00ffc2"
-              fillOpacity={0.2}
+              fill="#ffffff"
+              fillOpacity={0.25}
             />
             <Tooltip
               contentStyle={{
@@ -116,7 +116,7 @@ export function CompetencyRadarChart({
                 color: "#e2e2e5",
                 boxShadow: "0 8px 24px rgba(0,0,0,0.7)",
               }}
-              itemStyle={{ color: "#00ffc2" }}
+              itemStyle={{ color: "#ffffff" }}
             />
           </RadarChart>
         </ResponsiveContainer>
@@ -124,11 +124,11 @@ export function CompetencyRadarChart({
 
       <div className="flex flex-wrap items-center justify-center gap-6 mt-2 text-xs text-[#b9cbc1] font-mono font-bold uppercase">
         <div className="flex items-center gap-2">
-          <div className="w-3.5 h-3.5 rounded-sm bg-[#00ffc2]/30 border border-[#00ffc2]" />
+          <div className="w-3.5 h-3.5 rounded-sm bg-white/30 border border-white" />
           <span>CANDIDATE COMPETENCY</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-0.5 border-t border-dashed border-[#36ffc4]" />
+          <div className="w-4 h-0.5 border-t border-dashed border-white" />
           <span>TARGET BENCHMARK (90%)</span>
         </div>
       </div>

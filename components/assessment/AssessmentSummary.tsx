@@ -86,7 +86,7 @@ export function AssessmentSummary({ session }: { session: AssessmentSession }) {
               AUDITED: <strong className="text-white">{session.question_ids.length} PROBLEMS</strong>
             </div>
             <div className="obsidian-inset p-3 px-4">
-              TIER: <strong className="text-[#00ffc2]">{tier.tier}</strong>
+              TIER: <strong className="text-white">{tier.tier}</strong>
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export function AssessmentSummary({ session }: { session: AssessmentSession }) {
             OVERALL READINESS SCORE
           </span>
 
-          <div className="text-7xl sm:text-8xl font-black text-white tracking-tighter drop-shadow-[0_0_24px_rgba(0,255,194,0.2)]">
+          <div className="text-7xl sm:text-8xl font-black text-white tracking-tighter drop-shadow-[0_0_24px_rgba(255,255,255,0.2)]">
             {totalScore.toFixed(0)}%
           </div>
 
@@ -193,7 +193,7 @@ export function AssessmentSummary({ session }: { session: AssessmentSession }) {
                   <tr key={qId} className="hover:bg-[#282a2c]/40 transition-colors">
                     <td className="py-4 px-4 font-bold text-white">Q{idx + 1}</td>
                     <td className="py-4 px-4 font-bold uppercase text-white">{q?.title || qId}</td>
-                    <td className="py-4 px-4 text-sm font-bold text-[#00ffc2]">
+                    <td className="py-4 px-4 text-sm font-bold text-white">
                       {evalRes ? (evalRes.overall_score * 10).toFixed(0) : "0"}%
                     </td>
                     <td className="py-4 px-4">
@@ -206,7 +206,7 @@ export function AssessmentSummary({ session }: { session: AssessmentSession }) {
                     <td className="py-4 px-4 text-right">
                       <Link
                         href={`/practice/${qId}`}
-                        className="text-[#00ffc2] font-bold uppercase hover:underline"
+                        className="text-white font-bold uppercase hover:underline"
                       >
                         REVIEW AUDIT ➔
                       </Link>

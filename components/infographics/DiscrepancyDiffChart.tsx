@@ -30,7 +30,7 @@ export function DiscrepancyDiffChart({
         {matchPct > 0 && (
           <div
             style={{ width: `${matchPct}%` }}
-            className="bg-[#00ffc2] rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(0,255,194,0.4)]"
+            className="bg-white rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.4)]"
             title={`Matched: ${matchedCount}`}
           />
         )}
@@ -51,7 +51,7 @@ export function DiscrepancyDiffChart({
       </div>
 
       <div className="flex items-center justify-between text-xs pt-2 border-t border-[rgba(255,255,255,0.06)] font-mono font-bold uppercase">
-        <div className="flex items-center gap-1.5 text-[#00ffc2]">
+        <div className="flex items-center gap-1.5 text-white">
           <CheckCircle2 className="w-3.5 h-3.5" />
           <span>MATCHED: {matchedCount}</span>
         </div>
@@ -92,7 +92,7 @@ export function ReadinessProgressBar({
         </span>
         <div className="flex items-baseline gap-2">
           {delta !== undefined && delta !== 0 && (
-            <span className={cn("text-xs font-mono font-bold", delta > 0 ? "text-[#00ffc2]" : "text-[#ff8080]")}>
+            <span className={cn("text-xs font-mono font-bold", delta > 0 ? "text-white" : "text-[#ff8080]")}>
               {delta > 0 ? `+${delta.toFixed(1)}%` : `${delta.toFixed(1)}%`}
             </span>
           )}
@@ -115,12 +115,12 @@ export function ReadinessProgressBar({
           {isCritical ? "CRITICAL DEFICIT" : isOptimal ? "OPTIMAL" : "DEVELOPING"}
         </span>
 
-        {/* Recessed Inset Track with Glowing Mint Fill */}
+        {/* Recessed Inset Track with Glowing White Fill */}
         <div className="flex-1 h-3 bg-[#121416] rounded-full overflow-hidden relative shadow-[inset_2px_2px_5px_rgba(0,0,0,0.8),inset_-1px_-1px_2px_rgba(255,255,255,0.04)] border border-black/50">
           {/* 90% Target line */}
           <div className="absolute right-[10%] top-0 bottom-0 w-0.5 bg-white/40 z-10" />
           <div
-            className="h-full bg-gradient-to-r from-[#00e1ab] to-[#00ffc2] rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(0,255,194,0.35)]"
+            className="h-full bg-gradient-to-r from-zinc-400 to-white rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(255,255,255,0.35)]"
             style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
           />
         </div>

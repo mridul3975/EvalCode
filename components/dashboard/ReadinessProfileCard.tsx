@@ -3,7 +3,7 @@
 import React from "react";
 import { UserProfileStats } from "@/types/submission";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Trophy, ShieldCheck, Flame, Zap } from "lucide-react";
+import { ArrowRight, Trophy } from "lucide-react";
 
 export function ReadinessProfileCard({ profile }: { profile: UserProfileStats }) {
   const hasActivity = profile.total_evaluations_count > 0;
@@ -44,7 +44,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
 
           <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tight leading-[0.9] text-white uppercase font-['Hanken_Grotesk']">
             Eval<br />
-            <span className="text-[#00ffc2]">Acuity</span>
+            <span className="text-white">Acuity</span>
           </h1>
 
           <p className="text-base sm:text-xl text-[#b9cbc1] font-normal leading-relaxed max-w-2xl font-['Hanken_Grotesk'] pt-2">
@@ -58,7 +58,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             <span className="text-[11px] font-mono font-bold tracking-widest text-[#b9cbc1] uppercase">
               TARGET BENCHMARK
             </span>
-            <span className="text-3xl sm:text-4xl font-bold text-[#00ffc2] font-['Hanken_Grotesk'] mt-1">
+            <span className="text-3xl sm:text-4xl font-bold text-white font-['Hanken_Grotesk'] mt-1">
               90.0%+
             </span>
           </div>
@@ -82,7 +82,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             READINESS SCORE
           </span>
 
-          <div className="text-7xl sm:text-8xl font-black text-white tracking-tighter my-2 drop-shadow-[0_0_24px_rgba(0,255,194,0.15)] font-['Hanken_Grotesk']">
+          <div className="text-7xl sm:text-8xl font-black text-white tracking-tighter my-2 drop-shadow-[0_0_24px_rgba(255,255,255,0.15)] font-['Hanken_Grotesk']">
             {profile.readiness_score.toFixed(1)}%
           </div>
 
@@ -118,7 +118,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             <span className="text-[10px] font-mono font-bold text-[#b9cbc1] uppercase tracking-wider">
               ACTIVE STREAK
             </span>
-            <span className="text-2xl sm:text-3xl font-bold text-[#00ffc2] font-['Hanken_Grotesk'] mt-1">
+            <span className="text-2xl sm:text-3xl font-bold text-white font-['Hanken_Grotesk'] mt-1">
               {profile.current_streak_days}D
             </span>
             <span className="text-[10px] font-mono text-[#83958c] mt-0.5">
@@ -159,7 +159,7 @@ export function MockHistoryTable({ history = [] }: { history?: any[] }) {
   if (history.length === 0) {
     return (
       <section className="obsidian-card p-8 sm:p-14 flex flex-col items-center justify-center text-center space-y-6 w-full">
-        <div className="w-14 h-14 rounded-2xl bg-[#121416] flex items-center justify-center text-[#00ffc2] shadow-[inset_3px_3px_6px_rgba(0,0,0,0.6),inset_-2px_-2px_4px_rgba(255,255,255,0.04)]">
+        <div className="w-14 h-14 rounded-2xl bg-[#121416] flex items-center justify-center text-white shadow-[inset_3px_3px_6px_rgba(0,0,0,0.6),inset_-2px_-2px_4px_rgba(255,255,255,0.04)]">
           <Trophy className="w-7 h-7" />
         </div>
 
@@ -220,7 +220,7 @@ export function MockHistoryTable({ history = [] }: { history?: any[] }) {
                 <td className="py-3.5 px-4 text-[#b9cbc1]">
                   #{session.id.slice(0, 8).toUpperCase()}
                 </td>
-                <td className="py-3.5 px-4 text-sm font-bold text-[#00ffc2]">
+                <td className="py-3.5 px-4 text-sm font-bold text-white">
                   {session.total_score ? session.total_score.toFixed(0) : "0"}%
                 </td>
                 <td className="py-3.5 px-4 text-[#b9cbc1]">
@@ -234,7 +234,7 @@ export function MockHistoryTable({ history = [] }: { history?: any[] }) {
                 <td className="py-3.5 px-4 text-right">
                   <a
                     href="/assessment/results"
-                    className="text-[#00ffc2] font-bold uppercase hover:underline"
+                    className="text-white font-bold uppercase hover:underline"
                   >
                     SCORECARD ➔
                   </a>
