@@ -143,7 +143,7 @@ export function updateProfileWithEvaluation(
     ? Number(((currentStats.mock_average_score * currentStats.total_mocks_count + result.overall_score * 10) / newMocks).toFixed(1))
     : currentStats.mock_average_score;
 
-  const readiness = Number((0.6 * mockAvg + 0.4 * practiceAvg).toFixed(1));
+  const readiness = mockAvg === 0 ? practiceAvg : Number((0.6 * mockAvg + 0.4 * practiceAvg).toFixed(1));
 
   return {
     ...currentStats,

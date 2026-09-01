@@ -44,21 +44,37 @@ export function saveCustomQuestion(question: QuestionItem): QuestionItem[] {
 }
 
 /**
- * Fetch and sync cloud database profile into local storage
+ * Fetch and sync cloud database profile into local storage with bidirectional merge
  */
 export async function syncFromDatabase(): Promise<UserProfileStats> {
   if (!isClient()) return DEFAULT_PROFILE_STATS;
+  const localProf = getStoredProfile();
+
   try {
     const res = await fetch("/api/profile");
     if (res.ok) {
-      const cloudProfile = await res.json();
-      localStorage.setItem(KEYS.PROFILE, JSON.stringify(cloudProfile));
-      return cloudProfile;
+      const cloudProfile: UserProfileStats = await res.json();
+
+      // If local storage has higher evaluations count or higher readiness, push local to cloud DB
+      if (localProf.total_evaluations_count > cloudProfile.total_evaluations_count) {
+        fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(localProf),
+        }).catch(() => {});
+        return localProf;
+      }
+
+      // Otherwise cloud DB has authoritative progress
+      if (cloudProfile.total_evaluations_count > 0 || cloudProfile.readiness_score > 0) {
+        localStorage.setItem(KEYS.PROFILE, JSON.stringify(cloudProfile));
+        return cloudProfile;
+      }
     }
   } catch (e) {
     console.error("Failed to sync profile from Neon DB", e);
   }
-  return getStoredProfile();
+  return localProf;
 }
 
 export function getStoredSubmissions(): Record<string, { submission: EvaluationSubmission; result: EvaluationResult }> {
@@ -97,11 +113,17 @@ export function saveStoredSubmission(
 
     localStorage.setItem(KEYS.PROFILE, JSON.stringify(updatedProfile));
 
-    // Sync cloud API in background
+    // Sync cloud API & profile DB
     fetch("/api/submissions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ questionId, submission, result }),
+    }).catch(() => {});
+
+    fetch("/api/profile", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedProfile),
     }).catch(() => {});
   } catch (e) {
     console.error("Failed to save submission to localStorage", e);
@@ -198,6 +220,8 @@ export function clearAllProgress(): void {
     localStorage.removeItem(KEYS.ASSESSMENT_HISTORY);
     localStorage.removeItem(KEYS.PROFILE);
     localStorage.removeItem(KEYS.BOOKMARKS);
+
+    fetch("/api/submissions", { method: "DELETE" }).catch(() => {});
   } catch (e) {
     console.error("Failed to clear progress", e);
   }

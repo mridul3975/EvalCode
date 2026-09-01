@@ -60,95 +60,49 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const body: UserProfileStats = await req.json();
+    const profileData: UserProfileStats = await req.json();
 
     await db
       .insert(profiles)
       .values({
         id: "default_user",
-        readiness_score: body.readiness_score,
-        verdict_accuracy: body.verdict_accuracy,
-        total_evaluations_count: body.total_evaluations_count,
-        total_mocks_count: body.total_mocks_count,
-        mock_average_score: body.mock_average_score,
-        practice_average_score: body.practice_average_score,
-        current_streak_days: body.current_streak_days,
-        best_streak_days: body.best_streak_days,
-        last_active_at: new Date(body.last_active_at),
-        dimensional_mastery: body.dimensional_mastery,
-        dimensional_deltas: body.dimensional_deltas,
-        topic_stats: body.topic_stats,
-        defect_stats: body.defect_stats,
-        updated_at: new Date(),
+        name: "Evaluator Candidate",
+        readiness_score: profileData.readiness_score,
+        verdict_accuracy: profileData.verdict_accuracy,
+        total_evaluations_count: profileData.total_evaluations_count,
+        total_mocks_count: profileData.total_mocks_count,
+        mock_average_score: profileData.mock_average_score,
+        practice_average_score: profileData.practice_average_score,
+        current_streak_days: profileData.current_streak_days,
+        best_streak_days: profileData.best_streak_days,
+        last_active_at: new Date(),
+        dimensional_mastery: profileData.dimensional_mastery,
+        dimensional_deltas: profileData.dimensional_deltas,
+        topic_stats: profileData.topic_stats,
+        defect_stats: profileData.defect_stats,
       })
       .onConflictDoUpdate({
         target: profiles.id,
         set: {
-          readiness_score: body.readiness_score,
-          verdict_accuracy: body.verdict_accuracy,
-          total_evaluations_count: body.total_evaluations_count,
-          total_mocks_count: body.total_mocks_count,
-          mock_average_score: body.mock_average_score,
-          practice_average_score: body.practice_average_score,
-          current_streak_days: body.current_streak_days,
-          best_streak_days: body.best_streak_days,
-          last_active_at: new Date(body.last_active_at),
-          dimensional_mastery: body.dimensional_mastery,
-          dimensional_deltas: body.dimensional_deltas,
-          topic_stats: body.topic_stats,
-          defect_stats: body.defect_stats,
-          updated_at: new Date(),
+          readiness_score: profileData.readiness_score,
+          verdict_accuracy: profileData.verdict_accuracy,
+          total_evaluations_count: profileData.total_evaluations_count,
+          total_mocks_count: profileData.total_mocks_count,
+          mock_average_score: profileData.mock_average_score,
+          practice_average_score: profileData.practice_average_score,
+          current_streak_days: profileData.current_streak_days,
+          best_streak_days: profileData.best_streak_days,
+          last_active_at: new Date(),
+          dimensional_mastery: profileData.dimensional_mastery,
+          dimensional_deltas: profileData.dimensional_deltas,
+          topic_stats: profileData.topic_stats,
+          defect_stats: profileData.defect_stats,
         },
       });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Failed to save profile to Neon DB:", error);
-    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
-  }
-}
-
-export async function DELETE() {
-  try {
-    await db
-      .insert(profiles)
-      .values({
-        id: "default_user",
-        readiness_score: 0,
-        verdict_accuracy: 0,
-        total_evaluations_count: 0,
-        total_mocks_count: 0,
-        mock_average_score: 0,
-        practice_average_score: 0,
-        current_streak_days: 0,
-        best_streak_days: 0,
-        dimensional_mastery: DEFAULT_PROFILE_STATS.dimensional_mastery,
-        dimensional_deltas: DEFAULT_PROFILE_STATS.dimensional_deltas,
-        topic_stats: {},
-        defect_stats: {},
-      })
-      .onConflictDoUpdate({
-        target: profiles.id,
-        set: {
-          readiness_score: 0,
-          verdict_accuracy: 0,
-          total_evaluations_count: 0,
-          total_mocks_count: 0,
-          mock_average_score: 0,
-          practice_average_score: 0,
-          current_streak_days: 0,
-          best_streak_days: 0,
-          dimensional_mastery: DEFAULT_PROFILE_STATS.dimensional_mastery,
-          dimensional_deltas: DEFAULT_PROFILE_STATS.dimensional_deltas,
-          topic_stats: {},
-          defect_stats: {},
-          updated_at: new Date(),
-        },
-      });
-
-    return NextResponse.json({ success: true, profile: DEFAULT_PROFILE_STATS });
-  } catch (error) {
-    console.error("Failed to reset profile in Neon DB:", error);
+    console.error("Failed to update profile in Neon DB:", error);
     return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
   }
 }
