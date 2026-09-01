@@ -14,6 +14,8 @@ import {
   RotateCcw,
   Plus,
   Trash2,
+  AlertTriangle,
+  XCircle,
 } from "lucide-react";
 
 export function EvaluationForm({
@@ -184,77 +186,101 @@ export function EvaluationForm({
         </button>
       </div>
 
-      {/* Tab 1: Verdict Options Grid */}
+      {/* Tab 1: Square Tactile Verdict Tiles Grid */}
       {activeTab === "verdict" && (
-        <div className="flex flex-col flex-grow space-y-6">
+        <div className="flex flex-col flex-grow space-y-4">
           <div>
             <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-1">
               EVALUATION VERDICT
             </h3>
             <p className="text-xs text-[#b9cbc1] font-sans">
-              Classify whether this AI-generated code meets all requirements or contains defects.
+              Select the classification for this AI code snippet.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-grow">
-            {/* Option 1: Completely Correct */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Square Option 1: Completely Correct */}
             <button
               type="button"
               onClick={() => setVerdict("correct")}
               className={cn(
-                "p-4 rounded-xl text-left transition-all cursor-pointer font-['Hanken_Grotesk']",
+                "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
                 verdict === "correct"
-                  ? "contrast-card border-2 border-black relative overflow-hidden"
+                  ? "contrast-card border-2 border-black shadow-xl"
                   : "neu-inset bg-[#121416] border border-[#282a2c] text-[#e2e2e5] hover:border-white"
               )}
             >
-              {verdict === "correct" && <div className="absolute top-0 left-0 w-1.5 h-full bg-[#121416]" />}
-              <h4 className={cn("text-sm font-bold uppercase tracking-tight mb-1", verdict === "correct" ? "text-[#121416]" : "text-white")}>
-                COMPLETELY CORRECT
-              </h4>
-              <p className={cn("text-xs leading-relaxed font-sans", verdict === "correct" ? "text-gray-700" : "text-[#b9cbc1]")}>
-                No bugs, optimal complexity, and handles all constraints.
-              </p>
+              <div className="flex justify-between items-start w-full">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-500">
+                  01 / ACCURATE
+                </span>
+                <CheckCircle2 className={cn("w-5 h-5", verdict === "correct" ? "text-gray-900" : "text-white")} />
+              </div>
+
+              <div>
+                <h4 className={cn("text-base font-black uppercase tracking-tight mb-1 leading-snug", verdict === "correct" ? "text-[#121416]" : "text-white")}>
+                  COMPLETELY<br />CORRECT
+                </h4>
+                <p className={cn("text-xs leading-relaxed font-sans line-clamp-2", verdict === "correct" ? "text-gray-700 font-medium" : "text-[#b9cbc1]")}>
+                  No bugs, optimal complexity, and handles all constraints.
+                </p>
+              </div>
             </button>
 
-            {/* Option 2: Minor Issue */}
+            {/* Square Option 2: Minor Issue */}
             <button
               type="button"
               onClick={() => setVerdict("minor_issue")}
               className={cn(
-                "p-4 rounded-xl text-left transition-all cursor-pointer font-['Hanken_Grotesk']",
+                "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
                 verdict === "minor_issue"
-                  ? "contrast-card border-2 border-black relative overflow-hidden"
+                  ? "contrast-card border-2 border-black shadow-xl"
                   : "neu-inset bg-[#121416] border border-[#282a2c] text-[#e2e2e5] hover:border-white"
               )}
             >
-              {verdict === "minor_issue" && <div className="absolute top-0 left-0 w-1.5 h-full bg-[#121416]" />}
-              <h4 className={cn("text-sm font-bold uppercase tracking-tight mb-1", verdict === "minor_issue" ? "text-[#121416]" : "text-white")}>
-                MINOR ISSUE
-              </h4>
-              <p className={cn("text-xs leading-relaxed font-sans", verdict === "minor_issue" ? "text-gray-700" : "text-[#b9cbc1]")}>
-                Violates minor boundary invariants or code style conventions.
-              </p>
+              <div className="flex justify-between items-start w-full">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-500">
+                  02 / MINOR
+                </span>
+                <AlertTriangle className={cn("w-5 h-5", verdict === "minor_issue" ? "text-amber-700" : "text-amber-400")} />
+              </div>
+
+              <div>
+                <h4 className={cn("text-base font-black uppercase tracking-tight mb-1 leading-snug", verdict === "minor_issue" ? "text-[#121416]" : "text-white")}>
+                  MINOR<br />DEFECT
+                </h4>
+                <p className={cn("text-xs leading-relaxed font-sans line-clamp-2", verdict === "minor_issue" ? "text-gray-700 font-medium" : "text-[#b9cbc1]")}>
+                  Violates minor boundary invariants or style conventions.
+                </p>
+              </div>
             </button>
 
-            {/* Option 3: Major Bug */}
+            {/* Square Option 3: Major Bug */}
             <button
               type="button"
               onClick={() => setVerdict("major_bug")}
               className={cn(
-                "p-4 rounded-xl text-left transition-all cursor-pointer font-['Hanken_Grotesk']",
+                "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
                 verdict === "major_bug"
-                  ? "contrast-card border-2 border-black relative overflow-hidden"
+                  ? "contrast-card border-2 border-black shadow-xl"
                   : "neu-inset bg-[#121416] border border-[#282a2c] text-[#e2e2e5] hover:border-rose-400"
               )}
             >
-              {verdict === "major_bug" && <div className="absolute top-0 left-0 w-1.5 h-full bg-rose-600" />}
-              <h4 className={cn("text-sm font-bold uppercase tracking-tight mb-1", verdict === "major_bug" ? "text-rose-950 font-black" : "text-rose-400")}>
-                FATAL / MAJOR BUG
-              </h4>
-              <p className={cn("text-xs leading-relaxed font-sans", verdict === "major_bug" ? "text-gray-700" : "text-[#b9cbc1]")}>
-                Infinite loops, invalid pointer mutations, or wrong output.
-              </p>
+              <div className="flex justify-between items-start w-full">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-400">
+                  03 / FATAL
+                </span>
+                <Bug className={cn("w-5 h-5", verdict === "major_bug" ? "text-rose-900" : "text-rose-400")} />
+              </div>
+
+              <div>
+                <h4 className={cn("text-base font-black uppercase tracking-tight mb-1 leading-snug", verdict === "major_bug" ? "text-rose-950" : "text-rose-400")}>
+                  FATAL<br />LOGIC BUG
+                </h4>
+                <p className={cn("text-xs leading-relaxed font-sans line-clamp-2", verdict === "major_bug" ? "text-gray-700 font-medium" : "text-[#b9cbc1]")}>
+                  Infinite loops, invalid pointer mutations, wrong output.
+                </p>
+              </div>
             </button>
           </div>
         </div>
