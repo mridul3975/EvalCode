@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
-import { X, ShieldCheck, UserCheck, Sparkles, ArrowRight, Check } from "lucide-react";
+import { X, ShieldCheck, UserCheck, ArrowRight, Check } from "lucide-react";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -18,13 +18,9 @@ export function AuthModal({ isOpen, onClose, onContinueGuest }: AuthModalProps) 
   async function handleGoogleSignIn() {
     setIsLoading(true);
     try {
-      // Try Google OAuth first; if credentials not configured, fallback to Google Demo provider
-      await signIn("google", { callbackUrl: "/dashboard" }).catch(async () => {
-        await signIn("google-demo", { callbackUrl: "/dashboard" });
-      });
-    } catch {
-      await signIn("google-demo", { callbackUrl: "/dashboard" });
-    } finally {
+      await signIn("google", { callbackUrl: "/dashboard" });
+    } catch (err) {
+      console.error("Google sign in error:", err);
       setIsLoading(false);
     }
   }
@@ -60,7 +56,7 @@ export function AuthModal({ isOpen, onClose, onContinueGuest }: AuthModalProps) 
           </p>
         </div>
 
-        {/* Option 1: Google Authentication */}
+        {/* Option 1: Real Google Authentication */}
         <div className="space-y-3">
           <button
             onClick={handleGoogleSignIn}
@@ -86,7 +82,7 @@ export function AuthModal({ isOpen, onClose, onContinueGuest }: AuthModalProps) 
                 d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
               />
             </svg>
-            <span>{isLoading ? "Signing in..." : "Continue with Google"}</span>
+            <span>{isLoading ? "Redirecting to Google..." : "Sign In with Google"}</span>
           </button>
 
           <div className="flex items-center gap-1.5 justify-center text-[11px] text-zinc-500">
