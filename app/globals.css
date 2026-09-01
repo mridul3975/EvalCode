@@ -90,6 +90,76 @@ h1, h2, h3, h4, .display-text {
   box-shadow: 16px 16px 0px 0px rgba(255, 255, 255, 1);
 }
 
+/* 70/30 Neumorphic (Internal Contrast) Utilities */
+.neu-convex {
+  background: #1a1b1e;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -5px -5px 10px rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.neu-convex:hover {
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5), -8px -8px 15px rgba(255, 255, 255, 0.05);
+}
+
+.neu-convex-white {
+  background: #f3f4f6;
+  color: #111827;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5), -6px -6px 12px rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.neu-convex-white:hover {
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5), -10px -10px 20px rgba(255, 255, 255, 0.05);
+}
+
+.neu-button {
+  background: #1a1b1e;
+  color: #ffffff;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), -4px -4px 8px rgba(255, 255, 255, 0.05);
+  transition: all 0.15s ease-in-out;
+}
+
+.neu-button:active {
+  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.05);
+}
+
+.neu-button-light {
+  background: #f3f4f6;
+  color: #111827;
+  box-shadow: 4px 4px 8px #d1d5db, -4px -4px 8px #ffffff;
+  transition: all 0.15s ease-in-out;
+}
+
+.neu-button-light:active {
+  box-shadow: inset 4px 4px 8px #d1d5db, inset -4px -4px 8px #ffffff;
+}
+
+.neu-button-primary {
+  background: #ffffff;
+  color: #1a1b1e;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+
+.neu-button-primary:hover {
+  background: #e0e0e0;
+}
+
+.neu-input {
+  background: #1a1b1e;
+  color: #ffffff;
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.5), inset -3px -3px 6px rgba(255, 255, 255, 0.05);
+  border: none;
+  outline: none;
+}
+
+.neu-badge-light {
+  background: #f3f4f6;
+  box-shadow: 2px 2px 4px #d1d5db, -2px -2px 4px #ffffff;
+}
+
 /* Technical scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -98,14 +168,12 @@ h1, h2, h3, h4, .display-text {
 
 ::-webkit-scrollbar-track {
   background: #121416;
-  border-left: 2px solid #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffffff;
+  background: #333333;
 }
 
-::selection {
-  background: #ffffff;
-  color: #000000;
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
 }

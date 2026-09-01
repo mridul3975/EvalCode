@@ -13,6 +13,7 @@ import {
   BookmarkCheck,
   ChevronLeft,
   ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 
 export default function PracticeCatalogPage() {
@@ -94,7 +95,6 @@ export default function PracticeCatalogPage() {
     { key: "hard", label: "HARD" },
   ];
 
-  // Helper to generate page numbers with ellipsis
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
     if (totalPages <= 7) {
@@ -121,271 +121,263 @@ export default function PracticeCatalogPage() {
     return pages;
   };
 
+  const getDifficultyColor = (diff: string) => {
+    if (diff === "easy") return "text-emerald-600";
+    if (diff === "medium") return "text-amber-600";
+    return "text-rose-600";
+  };
+
   return (
-    <div className="max-w-[1600px] mx-auto px-4 sm:px-8 py-8 space-y-8 font-['Hanken_Grotesk'] text-white">
-      {/* Page Header */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b-4 border-white pb-8">
-        <div>
-          <div className="text-xs font-mono font-black uppercase tracking-widest px-3 py-1 bg-white text-black inline-block mb-3">
-            BENCHMARK CATALOG
-          </div>
-          <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight">
-            PRACTICE REVIEW STUDIO ({SEED_QUESTIONS.length})
-          </h1>
-          <p className="text-sm sm:text-base text-zinc-300 font-mono mt-2">
-            AUDIT AI-GENERATED CODE SNIPPETS ACROSS CALIBRATED DEFECT CATEGORIES &bull; 6 PER PAGE
-          </p>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <Link
-            href="/assessment"
-            className="px-6 py-3.5 bg-white text-black font-black uppercase text-sm border-2 border-white hover:bg-black hover:text-white transition-none"
-          >
-            LAUNCH MOCK TEST ➔
-          </Link>
-        </div>
-      </div>
-
-      {/* Filter Controls Bar */}
-      <div className="p-6 border-4 border-white bg-[#121416] space-y-6">
-        {/* Search & Selectors */}
-        <div className="flex flex-col sm:flex-row items-center gap-4">
-          <div className="relative flex-1 w-full">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
-            <input
-              type="text"
-              placeholder="SEARCH PROBLEMS, TOPICS, OR KEYWORDS (e.g., 'subsets', 'reverse', 'cycle')..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#121416] border-2 border-white pl-10 pr-4 py-2.5 text-xs font-mono uppercase text-white focus:outline-none focus:bg-white focus:text-black placeholder:text-zinc-500"
-            />
+    <div className="min-h-screen bg-[#1a1b1e] text-white flex flex-col font-['Hanken_Grotesk'] antialiased">
+      <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col space-y-10 py-10">
+        {/* Header Section */}
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/10">
+          <div className="space-y-3">
+            <div className="inline-block neu-badge px-3 py-1 rounded text-xs font-bold tracking-widest uppercase text-gray-300">
+              BENCHMARK CATALOG
+            </div>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none uppercase">
+              PRACTICE REVIEW STUDIO <span className="text-gray-500 font-normal">({SEED_QUESTIONS.length})</span>
+            </h1>
+            <p className="text-sm font-mono text-gray-400 uppercase tracking-wide">
+              AUDIT AI-GENERATED CODE SNIPPETS ACROSS CALIBRATED DEFECT CATEGORIES &bull; 6 PER PAGE
+            </p>
           </div>
 
-          {/* Difficulty & Language Dropdown */}
-          <div className="flex items-center gap-3 w-full sm:w-auto font-mono">
-            <select
-              value={selectedDifficulty}
-              onChange={(e) => setSelectedDifficulty(e.target.value)}
-              className="bg-[#121416] border-2 border-white px-4 py-2.5 text-xs font-bold text-white focus:outline-none cursor-pointer uppercase"
+          <div>
+            <Link
+              href="/assessment"
+              className="neu-button-primary px-6 py-3.5 rounded-lg font-bold text-sm tracking-wide uppercase flex items-center space-x-2 group cursor-pointer"
             >
-              {difficulties.map((d) => (
-                <option key={d.key} value={d.key} className="bg-black text-white">
-                  {d.label}
-                </option>
-              ))}
-            </select>
-
-            <select
-              value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="bg-[#121416] border-2 border-white px-4 py-2.5 text-xs font-bold text-white focus:outline-none cursor-pointer uppercase"
-            >
-              {languages.map((l) => (
-                <option key={l.key} value={l.key} className="bg-black text-white">
-                  {l.label}
-                </option>
-              ))}
-            </select>
+              <span>LAUNCH MOCK TEST</span>
+              <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
-        </div>
+        </header>
 
-        {/* Topic Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 font-mono">
-          {topics.map((t) => {
-            const isSelected = selectedTopic === t.key;
-            return (
-              <button
-                key={t.key}
-                onClick={() => setSelectedTopic(t.key)}
-                className={cn(
-                  "px-3.5 py-1.5 text-xs font-bold uppercase transition-none cursor-pointer border-2 whitespace-nowrap",
-                  isSelected
-                    ? "bg-white text-black border-white"
-                    : "bg-[#121416] text-zinc-300 border-white hover:bg-white hover:text-black"
-                )}
+        {/* Filters Section: Soft Beveled Neumorphic Convex */}
+        <section className="neu-convex p-6 flex flex-col gap-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            {/* Search Bar */}
+            <div className="flex-grow relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-500">
+                <Search className="h-4 w-4" />
+              </div>
+              <input
+                type="text"
+                placeholder="SEARCH PROBLEMS, TOPICS, OR KEYWORDS (E.G., 'SUBSETS', 'REVERSE', 'CYCLE')..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="neu-input w-full pl-10 pr-4 py-3 rounded-lg text-sm font-mono focus:ring-0 uppercase"
+              />
+            </div>
+
+            {/* Dropdowns */}
+            <div className="flex gap-4 shrink-0">
+              <select
+                value={selectedDifficulty}
+                onChange={(e) => setSelectedDifficulty(e.target.value)}
+                className="neu-input py-3 px-4 rounded-lg text-sm font-mono appearance-none uppercase text-white cursor-pointer"
               >
-                {t.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+                {difficulties.map((d) => (
+                  <option key={d.key} value={d.key} className="bg-[#1a1b1e] text-white">
+                    {d.label}
+                  </option>
+                ))}
+              </select>
 
-      {/* Showing count indicator */}
-      <div className="flex items-center justify-between text-xs font-mono uppercase px-1">
-        <span>
-          SHOWING <strong>{Math.min(filteredQuestions.length, startIndex + 1)} - {Math.min(filteredQuestions.length, startIndex + ITEMS_PER_PAGE)}</strong> OF <strong>{filteredQuestions.length}</strong> QUESTIONS (PAGE {currentPage} OF {totalPages})
-        </span>
-        {(selectedTopic !== "all" || selectedDifficulty !== "all" || selectedLanguage !== "all" || searchQuery) && (
-          <button
-            onClick={() => {
-              setSelectedTopic("all");
-              setSelectedDifficulty("all");
-              setSelectedLanguage("all");
-              setSelectedDefect("all");
-              setSearchQuery("");
-            }}
-            className="underline uppercase font-bold cursor-pointer hover:bg-white hover:text-black px-2 py-0.5"
-          >
-            RESET FILTERS
-          </button>
-        )}
-      </div>
+              <select
+                value={selectedLanguage}
+                onChange={(e) => setSelectedLanguage(e.target.value)}
+                className="neu-input py-3 px-4 rounded-lg text-sm font-mono appearance-none uppercase text-white cursor-pointer"
+              >
+                {languages.map((l) => (
+                  <option key={l.key} value={l.key} className="bg-[#1a1b1e] text-white">
+                    {l.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-      {/* Questions Grid (6 per page) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {paginatedQuestions.map((q) => {
-          const subData = submissions[q.id];
-          const hasAttempted = !!subData;
-          const score = subData?.result?.overall_score;
-          const isBookmarked = bookmarks.includes(q.id);
-          const defectMeta = getDefectMeta(q.ground_truth.defect_type || q.ground_truth.error_categories[0]);
+          {/* Topic Tags */}
+          <div className="flex flex-wrap gap-2.5 mt-2">
+            {topics.map((t) => {
+              const isSelected = selectedTopic === t.key;
+              return (
+                <button
+                  key={t.key}
+                  type="button"
+                  onClick={() => setSelectedTopic(t.key)}
+                  className={cn(
+                    "neu-button px-3.5 py-1.5 rounded text-xs font-mono uppercase transition-colors cursor-pointer",
+                    isSelected
+                      ? "bg-white text-[#1a1b1e] font-bold"
+                      : "text-gray-400 hover:text-white"
+                  )}
+                >
+                  {t.label}
+                </button>
+              );
+            })}
+          </div>
+        </section>
 
-          return (
-            <div
-              key={q.id}
-              className="p-6 border-4 border-white bg-[#121416] hover:bg-white hover:text-black transition-none flex flex-col justify-between space-y-6 group shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]"
+        {/* Results Status */}
+        <div className="text-xs sm:text-sm font-mono text-gray-400 uppercase tracking-widest flex items-center justify-between">
+          <span>
+            SHOWING <span className="text-white font-bold">{Math.min(filteredQuestions.length, startIndex + 1)} - {Math.min(filteredQuestions.length, startIndex + ITEMS_PER_PAGE)}</span> OF <span className="text-white font-bold">{filteredQuestions.length}</span> QUESTIONS (PAGE {currentPage} OF {totalPages})
+          </span>
+          {(selectedTopic !== "all" || selectedDifficulty !== "all" || selectedLanguage !== "all" || searchQuery) && (
+            <button
+              onClick={() => {
+                setSelectedTopic("all");
+                setSelectedDifficulty("all");
+                setSelectedLanguage("all");
+                setSelectedDefect("all");
+                setSearchQuery("");
+              }}
+              className="text-xs underline uppercase font-bold text-gray-300 hover:text-white cursor-pointer"
             >
-              {/* Header metadata */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-between border-b-2 border-current pb-3 font-mono">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] uppercase font-bold px-2 py-0.5 border border-current">
+              RESET FILTERS
+            </button>
+          )}
+        </div>
+
+        {/* Question Grid: 70/30 Neumorphic Internal Contrast Cards */}
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {paginatedQuestions.map((q) => {
+            const subData = submissions[q.id];
+            const hasAttempted = !!subData;
+            const score = subData?.result?.overall_score;
+            const isBookmarked = bookmarks.includes(q.id);
+            const defectMeta = getDefectMeta(q.ground_truth.defect_type || q.ground_truth.error_categories[0]);
+
+            return (
+              <article
+                key={q.id}
+                className="neu-convex-white flex flex-col p-6 h-full border border-black/5 relative group rounded-xl"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="neu-badge-light px-2 py-1 rounded-sm text-[10px] font-mono text-gray-700 uppercase font-bold">
                       {q.topic.replace("_", " ")}
                     </span>
-                    <div className="flex items-center gap-1">
-                      {getAvailableLanguages(q).map((lang) => (
-                        <span key={lang} className="text-[10px] uppercase font-bold px-1.5 py-0.5 border border-current">
-                          {getLanguageLabel(lang)}
-                        </span>
-                      ))}
-                    </div>
+                    {getAvailableLanguages(q).map((lang) => (
+                      <span key={lang} className="neu-badge-light px-2 py-1 rounded-sm text-[10px] font-mono text-gray-700 uppercase font-bold">
+                        {getLanguageLabel(lang)}
+                      </span>
+                    ))}
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-black uppercase px-2 py-0.5 border border-current">
+                  <div className="flex items-center gap-3">
+                    <span className={cn("text-xs font-black uppercase tracking-wider", getDifficultyColor(q.difficulty))}>
                       {q.difficulty}
                     </span>
                     <button
                       onClick={(e) => handleBookmarkToggle(e, q.id)}
-                      className="p-1 cursor-pointer"
+                      aria-label="Bookmark"
+                      className="text-gray-400 hover:text-gray-800 transition-colors cursor-pointer"
                     >
                       {isBookmarked ? (
-                        <BookmarkCheck className="w-4 h-4 fill-current" />
+                        <BookmarkCheck className="w-5 h-5 fill-gray-900 text-gray-900" />
                       ) : (
-                        <Bookmark className="w-4 h-4" />
+                        <Bookmark className="w-5 h-5" />
                       )}
                     </button>
                   </div>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-black uppercase tracking-tight">
+                <h2 className="text-xl font-bold uppercase tracking-tight mb-3 leading-snug text-gray-900">
                   {q.title}
-                </h3>
+                </h2>
 
-                {/* Defect Taxonomy Badge */}
-                <div>
-                  <span className="text-[10px] font-bold uppercase px-2 py-1 bg-black text-white group-hover:bg-white group-hover:text-black border border-current font-mono">
+                <div className="mb-4">
+                  <span className="inline-block border border-gray-400 px-2 py-0.5 rounded-sm text-[10px] font-mono text-gray-700 uppercase tracking-widest font-bold">
                     {defectMeta.label}
                   </span>
                 </div>
 
-                {/* Snippet preview description */}
-                <p className="text-xs text-zinc-300 group-hover:text-black line-clamp-3 leading-relaxed font-sans">
+                <p className="text-sm text-gray-700 leading-relaxed font-sans flex-grow">
                   {q.problem_statement.description}
                 </p>
-              </div>
 
-              {/* Card Footer with Status & Action */}
-              <div className="pt-4 border-t-2 border-current flex items-center justify-between font-mono">
-                <div>
-                  {hasAttempted ? (
-                    <div className="flex items-center gap-1.5 text-xs font-bold uppercase">
-                      <span>AUDITED:</span>
-                      <span className="font-black underline">
-                        {(score * 10).toFixed(0)}%
-                      </span>
-                    </div>
-                  ) : (
-                    <span className="text-[10px] font-bold uppercase text-zinc-400 group-hover:text-black">
-                      NOT YET AUDITED
-                    </span>
-                  )}
-                </div>
-
-                <Link
-                  href={`/practice/${q.id}`}
-                  className="px-4 py-2 bg-white text-black group-hover:bg-black group-hover:text-white font-black text-xs uppercase transition-none border-2 border-current cursor-pointer"
-                >
-                  <span>{hasAttempted ? "RE-AUDIT" : "AUDIT"} ➔</span>
-                </Link>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Pagination Controls */}
-      {totalPages > 1 && (
-        <div className="p-6 border-4 border-white bg-[#121416] flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
-          <button
-            onClick={() => {
-              setCurrentPage((p) => Math.max(1, p - 1));
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            disabled={currentPage === 1}
-            className="w-full sm:w-auto px-6 py-3 border-2 border-white bg-[#121416] text-white hover:bg-white hover:text-black disabled:opacity-30 disabled:hover:bg-[#121416] disabled:hover:text-white font-black text-xs uppercase transition-none flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            <span>PREVIOUS</span>
-          </button>
-
-          {/* Page numbers */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {getPageNumbers().map((page, idx) => {
-              if (page === "...") {
-                return (
-                  <span key={`ellipsis-${idx}`} className="px-2 text-zinc-500 font-black">
-                    ...
+                <div className="mt-8 pt-4 border-t border-black/10 flex justify-between items-center">
+                  <span className="text-[10px] font-mono text-gray-600 uppercase tracking-widest font-bold">
+                    {hasAttempted ? `AUDITED: ${(score * 10).toFixed(0)}%` : "NOT YET AUDITED"}
                   </span>
-                );
-              }
-              const isCurrent = currentPage === page;
-              return (
-                <button
-                  key={`page-${page}`}
-                  onClick={() => {
-                    setCurrentPage(page as number);
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className={cn(
-                    "w-10 h-10 border-2 font-black text-xs uppercase transition-none cursor-pointer flex items-center justify-center",
-                    isCurrent
-                      ? "bg-white text-black border-white"
-                      : "bg-[#121416] text-zinc-300 border-white hover:bg-white hover:text-black"
-                  )}
-                >
-                  {page}
-                </button>
-              );
-            })}
-          </div>
+                  <Link
+                    href={`/practice/${q.id}`}
+                    className="neu-button-light px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:bg-gray-900 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <span>{hasAttempted ? "RE-AUDIT" : "AUDIT"}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
+        </section>
 
-          <button
-            onClick={() => {
-              setCurrentPage((p) => Math.min(totalPages, p + 1));
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            disabled={currentPage === totalPages}
-            className="w-full sm:w-auto px-6 py-3 border-2 border-white bg-[#121416] text-white hover:bg-white hover:text-black disabled:opacity-30 disabled:hover:bg-[#121416] disabled:hover:text-white font-black text-xs uppercase transition-none flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
-          >
-            <span>NEXT</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      )}
+        {/* Pagination Section: Neumorphic Dark Bar */}
+        {totalPages > 1 && (
+          <section className="neu-convex p-4 mt-8 flex justify-between items-center rounded-xl">
+            <button
+              onClick={() => {
+                setCurrentPage((p) => Math.max(1, p - 1));
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              disabled={currentPage === 1}
+              className="neu-button px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-2 text-gray-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>PREVIOUS</span>
+            </button>
+
+            <div className="hidden sm:flex space-x-2 font-mono text-sm">
+              {getPageNumbers().map((page, idx) => {
+                if (page === "...") {
+                  return (
+                    <span key={`ellipsis-${idx}`} className="w-10 h-10 flex items-center justify-center text-gray-500 font-bold">
+                      ...
+                    </span>
+                  );
+                }
+                const isCurrent = currentPage === page;
+                return (
+                  <button
+                    key={`page-${page}`}
+                    onClick={() => {
+                      setCurrentPage(page as number);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={cn(
+                      "neu-button w-10 h-10 rounded-lg flex items-center justify-center cursor-pointer transition-colors",
+                      isCurrent
+                        ? "bg-white text-[#1a1b1e] font-bold shadow-md"
+                        : "text-gray-400 hover:text-white"
+                    )}
+                  >
+                    {page}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => {
+                setCurrentPage((p) => Math.min(totalPages, p + 1));
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              disabled={currentPage === totalPages}
+              className="neu-button px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-2 text-gray-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            >
+              <span>NEXT</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </section>
+        )}
+      </main>
     </div>
   );
 }
