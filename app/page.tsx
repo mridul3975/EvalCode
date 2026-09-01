@@ -28,14 +28,6 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#121416] text-white font-['Hanken_Grotesk']">
-      {/* Top Marquee Ribbon */}
-      <div className="w-full bg-white text-black border-b-4 border-white py-2 font-black text-xl sm:text-2xl tracking-tighter uppercase overflow-hidden whitespace-nowrap">
-        <div className="animate-marquee px-4 font-mono">
-          <span>AI CODE EVALUATION SIMULATOR /// CALIBRATED FOR ALIGNERR, MINDRIFT & SCALE AI /// 75+ BENCHMARKS LOADED /// AUDIT DEFECTS IN SECONDS /// &nbsp;</span>
-          <span>AI CODE EVALUATION SIMULATOR /// CALIBRATED FOR ALIGNERR, MINDRIFT & SCALE AI /// 75+ BENCHMARKS LOADED /// AUDIT DEFECTS IN SECONDS /// &nbsp;</span>
-        </div>
-      </div>
-
       {/* HERO SECTION: 70/30 Editorial Split */}
       <section className="flex flex-col lg:flex-row w-full border-b-4 border-white">
         {/* Left 70%: Massive Typography & Overview */}

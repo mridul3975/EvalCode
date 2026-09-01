@@ -55,14 +55,6 @@ export default function DashboardPage() {
 
   return (
     <div className="w-full flex flex-col min-h-screen bg-[#121416] text-white">
-      {/* Marquee Banner */}
-      <div className="w-full bg-white text-black border-b-4 border-white py-2 font-['Hanken_Grotesk'] font-black text-xl sm:text-2xl tracking-tighter uppercase overflow-hidden whitespace-nowrap">
-        <div className="animate-marquee px-4">
-          <span>CANDIDATE READINESS PROFILE /// TARGET BENCHMARK 90% /// CURRENT STATUS: {profile.readiness_score >= 90 ? "READY" : "NOT READY"} /// 75+ BENCHMARK PROBLEMS LOADED /// LAUNCH MOCK TEST TO CALIBRATE /// &nbsp;</span>
-          <span>CANDIDATE READINESS PROFILE /// TARGET BENCHMARK 90% /// CURRENT STATUS: {profile.readiness_score >= 90 ? "READY" : "NOT READY"} /// 75+ BENCHMARK PROBLEMS LOADED /// LAUNCH MOCK TEST TO CALIBRATE /// &nbsp;</span>
-        </div>
-      </div>
-
       <div className="max-w-[1600px] mx-auto px-4 sm:px-8 py-8 space-y-12 w-full">
         {/* Top Hero: 70/30 Editorial Acuity Overview */}
         <ReadinessProfileCard profile={profile} />
