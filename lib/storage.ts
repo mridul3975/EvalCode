@@ -30,6 +30,24 @@ function isClient(): boolean {
   return typeof window !== "undefined";
 }
 
+/**
+ * Fetch and sync cloud database profile into local storage
+ */
+export async function syncFromDatabase(): Promise<UserProfileStats> {
+  if (!isClient()) return DEFAULT_PROFILE_STATS;
+  try {
+    const res = await fetch("/api/profile");
+    if (res.ok) {
+      const cloudProfile = await res.json();
+      localStorage.setItem(KEYS.PROFILE, JSON.stringify(cloudProfile));
+      return cloudProfile;
+    }
+  } catch (e) {
+    console.error("Failed to sync profile from Neon DB", e);
+  }
+  return getStoredProfile();
+}
+
 export function getStoredSubmissions(): Record<string, { submission: EvaluationSubmission; result: EvaluationResult }> {
   if (!isClient()) return {};
   try {
@@ -58,6 +76,13 @@ export function saveStoredSubmission(
     const profile = getStoredProfile();
     const updatedProfile = updateProfileWithEvaluation(profile, result, false, topic, defect);
     saveStoredProfile(updatedProfile);
+
+    // Asynchronously sync with Neon Postgres backend
+    fetch("/api/submissions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ questionId, submission, result, topic, defect }),
+    }).catch((err) => console.error("Async submission cloud sync failed:", err));
   } catch (e) {
     console.error("Failed to save submission to localStorage", e);
   }
@@ -116,6 +141,13 @@ export function saveCompletedAssessment(session: AssessmentSession): void {
       });
       saveStoredProfile(profile);
     }
+
+    // Asynchronously sync mock session with Neon Postgres backend
+    fetch("/api/assessment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(session),
+    }).catch((err) => console.error("Async assessment cloud sync failed:", err));
   } catch (e) {
     console.error("Failed to save completed assessment", e);
   }
@@ -136,6 +168,13 @@ export function saveStoredProfile(profile: UserProfileStats): void {
   if (!isClient()) return;
   try {
     localStorage.setItem(KEYS.PROFILE, JSON.stringify(profile));
+
+    // Asynchronously sync profile with Neon Postgres backend
+    fetch("/api/profile", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(profile),
+    }).catch((err) => console.error("Async profile cloud sync failed:", err));
   } catch (e) {
     console.error("Failed to save profile to localStorage", e);
   }
@@ -159,6 +198,14 @@ export function toggleBookmark(questionId: string): string[] {
       ? current.filter((id) => id !== questionId)
       : [...current, questionId];
     localStorage.setItem(KEYS.BOOKMARKS, JSON.stringify(updated));
+
+    // Asynchronously sync bookmark toggle with Neon Postgres backend
+    fetch("/api/bookmarks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ questionId }),
+    }).catch((err) => console.error("Async bookmark cloud sync failed:", err));
+
     return updated;
   } catch (e) {
     return [];
@@ -181,6 +228,12 @@ export function clearAllProgress(): void {
       "evalforge_bookmarks",
     ];
     allKeys.forEach((k) => localStorage.removeItem(k));
+
+    // Also reset in cloud Neon DB
+    fetch("/api/profile", { method: "DELETE" }).catch(() => {});
+    fetch("/api/submissions", { method: "DELETE" }).catch(() => {});
+    fetch("/api/assessment", { method: "DELETE" }).catch(() => {});
+    fetch("/api/bookmarks", { method: "DELETE" }).catch(() => {});
   } catch (e) {
     console.error("Failed to clear progress from localStorage", e);
   }

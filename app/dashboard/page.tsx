@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { getStoredProfile, getAssessmentHistory, getStoredSubmissions } from "@/lib/storage";
+import { getStoredProfile, getAssessmentHistory, getStoredSubmissions, syncFromDatabase } from "@/lib/storage";
 import { UserProfileStats } from "@/types/submission";
 import { ReadinessProfileCard, MockHistoryTable } from "@/components/dashboard/ReadinessProfileCard";
 import { CompetencyRadarChart } from "@/components/infographics/CompetencyRadarChart";
@@ -36,6 +36,13 @@ export default function DashboardPage() {
   useEffect(() => {
     reloadData();
     setIsLoading(false);
+
+    // Sync cloud profile in background
+    syncFromDatabase().then((cloudProf) => {
+      if (cloudProf) {
+        setProfile(cloudProf);
+      }
+    });
   }, []);
 
   function handleReset() {
