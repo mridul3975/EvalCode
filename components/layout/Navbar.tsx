@@ -15,6 +15,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+import { UserDropdown } from "@/components/auth/UserDropdown";
+
 export function Navbar() {
   const pathname = usePathname();
   const [profile, setProfile] = useState<UserProfileStats | null>(null);
@@ -77,7 +79,7 @@ export function Navbar() {
           </nav>
         </div>
 
-        {/* Right side stats badge */}
+        {/* Right side stats badge & Auth */}
         <div className="flex items-center gap-3">
           {/* Readiness Score pill */}
           {profile && (
@@ -103,12 +105,8 @@ export function Navbar() {
             </div>
           )}
 
-          <Link
-            href="/practice"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs transition-colors shadow-sm"
-          >
-            Review Code
-          </Link>
+          {/* User Auth Dropdown */}
+          <UserDropdown />
         </div>
       </div>
     </header>
