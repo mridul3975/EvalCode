@@ -36,37 +36,54 @@ h1, h2, h3, h4, .display-text {
 }
 
 /* =========================================================================
-   Obsidian Tactile Design System Utilities (High-Contrast Monochrome)
+   Obsidian Tactile & Neumorphic Design System Utilities
    ========================================================================= */
 
-/* 1. Extruded (Raised Neumorphic Surface) */
-.obsidian-card {
-  background-color: #1a1c1e;
-  border-radius: 1.5rem;
-  box-shadow: 
-    -4px -4px 12px rgba(255, 255, 255, 0.035), 
-    6px 6px 16px rgba(0, 0, 0, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.obsidian-card:hover {
-  box-shadow: 
-    -6px -6px 16px rgba(255, 255, 255, 0.055), 
-    8px 8px 22px rgba(0, 0, 0, 0.75);
-}
-
-/* 2. Inset (Sunken / Recessed Neumorphic Surface) */
-.obsidian-inset {
+/* 1. Extruded Data Neumorphism */
+.neu-extruded {
   background-color: #121416;
   border-radius: 0.75rem;
-  box-shadow: 
-    inset 4px 4px 8px rgba(0, 0, 0, 0.7), 
-    inset -3px -3px 6px rgba(255, 255, 255, 0.035);
+  box-shadow: -4px -4px 6px rgba(56, 57, 60, 0.5), 4px 4px 10px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-extruded:hover {
+  box-shadow: -6px -6px 10px rgba(56, 57, 60, 0.65), 6px 6px 14px rgba(0, 0, 0, 0.9);
+}
+
+/* 2. Inset Neumorphism */
+.neu-inset {
+  background-color: #121416;
+  border-radius: 0.75rem;
+  box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.8), inset -2px -2px 4px rgba(56, 57, 60, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-/* 3. Primary Crisp White Button */
+/* 3. 70/30 Neumorphic (Monochrome Matte) Contrast Card */
+.contrast-card {
+  background-color: #ffffff !important;
+  color: #121416 !important;
+  box-shadow: -4px -4px 8px rgba(255, 255, 255, 0.1), 8px 8px 16px rgba(0, 0, 0, 0.8);
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.contrast-card-inset {
+  background-color: #f8f9fa !important;
+  color: #121416 !important;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1), inset -2px -2px 4px rgba(255, 255, 255, 0.5);
+  border-radius: 0.5rem;
+}
+
+.code-inset {
+  background-color: #121416 !important;
+  color: #e2e2e5 !important;
+  box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.8), inset -2px -2px 4px rgba(56, 57, 60, 0.5);
+  border-radius: 0.5rem;
+}
+
+/* Primary Crisp White Button */
 .obsidian-btn-primary {
   background-color: #ffffff;
   color: #121416;
@@ -88,16 +105,14 @@ h1, h2, h3, h4, .display-text {
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
-/* 4. Secondary Extruded Button */
+/* Secondary Extruded Button */
 .obsidian-btn-secondary {
   background-color: #1e2022;
   color: #e2e2e5;
   font-family: 'Hanken Grotesk', sans-serif;
   font-weight: 600;
   border-radius: 0.75rem;
-  box-shadow: 
-    -3px -3px 8px rgba(255, 255, 255, 0.03), 
-    4px 4px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: -3px -3px 8px rgba(255, 255, 255, 0.03), 4px 4px 10px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.04);
   transition: all 0.2s ease;
 }
@@ -105,18 +120,30 @@ h1, h2, h3, h4, .display-text {
 .obsidian-btn-secondary:hover {
   background-color: #282a2c;
   color: #ffffff;
-  box-shadow: 
-    -4px -4px 10px rgba(255, 255, 255, 0.045), 
-    6px 6px 14px rgba(0, 0, 0, 0.7);
+  box-shadow: -4px -4px 10px rgba(255, 255, 255, 0.045), 6px 6px 14px rgba(0, 0, 0, 0.7);
 }
 
-.obsidian-btn-secondary:active {
-  box-shadow: 
-    inset 3px 3px 6px rgba(0, 0, 0, 0.6), 
-    inset -2px -2px 4px rgba(255, 255, 255, 0.03);
+/* Obsidian Card & Inset Aliases */
+.obsidian-card {
+  background-color: #1a1c1e;
+  border-radius: 1.5rem;
+  box-shadow: -4px -4px 12px rgba(255, 255, 255, 0.035), 6px 6px 16px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 5. Status Badges */
+.obsidian-card:hover {
+  box-shadow: -6px -6px 16px rgba(255, 255, 255, 0.055), 8px 8px 22px rgba(0, 0, 0, 0.75);
+}
+
+.obsidian-inset {
+  background-color: #121416;
+  border-radius: 0.75rem;
+  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.7), inset -3px -3px 6px rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+/* Status Badges */
 .obsidian-chip-critical {
   background-color: #a90219;
   color: #ffdad6;
@@ -152,25 +179,10 @@ h1, h2, h3, h4, .display-text {
   border-radius: 0.375rem;
 }
 
-/* =========================================================================
-   70/30 Neumorphic (Internal Contrast) Utilities for Practice Catalog
-   ========================================================================= */
-
-.neu-convex {
-  background: #1a1b1e;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -5px -5px 10px rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.neu-convex:hover {
-  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5), -8px -8px 15px rgba(255, 255, 255, 0.05);
-}
-
-/* Crisp Light Structural Cards with Dual Shadows */
+/* 70/30 Neumorphic Practice Catalog Cards */
 .neu-convex-white {
-  background-color: #f3f4f6 !important;
-  color: #111827 !important;
+  background-color: #ffffff !important;
+  color: #121416 !important;
   box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5), -6px -6px 12px rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   transition: all 0.3s ease;
@@ -180,51 +192,22 @@ h1, h2, h3, h4, .display-text {
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5), -10px -10px 20px rgba(255, 255, 255, 0.05);
 }
 
-.neu-button {
-  background: #1a1b1e;
-  color: #ffffff;
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), -4px -4px 8px rgba(255, 255, 255, 0.05);
-  transition: all 0.15s ease-in-out;
-}
-
-.neu-button:active {
-  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.05);
+.neu-badge-light {
+  background-color: #f8f9fa;
+  color: #374151;
+  box-shadow: 2px 2px 4px #d1d5db, -2px -2px 4px #ffffff;
 }
 
 .neu-button-light {
-  background-color: #f3f4f6;
-  color: #111827;
+  background-color: #ffffff;
+  color: #121416;
   box-shadow: 4px 4px 8px #d1d5db, -4px -4px 8px #ffffff;
   transition: all 0.15s ease-in-out;
 }
 
-.neu-button-light:active {
-  box-shadow: inset 4px 4px 8px #d1d5db, inset -4px -4px 8px #ffffff;
-}
-
-.neu-button-primary {
-  background-color: #ffffff;
-  color: #1a1b1e;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
-  transition: all 0.15s ease-in-out;
-}
-
-.neu-button-primary:hover {
-  background-color: #e0e0e0;
-}
-
-.neu-input {
-  background: #1a1b1e;
+.neu-button-light:hover {
+  background-color: #121416;
   color: #ffffff;
-  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.5), inset -3px -3px 6px rgba(255, 255, 255, 0.05);
-  border: none;
-  outline: none;
-}
-
-.neu-badge-light {
-  background-color: #f3f4f6;
-  color: #374151;
-  box-shadow: 2px 2px 4px #d1d5db, -2px -2px 4px #ffffff;
 }
 
 /* Technical scrollbar */

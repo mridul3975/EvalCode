@@ -1,38 +1,30 @@
 "use client";
 
 import React, { useState } from "react";
-import { Copy, Check, Sparkles } from "lucide-react";
 import { QuestionLanguage } from "@/types/question";
 import { getLanguageLabel } from "@/lib/language-utils";
 import { cn } from "@/lib/utils";
-
-export interface CodeViewerProps {
-  code: string;
-  language: string;
-  highlightLines?: number[];
-  onSelectLine?: (line: number) => void;
-  title?: string;
-  availableLanguages?: QuestionLanguage[];
-  selectedLanguage?: QuestionLanguage;
-  onLanguageChange?: (lang: QuestionLanguage) => void;
-}
+import { Copy, Check, Code2, Terminal } from "lucide-react";
 
 export function CodeViewer({
   code,
-  language,
-  highlightLines = [],
+  language = "PYTHON",
   onSelectLine,
-  title = "AI-GENERATED CODE SNIPPET (UNDER REVIEW)",
   availableLanguages = [],
   selectedLanguage,
   onLanguageChange,
-}: CodeViewerProps) {
+}: {
+  code: string;
+  language?: string;
+  onSelectLine?: (line: number) => void;
+  availableLanguages?: QuestionLanguage[];
+  selectedLanguage?: QuestionLanguage;
+  onLanguageChange?: (lang: QuestionLanguage) => void;
+}) {
   const [copied, setCopied] = useState(false);
   const [hoveredLine, setHoveredLine] = useState<number | null>(null);
-  const [lastCitedLine, setLastCitedLine] = useState<number | null>(null);
-  const [fontSize, setFontSize] = useState<"sm" | "base">("sm");
 
-  const lines = code.split("\n");
+  const lines = code.trim().split("\n");
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -40,82 +32,54 @@ export function CodeViewer({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleLineClick = (lineNum: number) => {
-    setLastCitedLine(lineNum);
-    onSelectLine?.(lineNum);
-    setTimeout(() => setLastCitedLine(null), 2500);
-  };
-
-  const renderSyntaxLine = (text: string) => {
-    if (!text.trim()) return " ";
-    if (text.trim().startsWith("#") || text.trim().startsWith("//")) {
-      return <span className="text-zinc-500 italic">{text}</span>;
-    }
-    return text;
-  };
-
   return (
-    <div className="flex flex-col h-full bg-[#0a0b0d] border-4 border-white text-white font-mono">
-      {/* Code Header Bar */}
-      <div className="flex items-center justify-between px-4 py-3 border-b-4 border-white bg-[#121416]">
-        <div className="flex items-center gap-3">
-          <div className="w-2.5 h-2.5 bg-white" />
-          <span className="text-xs font-black uppercase text-white font-['Hanken_Grotesk']">{title}</span>
-          <span className="text-[10px] font-bold text-black bg-white px-2 py-0.5 uppercase">
+    <div className="neu-extruded bg-[#121416] rounded-xl p-6 flex flex-col gap-4 font-mono text-white h-full border border-white/5 shadow-2xl">
+      {/* Header */}
+      <div className="flex justify-between items-center border-b border-[rgba(255,255,255,0.08)] pb-3">
+        <div className="flex items-center gap-2.5">
+          <span className="w-3 h-3 bg-white rounded-sm inline-block shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+          <h3 className="text-xs font-bold uppercase text-white font-mono tracking-wider">
+            AI-GENERATED CODE SNIPPET (UNDER REVIEW)
+          </h3>
+          <span className="bg-[#282a2c] px-2 py-0.5 rounded text-[10px] font-mono text-[#b9cbc1] uppercase font-bold">
             {language}
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
-          {lastCitedLine && (
-            <span className="text-xs text-white font-bold animate-pulse flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5" /> Cited Line {lastCitedLine}!
-            </span>
+        <button
+          onClick={handleCopy}
+          className="neu-extruded bg-[#1e2022] p-1.5 px-3 flex items-center gap-1.5 rounded-lg text-xs font-mono font-bold uppercase text-[#b9cbc1] hover:text-white transition-colors cursor-pointer"
+        >
+          {copied ? (
+            <>
+              <Check className="w-3.5 h-3.5 text-white" />
+              <span>COPIED</span>
+            </>
+          ) : (
+            <>
+              <Copy className="w-3.5 h-3.5" />
+              <span>COPY</span>
+            </>
           )}
-
-          <button
-            onClick={() => setFontSize(fontSize === "sm" ? "base" : "sm")}
-            title="Toggle Font Size"
-            className="text-zinc-400 hover:text-white p-1 text-xs font-bold cursor-pointer"
-          >
-            {fontSize === "sm" ? "A+" : "A-"}
-          </button>
-
-          <button
-            onClick={handleCopy}
-            className="flex items-center gap-1.5 text-xs text-black bg-white hover:bg-black hover:text-white px-3 py-1 font-bold uppercase border-2 border-white transition-none cursor-pointer"
-          >
-            {copied ? (
-              <>
-                <Check className="w-3.5 h-3.5" />
-                <span>COPIED</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-3.5 h-3.5" />
-                <span>COPY</span>
-              </>
-            )}
-          </button>
-        </div>
+        </button>
       </div>
 
-      {/* Language Selector Bar */}
-      {availableLanguages.length > 1 && onLanguageChange && (
-        <div className="flex items-center gap-2 px-4 py-2 border-b-2 border-white bg-[#121416]">
-          <span className="text-[10px] uppercase font-bold text-zinc-400 mr-1">LANG:</span>
+      {/* Language Switcher Bar if multiple available */}
+      {availableLanguages.length > 1 && onLanguageChange && selectedLanguage && (
+        <div className="flex items-center gap-2 font-mono text-xs">
+          <span className="text-gray-500 uppercase text-[10px]">SELECT LANGUAGE:</span>
           {availableLanguages.map((lang) => {
-            const isActive = lang === selectedLanguage;
+            const isSelected = selectedLanguage === lang;
             return (
               <button
                 key={lang}
                 type="button"
                 onClick={() => onLanguageChange(lang)}
                 className={cn(
-                  "px-3 py-0.5 text-xs font-bold uppercase transition-none cursor-pointer border-2",
-                  isActive
-                    ? "bg-white text-black border-white"
-                    : "border-transparent text-zinc-400 hover:bg-white hover:text-black hover:border-white"
+                  "px-2.5 py-1 rounded text-[10px] font-bold uppercase transition-colors cursor-pointer",
+                  isSelected
+                    ? "bg-white text-black font-black"
+                    : "bg-[#1e2022] text-gray-400 hover:text-white"
                 )}
               >
                 {getLanguageLabel(lang)}
@@ -125,64 +89,38 @@ export function CodeViewer({
         </div>
       )}
 
-      {/* Code Content with Line Numbers */}
-      <div
-        className={cn(
-          "flex-1 overflow-auto p-4 leading-relaxed",
-          fontSize === "sm" ? "text-xs" : "text-sm"
-        )}
-      >
-        <div className="min-w-full inline-block">
-          {lines.map((line, idx) => {
-            const lineNum = idx + 1;
-            const isHighlighted = highlightLines.includes(lineNum);
-            const isHovered = hoveredLine === lineNum;
-            const isJustCited = lastCitedLine === lineNum;
-
-            return (
-              <div
-                key={lineNum}
-                onMouseEnter={() => setHoveredLine(lineNum)}
-                onMouseLeave={() => setHoveredLine(null)}
-                onClick={() => handleLineClick(lineNum)}
-                className={cn(
-                  "flex items-center gap-4 py-0.5 px-2 transition-none cursor-pointer",
-                  isJustCited
-                    ? "bg-white text-black font-bold"
-                    : isHighlighted
-                    ? "bg-rose-950 text-rose-200 border-l-4 border-rose-500"
-                    : isHovered
-                    ? "bg-zinc-800 text-white"
-                    : "text-zinc-300"
-                )}
-              >
-                {/* Line Number Gutter */}
-                <span
+      {/* Inset Code Editor Block */}
+      <div className="code-inset rounded-lg p-4 overflow-x-auto font-mono text-xs sm:text-sm leading-relaxed border border-black/50">
+        <pre className="text-zinc-200">
+          <code>
+            {lines.map((lineText, index) => {
+              const lineNum = index + 1;
+              const isHovered = hoveredLine === lineNum;
+              return (
+                <div
+                  key={lineNum}
+                  onClick={() => onSelectLine && onSelectLine(lineNum)}
+                  onMouseEnter={() => setHoveredLine(lineNum)}
+                  onMouseLeave={() => setHoveredLine(null)}
                   className={cn(
-                    "w-7 text-right select-none text-[11px] shrink-0 font-bold",
-                    isJustCited
-                      ? "text-black"
-                      : isHovered
-                      ? "text-white"
-                      : "text-zinc-600"
+                    "flex items-center group py-0.5 px-2 rounded transition-colors cursor-pointer select-none",
+                    isHovered ? "bg-[#282a2c] text-white" : "hover:bg-[#1e2022]"
                   )}
+                  title="Click to cite this line number in evaluation form"
                 >
-                  {lineNum}
-                </span>
-
-                {/* Line Text */}
-                <span className="whitespace-pre flex-1 font-mono">
-                  {renderSyntaxLine(line)}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+                  <span className="text-zinc-500 select-none w-8 text-right pr-4 shrink-0 font-mono text-xs">
+                    {lineNum}
+                  </span>
+                  <span className="flex-1 font-mono tracking-wide">{lineText || " "}</span>
+                </div>
+              );
+            })}
+          </code>
+        </pre>
       </div>
 
-      {/* Code Footer Hint */}
-      <div className="px-4 py-2 bg-[#121416] border-t-2 border-white flex items-center justify-between text-[10px] text-zinc-400 font-bold uppercase">
-        <span>CLICK ANY LINE ABOVE TO CITE IN AUDIT</span>
+      <div className="flex justify-between items-center text-[10px] font-mono text-[#83958c] pt-1">
+        <span>CLICK ANY LINE ABOVE TO CITE IN AUDIT FORM</span>
         <span>{lines.length} LINES</span>
       </div>
     </div>

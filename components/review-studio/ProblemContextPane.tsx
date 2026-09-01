@@ -4,181 +4,151 @@ import React, { useState } from "react";
 import { QuestionItem, QuestionLanguage } from "@/types/question";
 import { getLanguageLabel } from "@/lib/language-utils";
 import { cn } from "@/lib/utils";
-import {
-  BookOpen,
-  Sparkles,
-  AlertCircle,
-  Clock,
-  Database,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+import { BookOpen, Brain } from "lucide-react";
 
-export function ProblemContextPane({ question, selectedLanguage }: { question: QuestionItem; selectedLanguage?: QuestionLanguage }) {
-  const [activeTab, setActiveTab] = useState<"statement" | "explanation">("statement");
-  const [isExplanationExpanded, setIsExplanationExpanded] = useState(true);
+export function ProblemContextPane({
+  question,
+  selectedLanguage = "python",
+}: {
+  question: QuestionItem;
+  selectedLanguage?: QuestionLanguage;
+}) {
+  const [activeTab, setActiveTab] = useState<"spec" | "commentary">("spec");
 
-  const problem = question.problem_statement;
-  const ai = question.ai_response;
+  const topicLabel = question.topic.replace("_", " ").toUpperCase();
+  const diffColor =
+    question.difficulty === "easy"
+      ? "text-emerald-700 bg-emerald-50 border-emerald-300"
+      : question.difficulty === "medium"
+      ? "text-amber-700 bg-amber-50 border-amber-300"
+      : "text-rose-700 bg-rose-50 border-rose-300";
 
   return (
-    <div className="flex flex-col h-full bg-[#121416] border-4 border-white text-white font-['Hanken_Grotesk']">
-      {/* Top Tab Bar */}
-      <div className="flex items-center justify-between border-b-4 border-white bg-[#121416] px-4 py-3">
-        <div className="flex items-center gap-2">
+    <div className="contrast-card rounded-xl p-6 sm:p-8 flex flex-col gap-6 font-['Hanken_Grotesk'] text-[#121416] h-full shadow-xl">
+      {/* 70/30 Contrast Light Spec Header Tabs */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-300 pb-3">
+        <div className="flex gap-4 font-mono text-xs font-bold uppercase tracking-wider">
           <button
-            onClick={() => setActiveTab("statement")}
+            type="button"
+            onClick={() => setActiveTab("spec")}
             className={cn(
-              "flex items-center gap-2 px-3 py-1.5 text-xs font-black uppercase transition-none cursor-pointer border-2",
-              activeTab === "statement"
-                ? "bg-white text-black border-white"
-                : "border-transparent text-zinc-300 hover:bg-white hover:text-black hover:border-white"
+              "flex items-center gap-2 pb-2 transition-colors cursor-pointer border-b-2",
+              activeTab === "spec"
+                ? "border-[#121416] text-[#121416] font-black"
+                : "border-transparent text-gray-500 hover:text-[#121416]"
             )}
           >
-            <BookOpen className="w-3.5 h-3.5" />
+            <BookOpen className="w-4 h-4" />
             <span>SPECIFICATION</span>
           </button>
 
           <button
-            onClick={() => setActiveTab("explanation")}
+            type="button"
+            onClick={() => setActiveTab("commentary")}
             className={cn(
-              "flex items-center gap-2 px-3 py-1.5 text-xs font-black uppercase transition-none cursor-pointer border-2",
-              activeTab === "explanation"
-                ? "bg-white text-black border-white"
-                : "border-transparent text-zinc-300 hover:bg-white hover:text-black hover:border-white"
+              "flex items-center gap-2 pb-2 transition-colors cursor-pointer border-b-2",
+              activeTab === "commentary"
+                ? "border-[#121416] text-[#121416] font-black"
+                : "border-transparent text-gray-500 hover:text-[#121416]"
             )}
           >
-            <Sparkles className="w-3.5 h-3.5" />
+            <Brain className="w-4 h-4" />
             <span>AI COMMENTARY</span>
           </button>
         </div>
 
-        <div className="flex items-center gap-2 font-mono">
-          <span className="text-[10px] font-bold uppercase px-2 py-0.5 border border-white">
-            {question.topic.replace("_", " ")}
+        <div className="flex items-center gap-2 font-mono text-[10px]">
+          <span className="border border-gray-300 px-2.5 py-1 rounded-md uppercase font-bold text-gray-600 bg-gray-50">
+            {topicLabel}
           </span>
-          <span className="text-[10px] font-black uppercase px-2 py-0.5 bg-white text-black border border-white">
+          <span className={cn("border px-2.5 py-1 rounded-md uppercase font-bold", diffColor)}>
             {question.difficulty}
           </span>
         </div>
       </div>
 
-      {/* Content Body */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 text-sm text-zinc-200">
-        {activeTab === "statement" ? (
-          <>
-            {/* Title & Description */}
-            <div className="space-y-3">
-              <h1 className="text-2xl font-black uppercase tracking-tight text-white">
-                {question.title}
-              </h1>
-              <div className="whitespace-pre-wrap leading-relaxed text-zinc-300 text-xs sm:text-sm font-sans">
-                {problem.description}
-              </div>
-            </div>
+      {activeTab === "spec" ? (
+        <div className="space-y-6 flex-1">
+          {/* Problem Title & Description */}
+          <div>
+            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#121416] mb-3">
+              {question.title}
+            </h2>
+            <p className="text-sm sm:text-base text-gray-800 leading-relaxed font-sans font-medium">
+              {question.problem_statement.description}
+            </p>
+          </div>
 
-            {/* Examples */}
-            {problem.examples && problem.examples.length > 0 && (
-              <div className="space-y-4 pt-2">
-                <span className="text-xs font-black uppercase tracking-widest text-white block border-b-2 border-white pb-1 font-mono">
-                  EXAMPLE TEST CASES
-                </span>
-                {problem.examples.map((ex, idx) => (
+          {/* Example Test Cases */}
+          {question.problem_statement.examples.length > 0 && (
+            <div>
+              <h3 className="text-xs font-mono font-bold text-gray-600 uppercase tracking-wider mb-2">
+                EXAMPLE TEST CASES
+              </h3>
+              <div className="space-y-2">
+                {question.problem_statement.examples.map((ex, i) => (
                   <div
-                    key={idx}
-                    className="p-4 border-2 border-white bg-[#0a0b0d] text-xs font-mono space-y-2"
+                    key={i}
+                    className="contrast-card-inset p-4 rounded-lg font-mono text-xs text-gray-800 space-y-1.5 border border-gray-200"
                   >
-                    <div className="flex items-start gap-2">
-                      <span className="text-zinc-500 font-bold uppercase w-16 shrink-0">Input:</span>
-                      <span className="text-white select-all font-bold">{ex.input}</span>
+                    <div className="grid grid-cols-[80px_1fr] gap-2">
+                      <span className="text-gray-500 font-bold">INPUT:</span>
+                      <span className="font-semibold">{ex.input}</span>
                     </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-zinc-500 font-bold uppercase w-16 shrink-0">Output:</span>
-                      <span className="text-white select-all font-bold">{ex.output}</span>
+                    <div className="grid grid-cols-[80px_1fr] gap-2">
+                      <span className="text-gray-500 font-bold">OUTPUT:</span>
+                      <span className="font-semibold text-gray-900">{ex.output}</span>
                     </div>
                     {ex.explanation && (
-                      <div className="text-zinc-400 font-sans text-xs pt-2 border-t border-zinc-800">
-                        <strong className="text-white font-mono uppercase text-[10px]">Note: </strong>
-                        {ex.explanation}
+                      <div className="text-[11px] text-gray-600 font-sans italic pt-1 border-t border-gray-200 mt-1">
+                        Note: {ex.explanation}
                       </div>
                     )}
                   </div>
                 ))}
               </div>
-            )}
-
-            {/* Constraints */}
-            {problem.constraints && problem.constraints.length > 0 && (
-              <div className="space-y-3 pt-2">
-                <span className="text-xs font-black uppercase tracking-widest text-white block border-b-2 border-white pb-1 font-mono">
-                  CONSTRAINTS & INVARIANTS
-                </span>
-                <div className="p-4 border-2 border-white bg-[#0a0b0d]">
-                  <ul className="list-disc list-inside space-y-1.5 text-xs text-zinc-300 pl-1 font-mono">
-                    {problem.constraints.map((c, idx) => (
-                      <li key={idx}>
-                        <span className="text-white">{c}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )}
-          </>
-        ) : (
-          /* AI Explanation Tab */
-          <div className="space-y-6">
-            <div className="p-6 border-4 border-white bg-[#0a0b0d] space-y-4">
-              <div className="flex items-center justify-between border-b-2 border-white pb-2">
-                <span className="text-xs font-black uppercase tracking-widest text-white">
-                  AI NATURAL LANGUAGE COMMENTARY
-                </span>
-                <button
-                  onClick={() => setIsExplanationExpanded(!isExplanationExpanded)}
-                  className="text-zinc-400 hover:text-white p-1 cursor-pointer"
-                >
-                  {isExplanationExpanded ? (
-                    <ChevronUp className="w-4 h-4" />
-                  ) : (
-                    <ChevronDown className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-
-              {isExplanationExpanded && (
-                <div className="text-xs text-zinc-200 leading-relaxed font-sans p-4 border border-zinc-700 bg-[#121416]">
-                  {ai.stated_explanation}
-                </div>
-              )}
             </div>
+          )}
 
-            {/* AI Claimed Complexities */}
-            <div className="grid grid-cols-2 gap-4 font-mono">
-              <div className="p-4 border-2 border-white bg-[#0a0b0d] flex flex-col gap-1">
-                <span className="text-[10px] uppercase font-bold text-zinc-400">
-                  AI CLAIMED TIME
-                </span>
-                <span className="text-lg font-black text-white">
-                  {ai.stated_time_complexity}
-                </span>
-              </div>
-
-              <div className="p-4 border-2 border-white bg-[#0a0b0d] flex flex-col gap-1">
-                <span className="text-[10px] uppercase font-bold text-zinc-400">
-                  AI CLAIMED SPACE
-                </span>
-                <span className="text-lg font-black text-white">
-                  {ai.stated_space_complexity}
-                </span>
+          {/* Constraints & Invariants */}
+          {question.problem_statement.constraints.length > 0 && (
+            <div>
+              <h3 className="text-xs font-mono font-bold text-gray-600 uppercase tracking-wider mb-2">
+                CONSTRAINTS &amp; INVARIANTS
+              </h3>
+              <div className="contrast-card-inset p-4 rounded-lg font-mono text-xs text-gray-800 border border-gray-200">
+                <ul className="list-disc pl-4 space-y-1">
+                  {question.problem_statement.constraints.map((c, idx) => (
+                    <li key={idx} className="font-semibold">{c}</li>
+                  ))}
+                </ul>
               </div>
             </div>
-
-            <div className="p-4 border-2 border-white bg-white text-black text-xs font-mono leading-relaxed">
-              <strong>AUDITING DIRECTIVE:</strong> Read the commentary skeptically. AI models frequently describe algorithms they did not actually implement in the code.
+          )}
+        </div>
+      ) : (
+        /* AI Commentary Tab */
+        <div className="space-y-4 flex-1 font-mono text-xs text-gray-800">
+          <div className="contrast-card-inset p-4 rounded-lg space-y-2 border border-gray-200">
+            <span className="text-xs font-bold text-gray-600 uppercase block">
+              AI MODEL CLAIMED COMPLEXITY
+            </span>
+            <div className="grid grid-cols-2 gap-2 text-gray-900 font-bold">
+              <div>Time: {question.ai_response.stated_time_complexity || "O(N)"}</div>
+              <div>Space: {question.ai_response.stated_space_complexity || "O(1)"}</div>
             </div>
           </div>
-        )}
-      </div>
+
+          <div className="contrast-card-inset p-4 rounded-lg space-y-2 border border-gray-200">
+            <span className="text-xs font-bold text-gray-600 uppercase block">
+              AI MODEL NATURAL LANGUAGE EXPLANATION
+            </span>
+            <p className="text-sm font-sans text-gray-800 leading-relaxed">
+              {question.ai_response.stated_explanation}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
