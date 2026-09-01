@@ -113,7 +113,7 @@ export default function ReviewStudioPage() {
       : undefined;
 
   return (
-    <div className="min-h-screen bg-[#121416] text-[#e2e2e5] flex flex-col font-['Hanken_Grotesk'] antialiased">
+    <div className="w-full flex-1 flex flex-col bg-[#121416] text-[#e2e2e5] font-['Hanken_Grotesk'] antialiased">
       {/* Sub-Header Toolbar */}
       <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-[rgba(255,255,255,0.08)]">
         <div className="flex items-center gap-3 flex-wrap">
@@ -180,12 +180,12 @@ export default function ReviewStudioPage() {
       </div>
 
       {/* Main Responsive Grid Canvas */}
-      <main className="flex-grow w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+      <main className="flex-grow w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-10 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 pb-16">
         {/* Left Column: Problem Spec & Code Snippet */}
         <div
           className={cn(
-            "flex flex-col gap-6 sm:gap-8",
-            mobileTab === "code" ? "block" : "hidden lg:flex"
+            "flex-col gap-6 sm:gap-8",
+            mobileTab === "code" ? "flex" : "hidden lg:flex"
           )}
         >
           <ProblemContextPane question={question} selectedLanguage={selectedLanguage} />
@@ -202,8 +202,8 @@ export default function ReviewStudioPage() {
         {/* Right Column: Audit Form or Discrepancy Matrix */}
         <div
           className={cn(
-            "flex flex-col h-full",
-            mobileTab === "form" ? "block" : "hidden lg:flex"
+            "flex-col",
+            mobileTab === "form" ? "flex" : "hidden lg:flex"
           )}
         >
           {submission && result ? (
