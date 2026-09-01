@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { QuestionItem, Verdict, IssueSeverity } from "@/types/question";
 import { EvaluationSubmission, ReportedBug, FailingTestCase } from "@/types/submission";
-import { FormFieldWrapper, VerdictToggleGroup, ComplexityPicker } from "@/components/boneyard/FormWrappers";
 import { cn } from "@/lib/utils";
 import {
   Bug,
@@ -14,10 +13,6 @@ import {
   Trash2,
   Send,
   RotateCcw,
-  Sparkles,
-  Info,
-  Check,
-  Zap,
 } from "lucide-react";
 
 export interface EvaluationFormProps {
@@ -76,7 +71,6 @@ export function EvaluationForm({
     initialValues?.suggested_fix || ""
   );
 
-  // When user clicks a line in code viewer, populate latest empty bug line reference
   useEffect(() => {
     if (onLineCiteRequested !== undefined && onLineCiteRequested !== null) {
       setReportedBugs((prev) => {
@@ -96,7 +90,6 @@ export function EvaluationForm({
     }
   }, [onLineCiteRequested]);
 
-  // Handlers for dynamic bug rows
   const addBugRow = () => {
     setReportedBugs((prev) => [
       ...prev,
@@ -116,7 +109,6 @@ export function EvaluationForm({
     });
   };
 
-  // Handlers for dynamic test rows
   const addTestRow = () => {
     setFailingTests((prev) => [...prev, { input: "", expected: "", actual: "" }]);
   };
@@ -133,13 +125,29 @@ export function EvaluationForm({
     });
   };
 
-  const handleSubmit = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
+  const handleReset = () => {
+    setVerdict("correct");
+    setReportedBugs([{ line_reference: undefined, severity: "critical", description: "" }]);
+    setFailingTests([{ input: "", expected: "", actual: "" }]);
+    setTimeComplexity("O(n)");
+    setSpaceComplexity("O(1)");
+    setComplexityJustification("");
+    setIsExplanationAccurate(true);
+    setExplanationNotes("");
+    setIsInstructionCompliant(true);
+    setInstructionNotes("");
+    setSuggestedFix("");
+    setActiveTab("verdict");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     const submission: EvaluationSubmission = {
       question_id: question.id,
+      created_at: new Date().toISOString(),
       verdict,
-      reported_bugs: reportedBugs.filter((b) => b.description.trim().length > 0),
-      failing_test_cases: failingTests.filter((t) => t.input.trim().length > 0),
+      reported_bugs: verdict === "correct" ? [] : reportedBugs.filter((b) => b.description.trim()),
+      failing_test_cases: failingTests.filter((t) => t.input.trim()),
       assessed_complexity: {
         time: timeComplexity,
         space: spaceComplexity,
@@ -158,340 +166,272 @@ export function EvaluationForm({
     onSubmit(submission);
   };
 
-  const handleReset = () => {
-    setVerdict("correct");
-    setReportedBugs([{ line_reference: undefined, severity: "critical", description: "" }]);
-    setFailingTests([{ input: "", expected: "", actual: "" }]);
-    setTimeComplexity("O(n)");
-    setSpaceComplexity("O(1)");
-    setComplexityJustification("");
-    setIsExplanationAccurate(true);
-    setExplanationNotes("");
-    setIsInstructionCompliant(true);
-    setInstructionNotes("");
-    setSuggestedFix("");
-  };
-
   const tabs = [
-    { key: "verdict", label: "Verdict", icon: Bug },
-    { key: "bugs", label: "Root Cause Bugs", icon: Zap },
-    { key: "tests", label: "Breaking Tests", icon: AlertOctagon },
-    { key: "complexity", label: "Complexity & Audit", icon: Gauge },
-    { key: "remediation", label: "Suggested Fix", icon: FileCheck },
+    { key: "verdict", label: "1. VERDICT", icon: AlertOctagon },
+    { key: "bugs", label: `2. BUGS (${reportedBugs.length})`, icon: Bug },
+    { key: "tests", label: "3. TESTS", icon: FileCheck },
+    { key: "complexity", label: "4. BIG-O", icon: Gauge },
+    { key: "remediation", label: "5. FIX", icon: FileCheck },
   ];
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col h-full bg-zinc-950 border border-zinc-800/90 rounded-2xl overflow-hidden shadow-xl"
+      className="flex flex-col h-full bg-[#121416] border-4 border-white text-white font-['Hanken_Grotesk']"
     >
-      {/* Form Navigation Tabs */}
-      <div className="flex items-center justify-between border-b border-zinc-800/80 bg-zinc-900/70 px-3 py-2 overflow-x-auto backdrop-blur-sm">
-        <div className="flex items-center gap-1 min-w-max">
-          {tabs.map((t) => {
-            const Icon = t.icon;
-            const isCurrent = activeTab === t.key;
-            return (
-              <button
-                key={t.key}
-                type="button"
-                onClick={() => setActiveTab(t.key as any)}
-                className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer",
-                  isCurrent
-                    ? "bg-zinc-800 text-white shadow-sm border border-zinc-700/60"
-                    : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40"
-                )}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{t.label}</span>
-              </button>
-            );
-          })}
-        </div>
+      {/* Top Tab Bar */}
+      <div className="flex items-center gap-1 border-b-4 border-white bg-[#121416] p-2 overflow-x-auto">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.key;
+          return (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => setActiveTab(tab.key as any)}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 text-xs font-black uppercase transition-none cursor-pointer border-2 whitespace-nowrap",
+                isActive
+                  ? "bg-white text-black border-white"
+                  : "border-transparent text-zinc-300 hover:bg-white hover:text-black hover:border-white"
+              )}
+            >
+              <Icon className="w-3.5 h-3.5" />
+              <span>{tab.label}</span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Form Body Viewport */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-6 text-sm text-zinc-300">
+      {/* Tab Body */}
+      <div className="flex-1 overflow-y-auto p-6 space-y-6 text-sm">
         {/* TAB 1: Verdict */}
         {activeTab === "verdict" && (
           <div className="space-y-6">
-            <FormFieldWrapper
-              label="1. Solution Verdict Selection"
-              required
-              description="Classify whether this AI-generated code meets all requirements or contains fatal regressions."
-            >
-              <VerdictToggleGroup
-                value={verdict}
-                onChange={(val) => {
-                  setVerdict(val);
-                  if (val !== "correct") {
-                    setActiveTab("bugs");
-                  }
-                }}
-              />
-            </FormFieldWrapper>
+            <div>
+              <span className="text-xs font-black uppercase tracking-widest text-white block mb-1">
+                EVALUATION VERDICT
+              </span>
+              <p className="text-xs text-zinc-400 font-sans">
+                Classify whether this AI-generated code meets all requirements or contains defects.
+              </p>
+            </div>
 
-            {verdict === "correct" ? (
-              <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/30 flex items-start gap-3">
-                <Check className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                <div className="space-y-1">
-                  <span className="text-xs font-bold text-emerald-300">
-                    Marked as Completely Correct & Optimal
-                  </span>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
-                    You have classified this implementation as bug-free. Next, verify Big-$O$ complexity bounds in the <strong>Complexity & Audit</strong> tab before submitting.
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs text-zinc-300">
-                  <Bug className="w-4 h-4 text-rose-400" />
-                  <span>Defects flagged. Continue to itemize specific root causes.</span>
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono">
+              {[
+                { key: "correct", label: "COMPLETELY CORRECT", desc: "No bugs, optimal complexity, and handles all constraints." },
+                { key: "minor_issue", label: "MINOR DEFECT / EDGE CASE", desc: "Violates edge cases or minor boundary invariants." },
+                { key: "major_bug", label: "FATAL LOGIC ERROR", desc: "Infinite loops, invalid pointer mutations, wrong output." },
+                { key: "critical_vulnerability", label: "CRITICAL FAILURE", desc: "Completely wrong algorithmic approach or syntax crash." },
+              ].map((item) => (
                 <button
+                  key={item.key}
                   type="button"
-                  onClick={() => setActiveTab("bugs")}
-                  className="text-xs font-bold text-emerald-400 hover:text-emerald-300 underline cursor-pointer"
+                  onClick={() => setVerdict(item.key as Verdict)}
+                  className={cn(
+                    "p-4 border-2 text-left transition-none cursor-pointer flex flex-col justify-between space-y-2",
+                    verdict === item.key
+                      ? "bg-white text-black border-white"
+                      : "bg-[#0a0b0d] text-zinc-300 border-white hover:bg-white hover:text-black"
+                  )}
                 >
-                  Itemize Bugs &rarr;
+                  <span className="text-sm font-black uppercase">{item.label}</span>
+                  <span className="text-xs font-sans opacity-80">{item.desc}</span>
                 </button>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         )}
 
-        {/* TAB 2: Root Cause Bugs */}
+        {/* TAB 2: Bugs */}
         {activeTab === "bugs" && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-white pb-3">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
-                  <Bug className="w-3.5 h-3.5 text-rose-400" />
-                  Reported Bugs & Logical Flaws
+                <span className="text-xs font-black uppercase tracking-widest text-white">
+                  ROOT CAUSE BUG REPORTS
                 </span>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  Pinpoint exact lines and describe the mechanical failure mode.
+                <p className="text-xs text-zinc-400 font-sans">
+                  Cite the exact line reference and explain why the logic breaks.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={addBugRow}
-                className="flex items-center gap-1 text-xs font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-950/40 border border-emerald-800/50 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                className="flex items-center gap-1 px-3 py-1 bg-white text-black font-black text-xs uppercase border-2 border-white hover:bg-black hover:text-white cursor-pointer transition-none"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>Add Bug Row</span>
+                <span>ADD BUG</span>
               </button>
             </div>
 
-            <div className="space-y-3">
-              {reportedBugs.map((bug, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-3 relative group shadow-sm"
-                >
+            {reportedBugs.map((bug, idx) => (
+              <div key={idx} className="p-4 border-2 border-white bg-[#0a0b0d] space-y-3 font-mono">
+                <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[11px] text-zinc-400 font-mono font-bold">Line #:</span>
-                      <input
-                        type="number"
-                        placeholder="e.g. 10"
-                        value={bug.line_reference || ""}
-                        onChange={(e) =>
-                          updateBugRow(
-                            idx,
-                            "line_reference",
-                            e.target.value ? parseInt(e.target.value) : undefined
-                          )
-                        }
-                        className="w-16 bg-zinc-950 border border-zinc-700/80 rounded-md px-2 py-1 text-xs text-zinc-200 font-mono focus:border-emerald-500 focus:outline-none"
-                      />
-                    </div>
-
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[11px] text-zinc-400 font-mono font-bold">Severity:</span>
-                      <select
-                        value={bug.severity}
-                        onChange={(e) => updateBugRow(idx, "severity", e.target.value)}
-                        className="bg-zinc-950 border border-zinc-700/80 rounded-md px-2.5 py-1 text-xs text-zinc-200 focus:border-emerald-500 focus:outline-none cursor-pointer"
-                      >
-                        <option value="critical">Critical (Crash / Fatal Regression)</option>
-                        <option value="major">Major (Logic Bug / Data Corruption)</option>
-                        <option value="minor">Minor (Suboptimal Performance)</option>
-                        <option value="nit">Nit / Style</option>
-                      </select>
-                    </div>
-
-                    {reportedBugs.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeBugRow(idx)}
-                        className="ml-auto text-zinc-500 hover:text-rose-400 cursor-pointer p-1 transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    )}
+                    <span className="text-xs font-black uppercase">BUG #{idx + 1}</span>
+                    <input
+                      type="number"
+                      placeholder="LINE #"
+                      value={bug.line_reference || ""}
+                      onChange={(e) => updateBugRow(idx, "line_reference", parseInt(e.target.value) || undefined)}
+                      className="w-24 bg-[#121416] border border-white px-2 py-1 text-xs text-white uppercase focus:outline-none"
+                    />
                   </div>
 
-                  <textarea
-                    rows={2}
-                    placeholder="Describe failure mechanism: e.g. Lost pointer reference when reassigning curr.next before storing temporary next node reference..."
-                    value={bug.description}
-                    onChange={(e) => updateBugRow(idx, "description", e.target.value)}
-                    className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-xs text-zinc-200 focus:outline-none focus:border-emerald-500/50 leading-relaxed resize-y font-sans"
-                  />
+                  {reportedBugs.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeBugRow(idx)}
+                      className="text-rose-400 hover:text-white p-1 cursor-pointer"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
-              ))}
-            </div>
+
+                <textarea
+                  rows={3}
+                  placeholder="EXPLAIN ROOT CAUSE (e.g. 'Line 5 overwrites curr.next before saving next_node reference...')"
+                  value={bug.description}
+                  onChange={(e) => updateBugRow(idx, "description", e.target.value)}
+                  className="w-full bg-[#121416] border border-white p-3 text-xs text-white focus:outline-none placeholder:text-zinc-500 font-sans"
+                />
+              </div>
+            ))}
           </div>
         )}
 
-        {/* TAB 3: Breaking Tests */}
+        {/* TAB 3: Tests */}
         {activeTab === "tests" && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-white pb-3">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
-                  <AlertOctagon className="w-3.5 h-3.5 text-amber-400" />
-                  Breaking Edge-Case Test Vectors
+                <span className="text-xs font-black uppercase tracking-widest text-white">
+                  FAILING TEST CASES
                 </span>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  Construct concrete inputs where this implementation crashes or returns incorrect results.
+                <p className="text-xs text-zinc-400 font-sans">
+                  Provide inputs that break the AI solution with Expected vs Actual outputs.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={addTestRow}
-                className="flex items-center gap-1 text-xs font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-950/40 border border-emerald-800/50 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                className="flex items-center gap-1 px-3 py-1 bg-white text-black font-black text-xs uppercase border-2 border-white hover:bg-black hover:text-white cursor-pointer transition-none"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>Add Test Case</span>
+                <span>ADD TEST</span>
               </button>
             </div>
 
-            <div className="space-y-3">
-              {failingTests.map((t, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-3 relative shadow-sm"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-zinc-400 font-bold uppercase">
-                      Test Case #{idx + 1}
-                    </span>
-                    {failingTests.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeTestRow(idx)}
-                        className="text-zinc-500 hover:text-rose-400 cursor-pointer p-1"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
+            {failingTests.map((t, idx) => (
+              <div key={idx} className="p-4 border-2 border-white bg-[#0a0b0d] space-y-3 font-mono">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase">CASE #{idx + 1}</span>
+                  {failingTests.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeTestRow(idx)}
+                      className="text-rose-400 hover:text-white p-1 cursor-pointer"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-mono">
-                    <div>
-                      <span className="text-[10px] text-zinc-400 font-bold uppercase">Input Vector</span>
-                      <input
-                        type="text"
-                        placeholder="e.g. nums = [3, 3], target = 6"
-                        value={t.input}
-                        onChange={(e) => updateTestRow(idx, "input", e.target.value)}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-md px-2.5 py-1.5 text-xs text-zinc-200 mt-1 focus:border-emerald-500 focus:outline-none"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-zinc-400 font-bold uppercase">Expected Output</span>
-                      <input
-                        type="text"
-                        placeholder="e.g. [0, 1]"
-                        value={t.expected}
-                        onChange={(e) => updateTestRow(idx, "expected", e.target.value)}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-md px-2.5 py-1.5 text-xs text-emerald-300 mt-1 focus:border-emerald-500 focus:outline-none"
-                      />
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-zinc-400 font-bold uppercase">Actual Result / Error</span>
-                      <input
-                        type="text"
-                        placeholder="e.g. [] or Infinite Loop"
-                        value={t.actual}
-                        onChange={(e) => updateTestRow(idx, "actual", e.target.value)}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-md px-2.5 py-1.5 text-xs text-rose-300 mt-1 focus:border-emerald-500 focus:outline-none"
-                      />
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <div>
+                    <span className="text-[10px] font-bold text-zinc-400 block mb-1">INPUT</span>
+                    <input
+                      type="text"
+                      placeholder="e.g. [1]"
+                      value={t.input}
+                      onChange={(e) => updateTestRow(idx, "input", e.target.value)}
+                      className="w-full bg-[#121416] border border-white p-2 text-white focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-zinc-400 block mb-1">EXPECTED</span>
+                    <input
+                      type="text"
+                      placeholder="e.g. [1]"
+                      value={t.expected}
+                      onChange={(e) => updateTestRow(idx, "expected", e.target.value)}
+                      className="w-full bg-[#121416] border border-white p-2 text-white focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-zinc-400 block mb-1">AI ACTUAL</span>
+                    <input
+                      type="text"
+                      placeholder="e.g. Infinite Loop"
+                      value={t.actual}
+                      onChange={(e) => updateTestRow(idx, "actual", e.target.value)}
+                      className="w-full bg-[#121416] border border-white p-2 text-white focus:outline-none"
+                    />
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         )}
 
-        {/* TAB 4: Complexity & Audit */}
+        {/* TAB 4: Complexity & Explanation */}
         {activeTab === "complexity" && (
-          <div className="space-y-5">
-            {/* Asymptotic Bounds */}
-            <div className="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-4 shadow-sm">
-              <span className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
-                <Gauge className="w-3.5 h-3.5 text-sky-400" />
-                Asymptotic Complexity Auditing
+          <div className="space-y-6 font-mono">
+            <div>
+              <span className="text-xs font-black uppercase tracking-widest text-white block mb-1">
+                COMPLEXITY & COMMENTARY AUDITING
               </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <ComplexityPicker
-                  label="True Time Complexity"
-                  value={timeComplexity}
-                  onChange={setTimeComplexity}
-                />
-                <ComplexityPicker
-                  label="True Space Complexity"
-                  value={spaceComplexity}
-                  onChange={setSpaceComplexity}
-                />
-              </div>
-              <textarea
-                rows={2}
-                placeholder="Brief asymptotic justification: e.g. Single pass linear scan O(N) using three pointers with O(1) auxiliary variables..."
-                value={complexityJustification}
-                onChange={(e) => setComplexityJustification(e.target.value)}
-                className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-xs text-zinc-200 leading-relaxed focus:border-sky-500 focus:outline-none"
-              />
+              <p className="text-xs text-zinc-400 font-sans">
+                Audit actual runtime Big-O and flag any hallucinated commentary in the AI explanation.
+              </p>
             </div>
 
-            {/* Explanation Hallucination Audit */}
-            <div className="p-5 rounded-2xl bg-purple-950/20 border border-purple-900/40 space-y-3 shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <span className="text-xs font-bold uppercase text-zinc-400 block mb-1">ACTUAL TIME</span>
+                <input
+                  type="text"
+                  value={timeComplexity}
+                  onChange={(e) => setTimeComplexity(e.target.value)}
+                  className="w-full bg-[#0a0b0d] border-2 border-white p-2.5 text-white font-bold focus:outline-none"
+                />
+              </div>
+              <div>
+                <span className="text-xs font-bold uppercase text-zinc-400 block mb-1">ACTUAL SPACE</span>
+                <input
+                  type="text"
+                  value={spaceComplexity}
+                  onChange={(e) => setSpaceComplexity(e.target.value)}
+                  className="w-full bg-[#0a0b0d] border-2 border-white p-2.5 text-white font-bold focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="p-4 border-2 border-white bg-[#0a0b0d] space-y-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-400" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-purple-300">
-                    AI Commentary Audit
-                  </span>
-                </div>
+                <span className="text-xs font-black uppercase">AI EXPLANATION ACCURACY</span>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setIsExplanationAccurate(true)}
                     className={cn(
-                      "px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer",
-                      isExplanationAccurate
-                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/50"
-                        : "text-zinc-500 hover:text-zinc-300"
+                      "px-3 py-1 text-xs font-black uppercase border-2 transition-none",
+                      isExplanationAccurate ? "bg-white text-black border-white" : "border-transparent text-zinc-400"
                     )}
                   >
-                    Accurate
+                    ACCURATE
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsExplanationAccurate(false)}
                     className={cn(
-                      "px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer",
-                      !isExplanationAccurate
-                        ? "bg-rose-500/20 text-rose-300 border border-rose-500/50"
-                        : "text-zinc-500 hover:text-zinc-300"
+                      "px-3 py-1 text-xs font-black uppercase border-2 transition-none",
+                      !isExplanationAccurate ? "bg-rose-500 text-white border-rose-500" : "border-transparent text-zinc-400"
                     )}
                   >
-                    Misleading / False
+                    HALLUCINATED
                   </button>
                 </div>
               </div>
@@ -499,81 +439,34 @@ export function EvaluationForm({
               {!isExplanationAccurate && (
                 <textarea
                   rows={2}
-                  placeholder="Detail false claims in explanation: e.g. AI claims BFS with FIFO queue, but code is recursive DFS..."
+                  placeholder="EXPLAIN FALSE CLAIMS: e.g. AI claims BFS with FIFO queue, but code is recursive DFS..."
                   value={explanationNotes}
                   onChange={(e) => setExplanationNotes(e.target.value)}
-                  className="w-full bg-zinc-950 border border-purple-900/50 rounded-lg p-2.5 text-xs text-purple-200 focus:border-purple-400 focus:outline-none"
-                />
-              )}
-            </div>
-
-            {/* Prompt Compliance Check */}
-            <div className="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-3 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
-                  <FileCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  Constraint Compliance
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsInstructionCompliant(true)}
-                    className={cn(
-                      "px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer",
-                      isInstructionCompliant
-                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/50"
-                        : "text-zinc-500 hover:text-zinc-300"
-                    )}
-                  >
-                    Compliant
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsInstructionCompliant(false)}
-                    className={cn(
-                      "px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer",
-                      !isInstructionCompliant
-                        ? "bg-orange-500/20 text-orange-300 border border-orange-500/50"
-                        : "text-zinc-500 hover:text-zinc-300"
-                    )}
-                  >
-                    Constraint Violation
-                  </button>
-                </div>
-              </div>
-
-              {!isInstructionCompliant && (
-                <input
-                  type="text"
-                  placeholder="e.g. Prompt mandates in-place mutation, but AI returns a newly allocated array."
-                  value={instructionNotes}
-                  onChange={(e) => setInstructionNotes(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded px-2.5 py-1.5 text-xs text-zinc-200 focus:border-emerald-500 focus:outline-none"
+                  className="w-full bg-[#121416] border border-white p-2.5 text-xs text-white focus:outline-none font-sans"
                 />
               )}
             </div>
           </div>
         )}
 
-        {/* TAB 5: Suggested Fix */}
+        {/* TAB 5: Remediation */}
         {activeTab === "remediation" && (
           <div className="space-y-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
-                <FileCheck className="w-3.5 h-3.5 text-emerald-400" />
-                Proposed Remediation Code / Advice
+              <span className="text-xs font-black uppercase tracking-widest text-white block mb-1">
+                PROPOSED REMEDIATION / CORRECTED CODE
               </span>
-              <p className="text-xs text-zinc-400 mt-0.5">
-                Demonstrate the correct implementation or key refactoring modifications.
+              <p className="text-xs text-zinc-400 font-sans">
+                Demonstrate the correct implementation or key refactoring steps.
               </p>
             </div>
 
             <textarea
               rows={9}
-              placeholder={`// Provide correct implementation or refactoring steps:\nfunction solution(...) {\n  // Invert pointers with temporary next_node reference\n}`}
+              placeholder={`// Provide correct implementation or refactoring steps:\ndef reverseList(head):\n    prev, curr = None, head\n    while curr:\n        next_node = curr.next\n        curr.next = prev\n        prev = curr\n        curr = next_node\n    return prev`}
               value={suggestedFix}
               onChange={(e) => setSuggestedFix(e.target.value)}
-              className="w-full bg-zinc-950 font-mono border border-zinc-800 rounded-xl p-3 text-xs text-zinc-200 leading-relaxed resize-y focus:border-emerald-500/50 focus:outline-none"
+              className="w-full bg-[#0a0b0d] font-mono border-2 border-white p-4 text-xs text-white focus:outline-none"
             />
           </div>
         )}
@@ -581,27 +474,27 @@ export function EvaluationForm({
 
       {/* Form Action Footer */}
       {!readOnly && (
-        <div className="p-4 border-t border-zinc-800/80 bg-zinc-950 flex items-center justify-between">
+        <div className="p-4 border-t-4 border-white bg-[#121416] flex items-center justify-between font-['Hanken_Grotesk']">
           <button
             type="button"
             onClick={handleReset}
-            className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-200 px-3 py-2 rounded-lg hover:bg-zinc-800/60 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-xs font-bold uppercase text-zinc-400 hover:text-white px-3 py-2 border-2 border-transparent hover:border-white transition-none cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset</span>
+            <span>RESET</span>
           </button>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all active:scale-95 cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-2 px-8 py-3 bg-white text-black font-black text-sm uppercase hover:bg-black hover:text-white border-2 border-white transition-none cursor-pointer disabled:opacity-50"
           >
             {isSubmitting ? (
-              <span>Grading Evaluation...</span>
+              <span>EVALUATING AUDIT...</span>
             ) : (
               <>
-                <Send className="w-3.5 h-3.5" />
-                <span>Submit Evaluation</span>
+                <Send className="w-4 h-4" />
+                <span>SUBMIT EVALUATION ➔</span>
               </>
             )}
           </button>

@@ -16,9 +16,9 @@ import { ProblemContextPane } from "@/components/review-studio/ProblemContextPan
 import { CodeViewer } from "@/components/review-studio/CodeViewer";
 import { EvaluationForm } from "@/components/review-studio/EvaluationForm";
 import { WorkspaceSkeleton } from "@/components/boneyard/WorkspaceSkeleton";
+import { getLanguageLabel } from "@/lib/language-utils";
 import {
   AlertTriangle,
-  CheckCircle2,
   X,
 } from "lucide-react";
 
@@ -33,7 +33,6 @@ export default function ActiveAssessmentSessionPage() {
   useEffect(() => {
     let current = getActiveAssessmentSession();
     if (!current) {
-      // Create fallback session if none exists
       current = {
         id: `session_${Date.now()}`,
         start_time: Date.now(),
@@ -102,139 +101,146 @@ export default function ActiveAssessmentSessionPage() {
       ...session.submissions,
       [activeQuestionId]: sub,
     };
-    const updated = { ...session, submissions: updatedSubmissions };
+
+    const isLastQuestion = session.active_question_index === session.question_ids.length - 1;
+    const nextIndex = isLastQuestion ? session.active_question_index : session.active_question_index + 1;
+
+    const updated = {
+      ...session,
+      submissions: updatedSubmissions,
+      active_question_index: nextIndex,
+    };
+
     setSession(updated);
     saveActiveAssessmentSession(updated);
+
+    if (isLastQuestion) {
+      setShowSubmitModal(true);
+    }
   };
 
-  const handleFinalSubmit = (sessionToSubmit = session) => {
-    // Run scoring engine on all 5 questions
+  const handleFinalSubmit = (sessToSubmit?: AssessmentSession) => {
+    const s = sessToSubmit || session;
+    if (!s) return;
+
     const results: Record<string, any> = {};
-    let totalScoreSum = 0;
+    let totalScore = 0;
 
-    sessionToSubmit.question_ids.forEach((qId) => {
-      const q = SEED_QUESTIONS.find((item) => item.id === qId) || SEED_QUESTIONS[0];
-      const userSub = sessionToSubmit.submissions[qId] || {
-        question_id: qId,
-        verdict: "correct",
-        reported_bugs: [],
-        failing_test_cases: [],
-        assessed_complexity: { time: "O(1)", space: "O(1)" },
-        explanation_audit: { is_accurate: true },
-      };
-
-      const res = evaluateSubmission(userSub, q);
-      results[qId] = res;
-      totalScoreSum += res.overall_score * 10;
+    s.question_ids.forEach((qId) => {
+      const q = SEED_QUESTIONS.find((item) => item.id === qId);
+      const sub = s.submissions[qId];
+      if (q && sub) {
+        const evalRes = evaluateSubmission(sub, q);
+        results[qId] = evalRes;
+        totalScore += evalRes.overall_score * 10;
+      }
     });
 
-    const averageTotal = Number((totalScoreSum / sessionToSubmit.question_ids.length).toFixed(1));
+    const avgScore = s.question_ids.length > 0 ? totalScore / s.question_ids.length : 0;
+    const timeSpent = s.duration_seconds - s.remaining_seconds;
 
     const completedSession: AssessmentSession = {
-      ...sessionToSubmit,
+      ...s,
       is_completed: true,
       completed_at: new Date().toISOString(),
+      total_score: avgScore,
       results,
-      total_score: averageTotal,
     };
 
     saveCompletedAssessment(completedSession);
     router.push("/assessment/results");
   };
 
-  const answeredQuestionIds = Object.keys(session.submissions);
+  const answeredIds = Object.keys(session.submissions);
 
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-950 text-zinc-100">
-      {/* Assessment Header with persistent timer & Q1-Q5 pills */}
+    <div className="flex flex-col min-h-screen bg-[#121416] text-white font-['Hanken_Grotesk']">
+      {/* Top Assessment Navigation Header */}
       <AssessmentHeader
         remainingSeconds={session.remaining_seconds}
         totalSeconds={session.duration_seconds}
-        onTimeExpired={() => handleFinalSubmit()}
+        onTimeExpired={() => handleFinalSubmit(session)}
         onSubmitSession={() => setShowSubmitModal(true)}
         activeQuestionIndex={session.active_question_index}
         totalQuestions={session.question_ids.length}
         flaggedQuestions={session.flagged_questions}
-        answeredQuestionIds={answeredQuestionIds}
+        answeredQuestionIds={answeredIds}
         currentQuestionId={activeQuestionId}
         onSelectQuestion={handleSelectQuestion}
         onToggleFlag={handleToggleFlag}
       />
 
-      {/* 2-Column Split Workspace */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 max-w-[1750px] w-full mx-auto">
-        {/* Left: Problem Context + Code Viewer */}
-        <div className="flex flex-col gap-4 min-h-[500px]">
+      {/* Main Split Test Workspace */}
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 sm:p-8 max-w-[1750px] w-full mx-auto">
+        {/* Left Viewport: Problem Spec + Code Snippet */}
+        <div className="flex flex-col gap-6 min-h-[500px]">
           <div className="flex-1 min-h-[300px]">
             <ProblemContextPane question={activeQuestion} />
           </div>
           <div className="flex-1 min-h-[360px]">
             <CodeViewer
               code={activeQuestion.ai_response.code}
-              language={activeQuestion.language}
+              language={getLanguageLabel(activeQuestion.language)}
               onSelectLine={(line) => setSelectedLineForCite(line)}
             />
           </div>
         </div>
 
-        {/* Right: Evaluation Form (Auto-Saving) */}
+        {/* Right Viewport: Candidate Evaluation Form */}
         <div className="flex flex-col min-h-[680px]">
           <EvaluationForm
             key={activeQuestion.id}
             question={activeQuestion}
-            initialValues={activeSubmission || undefined}
-            onSubmit={(sub) => {
-              handleSaveFormDraft(sub);
-              if (session.active_question_index < session.question_ids.length - 1) {
-                handleSelectQuestion(session.active_question_index + 1);
-              } else {
-                setShowSubmitModal(true);
-              }
-            }}
+            initialValues={activeSubmission}
+            onSubmit={handleSaveFormDraft}
             onLineCiteRequested={selectedLineForCite}
           />
         </div>
       </div>
 
-      {/* Submit Confirmation Dialog */}
+      {/* Final Submit Confirmation Modal */}
       {showSubmitModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl">
-            <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-white">Submit Mock Assessment?</h3>
-              <button
-                onClick={() => setShowSubmitModal(false)}
-                className="text-zinc-500 hover:text-zinc-300 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
+          <div className="relative w-full max-w-md bg-white text-black border-4 border-black p-8 shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] space-y-6 font-['Hanken_Grotesk']">
+            <button
+              onClick={() => setShowSubmitModal(false)}
+              className="absolute top-4 right-4 p-1 hover:bg-black hover:text-white transition-none"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="space-y-2">
+              <h3 className="text-2xl font-black uppercase">
+                COMPLETE ASSESSMENT?
+              </h3>
+              <p className="text-xs font-mono text-zinc-700">
+                You have answered <strong>{answeredIds.length}</strong> of <strong>{session.question_ids.length}</strong> questions.
+              </p>
             </div>
 
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              You have completed <strong>{answeredQuestionIds.length}</strong> of{" "}
-              <strong>{session.question_ids.length}</strong> evaluation questions.
-              Once submitted, all answers are final and your Readiness Index $R$ and Disagreement Report will be generated.
-            </p>
+            {answeredIds.length < session.question_ids.length && (
+              <div className="p-4 border-2 border-black bg-zinc-100 flex items-start gap-3 text-xs font-mono">
+                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>
+                  You have unanswered questions. Unanswered questions will receive a score of 0.
+                </span>
+              </div>
+            )}
 
-            <div className="p-3 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-between text-xs font-mono">
-              <span className="text-zinc-400">Time Remaining:</span>
-              <span className="font-bold text-emerald-400">
-                {Math.floor(session.remaining_seconds / 60)}m {session.remaining_seconds % 60}s
-              </span>
-            </div>
-
-            <div className="flex items-center justify-end gap-3 pt-2">
+            <div className="flex items-center gap-3 pt-2">
               <button
+                type="button"
                 onClick={() => setShowSubmitModal(false)}
-                className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-zinc-300 transition-colors cursor-pointer"
+                className="flex-1 py-3 border-2 border-black bg-white hover:bg-zinc-100 text-xs font-black uppercase transition-none cursor-pointer"
               >
-                Continue Reviewing
+                RETURN TO TEST
               </button>
               <button
-                onClick={() => handleFinalSubmit()}
-                className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-md transition-colors cursor-pointer"
+                type="button"
+                onClick={() => handleFinalSubmit(session)}
+                className="flex-1 py-3 bg-black text-white hover:bg-zinc-800 text-xs font-black uppercase transition-none cursor-pointer"
               >
-                Confirm & Submit
+                CONFIRM & SUBMIT ➔
               </button>
             </div>
           </div>

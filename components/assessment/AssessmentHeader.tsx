@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { formatTime, cn } from "@/lib/utils";
-import { Timer, AlertTriangle, Send, Flag, ShieldAlert } from "lucide-react";
+import { Flag, Send } from "lucide-react";
 
 export interface AssessmentHeaderProps {
   remainingSeconds: number;
@@ -30,24 +30,23 @@ export function AssessmentHeader({
   onSelectQuestion,
   onToggleFlag,
 }: AssessmentHeaderProps) {
-  const isUrgent = remainingSeconds <= 300; // < 5 mins
-  const isCritical = remainingSeconds <= 60; // < 1 min
-
+  const isUrgent = remainingSeconds <= 300;
+  const isCritical = remainingSeconds <= 60;
   const isCurrentFlagged = flaggedQuestions.includes(currentQuestionId);
 
   return (
-    <div className="w-full bg-zinc-950 border-b border-zinc-800/80 px-4 py-3 sticky top-14 z-40 backdrop-blur-md">
-      <div className="max-w-[1700px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+    <div className="w-full bg-[#121416] border-b-4 border-white px-4 sm:px-8 py-3 sticky top-14 z-40 text-white font-mono">
+      <div className="max-w-[1700px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Left: Assessment Mode Label & Question Pills */}
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-200">
-              Mock Assessment
+            <span className="w-2.5 h-2.5 bg-rose-500 animate-pulse" />
+            <span className="text-xs font-black uppercase tracking-wider text-white font-['Hanken_Grotesk']">
+              TIMED ASSESSMENT
             </span>
           </div>
 
-          {/* Question Nav Pills */}
+          {/* Question Nav Buttons */}
           <div className="flex items-center gap-1.5">
             {Array.from({ length: totalQuestions }).map((_, idx) => {
               const isCurrent = activeQuestionIndex === idx;
@@ -57,12 +56,12 @@ export function AssessmentHeader({
                   key={idx}
                   onClick={() => onSelectQuestion(idx)}
                   className={cn(
-                    "w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center border",
+                    "w-9 h-8 text-xs font-black uppercase transition-none cursor-pointer flex items-center justify-center border-2",
                     isCurrent
-                      ? "bg-emerald-500 text-zinc-950 border-emerald-400 shadow-md scale-105"
+                      ? "bg-white text-black border-white"
                       : isAnswered
-                      ? "bg-zinc-800 text-emerald-400 border-zinc-700"
-                      : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-zinc-200"
+                      ? "bg-zinc-800 text-white border-zinc-600"
+                      : "bg-[#0a0b0d] text-zinc-400 border-white hover:bg-white hover:text-black"
                   )}
                 >
                   Q{idx + 1}
@@ -78,38 +77,38 @@ export function AssessmentHeader({
           <button
             onClick={() => onToggleFlag(currentQuestionId)}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer",
+              "flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase border-2 transition-none cursor-pointer",
               isCurrentFlagged
-                ? "bg-amber-500/10 text-amber-400 border-amber-500/40"
-                : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-zinc-200"
+                ? "bg-amber-400 text-black border-amber-400 font-black"
+                : "bg-[#0a0b0d] text-zinc-300 border-white hover:bg-white hover:text-black"
             )}
           >
-            <Flag className={cn("w-3.5 h-3.5", isCurrentFlagged && "fill-amber-400")} />
-            <span>{isCurrentFlagged ? "Flagged" : "Flag for Review"}</span>
+            <Flag className={cn("w-3.5 h-3.5", isCurrentFlagged && "fill-current")} />
+            <span>{isCurrentFlagged ? "FLAGGED" : "FLAG"}</span>
           </button>
 
           {/* Live Countdown Timer */}
           <div
             className={cn(
-              "flex items-center gap-2 px-3 py-1.5 rounded-lg border font-mono font-bold text-xs transition-colors",
+              "flex items-center gap-2 px-3 py-1.5 border-2 text-xs font-black uppercase",
               isCritical
-                ? "bg-rose-950/50 border-rose-500 text-rose-400 animate-pulse"
+                ? "bg-rose-500 text-white border-rose-500 animate-pulse"
                 : isUrgent
-                ? "bg-amber-950/40 border-amber-500/50 text-amber-300"
-                : "bg-zinc-900 border-zinc-800 text-zinc-200"
+                ? "bg-amber-400 text-black border-amber-400"
+                : "bg-white text-black border-white"
             )}
           >
-            <Timer className="w-3.5 h-3.5" />
-            <span>{formatTime(remainingSeconds)}</span>
+            <span>REMAINING:</span>
+            <span className="text-sm font-black">{formatTime(remainingSeconds)}</span>
           </div>
 
-          {/* Submit Assessment CTA */}
+          {/* Final Submit Button */}
           <button
             onClick={onSubmitSession}
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-md transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-1.5 bg-white text-black hover:bg-black hover:text-white font-black text-xs uppercase border-2 border-white transition-none cursor-pointer"
           >
             <Send className="w-3.5 h-3.5" />
-            <span>Finish & Submit</span>
+            <span>FINISH EXAM</span>
           </button>
         </div>
       </div>

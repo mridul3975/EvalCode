@@ -5,30 +5,22 @@ import Link from "next/link";
 import confetti from "canvas-confetti";
 import { AssessmentSession } from "@/types/submission";
 import { SEED_QUESTIONS } from "@/data/seed-questions";
-import { ReadinessGauge } from "@/components/infographics/ReadinessGauge";
 import { CompetencyRadarChart } from "@/components/infographics/CompetencyRadarChart";
 import { ReadinessProgressBar } from "@/components/infographics/DiscrepancyDiffChart";
 import { getReadinessTier, formatTime, cn } from "@/lib/utils";
 import {
   Trophy,
-  ShieldCheck,
-  RotateCcw,
   ArrowRight,
-  Sparkles,
-  Layers,
-  AlertCircle,
-  ExternalLink,
-  Target,
+  RotateCcw,
 } from "lucide-react";
 
 export function AssessmentSummary({ session }: { session: AssessmentSession }) {
   const results = session.results || {};
   const resultList = Object.values(results);
 
-  const totalScore = session.total_score ?? 78.5;
+  const totalScore = session.total_score ?? 0;
   const tier = getReadinessTier(totalScore);
 
-  // Calculate aggregated dimensional averages (0 to 100)
   const avgDim = resultList.reduce(
     (acc, curr) => {
       acc.correctness += curr.dimensional_scores.correctness * 10;
@@ -62,165 +54,123 @@ export function AssessmentSummary({ session }: { session: AssessmentSession }) {
     }
   }, [totalScore]);
 
-  // Find lowest scoring dimension for targeted remediation
-  const weakDimensions = [
-    { key: "edge_cases", score: aggregateDimensions.edge_cases, label: "Boundary Condition Edge Cases", topic: "arrays" },
-    { key: "explanation", score: aggregateDimensions.explanation, label: "Catching AI Explanation Hallucinations", topic: "trees" },
-    { key: "correctness", score: aggregateDimensions.correctness, label: "Pointer & State Logic Debugging", topic: "linked_lists" },
-    { key: "complexity", score: aggregateDimensions.complexity, label: "Asymptotic Complexity Auditing", topic: "strings" },
-  ];
-  weakDimensions.sort((a, b) => a.score - b.score);
-  const primaryWeakness = weakDimensions[0];
-
   return (
-    <div className="max-w-[1400px] mx-auto p-4 sm:p-6 space-y-8">
-      {/* Top Banner */}
-      <div className="p-8 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
-        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-3 max-w-xl">
-          <div className="flex items-center gap-2">
-            <Trophy className="w-5 h-5 text-emerald-400" />
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-              Assessment Completed
-            </span>
+    <div className="max-w-[1500px] mx-auto p-4 sm:p-8 space-y-10 font-['Hanken_Grotesk'] text-white">
+      {/* Top Banner: 70/30 Split */}
+      <section className="flex flex-col lg:flex-row w-full border-4 border-white bg-[#121416]">
+        {/* Left 70%: Massive Overview */}
+        <div className="lg:w-2/3 p-6 sm:p-12 lg:p-16 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-white">
+          <div>
+            <div className="text-xs font-mono font-black uppercase tracking-widest px-3 py-1 bg-white text-black inline-block mb-4">
+              ASSESSMENT SCORECARD
+            </div>
+            <h1 className="font-black text-5xl sm:text-7xl uppercase tracking-tight mb-6">
+              EXAM SUMMARY
+            </h1>
+            <p className="text-base sm:text-xl font-light text-zinc-300 font-sans border-l-8 border-white pl-6 leading-relaxed">
+              {tier.description}
+            </p>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
-            AI-Evaluation Readiness Scorecard
-          </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-            {tier.description}
-          </p>
 
-          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono text-zinc-400">
-            <span>Duration: {formatTime(session.duration_seconds - session.remaining_seconds)}</span>
-            <span>&bull;</span>
-            <span>Problems Audited: {session.question_ids.length}</span>
-            <span>&bull;</span>
-            <span>Status: <strong className="text-emerald-400">Graded</strong></span>
+          <div className="mt-8 flex flex-wrap gap-4 font-mono text-xs text-zinc-400 font-bold uppercase">
+            <span className="p-3 border-2 border-white bg-[#0a0b0d] text-white">
+              DURATION: {formatTime(session.duration_seconds - session.remaining_seconds)}
+            </span>
+            <span className="p-3 border-2 border-white bg-[#0a0b0d] text-white">
+              AUDITED: {session.question_ids.length} PROBLEMS
+            </span>
+            <span className="p-3 border-2 border-white bg-white text-black font-black">
+              TIER: {tier.tier}
+            </span>
           </div>
         </div>
 
-        {/* Big Readiness Gauge */}
-        <ReadinessGauge score={totalScore} />
-      </div>
+        {/* Right 30%: Score Gauge Card */}
+        <div className="lg:w-1/3 p-8 sm:p-14 flex flex-col items-center justify-center bg-white text-black border-white text-center">
+          <div className="text-7xl sm:text-9xl font-black tracking-tighter mb-4">
+            {totalScore.toFixed(0)}%
+          </div>
+          <div className="bg-black text-white px-6 py-2 text-xl font-black uppercase tracking-widest border-2 border-black">
+            {totalScore >= 90 ? "BENCHMARK MET" : "BELOW 90% TARGET"}
+          </div>
+        </div>
+      </section>
 
-      {/* 2-Column Analytics: Radar + Progress Bars */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Radar Chart */}
-        <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-300">
-              6-Axis Competency Polygon
-            </span>
-            <span className="text-[11px] text-zinc-500 font-mono">Target: 90.0%</span>
+      {/* 50/50 Dual Charts Row */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 border-4 border-white">
+        {/* Left: 6-Axis Radar */}
+        <div className="p-6 sm:p-12 lg:border-r-4 border-white bg-[#121416] space-y-6">
+          <div className="border-b-4 border-white pb-4">
+            <h3 className="text-3xl font-black uppercase tracking-tight">6-AXIS RADAR</h3>
+            <p className="text-xs font-mono uppercase text-zinc-400 mt-1">
+              BENCHMARKED AT 90%
+            </p>
           </div>
           <CompetencyRadarChart data={aggregateDimensions} />
         </div>
 
-        {/* Dimensional Bars */}
-        <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-300">
-              Dimensional Proficiency Breakdown
-            </span>
-            <span className="text-[11px] text-zinc-500">Weighted Scoring</span>
+        {/* Right: Competency Matrix */}
+        <div className="p-6 sm:p-12 bg-white text-black space-y-6">
+          <div className="border-b-4 border-black pb-4">
+            <h3 className="text-3xl font-black uppercase tracking-tight">COMPETENCY MATRIX</h3>
+            <p className="text-xs font-mono uppercase text-zinc-700 mt-1 font-bold">
+              TARGET &ge; 90.0%
+            </p>
           </div>
 
-          <div className="space-y-3.5 pt-1">
-            <ReadinessProgressBar
-              label="Functional Correctness (30%)"
-              value={aggregateDimensions.correctness}
-            />
-            <ReadinessProgressBar
-              label="Edge-Case Coverage (25%)"
-              value={aggregateDimensions.edge_cases}
-            />
-            <ReadinessProgressBar
-              label="Complexity & Big-O (15%)"
-              value={aggregateDimensions.complexity}
-            />
-            <ReadinessProgressBar
-              label="Explanation Auditing (15%)"
-              value={aggregateDimensions.explanation}
-            />
-            <ReadinessProgressBar
-              label="Communication & Review Quality (15%)"
-              value={aggregateDimensions.communication}
-            />
-            <ReadinessProgressBar
-              label="Proposed Remediation & Debugging"
-              value={aggregateDimensions.debugging}
-            />
+          <div className="flex flex-col gap-4">
+            <ReadinessProgressBar label="Logic Debugging" value={aggregateDimensions.correctness} />
+            <ReadinessProgressBar label="Boundary Analysis" value={aggregateDimensions.edge_cases} />
+            <ReadinessProgressBar label="Big-O Invariants" value={aggregateDimensions.complexity} />
+            <ReadinessProgressBar label="Hallucination Auditing" value={aggregateDimensions.explanation} />
+            <ReadinessProgressBar label="Review Structure" value={aggregateDimensions.communication} />
+            <ReadinessProgressBar label="Proposed Fixes" value={aggregateDimensions.debugging} />
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Question-by-Question Itemized Table */}
-      <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wider text-zinc-300">
-            Itemized Question Performance
+      {/* Per-Question Audit Breakdown Table */}
+      <div className="border-4 border-white bg-[#121416] p-6 sm:p-10 space-y-6">
+        <div className="flex items-center justify-between border-b-4 border-white pb-4">
+          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">
+            ITEMIZED QUESTION SCORES
+          </h3>
+          <span className="text-xs font-mono uppercase bg-white text-black px-3 py-1 font-bold">
+            {session.question_ids.length} PROBLEMS
           </span>
-          <span className="text-[11px] text-zinc-500">{session.question_ids.length} Evaluation Batteries</span>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
+          <table className="w-full text-left text-xs font-mono border-collapse">
             <thead>
-              <tr className="border-b border-zinc-800 text-zinc-400 font-semibold uppercase tracking-wider text-[11px]">
+              <tr className="border-b-4 border-white text-white font-black uppercase text-xs">
                 <th className="py-3 px-4">#</th>
-                <th className="py-3 px-4">Question Title</th>
-                <th className="py-3 px-4">Topic</th>
-                <th className="py-3 px-4">True Defect</th>
-                <th className="py-3 px-4">Your Verdict</th>
-                <th className="py-3 px-4">Score</th>
-                <th className="py-3 px-4 text-right">Audit</th>
+                <th className="py-3 px-4">QUESTION</th>
+                <th className="py-3 px-4">SCORE</th>
+                <th className="py-3 px-4">VERDICT</th>
+                <th className="py-3 px-4 text-right">ACTION</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-800/60">
+            <tbody className="divide-y-2 divide-white font-mono">
               {session.question_ids.map((qId, idx) => {
-                const question = SEED_QUESTIONS.find((q) => q.id === qId);
-                const sub = session.submissions[qId];
-                const res = results[qId];
-                const isCorrectVerdict = sub && question && sub.verdict === question.ground_truth.verdict;
-
+                const q = SEED_QUESTIONS.find((item) => item.id === qId);
+                const evalRes = results[qId];
                 return (
-                  <tr key={qId} className="hover:bg-zinc-800/40 transition-colors">
-                    <td className="py-3.5 px-4 font-mono font-bold text-zinc-500">
-                      Q{idx + 1}
+                  <tr key={qId} className="hover:bg-white hover:text-black transition-none">
+                    <td className="py-4 px-4 font-bold">Q{idx + 1}</td>
+                    <td className="py-4 px-4 font-black uppercase">{q?.title || qId}</td>
+                    <td className="py-4 px-4 text-base font-black">
+                      {evalRes ? (evalRes.overall_score * 10).toFixed(0) : "0"} / 100
                     </td>
-                    <td className="py-3.5 px-4 font-semibold text-zinc-200">
-                      {question?.title || qId}
+                    <td className="py-4 px-4 font-bold uppercase">
+                      {evalRes?.verdict_accuracy ? "[✓] ACCURATE" : "[X] INCORRECT"}
                     </td>
-                    <td className="py-3.5 px-4 uppercase font-mono text-[11px] text-zinc-400">
-                      {question?.topic || "general"}
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
-                        {question?.ground_truth.verdict.replace("_", " ")}
-                      </span>
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <span
-                        className={cn(
-                          "text-[10px] uppercase font-bold px-2 py-0.5 rounded border",
-                          isCorrectVerdict
-                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
-                            : "bg-rose-500/10 text-rose-400 border-rose-500/30"
-                        )}
-                      >
-                        {sub?.verdict.replace("_", " ") || "No answer"}
-                      </span>
-                    </td>
-                    <td className="py-3.5 px-4 font-mono font-bold text-emerald-400">
-                      {res ? `${(res.overall_score * 10).toFixed(0)}%` : "--"}
-                    </td>
-                    <td className="py-3.5 px-4 text-right">
+                    <td className="py-4 px-4 text-right">
                       <Link
                         href={`/practice/${qId}`}
-                        className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-2"
+                        className="font-bold uppercase underline underline-offset-4"
                       >
-                        <span>Review Audit</span>
-                        <ExternalLink className="w-3 h-3" />
+                        REVIEW AUDIT ➔
                       </Link>
                     </td>
                   </tr>
@@ -231,56 +181,19 @@ export function AssessmentSummary({ session }: { session: AssessmentSession }) {
         </div>
       </div>
 
-      {/* Targeted Remediation Queue */}
-      <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Target className="w-4 h-4 text-amber-400" />
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-300">
-              Targeted Remediation Queue
-            </span>
-          </div>
-          <span className="text-[11px] text-amber-400 font-semibold">
-            Based on detected evaluation gaps
-          </span>
-        </div>
-
-        <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-800/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <h4 className="text-sm font-bold text-amber-200">
-              Recommended Drill: {primaryWeakness.label}
-            </h4>
-            <p className="text-xs text-zinc-400 leading-relaxed max-w-xl">
-              Your evaluation accuracy in {primaryWeakness.label} scored {primaryWeakness.score.toFixed(0)}%. Practice focused problem sets to eliminate false positives and catch unhandled edge cases.
-            </p>
-          </div>
-
-          <Link
-            href="/practice"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-bold transition-colors cursor-pointer shrink-0"
-          >
-            <span>Start Practice Drill</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-      </div>
-
       {/* Action Footer */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-zinc-800">
-        <Link
-          href="/assessment"
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-colors"
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-          <span>Retake Mock Assessment</span>
-        </Link>
-
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 font-mono">
         <Link
           href="/dashboard"
-          className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-bold shadow-lg transition-all"
+          className="w-full sm:w-auto px-8 py-4 bg-[#121416] text-white border-2 border-white hover:bg-white hover:text-black font-black uppercase text-xs transition-none text-center"
         >
-          <span>View Full Profile & Analytics</span>
-          <ArrowRight className="w-4 h-4" />
+          VIEW DASHBOARD
+        </Link>
+        <Link
+          href="/assessment"
+          className="w-full sm:w-auto px-8 py-4 bg-white text-black font-black uppercase text-xs hover:bg-zinc-200 transition-none text-center"
+        >
+          RETAKE MOCK TEST ➔
         </Link>
       </div>
     </div>

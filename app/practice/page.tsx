@@ -95,90 +95,84 @@ export default function PracticeCatalogPage() {
   ];
 
   return (
-    <div className="max-w-[1500px] mx-auto px-4 sm:px-6 py-8 space-y-8 font-mono">
+    <div className="max-w-[1600px] mx-auto px-4 sm:px-8 py-8 space-y-8 font-['Hanken_Grotesk'] text-white">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b-2 border-[#242830] pb-6">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b-4 border-white pb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight flex items-center gap-2.5">
-            <Code2 className="w-6 h-6 text-[#00ffc2]" />
-            <span>PRACTICE REVIEW STUDIO ({SEED_QUESTIONS.length} PROBLEMS)</span>
+          <div className="text-xs font-mono font-black uppercase tracking-widest px-3 py-1 bg-white text-black inline-block mb-3">
+            BENCHMARK CATALOG
+          </div>
+          <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight">
+            PRACTICE REVIEW STUDIO ({SEED_QUESTIONS.length})
           </h1>
-          <p className="text-xs text-zinc-400 mt-1 font-sans">
-            Audit AI-generated code snippets across calibrated defect categories with instant Discrepancy Diff feedback.
+          <p className="text-sm sm:text-base text-zinc-300 font-mono mt-2">
+            AUDIT AI-GENERATED CODE SNIPPETS ACROSS CALIBRATED DEFECT CATEGORIES
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <Link
             href="/assessment"
-            className="flex items-center gap-2 px-4 py-2 rounded-none bg-[#121417] border-2 border-[#242830] hover:border-[#00ffc2]/50 text-xs font-bold text-zinc-200 transition-colors"
+            className="px-6 py-3.5 bg-white text-black font-black uppercase text-sm border-2 border-white hover:bg-black hover:text-white transition-none"
           >
-            <span>TIMED MOCK ASSESSMENT</span>
-            <ArrowRight className="w-3.5 h-3.5 text-[#00ffc2]" />
+            LAUNCH MOCK TEST ➔
           </Link>
         </div>
       </div>
 
       {/* Adaptive Recommendation Banner */}
       {adaptiveRec && (
-        <div className="p-5 rounded-none bg-[#121417] border-2 border-amber-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-lg relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-amber-500" />
-          <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-none bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0 mt-0.5">
-              <Target className="w-4 h-4 text-amber-400" />
+        <div className="p-6 sm:p-8 border-4 border-white bg-white text-black flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <span className="bg-black text-white px-2 py-0.5 text-xs font-black uppercase font-mono">
+                ADAPTIVE WEAKNESS RECOMMENDATION
+              </span>
+              <span className="text-xs font-mono font-bold uppercase">
+                3X SAMPLING WEIGHT
+              </span>
             </div>
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black uppercase tracking-widest text-amber-400">
-                  ADAPTIVE WEAKNESS RECOMMENDATION
-                </span>
-                <span className="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded-none bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                  3X SAMPLING WEIGHT
-                </span>
-              </div>
-              <h3 className="text-sm font-black text-white uppercase">
-                {adaptiveRec.sessionTitle}
-              </h3>
-              <p className="text-xs text-zinc-400 max-w-2xl font-sans leading-relaxed">
-                {adaptiveRec.reason}
-              </p>
-            </div>
+            <h3 className="text-2xl font-black uppercase">
+              {adaptiveRec.sessionTitle}
+            </h3>
+            <p className="text-xs sm:text-sm font-sans max-w-3xl leading-relaxed">
+              {adaptiveRec.reason}
+            </p>
           </div>
 
           <button
             onClick={() => setSelectedDefect(adaptiveRec.suggestedDefectCategory)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-none bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-xs shadow-md transition-colors cursor-pointer shrink-0"
+            className="px-6 py-3.5 bg-black text-white font-black uppercase text-xs hover:bg-zinc-800 transition-none shrink-0 cursor-pointer"
           >
-            <span>FILTER WEAK QUESTIONS</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            FILTER WEAK QUESTIONS ➔
           </button>
         </div>
       )}
 
       {/* Filter Controls Bar */}
-      <div className="p-4 rounded-none bg-[#121417] border-2 border-[#242830] space-y-4">
+      <div className="p-6 border-4 border-white bg-[#121416] space-y-6">
         {/* Search & Selectors */}
-        <div className="flex flex-col sm:flex-row items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="relative flex-1 w-full">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <input
               type="text"
-              placeholder="Search problems, topics, or keywords (e.g., 'subsets', 'min stack', 'cycle')..."
+              placeholder="SEARCH PROBLEMS, TOPICS, OR KEYWORDS (e.g., 'subsets', 'reverse', 'cycle')..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#0a0b0d] border border-[#242830] rounded-none pl-9 pr-4 py-2 text-xs text-zinc-200 focus:outline-none focus:border-[#00ffc2] font-mono"
+              className="w-full bg-[#121416] border-2 border-white pl-10 pr-4 py-2.5 text-xs font-mono uppercase text-white focus:outline-none focus:bg-white focus:text-black placeholder:text-zinc-500"
             />
           </div>
 
           {/* Difficulty & Language Dropdown */}
-          <div className="flex items-center gap-2 w-full sm:w-auto font-mono">
+          <div className="flex items-center gap-3 w-full sm:w-auto font-mono">
             <select
               value={selectedDifficulty}
               onChange={(e) => setSelectedDifficulty(e.target.value)}
-              className="bg-[#0a0b0d] border border-[#242830] rounded-none px-3 py-2 text-xs text-zinc-300 focus:outline-none cursor-pointer font-bold"
+              className="bg-[#121416] border-2 border-white px-4 py-2.5 text-xs font-bold text-white focus:outline-none cursor-pointer uppercase"
             >
               {difficulties.map((d) => (
-                <option key={d.key} value={d.key}>
+                <option key={d.key} value={d.key} className="bg-black text-white">
                   {d.label}
                 </option>
               ))}
@@ -187,10 +181,10 @@ export default function PracticeCatalogPage() {
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="bg-[#0a0b0d] border border-[#242830] rounded-none px-3 py-2 text-xs text-zinc-300 focus:outline-none cursor-pointer font-bold"
+              className="bg-[#121416] border-2 border-white px-4 py-2.5 text-xs font-bold text-white focus:outline-none cursor-pointer uppercase"
             >
               {languages.map((l) => (
-                <option key={l.key} value={l.key}>
+                <option key={l.key} value={l.key} className="bg-black text-white">
                   {l.label}
                 </option>
               ))}
@@ -199,7 +193,7 @@ export default function PracticeCatalogPage() {
         </div>
 
         {/* Topic Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 font-mono">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 font-mono">
           {topics.map((t) => {
             const isSelected = selectedTopic === t.key;
             return (
@@ -207,10 +201,10 @@ export default function PracticeCatalogPage() {
                 key={t.key}
                 onClick={() => setSelectedTopic(t.key)}
                 className={cn(
-                  "px-3 py-1.5 rounded-none text-xs font-bold uppercase transition-colors cursor-pointer border whitespace-nowrap",
+                  "px-3.5 py-1.5 text-xs font-bold uppercase transition-none cursor-pointer border-2 whitespace-nowrap",
                   isSelected
-                    ? "bg-[#00ffc2] text-[#0a0b0d] border-[#00ffc2]"
-                    : "bg-[#0a0b0d] text-zinc-400 border-[#242830] hover:text-white hover:border-zinc-700"
+                    ? "bg-white text-black border-white"
+                    : "bg-[#121416] text-zinc-300 border-white hover:bg-white hover:text-black"
                 )}
               >
                 {t.label}
@@ -221,8 +215,8 @@ export default function PracticeCatalogPage() {
       </div>
 
       {/* Showing count indicator */}
-      <div className="flex items-center justify-between text-xs text-zinc-500 px-1 font-mono">
-        <span>SHOWING <strong className="text-white">{filteredQuestions.length}</strong> OF <strong className="text-white">{SEED_QUESTIONS.length}</strong> QUESTIONS</span>
+      <div className="flex items-center justify-between text-xs font-mono uppercase px-1">
+        <span>SHOWING <strong>{filteredQuestions.length}</strong> OF <strong>{SEED_QUESTIONS.length}</strong> QUESTIONS</span>
         {(selectedTopic !== "all" || selectedDifficulty !== "all" || selectedLanguage !== "all" || searchQuery) && (
           <button
             onClick={() => {
@@ -232,7 +226,7 @@ export default function PracticeCatalogPage() {
               setSelectedDefect("all");
               setSearchQuery("");
             }}
-            className="text-[#00ffc2] hover:underline uppercase font-bold cursor-pointer"
+            className="underline uppercase font-bold cursor-pointer hover:bg-white hover:text-black px-2 py-0.5"
           >
             RESET FILTERS
           </button>
@@ -240,7 +234,7 @@ export default function PracticeCatalogPage() {
       </div>
 
       {/* Questions Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredQuestions.map((q) => {
           const subData = submissions[q.id];
           const hasAttempted = !!subData;
@@ -251,43 +245,34 @@ export default function PracticeCatalogPage() {
           return (
             <div
               key={q.id}
-              className="p-5 rounded-none bg-[#121417] border-2 border-[#242830] hover:border-[#00ffc2]/50 transition-colors flex flex-col justify-between space-y-4 shadow-sm group font-mono"
+              className="p-6 border-4 border-white bg-[#121416] hover:bg-white hover:text-black transition-none flex flex-col justify-between space-y-6 group shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]"
             >
               {/* Header metadata */}
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b-2 border-current pb-3 font-mono">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-none bg-[#0a0b0d] text-zinc-300 border border-[#242830]">
+                    <span className="text-[10px] uppercase font-bold px-2 py-0.5 border border-current">
                       {q.topic.replace("_", " ")}
                     </span>
                     <div className="flex items-center gap-1">
                       {getAvailableLanguages(q).map((lang) => (
-                        <span key={lang} className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-none bg-[#0a0b0d] text-zinc-400 border border-[#242830]">
+                        <span key={lang} className="text-[10px] uppercase font-bold px-1.5 py-0.5 border border-current">
                           {getLanguageLabel(lang)}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1.5">
-                    <span
-                      className={cn(
-                        "text-[10px] font-black uppercase px-2 py-0.5 rounded-none border",
-                        q.difficulty === "easy"
-                          ? "bg-[#00ffc2]/10 text-[#00ffc2] border-[#00ffc2]/30"
-                          : q.difficulty === "medium"
-                          ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
-                          : "bg-[#ff4d4d]/10 text-[#ff4d4d] border-[#ff4d4d]/30"
-                      )}
-                    >
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-black uppercase px-2 py-0.5 border border-current">
                       {q.difficulty}
                     </span>
                     <button
                       onClick={(e) => handleBookmarkToggle(e, q.id)}
-                      className="text-zinc-500 hover:text-amber-400 p-1 cursor-pointer"
+                      className="p-1 cursor-pointer"
                     >
                       {isBookmarked ? (
-                        <BookmarkCheck className="w-4 h-4 text-amber-400 fill-amber-400" />
+                        <BookmarkCheck className="w-4 h-4 fill-current" />
                       ) : (
                         <Bookmark className="w-4 h-4" />
                       )}
@@ -296,45 +281,45 @@ export default function PracticeCatalogPage() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-sm font-black text-white group-hover:text-[#00ffc2] transition-colors uppercase">
+                <h3 className="text-xl font-black uppercase tracking-tight">
                   {q.title}
                 </h3>
 
                 {/* Defect Taxonomy Badge */}
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-none bg-[#0a0b0d] text-zinc-300 border border-[#242830]">
+                <div>
+                  <span className="text-[10px] font-bold uppercase px-2 py-1 bg-black text-white group-hover:bg-white group-hover:text-black border border-current font-mono">
                     {defectMeta.label}
                   </span>
                 </div>
 
                 {/* Snippet preview description */}
-                <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed font-sans">
+                <p className="text-xs text-zinc-300 group-hover:text-black line-clamp-3 leading-relaxed font-sans">
                   {q.problem_statement.description}
                 </p>
               </div>
 
               {/* Card Footer with Status & Action */}
-              <div className="pt-3 border-t border-[#242830] flex items-center justify-between font-mono">
+              <div className="pt-4 border-t-2 border-current flex items-center justify-between font-mono">
                 <div>
                   {hasAttempted ? (
-                    <div className="flex items-center gap-1.5 text-xs">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00ffc2]" />
-                      <span className="text-zinc-400 font-bold">AUDITED:</span>
-                      <span className="font-black text-[#00ffc2]">
+                    <div className="flex items-center gap-1.5 text-xs font-bold uppercase">
+                      <span>AUDITED:</span>
+                      <span className="font-black underline">
                         {(score * 10).toFixed(0)}%
                       </span>
                     </div>
                   ) : (
-                    <span className="text-[10px] text-zinc-500 font-bold uppercase">NOT YET AUDITED</span>
+                    <span className="text-[10px] font-bold uppercase text-zinc-400 group-hover:text-black">
+                      NOT YET AUDITED
+                    </span>
                   )}
                 </div>
 
                 <Link
                   href={`/practice/${q.id}`}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-none bg-[#00ffc2] hover:bg-white text-[#0a0b0d] font-black text-xs transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-white text-black group-hover:bg-black group-hover:text-white font-black text-xs uppercase transition-none border-2 border-current cursor-pointer"
                 >
-                  <span>{hasAttempted ? "RE-AUDIT" : "AUDIT SOLUTION"}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>{hasAttempted ? "RE-AUDIT" : "AUDIT"} ➔</span>
                 </Link>
               </div>
             </div>

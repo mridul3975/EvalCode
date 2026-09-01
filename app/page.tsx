@@ -27,132 +27,121 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0a0b0d] text-[#e2e8f0] font-mono selection:bg-[#00ffc2] selection:text-[#0a0b0d]">
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden pt-12 sm:pt-16 pb-20 border-b-2 border-[#242830]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center gap-12">
-          {/* Left Hero Content */}
-          <div className="flex-1 space-y-5 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-none bg-[#00ffc2]/10 border border-[#00ffc2]/30 text-[#00ffc2] text-xs font-bold font-mono">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>AI EVALUATION & RLHF ASSESSMENT SIMULATOR</span>
-            </div>
+    <div className="flex flex-col min-h-screen bg-[#121416] text-white font-['Hanken_Grotesk']">
+      {/* Top Marquee Ribbon */}
+      <div className="w-full bg-white text-black border-b-4 border-white py-2 font-black text-xl sm:text-2xl tracking-tighter uppercase overflow-hidden whitespace-nowrap">
+        <div className="animate-marquee px-4 font-mono">
+          <span>AI CODE EVALUATION SIMULATOR /// CALIBRATED FOR ALIGNERR, MINDRIFT & SCALE AI /// 75+ BENCHMARKS LOADED /// AUDIT DEFECTS IN SECONDS /// &nbsp;</span>
+          <span>AI CODE EVALUATION SIMULATOR /// CALIBRATED FOR ALIGNERR, MINDRIFT & SCALE AI /// 75+ BENCHMARKS LOADED /// AUDIT DEFECTS IN SECONDS /// &nbsp;</span>
+        </div>
+      </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-[1.1] uppercase font-mono">
-              STOP SOLVING FROM SCRATCH. <br />
-              <span className="text-[#00ffc2] bg-[#00ffc2]/10 px-2 py-0.5 border border-[#00ffc2]/40 inline-block mt-1">
-                AUDIT AI-GENERATED CODE.
-              </span>
+      {/* HERO SECTION: 70/30 Editorial Split */}
+      <section className="flex flex-col lg:flex-row w-full border-b-4 border-white">
+        {/* Left 70%: Massive Typography & Overview */}
+        <div className="lg:w-2/3 p-6 sm:p-12 lg:p-16 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-white bg-[#121416] text-white">
+          <div>
+            <div className="text-xs font-black uppercase tracking-widest mb-4 px-3 py-1 bg-white text-black inline-block border-2 border-white font-mono">
+              AI EVALUATION & RLHF SIMULATOR
+            </div>
+            <h1 className="font-black text-5xl sm:text-7xl lg:text-[7vw] leading-[0.85] tracking-tighter uppercase mb-8 break-words">
+              STOP SOLVING.<br />
+              <span className="bg-white text-black px-3 inline-block mt-2">AUDIT AI CODE.</span>
             </h1>
-
-            {/* Subtext cap: <20 words as per design-taste directive */}
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto lg:mx-0 leading-relaxed font-sans">
-              Screening tests at Alignerr, Mindrift, and Scale AI measure code evaluation: spotting logic flaws, boundary regressions, and deceptive commentary.
+            <p className="text-base sm:text-xl lg:text-2xl font-light max-w-2xl border-l-8 border-white pl-6 leading-relaxed text-zinc-200 font-sans">
+              Screening tests at Alignerr, Mindrift, and Scale AI measure code evaluation: spotting subtle bugs, boundary regressions, and deceptive AI explanations.
             </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2 font-mono">
-              <Link
-                href="/practice"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-none bg-[#00ffc2] hover:bg-white text-[#0a0b0d] font-black text-xs shadow-lg transition-colors cursor-pointer"
-              >
-                <Code2 className="w-4 h-4" />
-                <span>LAUNCH REVIEW STUDIO</span>
-                <ArrowRight className="w-4 h-4 ml-0.5" />
-              </Link>
-
-              <Link
-                href="/assessment"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-none bg-[#121417] hover:bg-zinc-800 border-2 border-[#242830] text-zinc-200 font-bold text-xs transition-colors cursor-pointer"
-              >
-                <Timer className="w-4 h-4 text-[#00ffc2]" />
-                <span>TAKE MOCK ASSESSMENT</span>
-              </Link>
-            </div>
           </div>
 
-          {/* Right: Interactive Live Mini-Evaluation Teaser */}
-          <div className="w-full lg:w-[520px] rounded-none bg-[#121417] border-2 border-[#242830] p-6 shadow-2xl space-y-4 text-left font-mono relative">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[#00ffc2]" />
-            
-            <div className="flex items-center justify-between pb-3 border-b border-[#242830]">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-none bg-[#00ffc2] animate-pulse" />
-                <span className="text-xs font-black text-white uppercase">AUDIT THIS AI SNIPPET</span>
-              </div>
-              <span className="text-[10px] text-zinc-500 font-bold uppercase">10S BENCHMARK</span>
+          <div className="mt-12 flex flex-wrap gap-4 font-black">
+            <Link
+              href="/practice"
+              className="bg-white text-black font-black uppercase text-base sm:text-xl px-8 py-5 hover:bg-zinc-200 transition-none border-4 border-white shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] flex items-center gap-3 cursor-pointer"
+            >
+              <Code2 className="w-5 h-5" />
+              <span>LAUNCH REVIEW STUDIO</span>
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+
+            <Link
+              href="/assessment"
+              className="bg-[#121416] text-white font-black uppercase text-base sm:text-xl px-8 py-5 border-4 border-white hover:bg-white hover:text-black transition-none flex items-center gap-3 cursor-pointer"
+            >
+              <Timer className="w-5 h-5" />
+              <span>TAKE 50M MOCK</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Right 30%: High-Contrast Live Interactive Audit Teaser */}
+        <div className="lg:w-1/3 p-6 sm:p-10 flex flex-col justify-center bg-white text-black border-white">
+          <div className="border-4 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] space-y-4 font-mono">
+            <div className="flex items-center justify-between pb-3 border-b-4 border-black">
+              <span className="text-xs font-black uppercase tracking-widest text-black">
+                LIVE INTERACTIVE AUDIT
+              </span>
+              <span className="text-[10px] bg-black text-white px-2 py-0.5 font-bold uppercase">
+                10S TEASER
+              </span>
             </div>
 
-            {/* Code Snippet */}
-            <div className="p-3.5 rounded-none bg-[#0a0b0d] font-mono text-xs text-zinc-300 space-y-1 overflow-x-auto border border-[#242830]">
+            {/* Code Box */}
+            <div className="p-3.5 bg-[#121416] text-white font-mono text-xs space-y-1 border-2 border-black overflow-x-auto">
               <div className="text-zinc-500">// Problem: Reverse Singly Linked List</div>
               <div><span className="text-purple-400">def</span> <span className="text-sky-300">reverseList</span>(head):</div>
               <div className="pl-4">prev = <span className="text-orange-300">None</span>; curr = head</div>
               <div className="pl-4"><span className="text-purple-400">while</span> curr:</div>
-              <div className="pl-8 text-rose-300 bg-rose-950/40 px-1 border-l-2 border-rose-500">curr.next = prev  <span className="text-zinc-500">// Line 5</span></div>
+              <div className="pl-8 text-rose-300 bg-rose-950/60 px-1 border-l-2 border-rose-500">curr.next = prev  <span className="text-zinc-400">// Line 5</span></div>
               <div className="pl-8">prev = curr</div>
               <div className="pl-8">curr = curr.next</div>
               <div className="pl-4"><span className="text-purple-400">return</span> prev</div>
             </div>
 
-            {/* Interactive Verdict Buttons */}
             {!showTeaserResult ? (
-              <div className="space-y-2 pt-2">
-                <span className="text-xs font-bold uppercase text-zinc-400">
-                  WHAT IS YOUR EVALUATION VERDICT ON LINE 5?
-                </span>
-                <div className="grid grid-cols-2 gap-2.5">
+              <div className="space-y-3 pt-2">
+                <div className="text-xs font-black uppercase text-black font-['Hanken_Grotesk']">
+                  WHAT IS YOUR VERDICT ON LINE 5?
+                </div>
+                <div className="grid grid-cols-1 gap-2">
                   <button
                     onClick={() => handleTeaserSubmit("correct")}
-                    className="p-3 rounded-none border border-[#242830] bg-[#0a0b0d] hover:bg-[#1a1d24] text-xs font-bold text-zinc-300 transition-colors cursor-pointer text-left flex items-center gap-2"
+                    className="p-3 border-2 border-black bg-white hover:bg-black hover:text-white font-black text-xs uppercase tracking-wider transition-none text-left flex items-center justify-between cursor-pointer"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-[#00ffc2] shrink-0" />
-                    <span>COMPLETELY CORRECT</span>
+                    <span>1. COMPLETELY CORRECT</span>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   </button>
                   <button
                     onClick={() => handleTeaserSubmit("bug")}
-                    className="p-3 rounded-none border border-[#242830] bg-[#0a0b0d] hover:bg-[#1a1d24] text-xs font-bold text-zinc-300 transition-colors cursor-pointer text-left flex items-center gap-2"
+                    className="p-3 border-2 border-black bg-white hover:bg-black hover:text-white font-black text-xs uppercase tracking-wider transition-none text-left flex items-center justify-between cursor-pointer"
                   >
-                    <XCircle className="w-4 h-4 text-[#ff4d4d] shrink-0" />
-                    <span>FATAL POINTER BUG</span>
+                    <span>2. FATAL POINTER BUG</span>
+                    <XCircle className="w-4 h-4 text-rose-600" />
                   </button>
                 </div>
               </div>
             ) : (
-              /* Teaser Discrepancy Diff Result */
-              <div className="p-4 rounded-none bg-[#0a0b0d] border border-[#242830] space-y-3 font-mono">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-white flex items-center gap-2">
-                    {selectedVerdict === "bug" ? (
-                      <>
-                        <Check className="w-4 h-4 text-[#00ffc2]" />
-                        <span className="text-[#00ffc2] font-black">EXACT MATCH! 10 / 10 SCORE</span>
-                      </>
-                    ) : (
-                      <>
-                        <XCircle className="w-4 h-4 text-[#ff4d4d]" />
-                        <span className="text-[#ff4d4d] font-black">FALSE NEGATIVE! 0 / 10 SCORE</span>
-                      </>
-                    )}
+              <div className="p-4 bg-black text-white border-2 border-black space-y-3 font-mono">
+                <div className="flex items-center justify-between border-b-2 border-white pb-2">
+                  <span className="text-xs font-black uppercase">
+                    {selectedVerdict === "bug" ? "EXACT MATCH! 10/10" : "FALSE NEGATIVE! 0/10"}
                   </span>
                   <button
                     onClick={() => setShowTeaserResult(false)}
-                    className="text-[11px] text-zinc-500 hover:text-zinc-300 underline uppercase cursor-pointer"
+                    className="text-[10px] text-zinc-400 hover:text-white underline uppercase cursor-pointer"
                   >
                     TRY AGAIN
                   </button>
                 </div>
 
-                <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                  <strong>Root Cause:</strong> Line 5 overwrites <code>curr.next = prev</code> before saving a reference to <code>next_node</code>. Line 7 subsequently assigns <code>curr = curr.next</code> (which is now <code>prev</code>), causing an infinite loop oscillating on the first node!
+                <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                  Line 5 overwrites <code>curr.next = prev</code> before saving a reference to <code>next_node</code>. Line 7 subsequently assigns <code>curr = curr.next</code> (which is now <code>prev</code>), causing an infinite loop oscillating on the first node!
                 </p>
 
                 <Link
                   href="/practice/q_ll_001"
-                  className="flex items-center justify-center gap-1.5 w-full py-2.5 rounded-none bg-[#00ffc2] hover:bg-white text-[#0a0b0d] text-xs font-black transition-colors"
+                  className="block w-full py-3 bg-white text-black font-['Hanken_Grotesk'] font-black text-center text-xs uppercase hover:bg-zinc-200 transition-none"
                 >
-                  <span>OPEN FULL REVIEW STUDIO</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  OPEN IN REVIEW STUDIO ➔
                 </Link>
               </div>
             )}
@@ -161,93 +150,80 @@ export default function LandingPage() {
       </section>
 
       {/* PLATFORM LOGO STRIP */}
-      <section className="py-8 border-b-2 border-[#242830] bg-[#0a0b0d]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-6 font-mono">
-          <span className="text-[11px] font-black uppercase text-zinc-500">
-            CALIBRATED FOR SCREENING AT:
-          </span>
-          <div className="flex flex-wrap items-center gap-8 text-xs font-black text-zinc-400">
-            <span className="hover:text-[#00ffc2] transition-colors">ALIGNERR</span>
-            <span className="hover:text-[#00ffc2] transition-colors">MINDRIFT</span>
-            <span className="hover:text-[#00ffc2] transition-colors">SCALE AI / OUTLIER</span>
-            <span className="hover:text-[#00ffc2] transition-colors">TURING RLHF</span>
-            <span className="hover:text-[#00ffc2] transition-colors">ENTERPRISE CODE REVIEW</span>
+      <section className="py-6 border-b-4 border-white bg-white text-black">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-8 flex flex-wrap items-center justify-between gap-6 font-mono font-black uppercase text-xs sm:text-sm">
+          <span>CALIBRATED FOR SCREENING AT:</span>
+          <div className="flex flex-wrap items-center gap-8 text-black">
+            <span className="border-b-2 border-black">ALIGNERR</span>
+            <span className="border-b-2 border-black">MINDRIFT</span>
+            <span className="border-b-2 border-black">SCALE AI / OUTLIER</span>
+            <span className="border-b-2 border-black">TURING RLHF</span>
+            <span className="border-b-2 border-black">ENTERPRISE CODE AUDIT</span>
           </div>
         </div>
       </section>
 
       {/* COMPARISON SECTION: LEETCODE VS EVALFORGE */}
-      <section className="py-16 max-w-[1400px] mx-auto px-4 sm:px-6 w-full space-y-10 font-mono">
-        <div className="text-center space-y-2 max-w-xl mx-auto">
-          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
+      <section className="p-6 sm:p-12 lg:p-16 max-w-[1600px] mx-auto w-full space-y-10 border-b-4 border-white">
+        <div className="border-b-4 border-white pb-6">
+          <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white">
             CODE SYNTHESIS VS. CODE EVALUATION
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400 font-sans">
-            Why 90% of LeetCode practitioners fail AI-trainer technical screeners on their first try.
+          <p className="text-base sm:text-xl font-bold uppercase text-zinc-400 font-mono mt-2">
+            WHY 90% OF LEETCODE PRACTITIONERS FAIL AI-TRAINER SCREENERS ON THEIR FIRST TRY
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Traditional LeetCode Card */}
-          <div className="p-6 rounded-none bg-[#121417] border-2 border-[#242830] space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-none bg-[#0a0b0d] border border-[#242830] flex items-center justify-center">
-                <FileCode className="w-4 h-4 text-zinc-400" />
-              </div>
-              <div>
-                <h3 className="text-sm font-black text-zinc-300 uppercase">TRADITIONAL LEETCODE</h3>
-                <span className="text-[10px] text-zinc-500 uppercase font-bold">CODE SYNTHESIS PARADIGM</span>
-              </div>
+          <div className="p-8 border-4 border-white bg-[#121416] space-y-6">
+            <div className="flex items-center justify-between border-b-4 border-white pb-4">
+              <h3 className="text-2xl font-black uppercase">TRADITIONAL LEETCODE</h3>
+              <span className="px-2 py-0.5 bg-zinc-800 text-white text-xs font-mono uppercase font-bold">SYNTHESIS</span>
             </div>
 
-            <ul className="space-y-3 text-xs text-zinc-400 font-sans">
-              <li className="flex items-start gap-2.5">
-                <XCircle className="w-4 h-4 text-[#ff4d4d] shrink-0 mt-0.5" />
+            <ul className="space-y-4 text-sm font-mono text-zinc-300">
+              <li className="flex items-start gap-3">
+                <span className="font-bold text-rose-400 text-base">[X]</span>
                 <span>Writes code from scratch with rote syntax recall.</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <XCircle className="w-4 h-4 text-[#ff4d4d] shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <span className="font-bold text-rose-400 text-base">[X]</span>
                 <span>Binary pass/fail based solely on test-case execution.</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <XCircle className="w-4 h-4 text-[#ff4d4d] shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <span className="font-bold text-rose-400 text-base">[X]</span>
                 <span>Ignores deceptive or hallucinated natural language AI commentary.</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <XCircle className="w-4 h-4 text-[#ff4d4d] shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <span className="font-bold text-rose-400 text-base">[X]</span>
                 <span>Zero calibration for false positives (rejecting good code).</span>
               </li>
             </ul>
           </div>
 
-          {/* EvalForge Card */}
-          <div className="p-6 rounded-none bg-[#121417] border-2 border-[#00ffc2]/40 space-y-4 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[#00ffc2]" />
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-none bg-[#00ffc2]/10 border border-[#00ffc2]/40 flex items-center justify-center">
-                <CheckCircle2 className="w-4 h-4 text-[#00ffc2]" />
-              </div>
-              <div>
-                <h3 className="text-sm font-black text-white uppercase">EVALFORGE BRUTALIST</h3>
-                <span className="text-[10px] text-[#00ffc2] uppercase font-bold">MULTI-DIMENSIONAL EVALUATION</span>
-              </div>
+          {/* EvalForge Card (Inverted White) */}
+          <div className="p-8 border-4 border-black bg-white text-black space-y-6 shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
+            <div className="flex items-center justify-between border-b-4 border-black pb-4">
+              <h3 className="text-2xl font-black uppercase">EVALFORGE SIMULATOR</h3>
+              <span className="px-2 py-0.5 bg-black text-white text-xs font-mono uppercase font-bold">EVALUATION</span>
             </div>
 
-            <ul className="space-y-3 text-xs text-zinc-300 font-sans">
-              <li className="flex items-start gap-2.5">
-                <Check className="w-4 h-4 text-[#00ffc2] shrink-0 mt-0.5" />
+            <ul className="space-y-4 text-sm font-mono text-black font-bold">
+              <li className="flex items-start gap-3">
+                <span className="font-black text-base">[✓]</span>
                 <span>Audits pre-generated AI solutions with calibrated defects.</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <Check className="w-4 h-4 text-[#00ffc2] shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <span className="font-black text-base">[✓]</span>
                 <span>Diagnostic Discrepancy Diff matches findings to Ground Truth.</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <Check className="w-4 h-4 text-[#00ffc2] shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <span className="font-black text-base">[✓]</span>
                 <span>Evaluates 6 dimensions: Correctness, Edge Cases, Complexity, etc.</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <Check className="w-4 h-4 text-[#00ffc2] shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3">
+                <span className="font-black text-base">[✓]</span>
                 <span>Readiness Index benchmarks you against screening standards.</span>
               </li>
             </ul>
@@ -256,104 +232,87 @@ export default function LandingPage() {
       </section>
 
       {/* 6-DIMENSIONAL RUBRIC MATRIX */}
-      <section className="py-16 border-t-2 border-[#242830] bg-[#0a0b0d] font-mono">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 space-y-10">
-          <div className="text-center space-y-2 max-w-xl mx-auto">
-            <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
-              THE 6-DIMENSIONAL RUBRIC MATRIX
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-400 font-sans">
-              Every submission is graded against the exact dimensions used by premier RLHF platforms.
-            </p>
-          </div>
+      <section className="p-6 sm:p-12 lg:p-16 max-w-[1600px] mx-auto w-full space-y-10 border-b-4 border-white">
+        <div className="border-b-4 border-white pb-6">
+          <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white">
+            THE 6-DIMENSIONAL RUBRIC MATRIX
+          </h2>
+          <p className="text-base sm:text-xl font-bold uppercase text-zinc-400 font-mono mt-2">
+            EVERY SUBMISSION GRADED AGAINST STANDARD RLHF EVALUATION CRITERIA
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              {
-                title: "1. FUNCTIONAL CORRECTNESS",
-                weight: "30% WEIGHT",
-                desc: "Accurately classify whether the code solves standard cases or contains fatal logic crashes.",
-                color: "text-[#00ffc2]",
-                border: "border-[#00ffc2]/40",
-              },
-              {
-                title: "2. EDGE-CASE ANALYSIS",
-                weight: "25% WEIGHT",
-                desc: "Identify boundary vulnerabilities: empty arrays, single nodes, duplicates, and integer overflows.",
-                color: "text-amber-400",
-                border: "border-amber-400/40",
-              },
-              {
-                title: "3. COMPLEXITY & BIG-O",
-                weight: "15% WEIGHT",
-                desc: "Spot asymptotic regressions: quadratic string copies, nested lookups, and recursive stack overhead.",
-                color: "text-sky-400",
-                border: "border-sky-400/40",
-              },
-              {
-                title: "4. EXPLANATION AUDITING",
-                weight: "15% WEIGHT",
-                desc: "Catch deceptive or hallucinated commentary claiming different algorithmic properties than the code.",
-                color: "text-purple-400",
-                border: "border-purple-400/40",
-              },
-              {
-                title: "5. INSTRUCTION COMPLIANCE",
-                weight: "15% WEIGHT",
-                desc: "Verify strict adherence to constraints: in-place mutations, O(1) space, and return formatting.",
-                color: "text-orange-400",
-                border: "border-orange-400/40",
-              },
-              {
-                title: "6. REMEDIATION & FIXES",
-                weight: "DIAGNOSTIC",
-                desc: "Provide concise, verified refactoring advice or corrected code implementations.",
-                color: "text-pink-400",
-                border: "border-pink-400/40",
-              },
-            ].map((rub, i) => (
-              <div
-                key={i}
-                className="p-6 rounded-none bg-[#121417] border-2 border-[#242830] hover:border-[#00ffc2]/50 transition-colors space-y-2.5"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-black text-white uppercase">{rub.title}</h3>
-                  <span className={cn("text-[10px] font-mono font-bold px-2 py-0.5 rounded-none bg-[#0a0b0d] border", rub.border, rub.color)}>
-                    {rub.weight}
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-400 leading-relaxed font-sans">{rub.desc}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              title: "1. Functional Correctness",
+              weight: "30% WEIGHT",
+              desc: "Accurately classify whether the code solves standard cases or contains fatal logic crashes.",
+            },
+            {
+              title: "2. Edge-Case Analysis",
+              weight: "25% WEIGHT",
+              desc: "Identify boundary vulnerabilities: empty arrays, single nodes, duplicates, and integer overflows.",
+            },
+            {
+              title: "3. Complexity & Big-O",
+              weight: "15% WEIGHT",
+              desc: "Spot asymptotic regressions: quadratic string copies, nested lookups, and recursive stack overhead.",
+            },
+            {
+              title: "4. Explanation Auditing",
+              weight: "15% WEIGHT",
+              desc: "Catch deceptive or hallucinated commentary claiming different algorithmic properties than the code.",
+            },
+            {
+              title: "5. Instruction Compliance",
+              weight: "15% WEIGHT",
+              desc: "Verify strict adherence to constraints: in-place mutations, O(1) space, and return formatting.",
+            },
+            {
+              title: "6. Remediation & Fixes",
+              weight: "DIAGNOSTIC",
+              desc: "Provide concise, verified refactoring advice or corrected code implementations.",
+            },
+          ].map((rub, i) => (
+            <div
+              key={i}
+              className="p-6 border-4 border-white bg-[#121416] hover:bg-white hover:text-black transition-none space-y-4 group"
+            >
+              <div className="flex items-center justify-between border-b-2 border-current pb-3">
+                <h3 className="text-lg font-black uppercase">{rub.title}</h3>
+                <span className="text-xs font-mono font-bold px-2 py-0.5 border border-current">
+                  {rub.weight}
+                </span>
               </div>
-            ))}
-          </div>
+              <p className="text-xs font-sans leading-relaxed text-zinc-300 group-hover:text-black">{rub.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* FINAL CALL TO ACTION */}
-      <section className="py-16 border-t-2 border-[#242830] bg-[#121417] font-mono">
-        <div className="max-w-[800px] mx-auto px-4 text-center space-y-6">
-          <div className="w-12 h-12 rounded-none bg-[#00ffc2]/10 border border-[#00ffc2]/40 mx-auto flex items-center justify-center text-[#00ffc2]">
-            <Target className="w-6 h-6" />
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">
-            CALIBRATE YOUR CODE REVIEW ACUITY
+      <section className="p-12 sm:p-24 flex flex-col items-center justify-center text-center bg-[#121416]">
+        <div className="bg-white text-black p-8 sm:p-16 border-4 border-black shadow-[16px_16px_0px_0px_rgba(255,255,255,1)] max-w-4xl w-full space-y-8">
+          <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-none">
+            CALIBRATE YOUR CODE AUDIT ACUITY
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto font-sans leading-relaxed">
-            Choose Practice Mode for instant granular feedback, or enter the Timed 3-Question Mock Assessment to test your readiness index.
+          <p className="text-lg sm:text-2xl font-bold uppercase font-mono">
+            PRACTICE ON 75+ BENCHMARKS OR ENTER THE TIMED 3-QUESTION MOCK ASSESSMENT.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link
               href="/practice"
-              className="px-6 py-3.5 rounded-none bg-[#00ffc2] hover:bg-white text-[#0a0b0d] font-black text-xs shadow-xl transition-colors"
+              className="w-full sm:w-auto bg-black text-white font-black uppercase text-xl px-10 py-5 hover:bg-zinc-800 transition-none shadow-[6px_6px_0px_0px_rgba(100,100,100,1)] text-center cursor-pointer"
             >
-              START PRACTICE CATALOG
+              START PRACTICE CATALOG ➔
             </Link>
             <Link
               href="/assessment"
-              className="px-6 py-3.5 rounded-none bg-[#0a0b0d] hover:bg-zinc-800 text-zinc-200 font-bold text-xs border-2 border-[#242830] transition-colors"
+              className="w-full sm:w-auto bg-white text-black font-black uppercase text-xl px-10 py-5 border-4 border-black hover:bg-black hover:text-white transition-none text-center cursor-pointer"
             >
-              START MOCK ASSESSMENT
+              TAKE MOCK TEST
             </Link>
           </div>
         </div>

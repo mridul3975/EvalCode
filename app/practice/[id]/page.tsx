@@ -15,11 +15,9 @@ import { evaluateSubmission } from "@/lib/scoring-engine";
 import { getCodeForLanguage, getAvailableLanguages, getLanguageLabel } from "@/lib/language-utils";
 import { WorkspaceSkeleton } from "@/components/boneyard/WorkspaceSkeleton";
 import {
-  Code2,
   ArrowLeft,
   Share2,
   Check,
-  ChevronRight,
 } from "lucide-react";
 
 export default function ReviewStudioPage() {
@@ -42,9 +40,8 @@ export default function ReviewStudioPage() {
       return;
     }
     setQuestion(q);
-    setSelectedLanguage(q.language); // default to the question's primary language
+    setSelectedLanguage(q.language);
 
-    // Load any past submission from localStorage
     const stored = getStoredSubmissions()[questionId];
     if (stored) {
       setSubmission(stored.submission);
@@ -97,42 +94,42 @@ export default function ReviewStudioPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-950 text-zinc-100">
+    <div className="flex flex-col min-h-screen bg-[#121416] text-white font-['Hanken_Grotesk']">
       {/* Header Bar */}
-      <div className="h-14 border-b border-zinc-800/80 bg-zinc-950/80 px-4 sm:px-6 flex items-center justify-between sticky top-14 z-30 backdrop-blur-md">
-        <div className="flex items-center gap-3">
+      <div className="border-b-4 border-white bg-[#121416] px-4 sm:px-8 py-3 flex items-center justify-between sticky top-14 z-30">
+        <div className="flex items-center gap-4">
           <Link
             href="/practice"
-            className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-200 bg-zinc-900 border border-zinc-800 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider bg-white text-black px-3 py-1.5 border-2 border-white hover:bg-black hover:text-white transition-none cursor-pointer"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Back to Catalog</span>
+            <ArrowLeft className="w-4 h-4" />
+            <span className="hidden sm:inline">CATALOG</span>
           </Link>
 
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-zinc-500 hidden md:inline">
-              Problem {currentIndex + 1} of {SEED_QUESTIONS.length}:
+          <div className="flex items-center gap-3 font-mono">
+            <span className="text-xs font-bold text-zinc-400 hidden md:inline">
+              #{currentIndex + 1} / {SEED_QUESTIONS.length}:
             </span>
-            <h2 className="text-xs sm:text-sm font-bold text-white tracking-tight truncate max-w-xs sm:max-w-md">
+            <h2 className="text-sm sm:text-base font-black text-white uppercase truncate max-w-xs sm:max-w-md">
               {question.title}
             </h2>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <button
             onClick={handleShare}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-xs text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
+            className="flex items-center gap-2 px-3 py-1.5 bg-[#121416] text-white border-2 border-white font-mono text-xs font-bold uppercase hover:bg-white hover:text-black transition-none cursor-pointer"
           >
             {copiedLink ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400">Link Copied</span>
+                <Check className="w-3.5 h-3.5" />
+                <span>COPIED</span>
               </>
             ) : (
               <>
                 <Share2 className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Share</span>
+                <span className="hidden sm:inline">SHARE</span>
               </>
             )}
           </button>
@@ -140,9 +137,9 @@ export default function ReviewStudioPage() {
       </div>
 
       {/* Main 2-Column Split Workspace */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 max-w-[1750px] w-full mx-auto">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-4 sm:p-8 max-w-[1750px] w-full mx-auto">
         {/* Left Viewport: Problem Context + Code Viewer */}
-        <div className="flex flex-col gap-4 min-h-[500px]">
+        <div className="flex flex-col gap-6 min-h-[500px]">
           <div className="flex-1 min-h-[300px]">
             <ProblemContextPane question={question} selectedLanguage={selectedLanguage} />
           </div>
