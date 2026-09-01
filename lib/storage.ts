@@ -2,12 +2,28 @@ import { EvaluationSubmission, EvaluationResult, AssessmentSession, UserProfileS
 import { DEFAULT_PROFILE_STATS, updateProfileWithEvaluation } from "@/lib/core/profile-analytics";
 
 const KEYS = {
-  SUBMISSIONS: "evalforge_submissions",
-  ASSESSMENT_ACTIVE: "evalforge_assessment_active",
-  ASSESSMENT_HISTORY: "evalforge_assessment_history",
-  PROFILE: "evalforge_user_profile",
-  BOOKMARKS: "evalforge_bookmarks",
+  SUBMISSIONS: "evalforge_submissions_v2",
+  ASSESSMENT_ACTIVE: "evalforge_assessment_active_v2",
+  ASSESSMENT_HISTORY: "evalforge_assessment_history_v2",
+  PROFILE: "evalforge_user_profile_v2",
+  BOOKMARKS: "evalforge_bookmarks_v2",
 };
+
+// Automatically purge legacy pre-seeded localStorage cache
+if (typeof window !== "undefined") {
+  try {
+    const legacyKeys = [
+      "evalforge_submissions",
+      "evalforge_assessment_active",
+      "evalforge_assessment_history",
+      "evalforge_user_profile",
+      "evalforge_bookmarks",
+    ];
+    legacyKeys.forEach((k) => localStorage.removeItem(k));
+  } catch (e) {
+    // Ignore storage exceptions
+  }
+}
 
 // Safe localStorage access for SSR
 function isClient(): boolean {
@@ -152,11 +168,19 @@ export function toggleBookmark(questionId: string): string[] {
 export function clearAllProgress(): void {
   if (!isClient()) return;
   try {
-    localStorage.removeItem(KEYS.SUBMISSIONS);
-    localStorage.removeItem(KEYS.ASSESSMENT_ACTIVE);
-    localStorage.removeItem(KEYS.ASSESSMENT_HISTORY);
-    localStorage.removeItem(KEYS.PROFILE);
-    localStorage.removeItem(KEYS.BOOKMARKS);
+    const allKeys = [
+      KEYS.SUBMISSIONS,
+      KEYS.ASSESSMENT_ACTIVE,
+      KEYS.ASSESSMENT_HISTORY,
+      KEYS.PROFILE,
+      KEYS.BOOKMARKS,
+      "evalforge_submissions",
+      "evalforge_assessment_active",
+      "evalforge_assessment_history",
+      "evalforge_user_profile",
+      "evalforge_bookmarks",
+    ];
+    allKeys.forEach((k) => localStorage.removeItem(k));
   } catch (e) {
     console.error("Failed to clear progress from localStorage", e);
   }
