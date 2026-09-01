@@ -1,76 +1,122 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { QuestionItem } from "@/types/question";
 import { askGeminiFollowUp } from "@/lib/gemini";
 import { cn } from "@/lib/utils";
 import { Sparkles, Send, User, Bot, Loader2, Lightbulb, Copy, Check } from "lucide-react";
 
-function FormattedMarkdown({ text, isUser }: { text: string; isUser: boolean }) {
-  const parts = text.split(/(```[\s\S]*?```)/g);
+function ChatMarkdown({ content, isUser }: { content: string; isUser: boolean }) {
+  const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
+
+  const handleCopyCode = (codeText: string, index: number) => {
+    navigator.clipboard.writeText(codeText);
+    setCopiedCodeIndex(index);
+    setTimeout(() => setCopiedCodeIndex(null), 2000);
+  };
 
   return (
-    <div className="space-y-2">
-      {parts.map((part, idx) => {
-        if (part.startsWith("```") && part.endsWith("```")) {
-          const rawBlock = part.slice(3, -3).trim();
-          const firstLineEnd = rawBlock.indexOf("\n");
-          let lang = "CODE";
-          let codeText = rawBlock;
+    <div className={cn("text-xs leading-relaxed font-sans space-y-2", isUser ? "text-white" : "text-gray-900 font-medium")}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          // Code Block & Inline Code Rendering
+          code({ node, inline, className, children, ...props }: any) {
+            const match = /language-(\w+)/.exec(className || "");
+            const codeString = String(children).replace(/\n$/, "");
+            const lang = match ? match[1].toUpperCase() : "CODE";
 
-          if (firstLineEnd !== -1) {
-            const possibleLang = rawBlock.substring(0, firstLineEnd).trim();
-            if (possibleLang && !possibleLang.includes(" ") && possibleLang.length < 15) {
-              lang = possibleLang.toUpperCase();
-              codeText = rawBlock.substring(firstLineEnd + 1);
+            if (!inline && (match || codeString.includes("\n"))) {
+              const codeIdx = Math.random();
+              return (
+                <div className="my-3 rounded-xl overflow-hidden border border-black/30 font-mono text-xs shadow-xl">
+                  {/* Code Header Bar */}
+                  <div className="bg-[#121416] text-[#b9cbc1] px-4 py-2 flex justify-between items-center text-[10px] uppercase font-bold border-b border-[#282a2c]">
+                    <span className="text-white font-mono tracking-wider">{lang}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyCode(codeString, codeIdx)}
+                      className="text-gray-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedCodeIndex === codeIdx ? (
+                        <>
+                          <Check className="w-3 h-3 text-emerald-400" />
+                          <span>COPIED</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3 h-3" />
+                          <span>COPY CODE</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  {/* Code Body */}
+                  <div className="bg-[#0c0e10] text-[#e2e2e5] p-4 overflow-x-auto leading-relaxed font-mono text-xs">
+                    <pre className="text-zinc-200">
+                      <code>{codeString}</code>
+                    </pre>
+                  </div>
+                </div>
+              );
             }
-          }
 
-          return (
-            <div key={idx} className="my-3 rounded-lg overflow-hidden border border-black/30 font-mono text-xs shadow-lg">
-              <div className="bg-[#121416] text-[#b9cbc1] px-3.5 py-1.5 flex justify-between items-center text-[10px] uppercase font-bold border-b border-[#282a2c]">
-                <span className="text-white">{lang}</span>
-                <span className="text-gray-500">AI CODE SNIPPET</span>
-              </div>
-              <div className="bg-[#0c0e10] text-[#e2e2e5] p-3.5 overflow-x-auto leading-relaxed font-mono">
-                <pre><code>{codeText}</code></pre>
-              </div>
+            return (
+              <code
+                className={cn(
+                  "px-1.5 py-0.5 rounded font-mono text-[11px] font-bold mx-0.5 border",
+                  isUser
+                    ? "bg-[#121416] text-[#e2e2e5] border-white/20"
+                    : "bg-gray-200 text-gray-900 border-gray-300"
+                )}
+                {...props}
+              >
+                {children}
+              </code>
+            );
+          },
+
+          // Headings
+          h1: ({ children }) => <h1 className="text-base font-black uppercase tracking-tight my-2 border-b pb-1">{children}</h1>,
+          h2: ({ children }) => <h2 className="text-sm font-extrabold uppercase tracking-tight my-2">{children}</h2>,
+          h3: ({ children }) => <h3 className="text-xs font-bold uppercase tracking-wider my-1.5">{children}</h3>,
+
+          // Paragraphs & Text
+          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+          strong: ({ children }) => (
+            <strong className={cn("font-extrabold", isUser ? "text-white" : "text-black")}>
+              {children}
+            </strong>
+          ),
+          em: ({ children }) => <em className="italic opacity-90">{children}</em>,
+
+          // Lists
+          ul: ({ children }) => <ul className="list-disc pl-5 space-y-1 my-2">{children}</ul>,
+          ol: ({ children }) => <ol className="list-decimal pl-5 space-y-1 my-2">{children}</ol>,
+          li: ({ children }) => <li className="leading-normal">{children}</li>,
+
+          // Blockquotes
+          blockquote: ({ children }) => (
+            <blockquote className="border-l-4 border-black/40 pl-3 italic opacity-90 my-2">
+              {children}
+            </blockquote>
+          ),
+
+          // Tables
+          table: ({ children }) => (
+            <div className="overflow-x-auto my-3 border border-black/20 rounded-lg">
+              <table className="min-w-full text-xs text-left border-collapse">{children}</table>
             </div>
-          );
-        }
-
-        const inlineParts = part.split(/(\*\*.*?\*\*|`.*?`)/g);
-
-        return (
-          <div key={idx} className="whitespace-pre-wrap font-sans text-xs leading-relaxed">
-            {inlineParts.map((sub, sIdx) => {
-              if (sub.startsWith("**") && sub.endsWith("**")) {
-                return (
-                  <strong key={sIdx} className={cn("font-extrabold", isUser ? "text-white" : "text-black")}>
-                    {sub.slice(2, -2)}
-                  </strong>
-                );
-              }
-              if (sub.startsWith("`") && sub.endsWith("`")) {
-                return (
-                  <code
-                    key={sIdx}
-                    className={cn(
-                      "px-1.5 py-0.5 rounded font-mono text-[11px] font-bold mx-0.5 border",
-                      isUser
-                        ? "bg-[#121416] text-[#e2e2e5] border-white/20"
-                        : "bg-gray-200 text-black border-gray-300"
-                    )}
-                  >
-                    {sub.slice(1, -1)}
-                  </code>
-                );
-              }
-              return sub;
-            })}
-          </div>
-        );
-      })}
+          ),
+          thead: ({ children }) => <thead className="bg-[#121416] text-white uppercase text-[10px] font-mono">{children}</thead>,
+          th: ({ children }) => <th className="px-3 py-2 border-b border-black/20 font-bold">{children}</th>,
+          td: ({ children }) => <td className="px-3 py-2 border-b border-black/10 font-mono text-[11px]">{children}</td>,
+        }}
+      >
+        {content}
+      </ReactMarkdown>
     </div>
   );
 }
@@ -163,15 +209,15 @@ export function AIChatAssistant({
       </div>
 
       {/* Messages Trajectory */}
-      <div className="code-inset rounded-xl p-4 sm:p-5 max-h-[420px] overflow-y-auto space-y-4 font-mono text-xs border border-white/5">
+      <div className="code-inset rounded-xl p-4 sm:p-5 max-h-[440px] overflow-y-auto space-y-4 font-mono text-xs border border-white/5">
         {messages.map((msg, idx) => (
           <div
             key={idx}
             className={cn(
-              "flex gap-3 p-3.5 rounded-xl transition-all",
+              "flex gap-3 p-3.5 sm:p-4 rounded-xl transition-all",
               msg.role === "user"
-                ? "bg-[#1e2022] ml-6 border border-white/10 text-white"
-                : "contrast-card text-[#121416] mr-6 shadow-md"
+                ? "bg-[#1e2022] ml-4 sm:ml-8 border border-white/10 text-white"
+                : "contrast-card text-[#121416] mr-4 sm:mr-8 shadow-lg"
             )}
           >
             {msg.role === "user" ? (
@@ -183,7 +229,7 @@ export function AIChatAssistant({
               <span className={cn("text-[10px] font-bold uppercase block tracking-wider font-mono", msg.role === "user" ? "text-gray-400" : "text-gray-600")}>
                 {msg.role === "user" ? "YOU (EVALUATOR)" : "GEMINI AI ASSISTANT"}
               </span>
-              <FormattedMarkdown text={msg.text} isUser={msg.role === "user"} />
+              <ChatMarkdown content={msg.text} isUser={msg.role === "user"} />
             </div>
           </div>
         ))}
