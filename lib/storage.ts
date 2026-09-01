@@ -148,3 +148,16 @@ export function toggleBookmark(questionId: string): string[] {
     return [];
   }
 }
+
+export function clearAllProgress(): void {
+  if (!isClient()) return;
+  try {
+    localStorage.removeItem(KEYS.SUBMISSIONS);
+    localStorage.removeItem(KEYS.ASSESSMENT_ACTIVE);
+    localStorage.removeItem(KEYS.ASSESSMENT_HISTORY);
+    localStorage.removeItem(KEYS.PROFILE);
+    localStorage.removeItem(KEYS.BOOKMARKS);
+  } catch (e) {
+    console.error("Failed to clear progress from localStorage", e);
+  }
+}

@@ -15,7 +15,16 @@ import {
 } from "lucide-react";
 
 export function ReadinessProfileCard({ profile }: { profile: UserProfileStats }) {
-  const tier = getReadinessTier(profile.readiness_score);
+  const hasActivity = profile.total_evaluations_count > 0;
+  const percentileText = hasActivity
+    ? profile.readiness_score >= 90
+      ? "Top 5%"
+      : profile.readiness_score >= 80
+      ? "Top 15%"
+      : profile.readiness_score >= 70
+      ? "Top 35%"
+      : "In Progress"
+    : "Unranked";
 
   return (
     <div className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-zinc-800 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl">
@@ -43,7 +52,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-950/80 border border-zinc-800 text-xs">
             <TrendingUp className="w-3.5 h-3.5 text-sky-400" />
             <span className="text-zinc-400">Global Percentile:</span>
-            <span className="font-bold text-sky-400">Top 14%</span>
+            <span className="font-bold text-sky-400">{percentileText}</span>
           </div>
         </div>
       </div>
@@ -109,49 +118,28 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
   );
 }
 
-export function MockHistoryTable() {
-  const mockRows = [
-    {
-      id: "mock_4",
-      date: "2026-08-28",
-      title: "Mindrift Full Mock #4",
-      score: 86.0,
-      time: "44m 12s",
-      status: "Borderline",
-      statusColor: "text-amber-400 bg-amber-500/10 border-amber-500/30",
-      sampleQuestionId: "q_ll_001",
-    },
-    {
-      id: "mock_2",
-      date: "2026-08-25",
-      title: "Alignerr Screener #2",
-      score: 82.0,
-      time: "48m 05s",
-      status: "Borderline",
-      statusColor: "text-amber-400 bg-amber-500/10 border-amber-500/30",
-      sampleQuestionId: "q_arr_002",
-    },
-    {
-      id: "mock_3",
-      date: "2026-08-21",
-      title: "Mindrift Full Mock #3",
-      score: 74.0,
-      time: "50m 00s",
-      status: "Needs Work",
-      statusColor: "text-orange-400 bg-orange-500/10 border-orange-500/30",
-      sampleQuestionId: "q_str_004",
-    },
-    {
-      id: "mock_1",
-      date: "2026-08-18",
-      title: "Python Diagnostic #1",
-      score: 91.0,
-      time: "38m 20s",
-      status: "Ready",
-      statusColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
-      sampleQuestionId: "q_bs_003",
-    },
-  ];
+export function MockHistoryTable({ history = [] }: { history?: any[] }) {
+  if (history.length === 0) {
+    return (
+      <div className="p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 text-center space-y-4">
+        <div className="w-12 h-12 rounded-2xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mx-auto text-zinc-400">
+          <Trophy className="w-6 h-6 text-zinc-500" />
+        </div>
+        <div className="space-y-1">
+          <h4 className="text-sm font-bold text-white">No Assessments Completed Yet</h4>
+          <p className="text-xs text-zinc-400 max-w-md mx-auto">
+            You haven't taken any mock assessments yet. Take a timed 3-question evaluation test to benchmark your readiness and unlock your certification scorecard.
+          </p>
+        </div>
+        <a
+          href="/assessment"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-md transition-colors"
+        >
+          <span>Launch Mock Assessment</span>
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-4">
@@ -159,7 +147,7 @@ export function MockHistoryTable() {
         <span className="text-xs font-bold uppercase tracking-wider text-zinc-300">
           Recent Assessment & Audit History
         </span>
-        <span className="text-[11px] text-zinc-500">Historical Retrieval Enabled</span>
+        <span className="text-[11px] text-zinc-500">{history.length} assessments recorded</span>
       </div>
 
       <div className="overflow-x-auto">
@@ -167,7 +155,7 @@ export function MockHistoryTable() {
           <thead>
             <tr className="border-b border-zinc-800 text-zinc-400 font-semibold uppercase tracking-wider text-[11px]">
               <th className="py-3 px-4">Date</th>
-              <th className="py-3 px-4">Assessment Type</th>
+              <th className="py-3 px-4">Assessment ID</th>
               <th className="py-3 px-4">Score</th>
               <th className="py-3 px-4">Time Spent</th>
               <th className="py-3 px-4">Status</th>
@@ -175,23 +163,31 @@ export function MockHistoryTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-800/60 font-mono">
-            {mockRows.map((row) => (
-              <tr key={row.id} className="hover:bg-zinc-800/40 transition-colors">
-                <td className="py-3.5 px-4 text-zinc-400">{row.date}</td>
-                <td className="py-3.5 px-4 font-sans font-semibold text-zinc-200">{row.title}</td>
-                <td className="py-3.5 px-4 font-bold text-emerald-400">{row.score.toFixed(0)} / 100</td>
-                <td className="py-3.5 px-4 text-zinc-400">{row.time}</td>
+            {history.map((session) => (
+              <tr key={session.id} className="hover:bg-zinc-800/40 transition-colors">
+                <td className="py-3.5 px-4 text-zinc-400">
+                  {new Date(session.started_at).toLocaleDateString()}
+                </td>
+                <td className="py-3.5 px-4 font-sans font-semibold text-zinc-200">
+                  Assessment #{session.id.slice(0, 8)}
+                </td>
+                <td className="py-3.5 px-4 font-bold text-emerald-400">
+                  {session.total_score ? session.total_score.toFixed(0) : "0"} / 100
+                </td>
+                <td className="py-3.5 px-4 text-zinc-400">
+                  {session.time_spent_seconds ? `${Math.floor(session.time_spent_seconds / 60)}m ${session.time_spent_seconds % 60}s` : "Timed"}
+                </td>
                 <td className="py-3.5 px-4">
-                  <span className={cn("text-[10px] font-bold uppercase px-2 py-0.5 rounded border", row.statusColor)}>
-                    {row.status}
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded border text-emerald-400 bg-emerald-500/10 border-emerald-500/30">
+                    Completed
                   </span>
                 </td>
                 <td className="py-3.5 px-4 text-right font-sans">
                   <a
-                    href={`/practice/${row.sampleQuestionId}`}
+                    href="/assessment/results"
                     className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-2"
                   >
-                    <span>Review Audit</span>
+                    <span>View Scorecard</span>
                   </a>
                 </td>
               </tr>

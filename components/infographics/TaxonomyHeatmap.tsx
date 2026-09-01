@@ -24,7 +24,8 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
     { key: "complexity_regression", label: "Complexity Regressions" },
   ];
 
-  function getCellColor(score: number): { bg: string; text: string; badge: string } {
+  function getCellColor(attempts: number, score: number): { bg: string; text: string; badge: string } {
+    if (attempts === 0) return { bg: "bg-zinc-950/40 border-zinc-850", text: "text-zinc-500", badge: "Not Started" };
     if (score >= 90) return { bg: "bg-emerald-950/40 border-emerald-800/40", text: "text-emerald-300", badge: "Ready" };
     if (score >= 80) return { bg: "bg-amber-950/40 border-amber-800/40", text: "text-amber-300", badge: "Borderline" };
     if (score >= 70) return { bg: "bg-orange-950/40 border-orange-800/40", text: "text-orange-300", badge: "Needs Work" };
@@ -43,8 +44,8 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
         </div>
         <div className="space-y-2">
           {topics.map((t) => {
-            const stat = topicStats[t.key] || { attempts: 0, avg_score: 75 };
-            const style = getCellColor(stat.avg_score);
+            const stat = topicStats[t.key] || { attempts: 0, avg_score: 0 };
+            const style = getCellColor(stat.attempts, stat.avg_score);
             return (
               <div
                 key={t.key}
@@ -59,7 +60,7 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={cn("font-bold text-sm", style.text)}>
-                    {stat.avg_score.toFixed(0)}%
+                    {stat.attempts > 0 ? `${stat.avg_score.toFixed(0)}%` : "0%"}
                   </span>
                   <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">
                     {style.badge}
@@ -81,8 +82,8 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
         </div>
         <div className="space-y-2">
           {defects.map((d) => {
-            const stat = defectStats[d.key] || { attempts: 0, detection_rate: 70 };
-            const style = getCellColor(stat.detection_rate);
+            const stat = defectStats[d.key] || { attempts: 0, detection_rate: 0 };
+            const style = getCellColor(stat.attempts, stat.detection_rate);
             return (
               <div
                 key={d.key}
@@ -97,7 +98,7 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={cn("font-bold text-sm", style.text)}>
-                    {stat.detection_rate.toFixed(0)}%
+                    {stat.attempts > 0 ? `${stat.detection_rate.toFixed(0)}%` : "0%"}
                   </span>
                   <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">
                     {style.badge}
