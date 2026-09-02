@@ -1,48 +1,78 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // Hide global marketing footer on full-height IDE test session screens
+  const isWorkspaceRoute =
+    (pathname.startsWith("/oa/") && pathname !== "/oa" && !pathname.startsWith("/oa/results")) ||
+    (pathname.startsWith("/practice/") && pathname !== "/practice") ||
+    pathname === "/assessment/session";
+
+  if (isWorkspaceRoute) {
+    return null;
+  }
+
   return (
-    <footer className="bg-[#121416] text-white border-t-8 border-white mt-auto font-['Hanken_Grotesk']">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-6 sm:p-12 lg:p-16 gap-8 max-w-[1600px] mx-auto w-full">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4 text-3xl sm:text-4xl font-black uppercase tracking-tight">
-            <div className="w-8 h-8 bg-white text-black flex items-center justify-center font-black text-base border-2 border-white">
-              EF
+    <footer className="w-full border-t border-neutral-900/80 bg-neutral-950/40 text-neutral-400 font-['Hanken_Grotesk'] mt-auto">
+      <div className="max-w-6xl mx-auto px-6 pt-16 pb-12">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-7 h-7 bg-white text-black flex items-center justify-center font-black text-xs rounded-full">
+                EF
+              </div>
+              <span className="text-lg font-bold text-white font-mono tracking-tight">
+                EvalForge
+              </span>
+              <span className="text-[10px] font-mono border border-neutral-800 px-2 py-0.5 rounded-full text-neutral-400">
+                v1.0
+              </span>
             </div>
-            <span>
-              EvalForge <span className="text-sm border-2 border-white px-2 py-0.5 ml-2 font-mono">V1.0</span>
-            </span>
+            <p className="text-xs text-neutral-500 font-sans max-w-sm leading-relaxed">
+              High-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.
+            </p>
           </div>
-          <p className="font-bold max-w-md uppercase text-xs sm:text-sm border-l-4 border-white pl-4 font-mono text-zinc-300">
-            AI-Evaluation & Code-Review Assessment Simulator. Calibrating developers for RLHF roles.
-          </p>
+
+          <nav className="flex flex-wrap gap-6 text-xs font-mono">
+            <Link
+              href="/practice"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              Practice Catalog
+            </Link>
+            <Link
+              href="/assessment"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              Mock Assessment
+            </Link>
+            <Link
+              href="/oa"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              OA Simulator
+            </Link>
+            <Link
+              href="/dashboard"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              Readiness Profile
+            </Link>
+          </nav>
         </div>
 
-        <nav className="flex flex-col sm:flex-row gap-4 sm:gap-6 text-sm sm:text-base font-black uppercase tracking-wider">
-          <Link
-            href="/practice"
-            className="hover:bg-white hover:text-black px-3 py-1.5 transition-none inline-block border-2 border-transparent hover:border-white"
-          >
-            Practice Catalog
-          </Link>
-          <Link
-            href="/assessment"
-            className="hover:bg-white hover:text-black px-3 py-1.5 transition-none inline-block border-2 border-transparent hover:border-white"
-          >
-            Mock Assessment
-          </Link>
-          <Link
-            href="/dashboard"
-            className="bg-white text-black px-3 py-1.5 transition-none inline-block border-2 border-white"
-          >
-            Readiness Profile
-          </Link>
-        </nav>
-      </div>
-
-      <div className="bg-white text-black text-center py-4 font-bold uppercase tracking-widest text-xs border-t-4 border-white font-mono">
-        &copy; {new Date().getFullYear()} EvalForge. Minimalist Brutalist 70/30 Edition.
+        <div className="mt-12 pt-6 border-t border-neutral-900/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-600">
+          <p>&copy; {new Date().getFullYear()} EvalForge. High-Caliber Code Evaluation Engine.</p>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-neutral-400">SYSTEM OPERATIONAL</span>
+          </div>
+        </div>
       </div>
     </footer>
   );

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { getStoredProfile } from "@/lib/storage";
 import { UserProfileStats } from "@/types/submission";
 import { UserDropdown } from "@/components/auth/UserDropdown";
-import { Menu, X, Code2, Timer, User, Home, Flame } from "lucide-react";
+import { Menu, X, Code2, Timer, User, Flame } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -27,6 +27,16 @@ export function Navbar() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Hide global floating navbar on full-screen IDE workspaces
+  const isWorkspaceRoute =
+    (pathname.startsWith("/oa/") && pathname !== "/oa" && !pathname.startsWith("/oa/results")) ||
+    (pathname.startsWith("/practice/") && pathname !== "/practice") ||
+    pathname === "/assessment/session";
+
+  if (isWorkspaceRoute) {
+    return null;
+  }
+
   const navItems = [
     { href: "/practice", label: "PRACTICE", icon: Code2 },
     { href: "/assessment", label: "MOCK", icon: Timer },
@@ -35,25 +45,22 @@ export function Navbar() {
   ];
 
   return (
-    <header className="w-full bg-[#121416] text-white border-b-2 border-white/15 sticky top-0 z-50 shadow-md">
-      <div className="flex justify-between items-center w-full px-4 sm:px-8 py-3.5 uppercase tracking-tighter max-w-[1700px] mx-auto">
+    <div className="w-full sticky top-3 z-50 px-4">
+      <header className="max-w-5xl mx-auto h-14 rounded-full border border-neutral-800/80 bg-neutral-950/70 backdrop-blur-md px-5 flex items-center justify-between shadow-2xl transition-all">
         {/* Brand */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 bg-white text-black flex items-center justify-center font-black text-sm rounded-md border border-white group-hover:bg-zinc-200 transition-colors">
+            <div className="w-7 h-7 bg-white text-black flex items-center justify-center font-black text-xs rounded-full group-hover:scale-105 transition-transform">
               EF
             </div>
-            <span className="text-xl font-black tracking-tight text-white font-['Hanken_Grotesk'] leading-none">
+            <span className="text-sm font-extrabold tracking-tight text-white font-['Hanken_Grotesk'] leading-none">
               EvalForge
-            </span>
-            <span className="px-1.5 py-0.5 bg-white text-black text-[9px] font-black tracking-widest rounded">
-              SIM
             </span>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-2 text-xs font-black tracking-wider font-['Hanken_Grotesk']">
+        <nav className="hidden md:flex items-center gap-1 text-xs font-medium font-mono">
           {navItems.map((item) => {
             const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
             return (
@@ -61,10 +68,10 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-4 py-2 rounded-lg transition-colors border text-xs font-bold",
+                  "px-3.5 py-1.5 rounded-full transition-all text-xs font-mono tracking-tight",
                   isActive
-                    ? "bg-white text-black border-white shadow-sm"
-                    : "border-transparent text-[#b9cbc1] hover:text-white hover:bg-[#1e2022]"
+                    ? "bg-white text-black font-bold shadow-sm"
+                    : "text-neutral-400 hover:text-white hover:bg-neutral-800/60"
                 )}
               >
                 {item.label}
@@ -74,31 +81,30 @@ export function Navbar() {
         </nav>
 
         {/* Profile & Mobile Toggle */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-3">
           {profile && (
-            <div className="hidden lg:flex items-center gap-4 text-xs font-bold uppercase tracking-wider font-mono text-[#b9cbc1]">
-              <span>READINESS: <strong className="text-white">{profile.readiness_score.toFixed(1)}%</strong></span>
-              <span>STREAK: <strong className="text-white">{profile.current_streak_days}D</strong></span>
+            <div className="hidden lg:flex items-center gap-3 text-[11px] font-mono text-neutral-400">
+              <span>READINESS: <strong className="text-white font-semibold">{profile.readiness_score.toFixed(0)}%</strong></span>
             </div>
           )}
 
           <UserDropdown />
 
-          {/* Mobile Hamburger Toggle Button */}
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg obsidian-inset text-[#e2e2e5] hover:text-white transition-colors cursor-pointer"
+            className="md:hidden p-1.5 rounded-full text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
             aria-label="Toggle Navigation Menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
         </div>
-      </div>
+      </header>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#16181a] border-b border-[rgba(255,255,255,0.1)] px-4 py-4 space-y-3 font-mono text-xs animate-in slide-in-from-top-2 duration-200">
-          <div className="grid grid-cols-3 gap-2">
+        <div className="md:hidden max-w-5xl mx-auto mt-2 rounded-2xl bg-neutral-950/90 border border-neutral-800/80 backdrop-blur-md p-4 space-y-3 font-mono text-xs shadow-2xl animate-in slide-in-from-top-2 duration-200">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
@@ -109,8 +115,8 @@ export function Navbar() {
                   className={cn(
                     "flex flex-col items-center justify-center p-3 rounded-xl gap-1.5 font-bold uppercase transition-all",
                     isActive
-                      ? "bg-white text-[#121416] shadow-md font-black"
-                      : "obsidian-inset text-[#b9cbc1] hover:text-white"
+                      ? "bg-white text-black shadow-md"
+                      : "bg-neutral-900/60 text-neutral-400 hover:text-white border border-neutral-800/50"
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -121,14 +127,14 @@ export function Navbar() {
           </div>
 
           {profile && (
-            <div className="flex justify-between items-center p-3 rounded-xl obsidian-inset text-[11px] font-mono text-[#b9cbc1]">
-              <span>READINESS: <strong className="text-white">{profile.readiness_score.toFixed(1)}%</strong></span>
+            <div className="flex justify-between items-center p-3 rounded-xl bg-neutral-900/50 border border-neutral-800/50 text-[11px] font-mono text-neutral-400">
+              <span>READINESS: <strong className="text-white">{profile.readiness_score.toFixed(0)}%</strong></span>
               <span>STREAK: <strong className="text-white">{profile.current_streak_days}D</strong></span>
               <span>EVALS: <strong className="text-white">{profile.total_evaluations_count}</strong></span>
             </div>
           )}
         </div>
       )}
-    </header>
+    </div>
   );
 }
