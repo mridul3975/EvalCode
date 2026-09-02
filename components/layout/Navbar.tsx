@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { getStoredProfile } from "@/lib/storage";
 import { UserProfileStats } from "@/types/submission";
 import { UserDropdown } from "@/components/auth/UserDropdown";
-import { Menu, X, Code2, Timer, User, Home } from "lucide-react";
+import { Menu, X, Code2, Timer, User, Home, Flame } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -30,6 +30,7 @@ export function Navbar() {
   const navItems = [
     { href: "/practice", label: "PRACTICE", icon: Code2 },
     { href: "/assessment", label: "MOCK", icon: Timer },
+    { href: "/oa", label: "OA SIMULATOR", icon: Flame },
     { href: "/dashboard", label: "PROFILE", icon: User },
   ];
 
