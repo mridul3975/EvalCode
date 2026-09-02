@@ -6,7 +6,6 @@ import { QuestionItem, QuestionLanguage } from "@/types/question";
 import { EvaluationSubmission, EvaluationResult } from "@/types/submission";
 import { DiscrepancyDiffChart } from "@/components/infographics/DiscrepancyDiffChart";
 import { CodeDiffViewer } from "@/components/review-studio/CodeDiffViewer";
-import { AIChatAssistant } from "@/components/review-studio/AIChatAssistant";
 import { getCodeForLanguage, getLanguageLabel } from "@/lib/language-utils";
 import { cn } from "@/lib/utils";
 import {
@@ -14,6 +13,7 @@ import {
   XCircle,
   RotateCcw,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 
 export function DisagreementMatrix({
@@ -23,6 +23,7 @@ export function DisagreementMatrix({
   onRetry,
   nextQuestionId,
   selectedLanguage = "python",
+  onOpenAssistant,
 }: {
   question: QuestionItem;
   submission: EvaluationSubmission;
@@ -30,6 +31,7 @@ export function DisagreementMatrix({
   onRetry: () => void;
   nextQuestionId?: string;
   selectedLanguage?: QuestionLanguage;
+  onOpenAssistant?: () => void;
 }) {
   const scorePct = (result.overall_score * 10).toFixed(0);
   const isPass = result.overall_score >= 8.0;
@@ -117,8 +119,32 @@ export function DisagreementMatrix({
         />
       </div>
 
-      {/* Interactive Gemini AI Chat Studio */}
-      <AIChatAssistant question={question} candidateVerdict={submission.verdict} />
+      {/* Interactive Gemini AI Assistant Banner */}
+      {onOpenAssistant && (
+        <div className="p-4 rounded-xl bg-gradient-to-r from-[#181a1d] to-[#1e2022] border border-emerald-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+            </div>
+            <div>
+              <span className="text-xs font-mono font-bold text-white uppercase block">
+                GEMINI AI AUDIT COPILOT
+              </span>
+              <p className="text-[11px] text-[#83958c]">
+                Have questions about this defect, your score, or the solution diff?
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onOpenAssistant}
+            className="neu-extruded bg-[#282a2c] hover:bg-white hover:text-black text-white px-3.5 py-2 rounded-lg font-mono text-xs font-bold uppercase transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+          >
+            <span>OPEN ASSISTANT</span>
+            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+          </button>
+        </div>
+      )}
 
       {/* Action Footer */}
       <div className="border-t border-[rgba(255,255,255,0.08)] pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 mt-auto font-mono text-xs">
