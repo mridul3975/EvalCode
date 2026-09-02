@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import { QuestionItem } from "@/types/question";
 import { askGeminiFollowUp } from "@/lib/gemini";
 import { cn } from "@/lib/utils";
-import { Sparkles, Send, User, Bot, Loader2, Lightbulb, Copy, Check, RotateCcw, X, PanelRightClose } from "lucide-react";
+import { Sparkles, Send, User, Bot, Loader2, Lightbulb, Copy, Check, RotateCcw, X } from "lucide-react";
 
 function ChatMarkdown({ content, isUser }: { content: string; isUser: boolean }) {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState<number | null>(null);
@@ -18,11 +18,10 @@ function ChatMarkdown({ content, isUser }: { content: string; isUser: boolean })
   };
 
   return (
-    <div className={cn("text-xs leading-relaxed font-sans space-y-2", isUser ? "text-white" : "text-gray-900 font-medium")}>
+    <div className={cn("text-xs leading-relaxed font-sans space-y-2", isUser ? "text-white" : "text-neutral-200")}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          // Code Block & Inline Code Rendering
           code({ node, inline, className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || "");
             const codeString = String(children).replace(/\n$/, "");
@@ -31,14 +30,13 @@ function ChatMarkdown({ content, isUser }: { content: string; isUser: boolean })
             if (!inline && (match || codeString.includes("\n"))) {
               const codeIdx = Math.random();
               return (
-                <div className="my-2.5 rounded-xl overflow-hidden border border-black/30 font-mono text-xs shadow-xl">
-                  {/* Code Header Bar */}
-                  <div className="bg-[#121416] text-[#b9cbc1] px-3 py-1.5 flex justify-between items-center text-[10px] uppercase font-bold border-b border-[#282a2c]">
-                    <span className="text-white font-mono tracking-wider">{lang}</span>
+                <div className="my-2.5 rounded-lg overflow-hidden border border-neutral-800 font-mono text-xs shadow-md">
+                  <div className="bg-neutral-900 text-neutral-400 px-3 py-1.5 flex justify-between items-center text-[10px] uppercase font-bold border-b border-neutral-800">
+                    <span className="text-white font-mono">{lang}</span>
                     <button
                       type="button"
                       onClick={() => handleCopyCode(codeString, codeIdx)}
-                      className="text-gray-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+                      className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
                     >
                       {copiedCodeIndex === codeIdx ? (
                         <>
@@ -53,9 +51,8 @@ function ChatMarkdown({ content, isUser }: { content: string; isUser: boolean })
                       )}
                     </button>
                   </div>
-                  {/* Code Body */}
-                  <div className="bg-[#0c0e10] text-[#e2e2e5] p-3 overflow-x-auto leading-relaxed font-mono text-xs">
-                    <pre className="text-zinc-200">
+                  <div className="bg-neutral-950 p-3 overflow-x-auto leading-relaxed font-mono text-xs">
+                    <pre className="text-neutral-200">
                       <code>{codeString}</code>
                     </pre>
                   </div>
@@ -65,54 +62,22 @@ function ChatMarkdown({ content, isUser }: { content: string; isUser: boolean })
 
             return (
               <code
-                className={cn(
-                  "px-1.5 py-0.5 rounded font-mono text-[11px] font-bold mx-0.5 border",
-                  isUser
-                    ? "bg-[#121416] text-[#e2e2e5] border-white/20"
-                    : "bg-gray-200 text-gray-900 border-gray-300"
-                )}
+                className="bg-neutral-800/80 px-1.5 py-0.5 rounded text-neutral-200 font-mono text-[11px]"
                 {...props}
               >
                 {children}
               </code>
             );
           },
-
-          // Headings
-          h1: ({ children }) => <h1 className="text-sm font-black uppercase tracking-tight my-2 border-b pb-1">{children}</h1>,
-          h2: ({ children }) => <h2 className="text-xs font-extrabold uppercase tracking-tight my-1.5">{children}</h2>,
-          h3: ({ children }) => <h3 className="text-xs font-bold uppercase tracking-wider my-1">{children}</h3>,
-
-          // Paragraphs & Text
-          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-          strong: ({ children }) => (
-            <strong className={cn("font-extrabold", isUser ? "text-white" : "text-black")}>
-              {children}
-            </strong>
-          ),
-          em: ({ children }) => <em className="italic opacity-90">{children}</em>,
-
-          // Lists
-          ul: ({ children }) => <ul className="list-disc pl-4 space-y-1 my-1.5">{children}</ul>,
-          ol: ({ children }) => <ol className="list-decimal pl-4 space-y-1 my-1.5">{children}</ol>,
-          li: ({ children }) => <li className="leading-normal">{children}</li>,
-
-          // Blockquotes
-          blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-black/40 pl-3 italic opacity-90 my-2">
-              {children}
-            </blockquote>
-          ),
-
-          // Tables
-          table: ({ children }) => (
-            <div className="overflow-x-auto my-2 border border-black/20 rounded-lg">
-              <table className="min-w-full text-xs text-left border-collapse">{children}</table>
-            </div>
-          ),
-          thead: ({ children }) => <thead className="bg-[#121416] text-white uppercase text-[10px] font-mono">{children}</thead>,
-          th: ({ children }) => <th className="px-2.5 py-1.5 border-b border-black/20 font-bold">{children}</th>,
-          td: ({ children }) => <td className="px-2.5 py-1.5 border-b border-black/10 font-mono text-[11px]">{children}</td>,
+          ul({ children }) {
+            return <ul className="list-disc pl-4 space-y-1 text-xs">{children}</ul>;
+          },
+          ol({ children }) {
+            return <ol className="list-decimal pl-4 space-y-1 text-xs">{children}</ol>;
+          },
+          p({ children }) {
+            return <p className="leading-relaxed">{children}</p>;
+          },
         }}
       >
         {content}
@@ -123,78 +88,84 @@ function ChatMarkdown({ content, isUser }: { content: string; isUser: boolean })
 
 export function AIChatAssistant({
   question,
+  candidateCode,
   candidateVerdict,
-  onClose,
-  isSidebar = false,
   className,
+  isSidebar = false,
+  onClose,
 }: {
   question: QuestionItem;
+  candidateCode?: string;
   candidateVerdict?: string;
-  onClose?: () => void;
-  isSidebar?: boolean;
   className?: string;
+  isSidebar?: boolean;
+  onClose?: () => void;
 }) {
-  const initialGreeting = `Hello! I am your Gemini AI Code Audit Assistant for **${question.title}**. Ask me any follow-up questions about the defect, edge cases, pointer mutations, or refactoring!`;
+  const initialBotMessage = {
+    role: "model",
+    text: `Hello! I am your **Gemini 2.5 Flash** evaluation copilot.
 
-  const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; text: string }>>([
-    {
-      role: "assistant",
-      text: initialGreeting,
-    },
+I've loaded the problem **"${question.title}"** along with its ground truth rubric and calibrated error taxonomy.
+
+You can ask me to:
+- Explain subtle invariant or pointer bugs in the snippet.
+- Audit the claimed Big-O complexity vs. theoretical lower bounds.
+- Provide edge cases that break this implementation.
+- Grade your findings against the ground truth rubric.`,
+  };
+
+  const [messages, setMessages] = useState<Array<{ role: string; text: string }>>([
+    initialBotMessage,
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const chatBottomRef = useRef<HTMLDivElement>(null);
-
-  // Reset conversation if question changes
-  useEffect(() => {
-    setMessages([
-      {
-        role: "assistant",
-        text: `Hello! I am your Gemini AI Code Audit Assistant for **${question.title}**. Ask me any follow-up questions about the defect, edge cases, pointer mutations, or refactoring!`,
-      },
-    ]);
-  }, [question.id, question.title]);
-
-  const suggestionChips = [
-    `Explain why line ${question.ground_truth.expected_issues[0]?.line_numbers[0] || 5} is a bug`,
-    "How would an Alignerr reviewer grade this?",
-    `Give me an optimal O(1) space ${question.language} solution`,
-    "What edge cases would break the AI snippet?",
-  ];
 
   useEffect(() => {
     chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
   const handleReset = () => {
-    setMessages([
-      {
-        role: "assistant",
-        text: initialGreeting,
-      },
-    ]);
+    setMessages([initialBotMessage]);
     setInput("");
   };
 
-  const handleSendMessage = async (textToSend?: string) => {
-    const query = textToSend || input.trim();
-    if (!query || isLoading) return;
+  const suggestionChips = [
+    "Explain why line 5 is a fatal bug",
+    "What edge cases break this code?",
+    "Analyze time and space complexity",
+    "Compare against optimal Big-O bounds",
+  ];
 
-    const userMsg = { role: "user" as const, text: query };
-    setMessages((prev) => [...prev, userMsg]);
-    if (!textToSend) setInput("");
+  const handleSendMessage = async (customPrompt?: string) => {
+    const promptToSend = customPrompt || input;
+    if (!promptToSend.trim() || isLoading) return;
+
+    const userMessage = { role: "user", text: promptToSend };
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
+    if (!customPrompt) setInput("");
     setIsLoading(true);
 
     try {
-      const responseText = await askGeminiFollowUp(query, question, candidateVerdict);
-      setMessages((prev) => [...prev, { role: "assistant", text: responseText }]);
+      const chatHistory = updatedMessages.map((m) => ({
+        role: m.role,
+        text: m.text,
+      }));
+
+      const responseText = await askGeminiFollowUp(
+        promptToSend,
+        question,
+        candidateVerdict
+      );
+
+      setMessages((prev) => [...prev, { role: "model", text: responseText }]);
     } catch (err: any) {
       setMessages((prev) => [
         ...prev,
         {
-          role: "assistant",
-          text: `⚠️ Error: ${err?.message || "Failed to reach Gemini AI API. Please check your API key."}`,
+          role: "model",
+          text: `⚠️ **AI Service Error**: Could not complete query. Please check your Gemini API key configuration.`,
         },
       ]);
     } finally {
@@ -205,42 +176,42 @@ export function AIChatAssistant({
   return (
     <div
       className={cn(
-        "bg-[#141618] text-[#e2e2e5] font-['Hanken_Grotesk'] border border-white/10 shadow-2xl flex flex-col",
+        "bg-neutral-950/90 text-neutral-200 font-['Hanken_Grotesk'] border border-neutral-800/80 shadow-2xl flex flex-col backdrop-blur-md",
         isSidebar
           ? "h-full w-full rounded-2xl overflow-hidden"
-          : "obsidian-card p-5 sm:p-6 space-y-4 rounded-2xl",
+          : "p-5 space-y-4 rounded-2xl",
         className
       )}
     >
-      {/* Assistant Header */}
-      <div className="p-4 sm:p-5 border-b border-[rgba(255,255,255,0.08)] bg-[#181a1d]/60 flex items-center justify-between shrink-0">
+      {/* Header */}
+      <div className="p-4 border-b border-neutral-800 bg-neutral-900/40 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="relative flex h-2.5 w-2.5">
+          <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
-              <h4 className="text-xs sm:text-sm font-black uppercase text-white font-mono tracking-wider truncate">
-                GEMINI AI ASSISTANT
+              <Sparkles className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <h4 className="text-xs font-bold text-white font-mono tracking-tight truncate">
+                GEMINI AI COPILOT
               </h4>
             </div>
-            <span className="text-[10px] text-[#83958c] font-mono block truncate">
+            <span className="text-[10px] text-neutral-500 font-mono block truncate">
               {candidateVerdict ? `Verdict: ${candidateVerdict.toUpperCase()}` : "Practice Copilot & Defect Audit"}
             </span>
           </div>
         </div>
 
         <div className="flex items-center gap-1.5 shrink-0">
-          <span className="obsidian-chip-optimal text-[9px] px-2 py-0.5">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-neutral-900 border border-neutral-800 text-emerald-400">
             2.5 FLASH
           </span>
           <button
             type="button"
             onClick={handleReset}
             title="Restart conversation"
-            className="p-1.5 rounded-lg text-[#83958c] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1 rounded text-neutral-500 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
@@ -249,7 +220,7 @@ export function AIChatAssistant({
               type="button"
               onClick={onClose}
               title="Close sidebar"
-              className="p-1.5 rounded-lg text-[#83958c] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              className="p-1 rounded text-neutral-500 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -257,51 +228,41 @@ export function AIChatAssistant({
         </div>
       </div>
 
-      {/* Suggestion Chips */}
-      <div className="p-3 sm:px-4 bg-[#121416]/40 border-b border-white/5 space-y-1.5 font-mono shrink-0">
-        <span className="text-[10px] text-[#83958c] font-bold uppercase tracking-wider flex items-center gap-1">
-          <Lightbulb className="w-3 h-3 text-emerald-400" />
-          <span>SUGGESTED AUDIT PROMPTS</span>
-        </span>
-        <div className="flex flex-wrap gap-1.5">
-          {suggestionChips.map((chip, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleSendMessage(chip)}
-              disabled={isLoading}
-              className="px-2.5 py-1 rounded-md text-[11px] text-[#b9cbc1] bg-[#1e2022]/70 hover:bg-[#282a2c] hover:text-white transition-all cursor-pointer text-left border border-white/10 active:scale-95 disabled:opacity-50"
-            >
-              {chip}
-            </button>
-          ))}
-        </div>
+      {/* Horizontally Scrollable Suggestion Chips */}
+      <div className="px-4 py-2.5 bg-neutral-900/20 border-b border-neutral-800/60 overflow-x-auto scrollbar-none flex items-center gap-1.5 shrink-0">
+        <Lightbulb className="w-3 h-3 text-emerald-400 shrink-0 mr-1" />
+        {suggestionChips.map((chip, idx) => (
+          <button
+            key={idx}
+            onClick={() => handleSendMessage(chip)}
+            disabled={isLoading}
+            className="text-xs bg-neutral-800/60 hover:bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full border border-neutral-700/50 whitespace-nowrap transition-colors cursor-pointer disabled:opacity-50 font-mono text-[11px]"
+          >
+            {chip}
+          </button>
+        ))}
       </div>
 
       {/* Messages Trajectory */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 font-mono text-xs scrollbar-thin scrollbar-thumb-white/10">
+      <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 font-mono text-xs">
         {messages.map((msg, idx) => (
           <div
             key={idx}
             className={cn(
-              "flex gap-2.5 p-3 rounded-xl transition-all",
+              "flex gap-2.5 p-3.5 rounded-xl transition-all",
               msg.role === "user"
-                ? "bg-[#1e2022] ml-4 border border-white/10 text-white"
-                : "contrast-card text-[#121416] mr-2 shadow-lg"
+                ? "bg-neutral-800/70 ml-4 border border-neutral-700/60 text-white"
+                : "bg-neutral-900/70 border border-neutral-800 text-neutral-200 mr-2 shadow-sm"
             )}
           >
             {msg.role === "user" ? (
-              <User className="w-4 h-4 text-white shrink-0 mt-0.5" />
+              <User className="w-3.5 h-3.5 text-neutral-400 shrink-0 mt-0.5" />
             ) : (
-              <Bot className="w-4 h-4 text-[#121416] shrink-0 mt-0.5" />
+              <Bot className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
             )}
             <div className="space-y-1 overflow-hidden flex-1">
-              <span
-                className={cn(
-                  "text-[9px] font-bold uppercase block tracking-wider font-mono",
-                  msg.role === "user" ? "text-gray-400" : "text-gray-600"
-                )}
-              >
-                {msg.role === "user" ? "YOU (EVALUATOR)" : "GEMINI AI ASSISTANT"}
+              <span className="text-[10px] font-bold uppercase block tracking-wider font-mono text-neutral-500">
+                {msg.role === "user" ? "YOU (EVALUATOR)" : "GEMINI 2.5 FLASH"}
               </span>
               <ChatMarkdown content={msg.text} isUser={msg.role === "user"} />
             </div>
@@ -309,23 +270,23 @@ export function AIChatAssistant({
         ))}
 
         {isLoading && (
-          <div className="contrast-card p-3 rounded-xl mr-2 flex items-center gap-2.5 text-xs text-[#121416] font-bold font-mono shadow-md">
-            <Loader2 className="w-4 h-4 animate-spin text-[#121416]" />
-            <span className="text-[11px]">GEMINI AI IS THINKING & ANALYZING...</span>
+          <div className="p-3 rounded-xl bg-neutral-900/70 border border-neutral-800 mr-2 flex items-center gap-2 text-xs text-neutral-400 font-mono">
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-400" />
+            <span>Analyzing problem invariants...</span>
           </div>
         )}
 
         <div ref={chatBottomRef} />
       </div>
 
-      {/* Chat Input Box */}
-      <div className="p-3 sm:p-4 border-t border-[rgba(255,255,255,0.08)] bg-[#181a1d]/60 shrink-0">
+      {/* Floating Chat Input Box */}
+      <div className="p-3 border-t border-neutral-800 bg-neutral-900/40 shrink-0">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSendMessage();
           }}
-          className="flex gap-2 font-mono text-xs"
+          className="relative flex items-center"
         >
           <input
             type="text"
@@ -333,15 +294,14 @@ export function AIChatAssistant({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isLoading}
-            className="flex-1 px-3 py-2.5 rounded-xl bg-[#0c0e10] border border-[#282a2c] text-white text-xs font-mono placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors"
+            className="w-full pl-3.5 pr-10 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-200 text-xs font-mono placeholder:text-neutral-500 focus:outline-none focus:border-neutral-600 transition-colors"
           />
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="obsidian-btn-primary px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer disabled:opacity-40 shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+            className="absolute right-1.5 p-1.5 rounded-md bg-white text-black hover:bg-neutral-200 transition-colors disabled:opacity-30 cursor-pointer"
           >
             <Send className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">ASK</span>
           </button>
         </form>
       </div>
