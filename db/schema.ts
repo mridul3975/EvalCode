@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, doublePrecision, integer, jsonb, boolean, bigint } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, doublePrecision, integer, jsonb, boolean, bigint, varchar, numeric } from "drizzle-orm/pg-core";
 import { UserProfileStats, EvaluationSubmission, EvaluationResult, AssessmentSession } from "@/types/submission";
 
 export const profiles = pgTable("profiles", {
@@ -60,3 +60,27 @@ export const bookmarks = pgTable("bookmarks", {
   question_id: text("question_id").notNull(),
   created_at: timestamp("created_at").defaultNow(),
 });
+
+export const oaAssessments = pgTable("oa_assessments", {
+  id: text("id").primaryKey(),
+  user_id: text("user_id").default("default_user"),
+  company_profile: varchar("company_profile", { length: 64 }).notNull(),
+  problem_id: text("problem_id").notNull(),
+  submitted_code: text("submitted_code").notNull(),
+  language: varchar("language", { length: 32 }).notNull(),
+  tests_passed: integer("tests_passed").notNull(),
+  total_tests: integer("total_tests").notNull(),
+  time_spent_seconds: integer("time_spent_seconds").notNull(),
+  approach_explanation: text("approach_explanation"),
+  claimed_time_complexity: varchar("claimed_time_complexity", { length: 32 }),
+  claimed_space_complexity: varchar("claimed_space_complexity", { length: 32 }),
+  gemini_follow_ups: jsonb("gemini_follow_ups"), // [{ questionId, question, userAnswer, score, feedback }]
+  overall_score: numeric("overall_score", { precision: 5, scale: 2 }).notNull(),
+  correctness_score: numeric("correctness_score", { precision: 5, scale: 2 }).notNull(),
+  quality_score: numeric("quality_score", { precision: 5, scale: 2 }).notNull(),
+  complexity_score: numeric("complexity_score", { precision: 5, scale: 2 }).notNull(),
+  communication_score: numeric("communication_score", { precision: 5, scale: 2 }).notNull(),
+  hiring_bar_verdict: varchar("hiring_bar_verdict", { length: 32 }).notNull(), // 'STRONG_PASS', 'PASS', 'BORDERLINE', 'FAIL'
+  created_at: timestamp("created_at").defaultNow(),
+});
+

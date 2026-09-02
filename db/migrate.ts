@@ -64,6 +64,31 @@ async function main() {
     )
   `;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS oa_assessments (
+      id TEXT PRIMARY KEY,
+      user_id TEXT DEFAULT 'default_user',
+      company_profile VARCHAR(64) NOT NULL,
+      problem_id TEXT NOT NULL,
+      submitted_code TEXT NOT NULL,
+      language VARCHAR(32) NOT NULL,
+      tests_passed INTEGER NOT NULL,
+      total_tests INTEGER NOT NULL,
+      time_spent_seconds INTEGER NOT NULL,
+      approach_explanation TEXT,
+      claimed_time_complexity VARCHAR(32),
+      claimed_space_complexity VARCHAR(32),
+      gemini_follow_ups JSONB,
+      overall_score NUMERIC(5, 2) NOT NULL,
+      correctness_score NUMERIC(5, 2) NOT NULL,
+      quality_score NUMERIC(5, 2) NOT NULL,
+      complexity_score NUMERIC(5, 2) NOT NULL,
+      communication_score NUMERIC(5, 2) NOT NULL,
+      hiring_bar_verdict VARCHAR(32) NOT NULL,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    )
+  `;
+
   console.log("All tables successfully synced to Neon PostgreSQL!");
 }
 
