@@ -818,3 +818,71 @@ CREATE TABLE user_taxonomy_stats (
 * **REQ-PROF-02 (Deficit Tagging):** If any dimension score falls below 60%, the dashboard must highlight it with a `CRITICAL DEFICIT` tag and render a direct CTA button: `[ Practice <Topic/Dimension> Now ]`.
 * **REQ-PROF-03 (Historical Audit Retrieval):** Users can click on any past mock test or practice audit row in the profile table to re-open the split-view workspace in read-only mode, showing their submitted audit alongside the expert ground-truth diff.
 * **REQ-PROF-04 (Streak Tracking):** Evaluates daily activity against UTC midnight. If no evaluations occur within a 36-hour window, the active streak resets to 0.
+
+PRD Section Addendum: FAANG/FinTech Online Assessment (OA) Mode1. Functional Specification & State Transitions[Start 40-Min OA] ──► [Phase 1: Code & Test Sandbox] 
+                             │
+                             ▼ (Code Runs / Passes Tests)
+                      [Phase 2: Self-Explanation & Complexity Audit]
+                             │
+                             ▼ (Submit Code + Notes)
+                      [Phase 3: Gemini Dynamic Follow-Up Round]
+                             │
+                             ▼ (Submit Follow-Up Responses)
+                      [Final Score & FinTech/FAANG Benchmark Report]
+2. Gemini Follow-Up Prompt Contract (Phase 3)The backend route /api/oa/generate-followups must send the candidate's actual submission to Gemini using structured JSON output:JSON{
+  "system_instruction": "You are a Principal Software Engineer conducting a high-stakes technical screening for Google/Citadel. Analyze the candidate's code and technical explanation. Generate 2 to 3 targeted follow-up technical questions probing edge-case fragility, asymptotic limits, or architectural trade-offs.",
+  "prompt_payload": {
+    "problem": "...",
+    "constraints": "...",
+    "submitted_code": "...",
+    "user_claimed_time_complexity": "O(N log N)",
+    "user_claimed_space_complexity": "O(N)"
+  },
+  "expected_output_schema": {
+    "questions": [
+      {
+        "id": "q1",
+        "category": "scale_and_constraints",
+        "question": "Your solution uses a hash map of size N. If the input stream is 100 GB and memory is capped at 512 MB, how would you modify this architecture?"
+      },
+      {
+        "id": "q2",
+        "category": "edge_case_and_stability",
+        "question": "What happens in line 18 if duplicate keys are present with conflicting timestamps?"
+      }
+    ]
+  }
+}
+3. Database Schema Migration (Drizzle ORM)TypeScriptimport { pgTable, uuid, varchar, text, integer, numeric, jsonb, timestamp, boolean } from 'drizzle-orm/pg-core';
+import { users } from './users';
+
+export const oaAssessments = pgTable('oa_assessments', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }),
+  companyProfile: varchar('company_profile', { length: 64 }).notNull(), // 'Citadel', 'Google', 'Fintech'
+  problemId: uuid('problem_id').notNull(),
+  
+  // Submission Artifacts
+  submittedCode: text('submitted_code').notNull(),
+  language: varchar('language', { length: 32 }).notNull(),
+  testsPassed: integer('tests_passed').notNull(),
+  totalTests: integer('total_tests').notNull(),
+  timeSpentSeconds: integer('time_spent_seconds').notNull(),
+  
+  // Written Notes & Follow-ups
+  approachExplanation: text('approach_explanation'),
+  claimedTimeComplexity: varchar('claimed_time_complexity', { length: 32 }),
+  claimedSpaceComplexity: varchar('claimed_space_complexity', { length: 32 }),
+  geminiFollowUps: jsonb('gemini_follow_ups'), // [{ question, userAnswer, score, feedback }]
+  
+  // Benchmark Scores
+  overallScore: numeric('overall_score', { precision: 5, scale: 2 }).notNull(),
+  correctnessScore: numeric('correctness_score', { precision: 5, scale: 2 }).notNull(),
+  qualityScore: numeric('quality_score', { precision: 5, scale: 2 }).notNull(),
+  complexityScore: numeric('complexity_score', { precision: 5, scale: 2 }).notNull(),
+  communicationScore: numeric('communication_score', { precision: 5, scale: 2 }).notNull(),
+  
+  hiringBarVerdict: varchar('hiring_bar_verdict', { length: 32 }).notNull(), // 'STRONG_PASS', 'PASS', 'BORDERLINE', 'FAIL'
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow()
+});
+4. Post-Assessment Diagnostic Feedback BreakdownUpon submission, the Infographic dashboard displays:Test Case Matrix: Visible tests ($100\%$ required) + Hidden Edge-case Suite (large inputs, boundary conditions, zero/null inputs).Gemini Bar-Raiser Critique: Direct feedback on variable naming, readability, code smells, and idiomatic efficiency.Follow-Up Defense Evaluation: How well the candidate defended their complexity claims and scaled the system during the Gemini Q&A phase.
