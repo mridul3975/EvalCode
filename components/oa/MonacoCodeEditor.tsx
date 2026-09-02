@@ -5,13 +5,10 @@ import dynamic from "next/dynamic";
 import { OALanguage } from "@/types/oa";
 import { cn } from "@/lib/utils";
 import {
-  Play,
   RotateCcw,
-  Code2,
   Copy,
   Check,
-  Maximize2,
-  CheckCircle2,
+  Code2,
 } from "lucide-react";
 
 // Dynamically import Monaco Editor to ensure SSR safety
@@ -33,8 +30,6 @@ export function MonacoCodeEditor({
   language,
   onLanguageChange,
   onResetStarterCode,
-  onRunTests,
-  isRunningTests = false,
 }: MonacoCodeEditorProps) {
   const [copied, setCopied] = useState(false);
 
@@ -47,81 +42,57 @@ export function MonacoCodeEditor({
   const monacoLang = language === "typescript" ? "typescript" : language === "cpp" ? "cpp" : "python";
 
   return (
-    <div className="flex flex-col h-full bg-[#141618] border border-white/10 rounded-xl overflow-hidden shadow-2xl font-mono">
-      {/* Editor Header Bar */}
-      <div className="p-3 bg-[#181a1d] border-b border-white/10 flex flex-wrap items-center justify-between gap-3 shrink-0">
-        <div className="flex items-center gap-2.5">
-          <Code2 className="w-4 h-4 text-emerald-400" />
-          <span className="text-xs font-bold uppercase text-white tracking-wider">
-            SOLUTION WORKSPACE
-          </span>
-
-          {/* Language Selector */}
-          <div className="flex items-center bg-[#0c0e10] p-0.5 rounded-lg border border-white/10 text-xs">
-            {(["python", "typescript", "cpp"] as OALanguage[]).map((lang) => (
-              <button
-                key={lang}
-                type="button"
-                onClick={() => onLanguageChange(lang)}
-                className={cn(
-                  "px-2.5 py-1 rounded-md text-[11px] font-bold uppercase transition-all cursor-pointer",
-                  language === lang
-                    ? "bg-white text-black font-black"
-                    : "text-[#b9cbc1] hover:text-white"
-                )}
-              >
-                {lang === "cpp" ? "C++" : lang.toUpperCase()}
-              </button>
-            ))}
-          </div>
+    <div className="flex flex-col h-full bg-[#0d0e11] font-mono border-b border-neutral-800/80">
+      {/* Clean 36px Header Bar */}
+      <div className="h-9 px-3 bg-[#121418] border-b border-neutral-800/80 flex items-center justify-between gap-3 shrink-0 select-none">
+        {/* Language Selector as Subtle Text Tabs */}
+        <div className="flex items-center gap-1">
+          <Code2 className="w-3.5 h-3.5 text-neutral-500 mr-1.5" />
+          {(["python", "typescript", "cpp"] as OALanguage[]).map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              onClick={() => onLanguageChange(lang)}
+              className={cn(
+                "px-2.5 py-1 rounded text-[11px] font-mono transition-all cursor-pointer",
+                language === lang
+                  ? "bg-neutral-800 text-white font-semibold"
+                  : "text-neutral-400 hover:text-neutral-200"
+              )}
+            >
+              {lang === "cpp" ? "C++" : lang === "python" ? "Python 3" : "TypeScript"}
+            </button>
+          ))}
         </div>
 
-        <div className="flex items-center gap-2">
-          {/* Reset Code */}
+        {/* Minimal Actions */}
+        <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={onResetStarterCode}
             title="Reset to Starter Code"
-            className="neu-extruded bg-[#1e2022] hover:bg-white hover:text-black p-1.5 px-2.5 rounded-lg text-xs text-[#b9cbc1] transition-all flex items-center gap-1.5 cursor-pointer"
+            className="p-1 rounded text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">RESET</span>
           </button>
 
-          {/* Copy Code */}
           <button
             type="button"
             onClick={handleCopy}
-            className="neu-extruded bg-[#1e2022] hover:bg-white hover:text-black p-1.5 px-2.5 rounded-lg text-xs text-[#b9cbc1] transition-all flex items-center gap-1.5 cursor-pointer"
+            title="Copy Code"
+            className="p-1 rounded text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
           >
             {copied ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="hidden sm:inline">COPIED</span>
-              </>
+              <Check className="w-3.5 h-3.5 text-emerald-400" />
             ) : (
-              <>
-                <Copy className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">COPY</span>
-              </>
+              <Copy className="w-3.5 h-3.5" />
             )}
-          </button>
-
-          {/* Run Visible Tests CTA */}
-          <button
-            type="button"
-            onClick={onRunTests}
-            disabled={isRunningTests}
-            className="neu-extruded bg-emerald-500 hover:bg-emerald-400 text-black px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider flex items-center gap-1.5 cursor-pointer disabled:opacity-50 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-          >
-            <Play className="w-3.5 h-3.5 fill-current" />
-            <span>{isRunningTests ? "RUNNING..." : "RUN TESTS"}</span>
           </button>
         </div>
       </div>
 
-      {/* Editor Body */}
-      <div className="flex-1 min-h-[300px] w-full bg-[#0c0e10]">
+      {/* Editor Viewport */}
+      <div className="flex-1 w-full bg-[#0d0e11] min-h-0">
         <Editor
           height="100%"
           language={monacoLang}
@@ -130,6 +101,7 @@ export function MonacoCodeEditor({
           onChange={(val) => onChange(val || "")}
           options={{
             fontSize: 13,
+            lineHeight: 24,
             fontFamily: "'JetBrains Mono', 'Fira Code', 'Courier New', monospace",
             minimap: { enabled: false },
             scrollBeyondLastLine: false,
@@ -139,11 +111,11 @@ export function MonacoCodeEditor({
             tabSize: 4,
             insertSpaces: true,
             automaticLayout: true,
-            padding: { top: 12, bottom: 12 },
+            padding: { top: 10, bottom: 10 },
           }}
           loading={
-            <div className="h-full flex items-center justify-center text-xs text-[#83958c] font-mono">
-              INITIALIZING MONACO RUNTIME...
+            <div className="h-full flex items-center justify-center text-xs text-neutral-500 font-mono">
+              Loading editor environment...
             </div>
           }
         />

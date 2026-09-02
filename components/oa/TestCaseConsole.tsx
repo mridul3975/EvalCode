@@ -9,7 +9,6 @@ import {
   Clock,
   Terminal,
   AlertCircle,
-  FileCode,
 } from "lucide-react";
 
 interface TestCaseConsoleProps {
@@ -33,89 +32,90 @@ export function TestCaseConsole({
   const totalRun = testResults.length;
 
   return (
-    <div className="flex flex-col h-full bg-[#141618] border border-white/10 rounded-xl overflow-hidden shadow-2xl font-mono">
-      {/* Console Header Tabs */}
-      <div className="p-3 bg-[#181a1d] border-b border-white/10 flex items-center justify-between gap-3 shrink-0">
-        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
-          <Terminal className="w-4 h-4 text-sky-400 shrink-0" />
-          <span className="text-xs font-bold uppercase text-white tracking-wider mr-2 shrink-0">
-            TEST CONSOLE
-          </span>
+    <div className="flex flex-col h-full bg-[#0d0e11] font-mono select-none">
+      {/* Drawer Header Tabs with Flat Underline Active States */}
+      <div className="h-9 px-3 bg-[#121418] border-b border-neutral-800/80 flex items-center justify-between gap-3 shrink-0">
+        <div className="flex items-center gap-4 overflow-x-auto scrollbar-none h-full">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-neutral-300 mr-2 shrink-0">
+            <Terminal className="w-3.5 h-3.5 text-sky-400" />
+            <span>Test Cases</span>
+          </div>
 
           {visibleCases.map((tc, idx) => {
             const res = testResults.find((r) => r.testCaseId === tc.id);
+            const isSelected = selectedTab === idx;
             return (
               <button
                 key={tc.id}
                 type="button"
                 onClick={() => setSelectedTab(idx)}
                 className={cn(
-                  "px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer shrink-0",
-                  selectedTab === idx
-                    ? "bg-white text-black font-black shadow-md"
-                    : "bg-[#1e2022] text-[#b9cbc1] hover:text-white"
+                  "h-full text-xs font-mono transition-all flex items-center gap-1.5 border-b-2 px-2 cursor-pointer shrink-0",
+                  isSelected
+                    ? "border-white text-white font-semibold"
+                    : "border-transparent text-neutral-400 hover:text-neutral-200"
                 )}
               >
                 {res ? (
                   res.passed ? (
-                    <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                   ) : (
                     <XCircle className="w-3 h-3 text-rose-400" />
                   )
                 ) : (
-                  <span className="w-2 h-2 rounded-full bg-zinc-600" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
                 )}
-                <span>CASE {idx + 1}</span>
+                <span>Case {idx + 1}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Global Test Pass Indicator */}
+        {/* Status Indicator */}
         {totalRun > 0 && (
-          <div className="flex items-center gap-2 text-xs shrink-0">
+          <div className="flex items-center gap-2 text-[11px] shrink-0">
             <span
               className={cn(
-                "px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border",
+                "px-2 py-0.5 rounded text-[10px] font-mono font-medium border",
                 passedCount === totalRun
-                  ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
-                  : "bg-amber-500/10 border-amber-500/40 text-amber-400"
+                  ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
+                  : "bg-amber-500/10 border-amber-500/30 text-amber-400"
               )}
             >
-              {passedCount} / {totalRun} PASSED
+              {passedCount}/{totalRun} Passed
             </span>
           </div>
         )}
       </div>
 
-      {/* Test Case Details Body */}
-      <div className="flex-1 p-4 overflow-y-auto space-y-4 text-xs">
+      {/* Drawer Content */}
+      <div className="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs">
         {isRunning ? (
-          <div className="h-full flex items-center justify-center gap-3 text-emerald-400 animate-pulse">
-            <Clock className="w-4 h-4 animate-spin" />
-            <span className="text-xs font-bold">EXECUTING AGAINST TEST HARNESS...</span>
+          <div className="h-full flex items-center justify-center gap-2 text-emerald-400 animate-pulse font-mono">
+            <Clock className="w-3.5 h-3.5 animate-spin" />
+            <span>Executing test harness...</span>
           </div>
         ) : activeCase ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Description & Status */}
-            <div className="flex items-center justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-[#b9cbc1] font-bold">
+            <div className="flex items-center justify-between border-b border-neutral-800/60 pb-2">
+              <span className="text-xs text-neutral-300 font-sans font-medium">
                 {activeCase.description}
               </span>
               {activeResult && (
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-[#83958c]">
-                    Execution: {activeResult.executionTimeMs} ms
+                <div className="flex items-center gap-2 font-mono">
+                  <span className="text-[10px] text-neutral-500">
+                    {activeResult.executionTimeMs} ms
                   </span>
                   <span
                     className={cn(
-                      "px-2 py-0.5 rounded text-[10px] font-black uppercase",
+                      "px-1.5 py-0.5 rounded text-[10px] font-bold uppercase",
                       activeResult.passed
-                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
-                        : "bg-rose-500/20 text-rose-400 border border-rose-500/40"
+                        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                        : "bg-rose-500/10 text-rose-400 border border-rose-500/30"
                     )}
                   >
-                    {activeResult.passed ? "ACCEPTED" : "WRONG ANSWER"}
+                    {activeResult.passed ? "Accepted" : "Wrong Answer"}
                   </span>
                 </div>
               )}
@@ -123,74 +123,73 @@ export function TestCaseConsole({
 
             {/* Error Banner if any */}
             {activeResult?.error && (
-              <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs space-y-1">
-                <div className="flex items-center gap-1.5 font-bold uppercase text-[10px] text-rose-400">
-                  <AlertCircle className="w-3.5 h-3.5" />
-                  <span>RUNTIME / SYNTAX EXCEPTION</span>
+              <div className="p-3 rounded-lg bg-rose-950/20 border border-rose-500/30 text-rose-300 text-xs space-y-1 font-mono">
+                <div className="flex items-center gap-1.5 text-rose-400 text-[10px] font-bold">
+                  <AlertCircle className="w-3 h-3" />
+                  <span>RUNTIME EXCEPTION</span>
                 </div>
-                <pre className="font-mono text-[11px] overflow-x-auto whitespace-pre-wrap">{activeResult.error}</pre>
+                <pre className="text-[11px] overflow-x-auto whitespace-pre-wrap">{activeResult.error}</pre>
               </div>
             )}
 
-            {/* Input Data */}
-            <div className="space-y-1.5">
-              <span className="text-[10px] text-[#83958c] font-bold uppercase tracking-wider block">
-                INPUT PARAMETERS
-              </span>
-              <div className="p-3 rounded-lg bg-[#0c0e10] border border-white/5 text-white font-mono text-xs overflow-x-auto">
-                <pre>{activeCase.input}</pre>
+            {/* Inputs & Outputs Grid */}
+            <div className="space-y-2">
+              <div>
+                <span className="text-[10px] text-neutral-500 font-mono block mb-1">
+                  INPUT PARAMETERS
+                </span>
+                <div className="p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800/50 text-neutral-300 font-mono text-xs overflow-x-auto">
+                  <pre>{activeCase.input}</pre>
+                </div>
               </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div>
+                  <span className="text-[10px] text-neutral-500 font-mono block mb-1">
+                    EXPECTED OUTPUT
+                  </span>
+                  <div className="p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800/50 text-emerald-400 font-mono text-xs overflow-x-auto">
+                    <pre>{JSON.stringify(activeCase.expected, null, 2)}</pre>
+                  </div>
+                </div>
+
+                <div>
+                  <span className="text-[10px] text-neutral-500 font-mono block mb-1">
+                    ACTUAL OUTPUT
+                  </span>
+                  <div
+                    className={cn(
+                      "p-2.5 rounded-lg bg-neutral-950/60 border font-mono text-xs overflow-x-auto",
+                      activeResult
+                        ? activeResult.passed
+                          ? "border-emerald-500/30 text-emerald-400"
+                          : "border-rose-500/30 text-rose-400"
+                        : "border-neutral-800/50 text-neutral-500"
+                    )}
+                  >
+                    <pre>
+                      {activeResult ? (activeResult.actual !== undefined ? JSON.stringify(activeResult.actual, null, 2) : "None") : "Click 'Run' to inspect"}
+                    </pre>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stdout Logs if any */}
+              {activeResult?.stdout && (
+                <div>
+                  <span className="text-[10px] text-neutral-500 font-mono block mb-1">
+                    STDOUT
+                  </span>
+                  <div className="p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800/50 text-neutral-400 font-mono text-[11px] overflow-x-auto">
+                    <pre>{activeResult.stdout}</pre>
+                  </div>
+                </div>
+              )}
             </div>
-
-            {/* Expected vs Actual Output */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {/* Expected Output */}
-              <div className="space-y-1.5">
-                <span className="text-[10px] text-[#83958c] font-bold uppercase tracking-wider block">
-                  EXPECTED RETURN VALUE
-                </span>
-                <div className="p-3 rounded-lg bg-[#0c0e10] border border-white/5 text-emerald-400 font-mono text-xs overflow-x-auto min-h-[48px]">
-                  <pre>{JSON.stringify(activeCase.expected, null, 2)}</pre>
-                </div>
-              </div>
-
-              {/* Actual Output */}
-              <div className="space-y-1.5">
-                <span className="text-[10px] text-[#83958c] font-bold uppercase tracking-wider block">
-                  ACTUAL RETURN VALUE
-                </span>
-                <div
-                  className={cn(
-                    "p-3 rounded-lg bg-[#0c0e10] border font-mono text-xs overflow-x-auto min-h-[48px]",
-                    activeResult
-                      ? activeResult.passed
-                        ? "border-emerald-500/30 text-emerald-400"
-                        : "border-rose-500/30 text-rose-400"
-                      : "border-white/5 text-gray-500"
-                  )}
-                >
-                  <pre>
-                    {activeResult ? (activeResult.actual !== undefined ? JSON.stringify(activeResult.actual, null, 2) : "None") : "Click 'Run Tests' to inspect output"}
-                  </pre>
-                </div>
-              </div>
-            </div>
-
-            {/* Stdout Logs if any */}
-            {activeResult?.stdout && (
-              <div className="space-y-1.5">
-                <span className="text-[10px] text-[#83958c] font-bold uppercase tracking-wider block">
-                  STANDARD OUTPUT (STDOUT)
-                </span>
-                <div className="p-3 rounded-lg bg-[#0c0e10] border border-white/5 text-zinc-300 font-mono text-[11px] overflow-x-auto">
-                  <pre>{activeResult.stdout}</pre>
-                </div>
-              </div>
-            )}
           </div>
         ) : (
-          <div className="h-full flex items-center justify-center text-xs text-[#83958c]">
-            NO TEST CASES REGISTERED
+          <div className="h-full flex items-center justify-center text-xs text-neutral-500">
+            No test cases registered
           </div>
         )}
       </div>

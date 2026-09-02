@@ -5,11 +5,10 @@ import { FormFieldWrapper } from "@/components/boneyard/FormWrappers";
 import { cn } from "@/lib/utils";
 import {
   FileText,
-  Clock,
-  HardDrive,
   Sparkles,
   ArrowRight,
-  ShieldAlert,
+  ArrowLeft,
+  Info,
 } from "lucide-react";
 
 interface ExplanationFormProps {
@@ -49,27 +48,30 @@ export function ExplanationForm({
   const isValid = approach.trim().length >= 20 && claimedTime && claimedSpace;
 
   return (
-    <div className="flex flex-col h-full bg-[#141618] border border-white/10 rounded-xl overflow-hidden shadow-2xl font-mono">
+    <div className="flex flex-col h-full bg-[#0d0e11] font-mono text-neutral-200">
       {/* Form Header */}
-      <div className="p-4 bg-[#181a1d] border-b border-white/10 flex items-center justify-between shrink-0">
+      <div className="h-9 px-4 bg-[#121418] border-b border-neutral-800/80 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2">
-          <FileText className="w-4 h-4 text-sky-400" />
-          <h3 className="text-xs font-bold uppercase text-white tracking-wider">
-            PHASE 2: SELF-EXPLANATION & BIG-O AUDIT
+          <FileText className="w-3.5 h-3.5 text-sky-400" />
+          <h3 className="text-xs font-semibold text-neutral-300">
+            Phase 2: Self-Explanation & Complexity Audit
           </h3>
         </div>
-        <span className="obsidian-chip-optimal text-[10px]">REQUIRED BEFORE DEFENSE</span>
+        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400">
+          Required Before Defense
+        </span>
       </div>
 
       {/* Form Body */}
-      <div className="flex-1 p-5 sm:p-6 overflow-y-auto space-y-6">
-        {/* Banner */}
-        <div className="p-4 rounded-xl bg-gradient-to-r from-sky-950/40 to-[#1e2022] border border-sky-500/20 text-xs text-[#b9cbc1] space-y-1">
-          <span className="font-bold text-white uppercase block">
-            Why Written Self-Explanation Matters:
-          </span>
-          <p className="font-sans text-xs leading-relaxed">
-            In Citadel, Google, and FinTech assessments, human reviewers and bar-raiser AI evaluate the coherence of your technical reasoning, asymptotic claims, and defense of architectural trade-offs.
+      <div className="flex-1 p-5 overflow-y-auto space-y-5 text-xs">
+        {/* Info Banner */}
+        <div className="p-3.5 rounded-lg bg-neutral-950/60 border border-neutral-800/80 text-xs text-neutral-400 space-y-1">
+          <div className="flex items-center gap-1.5 text-neutral-200 font-medium font-sans">
+            <Info className="w-3.5 h-3.5 text-sky-400" />
+            <span>Why Written Self-Explanation Matters</span>
+          </div>
+          <p className="font-sans text-xs text-neutral-400 leading-relaxed">
+            In Citadel, Google, and Tier-1 FinTech assessments, human reviewers and bar-raiser AI evaluate the coherence of your technical reasoning and theoretical complexity bounds.
           </p>
         </div>
 
@@ -83,22 +85,22 @@ export function ExplanationForm({
             rows={5}
             value={approach}
             onChange={(e) => onApproachChange(e.target.value)}
-            placeholder="e.g., We maintain a sliding window over the event stream using a double-ended queue. For order book updates, prices are indexed in a hash map for O(1) retrieval and accumulated into top-k heaps..."
-            className="w-full p-3.5 rounded-xl bg-[#0c0e10] border border-white/10 text-white text-xs font-mono placeholder:text-zinc-600 focus:outline-none focus:border-white transition-colors"
+            placeholder="e.g., We maintain an active temporal window over order events using a monotonic deque. Price levels are indexed in a hash map for O(1) retrieval and accumulated into top-k heaps..."
+            className="w-full p-3 rounded-lg bg-neutral-950/60 border border-neutral-800/80 text-neutral-200 text-xs font-mono placeholder:text-neutral-600 focus:outline-none focus:border-neutral-500 transition-colors"
           />
-          <div className="flex justify-between items-center text-[10px] text-[#83958c]">
-            <span>Minimum 20 characters recommended</span>
+          <div className="flex justify-between items-center text-[10px] text-neutral-500 font-mono">
+            <span>Minimum 20 characters required</span>
             <span>{approach.length} characters</span>
           </div>
         </FormFieldWrapper>
 
         {/* Complexity Selectors */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Time Complexity */}
           <FormFieldWrapper
             label="2. Asymptotic Time Complexity"
             required={true}
-            description="Worst-case upper bound of your submitted implementation."
+            description="Worst-case upper bound of your submitted code."
           >
             <div className="space-y-2">
               <div className="flex flex-wrap gap-1.5">
@@ -108,10 +110,10 @@ export function ExplanationForm({
                     type="button"
                     onClick={() => onClaimedTimeChange(preset)}
                     className={cn(
-                      "px-2.5 py-1 rounded-md text-[11px] font-mono font-bold transition-all cursor-pointer",
+                      "px-2 py-0.5 rounded text-[11px] font-mono transition-all cursor-pointer",
                       claimedTime === preset
-                        ? "bg-white text-black font-black"
-                        : "bg-[#0c0e10] text-[#b9cbc1] hover:text-white border border-white/10"
+                        ? "bg-white text-black font-semibold"
+                        : "bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white"
                     )}
                   >
                     {preset}
@@ -123,7 +125,7 @@ export function ExplanationForm({
                 value={claimedTime}
                 onChange={(e) => onClaimedTimeChange(e.target.value)}
                 placeholder="Or custom: e.g. O(N log K)"
-                className="w-full p-2.5 rounded-lg bg-[#0c0e10] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-white"
+                className="w-full p-2 rounded bg-neutral-950/60 border border-neutral-800/80 text-neutral-200 text-xs font-mono focus:outline-none focus:border-neutral-500"
               />
             </div>
           </FormFieldWrapper>
@@ -142,10 +144,10 @@ export function ExplanationForm({
                     type="button"
                     onClick={() => onClaimedSpaceChange(preset)}
                     className={cn(
-                      "px-2.5 py-1 rounded-md text-[11px] font-mono font-bold transition-all cursor-pointer",
+                      "px-2 py-0.5 rounded text-[11px] font-mono transition-all cursor-pointer",
                       claimedSpace === preset
-                        ? "bg-white text-black font-black"
-                        : "bg-[#0c0e10] text-[#b9cbc1] hover:text-white border border-white/10"
+                        ? "bg-white text-black font-semibold"
+                        : "bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white"
                     )}
                   >
                     {preset}
@@ -157,7 +159,7 @@ export function ExplanationForm({
                 value={claimedSpace}
                 onChange={(e) => onClaimedSpaceChange(e.target.value)}
                 placeholder="Or custom: e.g. O(P)"
-                className="w-full p-2.5 rounded-lg bg-[#0c0e10] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-white"
+                className="w-full p-2 rounded bg-neutral-950/60 border border-neutral-800/80 text-neutral-200 text-xs font-mono focus:outline-none focus:border-neutral-500"
               />
             </div>
           </FormFieldWrapper>
@@ -165,23 +167,24 @@ export function ExplanationForm({
       </div>
 
       {/* Footer Navigation */}
-      <div className="p-4 bg-[#181a1d] border-t border-white/10 flex items-center justify-between gap-3 shrink-0">
+      <div className="h-12 px-4 bg-[#121418] border-t border-neutral-800/80 flex items-center justify-between gap-3 shrink-0">
         <button
           type="button"
           onClick={onBackToCode}
-          className="neu-extruded bg-[#1e2022] hover:bg-white hover:text-black text-[#b9cbc1] px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer"
+          className="text-neutral-400 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer"
         >
-          ➔ BACK TO CODE EDITOR
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Back to Code</span>
         </button>
 
         <button
           type="button"
           onClick={onProceedToDefense}
           disabled={!isValid || isLoading}
-          className="neu-extruded bg-emerald-400 hover:bg-emerald-300 text-black px-6 py-2 rounded-lg text-xs font-black uppercase tracking-wider flex items-center gap-2 cursor-pointer disabled:opacity-40 shadow-[0_0_20px_rgba(52,211,153,0.35)]"
+          className="bg-emerald-500 hover:bg-emerald-400 text-black px-4 py-1.5 rounded text-xs font-medium font-sans flex items-center gap-1.5 cursor-pointer disabled:opacity-40 transition-colors shadow-sm"
         >
-          <span>{isLoading ? "TRIGGERING GEMINI..." : "PROCEED TO GEMINI DEFENSE"}</span>
-          <Sparkles className="w-4 h-4" />
+          <span>{isLoading ? "Triggering Gemini..." : "Proceed to Gemini Defense"}</span>
+          <Sparkles className="w-3.5 h-3.5" />
         </button>
       </div>
     </div>

@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { OA_PROBLEMS } from "@/data/oa-problems";
 import {
-  OAProblem,
   OALanguage,
   OAPhase,
   OATestResult,
@@ -20,16 +19,7 @@ import { MonacoCodeEditor } from "@/components/oa/MonacoCodeEditor";
 import { TestCaseConsole } from "@/components/oa/TestCaseConsole";
 import { ExplanationForm } from "@/components/oa/ExplanationForm";
 import { FollowUpRound } from "@/components/oa/FollowUpRound";
-import { cn } from "@/lib/utils";
-import {
-  BookOpen,
-  Code2,
-  ListChecks,
-  AlertTriangle,
-  Lightbulb,
-  CheckCircle2,
-  Terminal,
-} from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 export default function OAWorkspacePage() {
   const params = useParams();
@@ -189,8 +179,8 @@ export default function OAWorkspacePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#121416] text-[#e2e2e5] font-['Hanken_Grotesk'] flex flex-col antialiased">
-      {/* Pinned Assessment Navigation Bar */}
+    <div className="h-screen w-screen flex flex-col bg-[#0d0e11] text-neutral-200 font-['Hanken_Grotesk'] overflow-hidden select-none">
+      {/* Streamlined 52px Top Bar */}
       <OANavbar
         companyProfile={problem.companyProfile}
         problemTitle={problem.title}
@@ -204,38 +194,40 @@ export default function OAWorkspacePage() {
           }
         }}
         onSubmit={handleSubmitAssessment}
+        onRunTests={handleRunTests}
+        isRunningTests={isRunningTests}
         isSubmitting={isSubmitting}
       />
 
-      {/* 3-Pane LeetCode Desktop Workspace */}
-      <main className="flex-1 w-full max-w-[1920px] mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5 overflow-hidden">
-        {/* Left Pane: Problem Spec, Constraints, Examples (5 Cols on Desktop) */}
-        <div className="lg:col-span-5 h-[calc(100vh-6rem)] bg-[#141618] border border-white/10 rounded-xl overflow-hidden shadow-2xl flex flex-col font-mono">
-          {/* Left Header */}
-          <div className="p-3.5 bg-[#181a1d] border-b border-white/10 flex items-center justify-between shrink-0">
+      {/* Two-Pane Split Layout with 1px Divider */}
+      <main className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
+        {/* Left Pane: Problem Statement (40% Width) */}
+        <div className="w-full lg:w-[40%] h-full flex flex-col border-r border-neutral-800/80 bg-[#0d0e11] overflow-hidden">
+          {/* Header */}
+          <div className="h-9 px-4 bg-[#121418] border-b border-neutral-800/80 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-emerald-400" />
-              <span className="text-xs font-bold uppercase text-white tracking-wider">
-                PROBLEM SPECIFICATION
+              <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="text-xs font-semibold text-neutral-300 font-mono">
+                Problem Description
               </span>
             </div>
-            <span className="text-[10px] text-[#83958c] font-bold">
+            <span className="text-[10px] font-mono text-neutral-500">
               {problem.topic}
             </span>
           </div>
 
-          {/* Left Body Scrollable Spec */}
-          <div className="flex-1 p-5 overflow-y-auto space-y-6 text-xs text-[#b9cbc1] font-sans">
+          {/* Body Scrollable Spec */}
+          <div className="flex-1 p-6 overflow-y-auto space-y-6 text-sm text-neutral-300 font-sans leading-relaxed select-text">
             {/* Title & Tags */}
-            <div className="space-y-2 border-b border-white/5 pb-4">
-              <h2 className="text-xl sm:text-2xl font-black text-white font-mono uppercase tracking-tight">
+            <div className="space-y-2 border-b border-neutral-800/60 pb-4">
+              <h2 className="text-xl font-semibold text-white tracking-tight">
                 {problem.title}
               </h2>
-              <div className="flex flex-wrap gap-1.5 font-mono text-[10px]">
+              <div className="flex flex-wrap gap-1.5 font-mono text-[11px]">
                 {problem.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="px-2 py-0.5 rounded bg-[#1e2022] text-[#83958c] border border-white/5"
+                    className="px-2 py-0.5 rounded text-xs bg-neutral-900 border border-neutral-800 text-neutral-400"
                   >
                     #{tag}
                   </span>
@@ -244,7 +236,7 @@ export default function OAWorkspacePage() {
             </div>
 
             {/* Description with Markdown */}
-            <div className="space-y-3 prose prose-invert max-w-none text-xs leading-relaxed">
+            <div className="prose prose-invert max-w-none text-sm text-neutral-300 leading-relaxed">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {problem.description}
               </ReactMarkdown>
@@ -252,31 +244,31 @@ export default function OAWorkspacePage() {
 
             {/* Examples */}
             <div className="space-y-3 pt-2 font-mono">
-              <span className="text-xs font-bold text-white uppercase tracking-wider block">
-                SAMPLE EXAMPLES:
+              <span className="text-xs font-semibold text-neutral-200 uppercase tracking-wider block">
+                Examples
               </span>
               {problem.examples.map((ex, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-lg bg-[#0c0e10] border border-white/5 space-y-2 text-xs"
+                  className="p-3.5 rounded-lg bg-neutral-950/60 border border-neutral-800/60 space-y-2 text-xs"
                 >
-                  <span className="text-[10px] font-bold text-[#83958c] uppercase block">
-                    EXAMPLE {idx + 1}
+                  <span className="text-[10px] font-semibold text-neutral-500 uppercase block">
+                    Example {idx + 1}
                   </span>
                   <div className="space-y-1">
-                    <span className="text-gray-400 block text-[11px]">Input:</span>
-                    <pre className="p-2 rounded bg-[#141618] text-white text-[11px] overflow-x-auto whitespace-pre-wrap">
+                    <span className="text-neutral-500 block text-[11px]">Input:</span>
+                    <pre className="p-2 rounded bg-neutral-900 text-neutral-200 text-[11px] overflow-x-auto whitespace-pre-wrap">
                       {ex.input}
                     </pre>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-gray-400 block text-[11px]">Output:</span>
-                    <pre className="p-2 rounded bg-[#141618] text-emerald-400 text-[11px] overflow-x-auto whitespace-pre-wrap">
+                    <span className="text-neutral-500 block text-[11px]">Output:</span>
+                    <pre className="p-2 rounded bg-neutral-900 text-emerald-400 text-[11px] overflow-x-auto whitespace-pre-wrap">
                       {ex.output}
                     </pre>
                   </div>
                   {ex.explanation && (
-                    <p className="text-[11px] font-sans text-gray-400 pt-1 italic">
+                    <p className="text-[11px] font-sans text-neutral-400 pt-1 italic">
                       Note: {ex.explanation}
                     </p>
                   )}
@@ -286,10 +278,10 @@ export default function OAWorkspacePage() {
 
             {/* Constraints */}
             <div className="space-y-2 pt-2 font-mono">
-              <span className="text-xs font-bold text-white uppercase tracking-wider block">
-                SYSTEM CONSTRAINTS:
+              <span className="text-xs font-semibold text-neutral-200 uppercase tracking-wider block">
+                Constraints
               </span>
-              <ul className="space-y-1.5 list-disc pl-4 text-xs text-[#b9cbc1]">
+              <ul className="space-y-1.5 list-disc pl-4 text-xs text-neutral-400">
                 {problem.constraints.map((c, idx) => (
                   <li key={idx} className="font-mono text-[11px]">{c}</li>
                 ))}
@@ -298,10 +290,10 @@ export default function OAWorkspacePage() {
           </div>
         </div>
 
-        {/* Right Pane: Split into Top (Monaco) and Bottom (Console / Form / Follow-ups) (7 Cols) */}
-        <div className="lg:col-span-7 h-[calc(100vh-6rem)] flex flex-col gap-4 overflow-hidden">
-          {/* Top-Right: Monaco Code Editor */}
-          <div className="flex-1 min-h-[45%]">
+        {/* Right Pane: Split Vertically (60% Width, 65% Editor / 35% Console) */}
+        <div className="w-full lg:w-[60%] h-full flex flex-col overflow-hidden bg-[#0d0e11]">
+          {/* Top 65%: Monaco Editor */}
+          <div className="h-[60%] lg:h-[65%] min-h-[220px]">
             <MonacoCodeEditor
               code={code}
               onChange={setCode}
@@ -313,8 +305,8 @@ export default function OAWorkspacePage() {
             />
           </div>
 
-          {/* Bottom-Right: Dynamic Phase Container */}
-          <div className="flex-1 min-h-[45%]">
+          {/* Bottom 35%: Dynamic Console / Form / Defense Round */}
+          <div className="h-[40%] lg:h-[35%] min-h-[180px] overflow-hidden">
             {currentPhase === "code" && (
               <TestCaseConsole
                 testCases={problem.testCases}
