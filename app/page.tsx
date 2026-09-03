@@ -73,29 +73,29 @@ export default function LandingPage() {
 
           {/* Right: Floating Perspective Mini Code Audit Preview */}
           <div className="w-full lg:w-[480px] shrink-0">
-            <div className="relative rounded-xl border border-neutral-800 bg-neutral-950/80 p-5 shadow-2xl backdrop-blur-sm space-y-4 text-left font-mono">
+            <div className="neu-card rounded-2xl p-6 relative space-y-4 text-left font-mono">
               {/* Genuine Code Editor Header with 3 Window Dots */}
-              <div className="flex items-center justify-between pb-3 border-b border-neutral-800/80">
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-neutral-700" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-neutral-700" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-neutral-700" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
                   </div>
-                  <span className="text-xs text-neutral-400 font-mono ml-2">reverse_list.py</span>
+                  <span className="text-xs text-neutral-300 font-mono ml-2 font-bold">reverse_list.py</span>
                 </div>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-neutral-900 border border-neutral-800 text-neutral-400">
+                <span className="neu-active-pill px-2.5 py-0.5 text-[10px] font-mono text-emerald-400 font-bold">
                   10S BENCHMARK
                 </span>
               </div>
 
-              {/* Code Box */}
-              <div className="p-4 rounded-lg bg-neutral-900/60 text-xs font-mono text-neutral-300 space-y-1 overflow-x-auto border border-neutral-800/50 leading-relaxed">
-                <div className="text-neutral-500"># Problem: Reverse Singly Linked List</div>
+              {/* Code Box in Recessed Inset Well */}
+              <div className="neu-inset p-4 text-xs font-mono text-neutral-300 space-y-1 overflow-x-auto leading-relaxed">
+                <div className="text-neutral-500 font-medium"># Problem: Reverse Singly Linked List</div>
                 <div><span className="text-purple-400">def</span> <span className="text-sky-300">reverseList</span>(head):</div>
                 <div className="pl-4">prev = <span className="text-orange-300">None</span>; curr = head</div>
                 <div className="pl-4"><span className="text-purple-400">while</span> curr:</div>
-                <div className="pl-8 text-rose-300 bg-rose-950/30 px-1.5 py-0.5 rounded border-l-2 border-rose-500 font-medium">curr.next = prev  <span className="text-neutral-500 font-normal"># Line 5</span></div>
+                <div className="pl-8 text-rose-300 bg-rose-950/40 px-2 py-0.5 rounded-md border-l-2 border-rose-500 font-medium">curr.next = prev  <span className="text-neutral-500 font-normal"># Line 5</span></div>
                 <div className="pl-8">prev = curr</div>
                 <div className="pl-8">curr = curr.next</div>
                 <div className="pl-4"><span className="text-purple-400">return</span> prev</div>
@@ -103,14 +103,14 @@ export default function LandingPage() {
 
               {!showTeaserResult ? (
                 <div className="space-y-3 pt-1">
-                  <span className="text-xs font-mono text-neutral-400 block font-medium">
+                  <span className="text-xs font-mono text-neutral-300 block font-bold tracking-wider">
                     WHAT IS YOUR VERDICT ON LINE 5?
                   </span>
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       type="button"
                       onClick={() => handleTeaserSubmit("correct")}
-                      className="p-3 rounded-lg bg-neutral-900/40 border border-neutral-800/60 hover:border-neutral-700 text-xs font-mono font-medium text-neutral-300 hover:text-white transition-all cursor-pointer flex items-center justify-between"
+                      className="neu-button p-3 text-xs font-mono font-bold text-neutral-300 hover:text-white cursor-pointer flex items-center justify-between"
                     >
                       <span>CORRECT</span>
                       <CheckCircle2 className="w-4 h-4 text-neutral-500" />
@@ -118,7 +118,7 @@ export default function LandingPage() {
                     <button
                       type="button"
                       onClick={() => handleTeaserSubmit("bug")}
-                      className="p-3 rounded-lg bg-neutral-900/40 border border-neutral-800/60 hover:border-neutral-700 text-xs font-mono font-medium text-neutral-300 hover:text-white transition-all cursor-pointer flex items-center justify-between"
+                      className="neu-button p-3 text-xs font-mono font-bold text-neutral-300 hover:text-white cursor-pointer flex items-center justify-between"
                     >
                       <span>FATAL BUG</span>
                       <XCircle className="w-4 h-4 text-rose-400" />
@@ -126,8 +126,8 @@ export default function LandingPage() {
                   </div>
                 </div>
               ) : (
-                <div className="p-4 rounded-lg bg-neutral-900/40 border border-neutral-800/80 space-y-3 font-mono">
-                  <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
+                <div className="neu-inset p-4 space-y-3 font-mono">
+                  <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
                     <span className="text-xs font-bold text-white flex items-center gap-2">
                       {selectedVerdict === "bug" ? (
                         <>
@@ -144,19 +144,19 @@ export default function LandingPage() {
                     <button
                       type="button"
                       onClick={() => setShowTeaserResult(false)}
-                      className="text-[11px] text-neutral-500 hover:text-white underline cursor-pointer"
+                      className="text-[11px] text-neutral-400 hover:text-white underline cursor-pointer"
                     >
                       RETRY
                     </button>
                   </div>
 
-                  <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+                  <p className="text-xs text-neutral-300 leading-relaxed font-sans">
                     Line 5 overwrites <code>curr.next = prev</code> before saving a reference to <code>next_node</code>. Line 7 subsequently assigns <code>curr = curr.next</code> (which is now <code>prev</code>), causing an infinite loop oscillating on the first node!
                   </p>
 
                   <Link
                     href="/practice/q_ll_001"
-                    className="w-full py-2.5 rounded-lg bg-white text-black hover:bg-neutral-200 text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                    className="neu-button w-full py-2.5 bg-white text-black hover:bg-neutral-200 text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer"
                   >
                     <span>OPEN IN REVIEW STUDIO</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -170,7 +170,7 @@ export default function LandingPage() {
         {/* COMPARISON SECTION: Side-by-Side Sleek Split Matrix */}
         <section className="space-y-8">
           <div className="space-y-3 text-center sm:text-left">
-            <span className="px-2.5 py-1 rounded-full text-xs font-mono border border-neutral-800 bg-neutral-900/60 text-neutral-400">
+            <span className="neu-active-pill px-3 py-1 text-xs font-mono text-neutral-300">
               PARADIGM SHIFT
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -182,44 +182,44 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Left Column (Traditional LeetCode) */}
-            <div className="rounded-xl border border-neutral-900 bg-neutral-950/40 opacity-75 hover:opacity-100 transition-opacity p-6 sm:p-8 space-y-6">
-              <div className="flex items-center justify-between border-b border-neutral-900 pb-4">
-                <h3 className="text-lg font-semibold text-neutral-300 uppercase tracking-tight font-mono">
+            {/* Left Column (Traditional LeetCode) wrapped in .neu-card */}
+            <div className="neu-card p-6 sm:p-8 space-y-6 opacity-80 hover:opacity-100 transition-opacity">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
+                <h3 className="text-lg font-bold text-neutral-300 uppercase tracking-tight font-mono">
                   Traditional LeetCode
                 </h3>
-                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-neutral-900 text-neutral-500 border border-neutral-800">
+                <span className="neu-inset px-2.5 py-1 text-[11px] font-mono text-neutral-400">
                   SYNTHESIS
                 </span>
               </div>
 
               <ul className="space-y-3 text-sm text-neutral-400 font-sans">
                 <li className="flex items-start gap-3 py-1">
-                  <span className="font-mono text-red-400/80 font-bold shrink-0">✕</span>
+                  <span className="font-mono text-rose-400 font-bold shrink-0">✕</span>
                   <span>Writes code from scratch with rote syntax recall.</span>
                 </li>
                 <li className="flex items-start gap-3 py-1">
-                  <span className="font-mono text-red-400/80 font-bold shrink-0">✕</span>
+                  <span className="font-mono text-rose-400 font-bold shrink-0">✕</span>
                   <span>Binary pass/fail based solely on test-case execution.</span>
                 </li>
                 <li className="flex items-start gap-3 py-1">
-                  <span className="font-mono text-red-400/80 font-bold shrink-0">✕</span>
+                  <span className="font-mono text-rose-400 font-bold shrink-0">✕</span>
                   <span>Ignores deceptive or hallucinated natural language AI commentary.</span>
                 </li>
                 <li className="flex items-start gap-3 py-1">
-                  <span className="font-mono text-red-400/80 font-bold shrink-0">✕</span>
+                  <span className="font-mono text-rose-400 font-bold shrink-0">✕</span>
                   <span>Zero calibration for false positives (rejecting good code).</span>
                 </li>
               </ul>
             </div>
 
-            {/* Right Column (EvalForge) */}
-            <div className="rounded-xl border border-emerald-500/30 bg-gradient-to-b from-emerald-950/10 via-neutral-950/40 to-neutral-950/80 p-6 sm:p-8 space-y-6 shadow-xl backdrop-blur-sm">
-              <div className="flex items-center justify-between border-b border-neutral-800/80 pb-4">
-                <h3 className="text-lg font-semibold text-white uppercase tracking-tight font-mono">
+            {/* Right Column (EvalForge) wrapped in .neu-card with subtle accent glow border-t-emerald-500/40 */}
+            <div className="neu-card border-t-2 border-t-emerald-500/40 p-6 sm:p-8 space-y-6">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
+                <h3 className="text-lg font-bold text-white uppercase tracking-tight font-mono">
                   EvalForge Simulator
                 </h3>
-                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-semibold">
+                <span className="neu-active-pill px-3 py-1 text-[11px] font-mono text-emerald-400 font-bold">
                   THE RLHF STANDARD
                 </span>
               </div>
@@ -249,7 +249,7 @@ export default function LandingPage() {
         {/* 6-DIMENSIONAL RUBRIC MATRIX: Asymmetric Bento Grid */}
         <section className="space-y-8">
           <div className="space-y-3 text-center sm:text-left">
-            <span className="px-2.5 py-1 rounded-full text-xs font-mono border border-neutral-800 bg-neutral-900/60 text-neutral-400">
+            <span className="neu-active-pill px-3 py-1 text-xs font-mono text-neutral-300">
               AUDIT TAXONOMY
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -262,76 +262,76 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* Bento Card 1: Functional Correctness (Spans 2 cols on lg) */}
-            <div className="lg:col-span-2 rounded-xl bg-neutral-900/40 border border-neutral-800/60 backdrop-blur-sm hover:border-neutral-700/80 transition-all p-6 sm:p-8 space-y-4">
-              <div className="flex items-center justify-between border-b border-neutral-800/80 pb-3">
-                <h3 className="text-lg font-bold text-white tracking-tight">
+            <div className="lg:col-span-2 neu-card hover:translate-y-[-2px] transition-transform duration-200 p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                <h3 className="text-lg font-bold text-white tracking-tight font-mono">
                   1. Functional Correctness
                 </h3>
-                <span className="px-2 py-0.5 text-xs rounded-full bg-neutral-800 text-neutral-300 font-mono">
+                <span className="neu-active-pill px-2.5 py-0.5 text-xs text-emerald-400 font-mono font-bold">
                   30% WEIGHT
                 </span>
               </div>
-              <p className="text-sm text-neutral-400 leading-normal">
+              <p className="text-sm text-neutral-300 leading-normal">
                 Accurately classify whether the code solves standard cases or contains fatal logic crashes, off-by-one errors, infinite loops, and unhandled branch regressions.
               </p>
             </div>
 
             {/* Bento Card 2: Edge-Case Analysis */}
-            <div className="rounded-xl bg-neutral-900/40 border border-neutral-800/60 backdrop-blur-sm hover:border-neutral-700/80 transition-all p-6 sm:p-8 space-y-4">
-              <div className="flex items-center justify-between border-b border-neutral-800/80 pb-3">
-                <h3 className="text-lg font-bold text-white tracking-tight">
+            <div className="neu-card hover:translate-y-[-2px] transition-transform duration-200 p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                <h3 className="text-lg font-bold text-white tracking-tight font-mono">
                   2. Edge-Case Analysis
                 </h3>
-                <span className="px-2 py-0.5 text-xs rounded-full bg-neutral-800 text-neutral-300 font-mono">
+                <span className="neu-active-pill px-2.5 py-0.5 text-xs text-neutral-300 font-mono font-bold">
                   25% WEIGHT
                 </span>
               </div>
-              <p className="text-sm text-neutral-400 leading-normal">
+              <p className="text-sm text-neutral-300 leading-normal">
                 Identify boundary vulnerabilities: empty arrays, single nodes, duplicates, negative numbers, and integer overflows.
               </p>
             </div>
 
             {/* Bento Card 3: Complexity & Big-O */}
-            <div className="rounded-xl bg-neutral-900/40 border border-neutral-800/60 backdrop-blur-sm hover:border-neutral-700/80 transition-all p-6 sm:p-8 space-y-4">
-              <div className="flex items-center justify-between border-b border-neutral-800/80 pb-3">
-                <h3 className="text-base font-bold text-white tracking-tight">
+            <div className="neu-card hover:translate-y-[-2px] transition-transform duration-200 p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                <h3 className="text-base font-bold text-white tracking-tight font-mono">
                   3. Complexity & Big-O
                 </h3>
-                <span className="px-2 py-0.5 text-xs rounded-full bg-neutral-800 text-neutral-300 font-mono">
+                <span className="neu-active-pill px-2.5 py-0.5 text-xs text-neutral-300 font-mono font-bold">
                   15% WEIGHT
                 </span>
               </div>
-              <p className="text-sm text-neutral-400 leading-normal">
+              <p className="text-sm text-neutral-300 leading-normal">
                 Spot asymptotic regressions: quadratic string copies, nested lookups, and unneeded heap overhead.
               </p>
             </div>
 
             {/* Bento Card 4: Explanation Auditing */}
-            <div className="rounded-xl bg-neutral-900/40 border border-neutral-800/60 backdrop-blur-sm hover:border-neutral-700/80 transition-all p-6 sm:p-8 space-y-4">
-              <div className="flex items-center justify-between border-b border-neutral-800/80 pb-3">
-                <h3 className="text-base font-bold text-white tracking-tight">
+            <div className="neu-card hover:translate-y-[-2px] transition-transform duration-200 p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                <h3 className="text-base font-bold text-white tracking-tight font-mono">
                   4. Explanation Auditing
                 </h3>
-                <span className="px-2 py-0.5 text-xs rounded-full bg-neutral-800 text-neutral-300 font-mono">
+                <span className="neu-active-pill px-2.5 py-0.5 text-xs text-neutral-300 font-mono font-bold">
                   15% WEIGHT
                 </span>
               </div>
-              <p className="text-sm text-neutral-400 leading-normal">
+              <p className="text-sm text-neutral-300 leading-normal">
                 Catch deceptive or hallucinated commentary claiming different algorithmic invariants than the code.
               </p>
             </div>
 
             {/* Bento Card 5 & 6 Combined / Grouped */}
-            <div className="rounded-xl bg-neutral-900/40 border border-neutral-800/60 backdrop-blur-sm hover:border-neutral-700/80 transition-all p-6 sm:p-8 space-y-4">
-              <div className="flex items-center justify-between border-b border-neutral-800/80 pb-3">
-                <h3 className="text-base font-bold text-white tracking-tight">
+            <div className="neu-card hover:translate-y-[-2px] transition-transform duration-200 p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                <h3 className="text-base font-bold text-white tracking-tight font-mono">
                   5. Instruction Compliance
                 </h3>
-                <span className="px-2 py-0.5 text-xs rounded-full bg-neutral-800 text-neutral-300 font-mono">
+                <span className="neu-active-pill px-2.5 py-0.5 text-xs text-neutral-300 font-mono font-bold">
                   15% WEIGHT
                 </span>
               </div>
-              <p className="text-sm text-neutral-400 leading-normal">
+              <p className="text-sm text-neutral-300 leading-normal">
                 Verify strict adherence to constraints: in-place mutations, auxiliary space bounds, and exact return types.
               </p>
             </div>
@@ -339,7 +339,7 @@ export default function LandingPage() {
         </section>
 
         {/* FINAL CALL TO ACTION: High-End Developer Banner */}
-        <section className="rounded-2xl border border-neutral-800/80 bg-gradient-to-b from-neutral-900/40 to-neutral-950/80 p-10 sm:p-16 flex flex-col items-center justify-center text-center space-y-6 shadow-2xl backdrop-blur-sm">
+        <section className="neu-card p-10 sm:p-16 flex flex-col items-center justify-center text-center space-y-6">
           <div className="space-y-3 max-w-2xl">
             <span className="px-3 py-1 rounded-full text-xs font-mono bg-neutral-800 text-neutral-300 border border-neutral-700/50">
               START CALIBRATION
