@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, doublePrecision, integer, jsonb, boolean, bigint, varchar, numeric } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, doublePrecision, integer, jsonb, boolean, bigint, varchar, numeric, uuid } from "drizzle-orm/pg-core";
 import { UserProfileStats, EvaluationSubmission, EvaluationResult, AssessmentSession } from "@/types/submission";
 
 export const profiles = pgTable("profiles", {
@@ -83,4 +83,47 @@ export const oaAssessments = pgTable("oa_assessments", {
   hiring_bar_verdict: varchar("hiring_bar_verdict", { length: 32 }).notNull(), // 'STRONG_PASS', 'PASS', 'BORDERLINE', 'FAIL'
   created_at: timestamp("created_at").defaultNow(),
 });
+
+// 1. Master Assessment Session (HackerRank/CodeSignal Multi-Problem Format)
+export const oaTestSessions = pgTable("oa_test_sessions", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: text("user_id").default("default_user"),
+  companyProfile: varchar("company_profile", { length: 64 }).notNull(), // 'Citadel', 'Google', 'Fintech', 'Meta', 'Two Sigma'
+  trackId: varchar("track_id", { length: 64 }).notNull(),
+  trackTitle: varchar("track_title", { length: 128 }),
+  totalTimeAllocatedSeconds: integer("total_time_allocated_seconds").default(4500).notNull(), // 75 mins
+  timeSpentSeconds: integer("time_spent_seconds").default(0).notNull(),
+  status: varchar("status", { length: 32 }).default("IN_PROGRESS").notNull(), // 'IN_PROGRESS', 'SUBMITTED', 'EXPIRED'
+  
+  // Aggregate Scores
+  totalScore: numeric("total_score", { precision: 5, scale: 2 }),
+  verdict: varchar("verdict", { length: 32 }), // 'STRONG_PASS', 'PASS', 'BORDERLINE', 'FAIL'
+  evaluationData: jsonb("evaluation_data"), // bar-raiser critique, radar dimensions, follow-ups
+  startedAt: timestamp("started_at", { withTimezone: true }).defaultNow(),
+  completedAt: timestamp("completed_at", { withTimezone: true }),
+});
+
+// 2. Individual Question Submissions inside a Session
+export const oaQuestionSubmissions = pgTable("oa_question_submissions", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  sessionId: uuid("session_id").references(() => oaTestSessions.id, { onDelete: "cascade" }),
+  problemId: varchar("problem_id", { length: 64 }).notNull(),
+  orderIndex: integer("order_index").notNull(), // 1, 2, 3...
+  
+  submittedCode: text("submitted_code").default(""),
+  language: varchar("language", { length: 32 }).default("python"),
+  visibleTestsPassed: integer("visible_tests_passed").default(0),
+  visibleTestsTotal: integer("visible_tests_total").default(0),
+  hiddenTestsPassed: integer("hidden_tests_passed").default(0),
+  hiddenTestsTotal: integer("hidden_tests_total").default(0),
+  
+  // Post-test Written Defense & Complexity
+  approachSummary: text("approach_summary"),
+  timeComplexity: varchar("time_complexity", { length: 32 }),
+  spaceComplexity: varchar("space_complexity", { length: 32 }),
+  
+  questionScore: numeric("question_score", { precision: 5, scale: 2 }).default("0.00"),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+});
+
 
