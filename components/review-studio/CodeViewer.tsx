@@ -33,15 +33,15 @@ export function CodeViewer({
   };
 
   return (
-    <div className="bg-neutral-900/40 border border-neutral-800/80 rounded-xl p-5 flex flex-col gap-3 font-mono text-neutral-200 shadow-xl backdrop-blur-sm">
+    <div className="neu-card p-6 flex flex-col gap-3 font-mono text-neutral-200">
       {/* Header */}
-      <div className="flex justify-between items-center border-b border-neutral-800 pb-3">
+      <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
         <div className="flex items-center gap-2">
           <Code2 className="w-4 h-4 text-emerald-400" />
-          <h3 className="text-xs font-semibold text-white tracking-wide">
+          <h3 className="text-xs font-bold text-white tracking-wide uppercase font-mono">
             AI Code Snippet Under Review
           </h3>
-          <span className="bg-neutral-900 border border-neutral-800 px-2 py-0.5 rounded text-[10px] text-neutral-400 uppercase font-mono">
+          <span className="neu-active-pill px-2.5 py-0.5 text-[10px] text-neutral-300 uppercase font-mono">
             {language}
           </span>
         </div>
@@ -49,16 +49,16 @@ export function CodeViewer({
         <div className="flex items-center gap-2">
           {/* Language Switcher Tabs if multiple */}
           {availableLanguages.length > 1 && onLanguageChange && (
-            <div className="flex bg-neutral-950/80 rounded border border-neutral-800 p-0.5 text-[10px]">
+            <div className="flex gap-1 bg-[#0a0b0d] rounded-lg p-1 border border-white/[0.04] text-[10px]">
               {availableLanguages.map((lang) => (
                 <button
                   key={lang}
                   type="button"
                   onClick={() => onLanguageChange(lang)}
                   className={cn(
-                    "px-2 py-0.5 rounded transition-colors cursor-pointer",
+                    "px-2.5 py-0.5 rounded-md transition-all cursor-pointer",
                     selectedLanguage === lang
-                      ? "bg-white text-black font-bold"
+                      ? "neu-inset text-white font-bold border border-white/10"
                       : "text-neutral-400 hover:text-white"
                   )}
                 >
@@ -71,7 +71,7 @@ export function CodeViewer({
           <button
             type="button"
             onClick={handleCopy}
-            className="p-1 px-2.5 rounded text-xs text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="neu-button p-1.5 px-3 rounded-lg text-xs text-neutral-300 hover:text-white flex items-center gap-1.5 cursor-pointer"
           >
             {copied ? (
               <>
@@ -88,8 +88,8 @@ export function CodeViewer({
         </div>
       </div>
 
-      {/* Code Body with Line Selection */}
-      <div className="rounded-lg bg-neutral-950/70 border border-neutral-800/80 p-3 overflow-x-auto text-xs font-mono leading-relaxed max-h-[420px] overflow-y-auto">
+      {/* Code Body with Inset Recessed Well */}
+      <div className="neu-inset p-3.5 overflow-x-auto text-xs font-mono leading-relaxed max-h-[420px] overflow-y-auto">
         <table className="w-full border-collapse">
           <tbody>
             {lines.map((lineText, idx) => {
@@ -104,7 +104,7 @@ export function CodeViewer({
                   onClick={() => onSelectLine && onSelectLine(lineNum)}
                   className={cn(
                     "transition-colors group cursor-pointer",
-                    isHovered ? "bg-neutral-800/40" : "hover:bg-neutral-900/40"
+                    isHovered ? "bg-white/[0.04]" : "hover:bg-white/[0.02]"
                   )}
                 >
                   {/* Line Number Gutter */}

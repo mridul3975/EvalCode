@@ -228,15 +228,15 @@ You can ask me to:
         </div>
       </div>
 
-      {/* Horizontally Scrollable Suggestion Chips */}
-      <div className="px-4 py-2.5 bg-neutral-900/20 border-b border-neutral-800/60 overflow-x-auto scrollbar-none flex items-center gap-1.5 shrink-0">
-        <Lightbulb className="w-3 h-3 text-emerald-400 shrink-0 mr-1" />
+      {/* Horizontally Scrollable Suggestion Chips with tactile pill styling */}
+      <div className="px-4 py-3 bg-black/20 border-b border-white/[0.04] overflow-x-auto scrollbar-none flex items-center gap-2 shrink-0">
+        <Lightbulb className="w-3.5 h-3.5 text-emerald-400 shrink-0 mr-1" />
         {suggestionChips.map((chip, idx) => (
           <button
             key={idx}
             onClick={() => handleSendMessage(chip)}
             disabled={isLoading}
-            className="text-xs bg-neutral-800/60 hover:bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full border border-neutral-700/50 whitespace-nowrap transition-colors cursor-pointer disabled:opacity-50 font-mono text-[11px]"
+            className="neu-button text-xs py-2 px-3.5 text-neutral-300 hover:text-white whitespace-nowrap cursor-pointer disabled:opacity-50 font-mono text-[11px]"
           >
             {chip}
           </button>
@@ -249,10 +249,10 @@ You can ask me to:
           <div
             key={idx}
             className={cn(
-              "flex gap-2.5 p-3.5 rounded-xl transition-all",
+              "flex gap-3 p-4 rounded-xl transition-all",
               msg.role === "user"
-                ? "bg-neutral-800/70 ml-4 border border-neutral-700/60 text-white"
-                : "bg-neutral-900/70 border border-neutral-800 text-neutral-200 mr-2 shadow-sm"
+                ? "neu-card ml-4 border-white/10 text-white"
+                : "neu-inset mr-2 text-neutral-200"
             )}
           >
             {msg.role === "user" ? (
@@ -270,7 +270,7 @@ You can ask me to:
         ))}
 
         {isLoading && (
-          <div className="p-3 rounded-xl bg-neutral-900/70 border border-neutral-800 mr-2 flex items-center gap-2 text-xs text-neutral-400 font-mono">
+          <div className="p-3.5 rounded-xl neu-inset mr-2 flex items-center gap-2 text-xs text-neutral-400 font-mono">
             <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-400" />
             <span>Analyzing problem invariants...</span>
           </div>
@@ -280,7 +280,7 @@ You can ask me to:
       </div>
 
       {/* Floating Chat Input Box */}
-      <div className="p-3 border-t border-neutral-800 bg-neutral-900/40 shrink-0">
+      <div className="p-3 border-t border-white/[0.04] bg-[#101114] shrink-0">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -294,12 +294,12 @@ You can ask me to:
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isLoading}
-            className="w-full pl-3.5 pr-10 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-200 text-xs font-mono placeholder:text-neutral-500 focus:outline-none focus:border-neutral-600 transition-colors"
+            className="neu-inset w-full pl-4 pr-11 py-3 text-neutral-200 text-xs font-mono placeholder:text-neutral-500 focus:outline-none focus:border-white/20 transition-colors"
           />
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="absolute right-1.5 p-1.5 rounded-md bg-white text-black hover:bg-neutral-200 transition-colors disabled:opacity-30 cursor-pointer"
+            className="absolute right-2 p-2 rounded-lg bg-white text-black hover:bg-neutral-200 transition-all disabled:opacity-30 cursor-pointer shadow-md hover:scale-105 active:scale-95"
           >
             <Send className="w-3.5 h-3.5" />
           </button>
