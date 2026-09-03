@@ -176,7 +176,7 @@ You can ask me to:
   return (
     <div
       className={cn(
-        "bg-neutral-950/90 text-neutral-200 font-['Hanken_Grotesk'] border border-neutral-800/80 shadow-2xl flex flex-col backdrop-blur-md",
+        "neu-card text-neutral-200 font-['Hanken_Grotesk'] flex flex-col",
         isSidebar
           ? "h-full w-full rounded-2xl overflow-hidden"
           : "p-5 space-y-4 rounded-2xl",

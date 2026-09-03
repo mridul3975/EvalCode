@@ -37,86 +37,148 @@ h1, h2, h3, h4, .display-text {
 
 /* =========================================================================
    Dark Neomorphism & Neu-Brutalism Design System Utilities
+   High-contrast physical bevels, extruded dual-shadows, and carved wells
    ========================================================================= */
 
 @layer utilities {
-  /* 1. Extruded 3D Neomorphic Card (Elevated Surface) */
+  /* 1. Extruded 3D Neomorphic Card (Elevated Surface with Physical Light Bevel) */
   .neu-card {
-    background: #121316;
+    background: linear-gradient(145deg, #171920, #0f1014);
     border-radius: 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: rgba(255, 255, 255, 0.16);
+    border-left-color: rgba(255, 255, 255, 0.12);
+    border-bottom-color: rgba(0, 0, 0, 0.85);
+    border-right-color: rgba(0, 0, 0, 0.7);
     box-shadow: 
-      8px 8px 20px #08080a,
-      -4px -4px 14px rgba(255, 255, 255, 0.03),
-      inset 1px 1px 1px rgba(255, 255, 255, 0.08);
+      12px 12px 28px #000000,
+      5px 5px 12px rgba(0, 0, 0, 0.9),
+      -6px -6px 18px rgba(255, 255, 255, 0.05),
+      -2px -2px 6px rgba(255, 255, 255, 0.08),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.15),
+      inset -1px -1px 2px rgba(0, 0, 0, 0.7);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* 2. Interactive Neomorphic Button */
+  /* 2. Interactive Neomorphic Button (Tactile Raised Surface) */
   .neu-button {
-    background: linear-gradient(145deg, #18191d, #111215);
+    background: linear-gradient(145deg, #1f222a, #131418);
     border-radius: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: rgba(255, 255, 255, 0.22);
+    border-left-color: rgba(255, 255, 255, 0.16);
+    border-bottom-color: rgba(0, 0, 0, 0.85);
+    border-right-color: rgba(0, 0, 0, 0.75);
     box-shadow: 
-      4px 4px 10px #08080a,
-      -2px -2px 6px rgba(255, 255, 255, 0.03);
-    transition: all 0.15s ease-in-out;
+      6px 6px 16px #000000,
+      2px 2px 6px rgba(0, 0, 0, 0.9),
+      -3px -3px 8px rgba(255, 255, 255, 0.06),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.2);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .neu-button:hover {
-    background: #181a1f;
+    background: linear-gradient(145deg, #252933, #16181e);
+    border-top-color: rgba(255, 255, 255, 0.3);
+    border-left-color: rgba(255, 255, 255, 0.22);
     box-shadow: 
-      6px 6px 14px #060608,
-      -3px -3px 8px rgba(255, 255, 255, 0.05);
+      8px 8px 20px #000000,
+      -4px -4px 10px rgba(255, 255, 255, 0.09),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.28);
     transform: translateY(-1px);
   }
   .neu-button:active {
+    background: #0a0b0e;
+    border-top-color: rgba(0, 0, 0, 0.9);
+    border-left-color: rgba(0, 0, 0, 0.8);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    border-right-color: rgba(255, 255, 255, 0.06);
     box-shadow: 
-      inset 3px 3px 6px #09090b,
-      inset -2px -2px 5px rgba(255, 255, 255, 0.03);
+      inset 4px 4px 10px #000000,
+      inset -2px -2px 6px rgba(255, 255, 255, 0.04);
     transform: translateY(1px);
   }
 
-  /* 3. Inset Neomorphic Recessed Well (For Code Terminals, Inputs, Consoles) */
+  /* 3. Inset Neomorphic Recessed Well (Carved into the Canvas) */
   .neu-inset {
-    background: #0b0b0e;
+    background: #08090c;
     border-radius: 0.875rem;
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: rgba(0, 0, 0, 0.95);
+    border-left-color: rgba(0, 0, 0, 0.85);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    border-right-color: rgba(255, 255, 255, 0.06);
     box-shadow: 
-      inset 4px 4px 10px #040506,
-      inset -2px -2px 8px rgba(255, 255, 255, 0.02);
+      inset 6px 6px 14px #000000,
+      inset 2px 2px 6px rgba(0, 0, 0, 0.95),
+      inset -4px -4px 10px rgba(255, 255, 255, 0.03),
+      inset -1px -1px 3px rgba(255, 255, 255, 0.07);
   }
 
-  /* 4. Highlight Pill / Active Tab (Neomorphic Glow) */
+  /* 4. Highlight Pill / Active Tab (Neomorphic Glow with Tactile Extrusion) */
   .neu-active-pill {
-    background: #17181c;
+    background: linear-gradient(145deg, #1b2024, #101215);
     border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: rgba(16, 185, 129, 0.5);
+    border-left-color: rgba(16, 185, 129, 0.35);
+    border-bottom-color: rgba(0, 0, 0, 0.8);
+    border-right-color: rgba(0, 0, 0, 0.7);
     box-shadow: 
-      3px 3px 8px #08080a,
-      -2px -2px 5px rgba(255, 255, 255, 0.04),
-      inset 0 0 10px rgba(16, 185, 129, 0.05); /* subtle emerald tint */
+      4px 4px 10px #000000,
+      -2px -2px 6px rgba(255, 255, 255, 0.05),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.2),
+      inset 0 0 12px rgba(16, 185, 129, 0.12);
+  }
+
+  /* 5. Active Tactile Selected State */
+  .neu-selected {
+    background: #090a0d;
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: rgba(0, 0, 0, 0.95);
+    border-left-color: rgba(0, 0, 0, 0.85);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-right-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 
+      inset 4px 4px 10px #000000,
+      inset -2px -2px 6px rgba(255, 255, 255, 0.05),
+      0 0 16px rgba(16, 185, 129, 0.15);
   }
 }
 
-/* 3. 70/30 Neumorphic (Monochrome Matte) Contrast Card */
+/* Tactile Contrast Selection Tile (Replacing flat white) */
 .contrast-card {
-  background-color: #ffffff !important;
-  color: #121416 !important;
-  box-shadow: -4px -4px 8px rgba(255, 255, 255, 0.1), 8px 8px 16px rgba(0, 0, 0, 0.8);
-  border-radius: 0.75rem;
-  transition: all 0.2s ease;
+  background: linear-gradient(145deg, #222630, #15171d) !important;
+  color: #ffffff !important;
+  border-width: 1px;
+  border-style: solid;
+  border-top-color: rgba(255, 255, 255, 0.35) !important;
+  border-left-color: rgba(255, 255, 255, 0.25) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.9) !important;
+  border-right-color: rgba(0, 0, 0, 0.8) !important;
+  box-shadow: 
+    12px 12px 28px #000000,
+    -5px -5px 15px rgba(255, 255, 255, 0.07),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.3) !important;
+  border-radius: 1rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contrast-card-inset {
-  background-color: #f8f9fa !important;
-  color: #121416 !important;
-  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1), inset -2px -2px 4px rgba(255, 255, 255, 0.5);
+  background: #08090c !important;
+  color: #e2e2e5 !important;
+  box-shadow: inset 4px 4px 10px #000000, inset -2px -2px 6px rgba(255, 255, 255, 0.04);
   border-radius: 0.5rem;
 }
 
 .code-inset {
-  background-color: #121416 !important;
+  background: #08090c !important;
   color: #e2e2e5 !important;
-  box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.8), inset -2px -2px 4px rgba(56, 57, 60, 0.5);
+  box-shadow: inset 5px 5px 12px #000000, inset -2px -2px 6px rgba(255, 255, 255, 0.05);
   border-radius: 0.5rem;
 }
 
@@ -162,30 +224,48 @@ h1, h2, h3, h4, .display-text {
 
 /* Obsidian Card & Inset Aliases */
 .obsidian-card {
-  background: #121316;
+  background: linear-gradient(145deg, #171920, #0f1014);
   border-radius: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-width: 1px;
+  border-style: solid;
+  border-top-color: rgba(255, 255, 255, 0.16);
+  border-left-color: rgba(255, 255, 255, 0.12);
+  border-bottom-color: rgba(0, 0, 0, 0.85);
+  border-right-color: rgba(0, 0, 0, 0.7);
   box-shadow: 
-    8px 8px 20px #08080a,
-    -4px -4px 14px rgba(255, 255, 255, 0.03),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.08);
+    12px 12px 28px #000000,
+    5px 5px 12px rgba(0, 0, 0, 0.9),
+    -6px -6px 18px rgba(255, 255, 255, 0.05),
+    -2px -2px 6px rgba(255, 255, 255, 0.08),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.15),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.7);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .obsidian-card:hover {
+  border-top-color: rgba(255, 255, 255, 0.25);
+  border-left-color: rgba(255, 255, 255, 0.18);
   box-shadow: 
-    10px 10px 24px #060608,
-    -5px -5px 16px rgba(255, 255, 255, 0.04),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.1);
+    16px 16px 36px #000000,
+    6px 6px 14px rgba(0, 0, 0, 0.95),
+    -7px -7px 20px rgba(255, 255, 255, 0.08),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.22);
 }
 
 .obsidian-inset {
-  background: #0b0b0e;
+  background: #08090c;
   border-radius: 0.875rem;
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-width: 1px;
+  border-style: solid;
+  border-top-color: rgba(0, 0, 0, 0.95);
+  border-left-color: rgba(0, 0, 0, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  border-right-color: rgba(255, 255, 255, 0.06);
   box-shadow: 
-    inset 4px 4px 10px #040506,
-    inset -2px -2px 8px rgba(255, 255, 255, 0.02);
+    inset 6px 6px 14px #000000,
+    inset 2px 2px 6px rgba(0, 0, 0, 0.95),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.03),
+    inset -1px -1px 3px rgba(255, 255, 255, 0.07);
 }
 
 /* Status Badges */

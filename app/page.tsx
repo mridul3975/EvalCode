@@ -63,10 +63,10 @@ export default function LandingPage() {
 
               <Link
                 href="/oa"
-                className="h-12 px-7 rounded-lg border border-neutral-800 text-neutral-300 hover:bg-neutral-900 flex items-center gap-2 transition-colors font-medium text-sm cursor-pointer"
+                className="h-12 px-7 rounded-xl neu-button text-neutral-200 hover:text-white flex items-center gap-2 transition-all font-mono font-bold text-xs uppercase cursor-pointer"
               >
                 <Flame className="w-4 h-4 text-amber-400" />
-                <span>40M OA SIMULATOR</span>
+                <span>OA SIMULATOR</span>
               </Link>
             </div>
           </div>
@@ -341,28 +341,29 @@ export default function LandingPage() {
         {/* FINAL CALL TO ACTION: High-End Developer Banner */}
         <section className="neu-card p-10 sm:p-16 flex flex-col items-center justify-center text-center space-y-6">
           <div className="space-y-3 max-w-2xl">
-            <span className="px-3 py-1 rounded-full text-xs font-mono bg-neutral-800 text-neutral-300 border border-neutral-700/50">
+            <span className="neu-active-pill px-4 py-1 text-xs font-mono text-emerald-400 font-bold">
               START CALIBRATION
             </span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-mono uppercase">
               Calibrate Your Code Audit Acuity
             </h2>
-            <p className="text-sm sm:text-base text-neutral-400 font-normal leading-relaxed">
-              Practice on 75+ benchmarks across calibrated defect categories or enter the timed 40-minute FAANG/FinTech Online Assessment.
+            <p className="text-sm sm:text-base text-neutral-400 font-normal leading-relaxed font-sans">
+              Practice on 75+ benchmarks across calibrated defect categories or enter the timed multi-question FAANG/FinTech Online Assessment.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link
               href="/practice"
-              className="w-full sm:w-auto h-12 px-8 rounded-lg font-medium text-sm bg-white text-black hover:bg-neutral-200 flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              className="w-full sm:w-auto h-12 px-8 rounded-xl font-mono font-black text-xs uppercase bg-white text-black hover:bg-neutral-200 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg hover:scale-105 active:scale-95"
             >
               <span>START PRACTICE CATALOG</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
+
             <Link
               href="/oa"
-              className="w-full sm:w-auto h-12 px-8 rounded-lg border border-neutral-800 text-neutral-300 hover:bg-neutral-900 flex items-center justify-center gap-2 transition-colors font-medium text-sm cursor-pointer"
+              className="w-full sm:w-auto h-12 px-8 rounded-xl neu-button font-mono font-bold text-xs uppercase text-neutral-300 hover:text-white flex items-center justify-center gap-2 transition-all cursor-pointer"
             >
               <Flame className="w-4 h-4 text-amber-400" />
               <span>LAUNCH OA SIMULATOR</span>

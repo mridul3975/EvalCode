@@ -111,21 +111,21 @@ export function EvaluationForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="neu-extruded bg-[#121416] rounded-xl p-6 sm:p-8 flex flex-col h-full font-['Hanken_Grotesk'] text-[#e2e2e5] border border-white/5 shadow-2xl"
+      className="neu-card p-6 sm:p-8 flex flex-col h-full font-['Hanken_Grotesk'] text-[#e2e2e5]"
     >
-      {/* 70/30 Neumorphic Verdict Step Tabs */}
-      <div className="flex flex-wrap gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3 mb-6 font-mono text-xs">
+      {/* Neumorphic Verdict Step Tabs */}
+      <div className="flex flex-wrap gap-2 border-b border-white/[0.06] pb-4 mb-6 font-mono text-xs">
         <button
           type="button"
           onClick={() => setActiveTab("verdict")}
           className={cn(
-            "flex items-center gap-1.5 pb-2 transition-colors cursor-pointer border-b-2 px-2.5 font-bold uppercase",
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
             activeTab === "verdict"
-              ? "border-white text-white font-black"
-              : "border-transparent text-[#b9cbc1] hover:text-white"
+              ? "neu-inset text-white font-black border border-white/20"
+              : "neu-button text-neutral-400 hover:text-white"
           )}
         >
-          <CheckCircle2 className="w-3.5 h-3.5" />
+          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
           <span>1. VERDICT</span>
         </button>
 
@@ -133,13 +133,13 @@ export function EvaluationForm({
           type="button"
           onClick={() => setActiveTab("bugs")}
           className={cn(
-            "flex items-center gap-1.5 pb-2 transition-colors cursor-pointer border-b-2 px-2.5 font-bold uppercase",
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
             activeTab === "bugs"
-              ? "border-white text-white font-black"
-              : "border-transparent text-[#b9cbc1] hover:text-white"
+              ? "neu-inset text-white font-black border border-white/20"
+              : "neu-button text-neutral-400 hover:text-white"
           )}
         >
-          <Bug className="w-3.5 h-3.5" />
+          <Bug className="w-3.5 h-3.5 text-rose-400" />
           <span>2. BUGS ({reportedBugs.length})</span>
         </button>
 
@@ -147,13 +147,13 @@ export function EvaluationForm({
           type="button"
           onClick={() => setActiveTab("tests")}
           className={cn(
-            "flex items-center gap-1.5 pb-2 transition-colors cursor-pointer border-b-2 px-2.5 font-bold uppercase",
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
             activeTab === "tests"
-              ? "border-white text-white font-black"
-              : "border-transparent text-[#b9cbc1] hover:text-white"
+              ? "neu-inset text-white font-black border border-white/20"
+              : "neu-button text-neutral-400 hover:text-white"
           )}
         >
-          <TestTube className="w-3.5 h-3.5" />
+          <TestTube className="w-3.5 h-3.5 text-sky-400" />
           <span>3. TESTS</span>
         </button>
 
@@ -161,13 +161,13 @@ export function EvaluationForm({
           type="button"
           onClick={() => setActiveTab("bigo")}
           className={cn(
-            "flex items-center gap-1.5 pb-2 transition-colors cursor-pointer border-b-2 px-2.5 font-bold uppercase",
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
             activeTab === "bigo"
-              ? "border-white text-white font-black"
-              : "border-transparent text-[#b9cbc1] hover:text-white"
+              ? "neu-inset text-white font-black border border-white/20"
+              : "neu-button text-neutral-400 hover:text-white"
           )}
         >
-          <Clock className="w-3.5 h-3.5" />
+          <Clock className="w-3.5 h-3.5 text-amber-400" />
           <span>4. BIG-O</span>
         </button>
 
@@ -175,25 +175,25 @@ export function EvaluationForm({
           type="button"
           onClick={() => setActiveTab("fix")}
           className={cn(
-            "flex items-center gap-1.5 pb-2 transition-colors cursor-pointer border-b-2 px-2.5 font-bold uppercase",
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
             activeTab === "fix"
-              ? "border-white text-white font-black"
-              : "border-transparent text-[#b9cbc1] hover:text-white"
+              ? "neu-inset text-white font-black border border-white/20"
+              : "neu-button text-neutral-400 hover:text-white"
           )}
         >
-          <Wrench className="w-3.5 h-3.5" />
+          <Wrench className="w-3.5 h-3.5 text-purple-400" />
           <span>5. FIX</span>
         </button>
       </div>
 
-      {/* Tab 1: Square Tactile Verdict Tiles Grid */}
+      {/* Tab 1: Tactile 3D Verdict Tiles Grid */}
       {activeTab === "verdict" && (
         <div className="flex flex-col flex-grow space-y-4">
           <div>
             <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-1">
               EVALUATION VERDICT
             </h3>
-            <p className="text-xs text-[#b9cbc1] font-sans">
+            <p className="text-xs text-neutral-400 font-sans">
               Select the classification for this AI code snippet.
             </p>
           </div>
@@ -206,22 +206,22 @@ export function EvaluationForm({
               className={cn(
                 "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
                 verdict === "correct"
-                  ? "contrast-card border-2 border-black shadow-xl"
-                  : "neu-inset bg-[#121416] border border-[#282a2c] text-[#e2e2e5] hover:border-white"
+                  ? "neu-card border-2 border-emerald-500/60 shadow-[0_0_20px_rgba(16,185,129,0.2)]"
+                  : "neu-inset opacity-80 hover:opacity-100 hover:border-white/10"
               )}
             >
               <div className="flex justify-between items-start w-full">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-500">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
                   01 / ACCURATE
                 </span>
-                <CheckCircle2 className={cn("w-5 h-5", verdict === "correct" ? "text-gray-900" : "text-white")} />
+                <CheckCircle2 className={cn("w-5 h-5", verdict === "correct" ? "text-emerald-400" : "text-neutral-500")} />
               </div>
 
               <div>
-                <h4 className={cn("text-base font-black uppercase tracking-tight mb-1 leading-snug", verdict === "correct" ? "text-[#121416]" : "text-white")}>
+                <h4 className="text-base font-black uppercase tracking-tight mb-1 leading-snug text-white font-mono">
                   COMPLETELY<br />CORRECT
                 </h4>
-                <p className={cn("text-xs leading-relaxed font-sans line-clamp-2", verdict === "correct" ? "text-gray-700 font-medium" : "text-[#b9cbc1]")}>
+                <p className="text-xs leading-relaxed font-sans text-neutral-300">
                   No bugs, optimal complexity, and handles all constraints.
                 </p>
               </div>
@@ -234,22 +234,22 @@ export function EvaluationForm({
               className={cn(
                 "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
                 verdict === "minor_issue"
-                  ? "contrast-card border-2 border-black shadow-xl"
-                  : "neu-inset bg-[#121416] border border-[#282a2c] text-[#e2e2e5] hover:border-white"
+                  ? "neu-card border-2 border-amber-500/60 shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+                  : "neu-inset opacity-80 hover:opacity-100 hover:border-white/10"
               )}
             >
               <div className="flex justify-between items-start w-full">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-500">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
                   02 / MINOR
                 </span>
-                <AlertTriangle className={cn("w-5 h-5", verdict === "minor_issue" ? "text-amber-700" : "text-amber-400")} />
+                <AlertTriangle className={cn("w-5 h-5", verdict === "minor_issue" ? "text-amber-400" : "text-neutral-500")} />
               </div>
 
               <div>
-                <h4 className={cn("text-base font-black uppercase tracking-tight mb-1 leading-snug", verdict === "minor_issue" ? "text-[#121416]" : "text-white")}>
+                <h4 className="text-base font-black uppercase tracking-tight mb-1 leading-snug text-white font-mono">
                   MINOR<br />DEFECT
                 </h4>
-                <p className={cn("text-xs leading-relaxed font-sans line-clamp-2", verdict === "minor_issue" ? "text-gray-700 font-medium" : "text-[#b9cbc1]")}>
+                <p className="text-xs leading-relaxed font-sans text-neutral-300">
                   Violates minor boundary invariants or style conventions.
                 </p>
               </div>
@@ -262,22 +262,22 @@ export function EvaluationForm({
               className={cn(
                 "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
                 verdict === "major_bug"
-                  ? "contrast-card border-2 border-black shadow-xl"
-                  : "neu-inset bg-[#121416] border border-[#282a2c] text-[#e2e2e5] hover:border-rose-400"
+                  ? "neu-card border-2 border-rose-500/60 shadow-[0_0_20px_rgba(244,63,94,0.2)]"
+                  : "neu-inset opacity-80 hover:opacity-100 hover:border-white/10"
               )}
             >
               <div className="flex justify-between items-start w-full">
                 <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-400">
                   03 / FATAL
                 </span>
-                <Bug className={cn("w-5 h-5", verdict === "major_bug" ? "text-rose-900" : "text-rose-400")} />
+                <Bug className={cn("w-5 h-5", verdict === "major_bug" ? "text-rose-400" : "text-neutral-500")} />
               </div>
 
               <div>
-                <h4 className={cn("text-base font-black uppercase tracking-tight mb-1 leading-snug", verdict === "major_bug" ? "text-rose-950" : "text-rose-400")}>
+                <h4 className="text-base font-black uppercase tracking-tight mb-1 leading-snug text-white font-mono">
                   FATAL<br />LOGIC BUG
                 </h4>
-                <p className={cn("text-xs leading-relaxed font-sans line-clamp-2", verdict === "major_bug" ? "text-gray-700 font-medium" : "text-[#b9cbc1]")}>
+                <p className="text-xs leading-relaxed font-sans text-neutral-300">
                   Infinite loops, invalid pointer mutations, wrong output.
                 </p>
               </div>
@@ -294,18 +294,18 @@ export function EvaluationForm({
             <button
               type="button"
               onClick={handleAddBugRow}
-              className="neu-inset px-2.5 py-1 rounded text-[11px] font-bold text-white hover:bg-[#1e2022] flex items-center gap-1 cursor-pointer"
+              className="neu-button px-3 py-1.5 rounded-lg text-[11px] font-bold text-white flex items-center gap-1.5 cursor-pointer"
             >
-              <Plus className="w-3 h-3" /> ADD BUG ROW
+              <Plus className="w-3.5 h-3.5 text-emerald-400" /> ADD BUG ROW
             </button>
           </div>
 
           <div className="space-y-3 flex-1 overflow-y-auto max-h-[360px] pr-1">
             {reportedBugs.map((bug, idx) => (
-              <div key={idx} className="neu-inset p-4 rounded-lg space-y-3 border border-[#282a2c]">
+              <div key={idx} className="neu-inset p-4 rounded-xl space-y-3">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-500 font-bold">LINE #:</span>
+                    <span className="text-neutral-400 font-bold">LINE #:</span>
                     <input
                       type="number"
                       value={bug.line_reference || ""}
@@ -314,7 +314,7 @@ export function EvaluationForm({
                         copy[idx].line_reference = parseInt(e.target.value) || undefined;
                         setReportedBugs(copy);
                       }}
-                      className="w-16 p-1 rounded bg-[#0c0e10] border border-[#282a2c] text-white text-center font-bold"
+                      className="w-16 py-1 px-2 rounded-lg neu-inset text-white text-center font-bold"
                     />
                   </div>
 
@@ -325,7 +325,7 @@ export function EvaluationForm({
                       copy[idx].severity = e.target.value as IssueSeverity;
                       setReportedBugs(copy);
                     }}
-                    className="p-1.5 rounded bg-[#0c0e10] border border-[#282a2c] text-white text-xs uppercase cursor-pointer"
+                    className="neu-button py-1.5 px-3 rounded-lg text-white text-xs uppercase cursor-pointer"
                   >
                     <option value="critical">CRITICAL</option>
                     <option value="major">MAJOR</option>
@@ -353,7 +353,7 @@ export function EvaluationForm({
                     setReportedBugs(copy);
                   }}
                   rows={2}
-                  className="w-full p-2.5 rounded bg-[#0c0e10] border border-[#282a2c] text-white text-xs font-sans focus:outline-none focus:border-white"
+                  className="w-full p-3 rounded-lg neu-inset text-white text-xs font-sans focus:outline-none"
                 />
               </div>
             ))}
@@ -369,16 +369,16 @@ export function EvaluationForm({
             <button
               type="button"
               onClick={handleAddTestRow}
-              className="neu-inset px-2.5 py-1 rounded text-[11px] font-bold text-white hover:bg-[#1e2022] flex items-center gap-1 cursor-pointer"
+              className="neu-button px-3 py-1.5 rounded-lg text-[11px] font-bold text-white flex items-center gap-1.5 cursor-pointer"
             >
-              <Plus className="w-3 h-3" /> ADD TEST CASE
+              <Plus className="w-3.5 h-3.5 text-emerald-400" /> ADD TEST CASE
             </button>
           </div>
 
           <div className="space-y-3 flex-1 overflow-y-auto max-h-[360px] pr-1">
             {testCases.map((test, idx) => (
-              <div key={idx} className="neu-inset p-4 rounded-lg space-y-2.5 border border-[#282a2c]">
-                <div className="flex items-center justify-between text-gray-500 font-bold">
+              <div key={idx} className="neu-inset p-4 rounded-xl space-y-2.5">
+                <div className="flex items-center justify-between text-neutral-400 font-bold">
                   <span>TEST CASE #{idx + 1}</span>
                   {testCases.length > 1 && (
                     <button
@@ -390,7 +390,7 @@ export function EvaluationForm({
                     </button>
                   )}
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                   <input
                     placeholder="Input e.g. [1,2,3]"
                     value={test.input}
@@ -399,7 +399,7 @@ export function EvaluationForm({
                       copy[idx].input = e.target.value;
                       setTestCases(copy);
                     }}
-                    className="p-2 rounded bg-[#0c0e10] border border-[#282a2c] text-white text-xs font-mono"
+                    className="p-2.5 rounded-lg neu-inset text-white text-xs font-mono"
                   />
                   <input
                     placeholder="Expected Output"
@@ -409,7 +409,7 @@ export function EvaluationForm({
                       copy[idx].expected = e.target.value;
                       setTestCases(copy);
                     }}
-                    className="p-2 rounded bg-[#0c0e10] border border-[#282a2c] text-white text-xs font-mono"
+                    className="p-2.5 rounded-lg neu-inset text-white text-xs font-mono"
                   />
                   <input
                     placeholder="Actual AI Output"
@@ -419,7 +419,7 @@ export function EvaluationForm({
                       copy[idx].actual = e.target.value;
                       setTestCases(copy);
                     }}
-                    className="p-2 rounded bg-[#0c0e10] border border-[#282a2c] text-white text-xs font-mono"
+                    className="p-2.5 rounded-lg neu-inset text-white text-xs font-mono"
                   />
                 </div>
               </div>
@@ -430,41 +430,57 @@ export function EvaluationForm({
 
       {/* Tab 4: Big-O Complexity */}
       {activeTab === "bigo" && (
-        <div className="flex flex-col flex-grow space-y-4 font-mono text-xs">
-          <span className="text-xs font-bold text-white uppercase">BIG-O COMPLEXITY ANALYSIS</span>
+        <div className="flex flex-col flex-grow space-y-5 font-mono text-xs">
+          <div>
+            <span className="text-xs font-bold text-white uppercase block mb-1">ASYMPTOTIC ANALYSIS</span>
+            <p className="text-xs text-neutral-400 font-sans">
+              Audit the AI's claimed Time & Space complexities against the actual implementation.
+            </p>
+          </div>
 
-          <div className="neu-inset p-4 rounded-lg space-y-4 border border-[#282a2c]">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-gray-500 font-bold block mb-1">TIME COMPLEXITY:</label>
-                <input
-                  type="text"
-                  value={assessedComplexity.time}
-                  onChange={(e) => setAssessedComplexity({ ...assessedComplexity, time: e.target.value })}
-                  className="w-full p-2.5 rounded bg-[#0c0e10] border border-[#282a2c] text-white font-bold text-xs"
-                />
-              </div>
-
-              <div>
-                <label className="text-gray-500 font-bold block mb-1">SPACE COMPLEXITY:</label>
-                <input
-                  type="text"
-                  value={assessedComplexity.space}
-                  onChange={(e) => setAssessedComplexity({ ...assessedComplexity, space: e.target.value })}
-                  className="w-full p-2.5 rounded bg-[#0c0e10] border border-[#282a2c] text-white font-bold text-xs"
-                />
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <label className="text-neutral-400 font-bold block text-[11px]">ASSESSED TIME COMPLEXITY</label>
+              <input
+                value={assessedComplexity.time}
+                onChange={(e) => setAssessedComplexity({ ...assessedComplexity, time: e.target.value })}
+                placeholder="e.g. O(N), O(N log N)"
+                className="w-full p-3 rounded-lg neu-inset text-white font-mono text-xs"
+              />
             </div>
 
-            <div className="pt-2 border-t border-[rgba(255,255,255,0.06)] flex items-center gap-3">
+            <div className="space-y-1.5">
+              <label className="text-neutral-400 font-bold block text-[11px]">ASSESSED SPACE COMPLEXITY</label>
+              <input
+                value={assessedComplexity.space}
+                onChange={(e) => setAssessedComplexity({ ...assessedComplexity, space: e.target.value })}
+                placeholder="e.g. O(1), O(N)"
+                className="w-full p-3 rounded-lg neu-inset text-white font-mono text-xs"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <label className="text-neutral-400 font-bold block text-[11px]">JUSTIFICATION & INVARIANTS</label>
+            <textarea
+              value={assessedComplexity.justification}
+              onChange={(e) => setAssessedComplexity({ ...assessedComplexity, justification: e.target.value })}
+              placeholder="Explain auxiliary memory allocations, call stack frames, or inner loop bounds..."
+              rows={3}
+              className="w-full p-3 rounded-lg neu-inset text-white font-sans text-xs"
+            />
+          </div>
+
+          <div className="neu-inset p-4 rounded-xl flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
               <input
                 type="checkbox"
                 id="explanation_accurate"
                 checked={explanationAudit.is_accurate}
                 onChange={(e) => setExplanationAudit({ ...explanationAudit, is_accurate: e.target.checked })}
-                className="w-4 h-4 rounded bg-[#0c0e10] border-[#282a2c] accent-white cursor-pointer"
+                className="w-4 h-4 rounded neu-inset accent-emerald-500 cursor-pointer"
               />
-              <label htmlFor="explanation_accurate" className="text-white font-bold cursor-pointer">
+              <label htmlFor="explanation_accurate" className="text-white font-bold cursor-pointer text-xs">
                 AI CLAIMED EXPLANATION & COMPLEXITY ARE ACCURATE
               </label>
             </div>
@@ -482,13 +498,13 @@ export function EvaluationForm({
             value={suggestedFix}
             onChange={(e) => setSuggestedFix(e.target.value)}
             rows={8}
-            className="w-full p-3 rounded-lg bg-[#0c0e10] border border-[#282a2c] text-white font-mono text-xs focus:outline-none focus:border-white leading-relaxed"
+            className="w-full p-3.5 rounded-xl neu-inset text-white font-mono text-xs leading-relaxed"
           />
         </div>
       )}
 
       {/* Form Action Controls */}
-      <div className="border-t border-[rgba(255,255,255,0.08)] pt-4 flex items-center justify-between mt-auto">
+      <div className="border-t border-white/[0.06] pt-4 flex items-center justify-between mt-auto">
         <button
           type="button"
           onClick={() => {
@@ -496,7 +512,7 @@ export function EvaluationForm({
             setReportedBugs([]);
             setTestCases([]);
           }}
-          className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#b9cbc1] hover:text-white transition-colors cursor-pointer"
+          className="neu-button px-4 py-2 flex items-center gap-1.5 text-xs font-mono font-bold text-neutral-400 hover:text-white transition-all cursor-pointer"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>RESET</span>
@@ -505,7 +521,7 @@ export function EvaluationForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="neu-extruded bg-white text-[#121416] px-6 py-3 rounded-lg font-mono font-bold text-xs uppercase hover:bg-[#e2e2e5] transition-colors active:scale-95 flex items-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.3)] cursor-pointer disabled:opacity-50"
+          className="neu-button bg-white text-black hover:bg-neutral-200 px-6 py-3 rounded-xl font-mono font-black text-xs uppercase transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] cursor-pointer disabled:opacity-50"
         >
           <Send className="w-3.5 h-3.5" />
           <span>{isSubmitting ? "AUDITING..." : "SUBMIT EVALUATION"}</span>

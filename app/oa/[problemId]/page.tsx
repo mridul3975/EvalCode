@@ -620,7 +620,7 @@ export default function OAWorkspacePage() {
           </div>
 
           {/* Right Column Container (60% Width) wrapped in .neu-card */}
-          <div className="w-full lg:w-[60%] h-full flex flex-col neu-card overflow-hidden p-2.5 gap-3">
+          <div className="w-full lg:w-[60%] h-full flex flex-col neu-card overflow-hidden p-4 gap-4">
             {/* Top 65%: Monaco Editor */}
             <div className="h-[60%] lg:h-[65%] min-h-[220px] overflow-hidden rounded-xl">
               <MonacoCodeEditor
