@@ -23,6 +23,8 @@ import {
   clearActiveMultiSession,
   calculateRemainingSeconds,
   saveMultiOAResult,
+  getCustomOATracks,
+  getCustomOAProblems,
 } from "@/lib/oa/storage";
 import { OANavbar } from "@/components/oa/OANavbar";
 import { MonacoCodeEditor } from "@/components/oa/MonacoCodeEditor";
@@ -38,16 +40,32 @@ export default function OAWorkspacePage() {
   const router = useRouter();
   const slug = (params?.problemId as string) || "";
 
-  // 1. Resolve Track and Problems
+  // 1. Resolve Dynamic Tracks and Problems (Built-in + Custom User Imports)
+  const [allTracks] = useState<OACompanyTrack[]>(() => {
+    if (typeof window === "undefined") return OA_TRACKS;
+    const customT = getCustomOATracks();
+    if (customT.length === 0) return OA_TRACKS;
+    const cIds = new Set(customT.map((t) => t.id));
+    return [...customT, ...OA_TRACKS.filter((t) => !cIds.has(t.id))];
+  });
+
+  const [allProblems] = useState<OAProblem[]>(() => {
+    if (typeof window === "undefined") return OA_PROBLEMS;
+    const customP = getCustomOAProblems();
+    if (customP.length === 0) return OA_PROBLEMS;
+    const pIds = new Set(customP.map((p) => p.id));
+    return [...customP, ...OA_PROBLEMS.filter((p) => !pIds.has(p.id))];
+  });
+
   const track: OACompanyTrack = useMemo(() => {
     // Check if slug matches an explicit track ID
-    const foundTrack = OA_TRACKS.find((t) => t.id === slug);
+    const foundTrack = allTracks.find((t) => t.id === slug);
     if (foundTrack) return foundTrack;
 
     // Check if slug is an individual problem ID
-    const problemMatch = OA_PROBLEMS.find((p) => p.id === slug);
+    const problemMatch = allProblems.find((p) => p.id === slug);
     if (problemMatch) {
-      const parentTrack = OA_TRACKS.find((t) => t.problemIds.includes(problemMatch.id));
+      const parentTrack = allTracks.find((t) => t.problemIds.includes(problemMatch.id));
       if (parentTrack) return parentTrack;
 
       // Fallback synthetic track for single problem
@@ -65,14 +83,14 @@ export default function OAWorkspacePage() {
     }
 
     // Default to Citadel track
-    return OA_TRACKS[0];
-  }, [slug]);
+    return allTracks[0];
+  }, [slug, allTracks, allProblems]);
 
   const problems: OAProblem[] = useMemo(() => {
     return track.problemIds
-      .map((id) => OA_PROBLEMS.find((p) => p.id === id))
+      .map((id) => allProblems.find((p) => p.id === id))
       .filter((p): p is OAProblem => Boolean(p));
-  }, [track]);
+  }, [track, allProblems]);
 
   // 2. Multi-Problem State Initialization & Hydration
   const [activeProblemId, setActiveProblemId] = useState<string>(problems[0]?.id || "");
