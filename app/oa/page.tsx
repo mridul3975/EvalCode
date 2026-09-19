@@ -42,11 +42,6 @@ export default function OALobbyPage() {
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
         {/* Header Hero */}
         <div className="space-y-4 max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider">
-            <Flame className="w-3.5 h-3.5 fill-current" />
-            <span>HACKERRANK & CODESIGNAL MULTI-QUESTION OA ENVIRONMENT</span>
-          </div>
-
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none font-mono">
             70–90 MINUTE MULTI-PROBLEM ASSESSMENTS
           </h1>
@@ -55,53 +50,6 @@ export default function OALobbyPage() {
             Realistic high-stakes technical coding screenings modeled after Citadel, Google, and Tier-1 FinTech hiring standards.
             Allocate time across 2–4 problems under a global countdown clock, defend algorithmic invariants, and justify your code directly before a Gemini Principal Staff Bar Raiser.
           </p>
-        </div>
-
-        {/* 4-Phase Rules Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 font-mono">
-          <div className="neu-card p-6 space-y-3 border-l-4 border-l-emerald-400">
-            <span className="text-[10px] text-neutral-500 font-bold uppercase">PHASE 1</span>
-            <div className="flex items-center gap-2 text-white font-bold text-sm">
-              <Cpu className="w-4 h-4 text-emerald-400" />
-              <span>MULTI-TAB WORKSPACE</span>
-            </div>
-            <p className="text-xs text-neutral-400 font-sans leading-relaxed">
-              Solve 2–3 problems freely under a single 75-min timer. Code and test states stay isolated per problem.
-            </p>
-          </div>
-
-          <div className="neu-card p-6 space-y-3 border-l-4 border-l-sky-400">
-            <span className="text-[10px] text-neutral-500 font-bold uppercase">PHASE 2</span>
-            <div className="flex items-center gap-2 text-white font-bold text-sm">
-              <Layers className="w-4 h-4 text-sky-400" />
-              <span>PRE-SUBMIT & DEFENSE</span>
-            </div>
-            <p className="text-xs text-neutral-400 font-sans leading-relaxed">
-              Review test matrix warnings, lock code, and document Big-O Time & Space complexities for each solution.
-            </p>
-          </div>
-
-          <div className="neu-card p-6 space-y-3 border-l-4 border-l-purple-400">
-            <span className="text-[10px] text-neutral-500 font-bold uppercase">PHASE 3</span>
-            <div className="flex items-center gap-2 text-white font-bold text-sm">
-              <Sparkles className="w-4 h-4 text-purple-400" />
-              <span>GEMINI BAR-RAISER ROUND</span>
-            </div>
-            <p className="text-xs text-neutral-400 font-sans leading-relaxed">
-              Gemini audits your hardest implementation and probes scale, memory bounds, and edge-case invariants.
-            </p>
-          </div>
-
-          <div className="neu-card p-6 space-y-3 border-l-4 border-l-amber-400">
-            <span className="text-[10px] text-neutral-500 font-bold uppercase">PHASE 4</span>
-            <div className="flex items-center gap-2 text-white font-bold text-sm">
-              <Timer className="w-4 h-4 text-amber-400" />
-              <span>COMPREHENSIVE AUDIT</span>
-            </div>
-            <p className="text-xs text-neutral-400 font-sans leading-relaxed">
-              Receive a hiring bar verdict (Strong Pass to Fail) with full hidden test matrix, radar metrics, and feedback.
-            </p>
-          </div>
         </div>
 
         {/* Company Filters */}
