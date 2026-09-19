@@ -4,7 +4,14 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { SEED_QUESTIONS } from "@/data/seed-questions";
 import { QuestionItem } from "@/types/question";
-import { getStoredSubmissions, getBookmarks, toggleBookmark, getCustomQuestions } from "@/lib/storage";
+import { PracticeAttempt } from "@/types/submission";
+import {
+  getStoredSubmissions,
+  getBookmarks,
+  toggleBookmark,
+  getCustomQuestions,
+  getStoredAttempts,
+} from "@/lib/storage";
 import { AddQuestionModal } from "@/components/practice/AddQuestionModal";
 import { getDefectMeta } from "@/lib/core/defect-pipeline";
 import { getAvailableLanguages, getLanguageLabel } from "@/lib/language-utils";
@@ -17,7 +24,9 @@ import {
   ChevronRight,
   ArrowRight,
   Sparkles,
-  Plus,
+  Code2,
+  ShieldAlert,
+  CheckCircle2,
 } from "lucide-react";
 
 export default function PracticeCatalogPage() {
@@ -26,17 +35,20 @@ export default function PracticeCatalogPage() {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("all");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [selectedDefect, setSelectedDefect] = useState<string>("all");
+  const [selectedStatus, setSelectedStatus] = useState<"all" | "attempted" | "audited" | "bookmarked">("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const ITEMS_PER_PAGE = 6;
 
   const [submissions, setSubmissions] = useState<Record<string, any>>({});
+  const [attempts, setAttempts] = useState<Record<string, PracticeAttempt>>({});
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [allQuestions, setAllQuestions] = useState<QuestionItem[]>(SEED_QUESTIONS);
 
   useEffect(() => {
     setSubmissions(getStoredSubmissions());
+    setAttempts(getStoredAttempts());
     setBookmarks(getBookmarks());
     const custom = getCustomQuestions();
     if (custom.length > 0) {
@@ -52,7 +64,7 @@ export default function PracticeCatalogPage() {
   // Reset page to 1 when any filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedTopic, selectedLanguage, selectedDifficulty, selectedDefect]);
+  }, [searchQuery, selectedTopic, selectedLanguage, selectedDifficulty, selectedDefect, selectedStatus]);
 
   const handleBookmarkToggle = (e: React.MouseEvent, qId: string) => {
     e.preventDefault();
@@ -74,7 +86,16 @@ export default function PracticeCatalogPage() {
     const qDefect = q.ground_truth.defect_type || q.ground_truth.error_categories[0];
     const matchesDefect = selectedDefect === "all" || qDefect === selectedDefect;
 
-    return matchesSearch && matchesTopic && matchesLanguage && matchesDifficulty && matchesDefect;
+    let matchesStatus = true;
+    if (selectedStatus === "audited") {
+      matchesStatus = Boolean(submissions[q.id]);
+    } else if (selectedStatus === "attempted") {
+      matchesStatus = Boolean(attempts[q.id]);
+    } else if (selectedStatus === "bookmarked") {
+      matchesStatus = bookmarks.includes(q.id);
+    }
+
+    return matchesSearch && matchesTopic && matchesLanguage && matchesDifficulty && matchesDefect && matchesStatus;
   });
 
   const totalPages = Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE) || 1;
@@ -147,7 +168,7 @@ export default function PracticeCatalogPage() {
         <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-4 sm:pb-6 border-b border-white/[0.06]">
           <div className="space-y-2 sm:space-y-3">
             <span className="neu-active-pill px-3 py-1 text-xs font-mono text-emerald-400 font-bold">
-              RLHF DEFECT BENCHMARKS
+              RLHF DEFECT BENCHMARKS & WORKBENCH
             </span>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-none uppercase flex items-center gap-3 font-mono">
               <span>PRACTICE REVIEW STUDIO</span>
@@ -174,8 +195,65 @@ export default function PracticeCatalogPage() {
           </div>
         </header>
 
-        {/* Filters Section: Elevated Neumorphic Card */}
+        {/* Filters Section */}
         <section className="neu-card p-5 sm:p-6 flex flex-col gap-4">
+          {/* Status Segmented Filter */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/[0.04]">
+            <div className="flex items-center gap-1 neu-inset p-1 rounded-xl text-xs font-mono">
+              <button
+                type="button"
+                onClick={() => setSelectedStatus("all")}
+                className={cn(
+                  "px-3 py-1.5 rounded-lg font-bold uppercase transition-all cursor-pointer",
+                  selectedStatus === "all"
+                    ? "neu-inset text-white font-black border border-white/10"
+                    : "text-neutral-400 hover:text-white"
+                )}
+              >
+                ALL ({allQuestions.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedStatus("audited")}
+                className={cn(
+                  "px-3 py-1.5 rounded-lg font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer",
+                  selectedStatus === "audited"
+                    ? "neu-inset text-amber-400 font-black border border-amber-500/30"
+                    : "text-neutral-400 hover:text-white"
+                )}
+              >
+                <ShieldAlert className="w-3.5 h-3.5" />
+                <span>AUDITED ({Object.keys(submissions).length})</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedStatus("attempted")}
+                className={cn(
+                  "px-3 py-1.5 rounded-lg font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer",
+                  selectedStatus === "attempted"
+                    ? "neu-inset text-emerald-400 font-black border border-emerald-500/30"
+                    : "text-neutral-400 hover:text-white"
+                )}
+              >
+                <Code2 className="w-3.5 h-3.5" />
+                <span>ATTEMPTED ({Object.keys(attempts).length})</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedStatus("bookmarked")}
+                className={cn(
+                  "px-3 py-1.5 rounded-lg font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer",
+                  selectedStatus === "bookmarked"
+                    ? "neu-inset text-sky-400 font-black border border-sky-500/30"
+                    : "text-neutral-400 hover:text-white"
+                )}
+              >
+                <Bookmark className="w-3.5 h-3.5" />
+                <span>SAVED ({bookmarks.length})</span>
+              </button>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             {/* Search Bar */}
             <div className="flex-grow relative">
@@ -241,18 +319,19 @@ export default function PracticeCatalogPage() {
           </div>
         </section>
 
-        {/* Questions Grid - Elevated 3D Dark Neomorphic Cards */}
+        {/* Questions Grid */}
         <section className="space-y-6">
           {paginatedQuestions.length === 0 ? (
             <div className="neu-inset p-12 text-center rounded-2xl font-mono text-neutral-400 space-y-3">
               <p className="text-lg font-bold">NO BENCHMARK QUESTIONS FOUND MATCHING YOUR FILTERS.</p>
-              <p className="text-xs text-neutral-500">Try clearing your search query or selecting "ALL" topics.</p>
+              <p className="text-xs text-neutral-500">Try clearing your search query or adjusting your filters.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {paginatedQuestions.map((q) => {
                 const isBookmarked = bookmarks.includes(q.id);
                 const prevSub = submissions[q.id];
+                const prevAttempt = attempts[q.id];
                 const primaryDefect = q.ground_truth.defect_type || q.ground_truth.error_categories[0];
                 const defectMeta = getDefectMeta(primaryDefect);
                 const isCustom = q.id.startsWith("custom_");
@@ -260,12 +339,12 @@ export default function PracticeCatalogPage() {
                 return (
                   <div
                     key={q.id}
-                    className="neu-card group relative flex flex-col justify-between p-6 h-full transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                    className="neu-card group relative flex flex-col justify-between p-6 h-full transition-all duration-300 hover:-translate-y-1"
                   >
                     {/* Top Row: Meta Tags & Bookmarking */}
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2 font-mono">
+                        <div className="flex items-center space-x-2 font-mono flex-wrap gap-y-1">
                           <span className={cn("text-xs font-black uppercase px-2 py-0.5 rounded-md neu-inset", getDifficultyColor(q.difficulty))}>
                             {q.difficulty}
                           </span>
@@ -282,7 +361,7 @@ export default function PracticeCatalogPage() {
 
                         <button
                           onClick={(e) => handleBookmarkToggle(e, q.id)}
-                          className="text-neutral-500 hover:text-white transition-colors p-1"
+                          className="text-neutral-500 hover:text-white transition-colors p-1 cursor-pointer"
                         >
                           {isBookmarked ? (
                             <BookmarkCheck className="w-5 h-5 text-emerald-400 fill-emerald-400" />
@@ -292,9 +371,34 @@ export default function PracticeCatalogPage() {
                         </button>
                       </div>
 
+                      {/* Status Badges Row if attempted or audited */}
+                      {(prevSub || prevAttempt) && (
+                        <div className="flex items-center gap-2 flex-wrap text-[10px] font-mono">
+                          {prevSub && (
+                            <span className="neu-active-pill text-amber-400 border-amber-500/30 px-2 py-0.5 font-bold uppercase flex items-center gap-1">
+                              <ShieldAlert className="w-3 h-3" />
+                              <span>Audited ({Math.round(prevSub.result.overall_score * 10)}%)</span>
+                            </span>
+                          )}
+                          {prevAttempt && (
+                            <span
+                              className={cn(
+                                "neu-active-pill px-2 py-0.5 font-bold uppercase flex items-center gap-1 border",
+                                prevAttempt.isAllPassed
+                                  ? "text-emerald-400 border-emerald-500/30"
+                                  : "text-amber-400 border-amber-500/30"
+                              )}
+                            >
+                              <CheckCircle2 className="w-3 h-3" />
+                              <span>Attempted ({prevAttempt.passedCount}/{prevAttempt.totalCount})</span>
+                            </span>
+                          )}
+                        </div>
+                      )}
+
                       {/* Question Title */}
                       <Link href={`/practice/${q.id}`} className="block group-hover:text-emerald-400 transition-colors">
-                        <h3 className="text-xl font-bold uppercase leading-snug tracking-tight text-white line-clamp-2 font-mono">
+                        <h3 className="text-lg sm:text-xl font-bold uppercase leading-snug tracking-tight text-white line-clamp-2 font-mono">
                           {q.title}
                         </h3>
                       </Link>
@@ -305,19 +409,33 @@ export default function PracticeCatalogPage() {
                       </p>
                     </div>
 
-                    {/* Bottom Row: Defect Chip & Action Button */}
-                    <div className="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between gap-2">
-                      <span className="font-mono text-[10px] uppercase font-bold neu-inset text-neutral-300 px-2.5 py-1">
+                    {/* Bottom Row: Defect Chip & Dual Action Buttons */}
+                    <div className="pt-5 mt-6 border-t border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <span className="font-mono text-[10px] uppercase font-bold neu-inset text-neutral-300 px-2.5 py-1 shrink-0 w-fit">
                         {defectMeta.label}
                       </span>
 
-                      <Link
-                        href={`/practice/${q.id}`}
-                        className="neu-button px-4 py-2 text-xs font-mono font-bold uppercase rounded-lg flex items-center space-x-1.5 text-white hover:text-emerald-400"
-                      >
-                        <span>{prevSub ? "RE-AUDIT" : "START AUDIT"}</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {/* Audit Mode Button */}
+                        <Link
+                          href={`/practice/${q.id}?mode=audit`}
+                          className="neu-button px-3 py-2 text-xs font-mono font-bold uppercase rounded-lg flex items-center space-x-1.5 text-neutral-300 hover:text-white cursor-pointer"
+                          title="Audit AI code for defects"
+                        >
+                          <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                          <span>{prevSub ? "RE-AUDIT" : "AUDIT"}</span>
+                        </Link>
+
+                        {/* Attempt Mode Button */}
+                        <Link
+                          href={`/practice/${q.id}?mode=attempt`}
+                          className="neu-button-primary px-3.5 py-2 text-xs font-mono font-bold uppercase rounded-lg flex items-center space-x-1.5 text-emerald-300 border border-emerald-500/40 bg-emerald-950/30 hover:bg-emerald-950/60 cursor-pointer shadow-[0_0_10px_rgba(16,185,129,0.1)]"
+                          title="Solve this problem from scratch"
+                        >
+                          <Code2 className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>{prevAttempt ? "RE-ATTEMPT" : "ATTEMPT"}</span>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 );
@@ -360,14 +478,14 @@ export default function PracticeCatalogPage() {
                       {page}
                     </button>
                   ) : (
-                    <span key={idx} className="px-1 text-neutral-600">
+                    <span key={idx} className="px-2 text-neutral-600">
                       {page}
                     </span>
                   )
                 )}
 
                 <button
-                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
                   className="neu-button p-2 text-neutral-300 hover:text-white disabled:opacity-30 cursor-pointer"
                 >
@@ -379,12 +497,14 @@ export default function PracticeCatalogPage() {
         </section>
       </main>
 
-      {/* Add Question Modal */}
-      <AddQuestionModal
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        onQuestionAdded={handleQuestionAdded}
-      />
+      {/* AI Question Generation Modal */}
+      {isAddModalOpen && (
+        <AddQuestionModal
+          isOpen={isAddModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
+          onQuestionAdded={handleQuestionAdded}
+        />
+      )}
     </div>
   );
 }
