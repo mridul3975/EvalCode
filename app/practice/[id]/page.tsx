@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { notFound, useParams } from "next/navigation";
+import { notFound, useParams, useSearchParams } from "next/navigation";
 import { SEED_QUESTIONS } from "@/data/seed-questions";
 import { QuestionItem, QuestionLanguage } from "@/types/question";
 import { EvaluationSubmission, EvaluationResult } from "@/types/submission";
@@ -11,6 +11,7 @@ import { CodeViewer } from "@/components/review-studio/CodeViewer";
 import { EvaluationForm } from "@/components/review-studio/EvaluationForm";
 import { DisagreementMatrix } from "@/components/review-studio/DisagreementMatrix";
 import { AIChatAssistant } from "@/components/review-studio/AIChatAssistant";
+import { PracticeAttemptWorkspace } from "@/components/practice/PracticeAttemptWorkspace";
 import { getStoredSubmissions, saveStoredSubmission, getCustomQuestions } from "@/lib/storage";
 import { evaluateSubmission } from "@/lib/scoring-engine";
 import { getCodeForLanguage, getAvailableLanguages } from "@/lib/language-utils";
@@ -23,13 +24,19 @@ import {
   Code2,
   FileEdit,
   Sparkles,
-  PanelRightClose,
-  PanelRightOpen,
+  ShieldAlert,
+  Terminal,
 } from "lucide-react";
 
-export default function ReviewStudioPage() {
+function ReviewStudioContent() {
   const routeParams = useParams();
+  const searchParams = useSearchParams();
   const questionId = (routeParams?.id as string) || "";
+
+  const initialModeParam = searchParams.get("mode");
+  const [studioMode, setStudioMode] = useState<"audit" | "attempt">(
+    initialModeParam === "attempt" ? "attempt" : "audit"
+  );
 
   const [question, setQuestion] = useState<QuestionItem | null>(null);
   const [submission, setSubmission] = useState<EvaluationSubmission | null>(null);
@@ -77,6 +84,15 @@ export default function ReviewStudioPage() {
   const availableLangs = getAvailableLanguages(question);
   const currentCode = getCodeForLanguage(question, selectedLanguage);
 
+  const handleModeChange = (mode: "audit" | "attempt") => {
+    setStudioMode(mode);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("mode", mode);
+      window.history.replaceState(null, "", url.toString());
+    }
+  };
+
   const handleSubmitEvaluation = (subData: EvaluationSubmission) => {
     setIsSubmitting(true);
     setTimeout(() => {
@@ -112,26 +128,59 @@ export default function ReviewStudioPage() {
 
   return (
     <div className="min-h-screen bg-[#0d0e11] text-neutral-200 font-['Hanken_Grotesk'] antialiased flex flex-col">
-      {/* Minimal Top Navigation Strip */}
-      <header className="h-12 border-b border-neutral-800/80 bg-neutral-950/70 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 font-mono text-xs">
-        <div className="flex items-center gap-3">
+      {/* Top Navigation Strip */}
+      <header className="h-12 border-b border-neutral-800/80 bg-neutral-950/70 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 font-mono text-xs gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <Link
             href="/practice"
-            className="text-neutral-400 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="text-neutral-400 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Practice Catalog</span>
           </Link>
 
-          <span className="h-4 w-[1px] bg-neutral-800" />
+          <span className="h-4 w-[1px] bg-neutral-800 shrink-0" />
 
           <span className="font-semibold text-white truncate max-w-xs sm:max-w-md">
             {question.title}
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          {/* Share Link */}
+        {/* Center: Mode Switcher */}
+        <div className="flex items-center gap-1 neu-inset p-1 rounded-xl shrink-0">
+          <button
+            type="button"
+            onClick={() => handleModeChange("audit")}
+            className={cn(
+              "px-3 py-1 rounded-lg font-mono text-[11px] font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer",
+              studioMode === "audit"
+                ? "neu-inset text-white font-bold border border-white/10"
+                : "neu-button text-neutral-400 hover:text-white"
+            )}
+          >
+            <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden md:inline">Audit Buggy Code</span>
+            <span className="md:hidden">Audit</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleModeChange("attempt")}
+            className={cn(
+              "px-3 py-1 rounded-lg font-mono text-[11px] font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer",
+              studioMode === "attempt"
+                ? "neu-inset text-emerald-300 font-bold border border-emerald-500/30"
+                : "neu-button text-neutral-400 hover:text-white"
+            )}
+          >
+            <Code2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden md:inline">Attempt From Scratch</span>
+            <span className="md:hidden">Attempt</span>
+          </button>
+        </div>
+
+        {/* Right Tools: Share & Gemini Copilot */}
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={handleShare}
             className="p-1.5 px-2.5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
@@ -149,7 +198,6 @@ export default function ReviewStudioPage() {
             )}
           </button>
 
-          {/* Gemini Assistant Toggle Button */}
           <button
             type="button"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -177,9 +225,10 @@ export default function ReviewStudioPage() {
               : "border-transparent text-neutral-400"
           )}
         >
-          <Code2 className="w-3.5 h-3.5" />
-          <span>Spec & Code</span>
+          {studioMode === "audit" ? <Code2 className="w-3.5 h-3.5" /> : <Terminal className="w-3.5 h-3.5" />}
+          <span>{studioMode === "audit" ? "Spec & Code" : "Problem Spec"}</span>
         </button>
+
         <button
           onClick={() => setMobileTab("form")}
           className={cn(
@@ -190,8 +239,15 @@ export default function ReviewStudioPage() {
           )}
         >
           <FileEdit className="w-3.5 h-3.5" />
-          <span>{result ? "Results" : "Audit Form"}</span>
+          <span>
+            {studioMode === "audit"
+              ? result
+                ? "Results"
+                : "Audit Form"
+              : "Editor & Tests"}
+          </span>
         </button>
+
         <button
           onClick={() => setMobileTab("assistant")}
           className={cn(
@@ -206,10 +262,10 @@ export default function ReviewStudioPage() {
         </button>
       </div>
 
-      {/* Main Workspace: 2-Column Split + Optional Right Sidebar */}
+      {/* Main Workspace */}
       <div className="flex-1 flex overflow-hidden">
         <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-y-auto">
-          {/* Left Column (5 Cols): Problem Spec & AI Code Snippet */}
+          {/* Left Column (5 Cols) */}
           <div
             className={cn(
               "lg:col-span-5 flex flex-col gap-6",
@@ -221,45 +277,55 @@ export default function ReviewStudioPage() {
               selectedLanguage={selectedLanguage}
             />
 
-            <CodeViewer
-              code={currentCode}
-              language={selectedLanguage.toUpperCase()}
-              onSelectLine={(line) => setSelectedLineForCite(line)}
-              availableLanguages={availableLangs}
-              selectedLanguage={selectedLanguage}
-              onLanguageChange={(lang) => setSelectedLanguage(lang)}
-            />
+            {studioMode === "audit" && (
+              <CodeViewer
+                code={currentCode}
+                language={selectedLanguage.toUpperCase()}
+                onSelectLine={(line) => setSelectedLineForCite(line)}
+                availableLanguages={availableLangs}
+                selectedLanguage={selectedLanguage}
+                onLanguageChange={(lang) => setSelectedLanguage(lang)}
+              />
+            )}
           </div>
 
-          {/* Right Column (7 Cols): Audit Form or Disagreement Matrix */}
+          {/* Right Column (7 Cols) */}
           <div
             className={cn(
               "lg:col-span-7 flex flex-col gap-6",
               mobileTab === "form" ? "flex" : "hidden lg:flex"
             )}
           >
-            {result && submission ? (
-              <DisagreementMatrix
-                question={question}
-                submission={submission}
-                result={result}
-                onRetry={handleRetry}
-                nextQuestionId={
-                  SEED_QUESTIONS[
-                    (SEED_QUESTIONS.findIndex((q) => q.id === question.id) + 1) %
-                      SEED_QUESTIONS.length
-                  ]?.id
-                }
-                selectedLanguage={selectedLanguage}
-                onOpenAssistant={() => setIsSidebarOpen(true)}
-              />
+            {studioMode === "audit" ? (
+              result && submission ? (
+                <DisagreementMatrix
+                  question={question}
+                  submission={submission}
+                  result={result}
+                  onRetry={handleRetry}
+                  nextQuestionId={
+                    SEED_QUESTIONS[
+                      (SEED_QUESTIONS.findIndex((q) => q.id === question.id) + 1) %
+                        SEED_QUESTIONS.length
+                    ]?.id
+                  }
+                  selectedLanguage={selectedLanguage}
+                  onOpenAssistant={() => setIsSidebarOpen(true)}
+                />
+              ) : (
+                <EvaluationForm
+                  question={question}
+                  initialValues={submission || undefined}
+                  onSubmit={handleSubmitEvaluation}
+                  isSubmitting={isSubmitting}
+                  onLineCiteRequested={selectedLineForCite}
+                />
+              )
             ) : (
-              <EvaluationForm
+              <PracticeAttemptWorkspace
                 question={question}
-                initialValues={submission || undefined}
-                onSubmit={handleSubmitEvaluation}
-                isSubmitting={isSubmitting}
-                onLineCiteRequested={selectedLineForCite}
+                initialLanguage={selectedLanguage}
+                onSwitchToAuditMode={() => handleModeChange("audit")}
               />
             )}
           </div>
@@ -291,5 +357,13 @@ export default function ReviewStudioPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ReviewStudioPage() {
+  return (
+    <Suspense fallback={<WorkspaceSkeleton />}>
+      <ReviewStudioContent />
+    </Suspense>
   );
 }
