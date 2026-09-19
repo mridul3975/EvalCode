@@ -1,4 +1,4 @@
-import { Verdict, IssueSeverity } from "./question";
+import { Verdict, IssueSeverity, QuestionLanguage } from "./question";
 
 export interface ReportedBug {
   id?: string;
@@ -130,4 +130,26 @@ export interface UserProfileStats {
   };
   topic_stats: Record<string, { attempts: number; avg_score: number }>;
   defect_stats: Record<string, { attempts: number; detection_rate: number }>;
+}
+
+export interface PracticeTestResult {
+  testCaseId: string;
+  description: string;
+  passed: boolean;
+  actual: any;
+  expected: any;
+  executionTimeMs: number;
+  error?: string;
+  stdout?: string;
+}
+
+export interface PracticeAttempt {
+  questionId: string;
+  code: string;
+  language: QuestionLanguage;
+  passedCount: number;
+  totalCount: number;
+  isAllPassed: boolean;
+  submittedAt: string;
+  testResults: PracticeTestResult[];
 }
