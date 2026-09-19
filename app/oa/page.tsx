@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { OA_TRACKS, OA_PROBLEMS } from "@/data/oa-problems";
-import { CompanyProfile } from "@/types/oa";
+import { CompanyProfile, OACompanyTrack, OAProblem } from "@/types/oa";
+import { getCustomOATracks, getCustomOAProblems, deleteCustomOATrack } from "@/lib/oa/storage";
+import { ImportOAModal } from "@/components/oa/ImportOAModal";
 import { cn } from "@/lib/utils";
 import {
   Timer,
@@ -19,6 +21,7 @@ import {
   Clock,
   ChevronRight,
   Zap,
+  Trash2,
 } from "lucide-react";
 
 const COMPANY_FILTERS: Array<{ key: string; label: string }> = [
@@ -37,24 +40,80 @@ const COMPANY_FILTERS: Array<{ key: string; label: string }> = [
 
 export default function OALobbyPage() {
   const [selectedCompany, setSelectedCompany] = useState<string>("all");
+  const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
+  const [customTracks, setCustomTracks] = useState<OACompanyTrack[]>([]);
+  const [customProblems, setCustomProblems] = useState<OAProblem[]>([]);
 
-  const filteredTracks = OA_TRACKS.filter(
+  const refreshCustomData = () => {
+    setCustomTracks(getCustomOATracks());
+    setCustomProblems(getCustomOAProblems());
+  };
+
+  useEffect(() => {
+    refreshCustomData();
+  }, []);
+
+  // Merge custom tracks with official catalog
+  const allTracks = useMemo(() => {
+    const customIds = new Set(customTracks.map((t) => t.id));
+    return [...customTracks, ...OA_TRACKS.filter((t) => !customIds.has(t.id))];
+  }, [customTracks]);
+
+  // Merge custom problems with official catalog
+  const allProblems = useMemo(() => {
+    const customIds = new Set(customProblems.map((p) => p.id));
+    return [...customProblems, ...OA_PROBLEMS.filter((p) => !customIds.has(p.id))];
+  }, [customProblems]);
+
+  const filteredTracks = allTracks.filter(
     (t) => selectedCompany === "all" || t.companyProfile === selectedCompany
   );
+
+  const handleDeleteCustomTrack = (trackId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (confirm("Are you sure you want to remove this custom OA track?")) {
+      deleteCustomOATrack(trackId);
+      refreshCustomData();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#121416] text-[#e2e2e5] font-['Hanken_Grotesk'] antialiased">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
-        {/* Header Hero */}
-        <div className="space-y-4 max-w-4xl">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none font-mono">
-            70–90 MINUTE MULTI-PROBLEM ASSESSMENTS
-          </h1>
+        {/* Header Hero & Action Bar */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 border-b border-white/[0.06] pb-8">
+          <div className="space-y-4 max-w-4xl">
+            <div className="flex items-center gap-2 font-mono text-xs">
+              <span className="neu-active-pill px-3 py-1 text-emerald-400 font-bold">
+                TIER-1 ONLINE CODING ASSESSMENTS
+              </span>
+              <span className="text-neutral-500 font-bold">•</span>
+              <span className="text-neutral-400">
+                {allTracks.length} TRACKS AVAILABLE
+              </span>
+            </div>
 
-          <p className="text-base sm:text-lg text-[#b9cbc1] font-normal leading-relaxed">
-            Realistic high-stakes technical coding screenings modeled after Citadel, Google, and Tier-1 FinTech hiring standards.
-            Allocate time across 2–4 problems under a global countdown clock, defend algorithmic invariants, and justify your code directly before a Gemini Principal Staff Bar Raiser.
-          </p>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none font-mono">
+              70–90 MINUTE MULTI-PROBLEM ASSESSMENTS
+            </h1>
+
+            <p className="text-base sm:text-lg text-[#b9cbc1] font-normal leading-relaxed">
+              Realistic high-stakes technical coding screenings modeled after Citadel, Stripe, Amazon, and Tier-1 hiring standards.
+              Allocate time across 2–4 problems under a global countdown clock, defend algorithmic invariants, and justify your code directly before a Gemini Principal Staff Bar Raiser.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsImportModalOpen(true)}
+              className="w-full sm:w-auto neu-button px-6 py-4 rounded-xl font-mono text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 text-white hover:text-white border border-emerald-500/30 hover:border-emerald-400 transition-all cursor-pointer shadow-lg group"
+            >
+              <Sparkles className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+              <span>+ IMPORT OA VIA LINK / AI</span>
+            </button>
+          </div>
         </div>
 
         {/* Company Filters */}
@@ -84,12 +143,13 @@ export default function OALobbyPage() {
               <span>SELECT AN ASSESSMENT TRACK</span>
             </h2>
             <span className="text-neutral-400 font-mono">
-              Showing {filteredTracks.length} Official Company Tracks
+              Showing {filteredTracks.length} Assessment Tracks
             </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {filteredTracks.map((track) => {
+              const isCustom = customTracks.some((ct) => ct.id === track.id);
               const companyBadgeColor: Record<string, string> = {
                 Citadel: "border-amber-500/40 text-amber-400 bg-amber-500/10",
                 Google: "border-sky-500/40 text-sky-400 bg-sky-500/10",
@@ -108,7 +168,7 @@ export default function OALobbyPage() {
               const badgeStyle = companyBadgeColor[track.companyProfile] || "border-white/20 text-white bg-white/10";
 
               const trackProblems = track.problemIds
-                .map((id) => OA_PROBLEMS.find((p) => p.id === id))
+                .map((id) => allProblems.find((p) => p.id === id))
                 .filter(Boolean);
 
               const durationMins = Math.round(track.totalTimeSeconds / 60);
@@ -116,7 +176,7 @@ export default function OALobbyPage() {
               return (
                 <div
                   key={track.id}
-                  className="neu-card p-6 sm:p-8 space-y-6 flex flex-col justify-between transition-all group hover:translate-y-[-2px]"
+                  className="neu-card p-6 sm:p-8 space-y-6 flex flex-col justify-between transition-all group hover:translate-y-[-2px] relative"
                 >
                   <div className="space-y-5">
                     {/* Header */}
@@ -126,8 +186,13 @@ export default function OALobbyPage() {
                           <span className={cn("px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border", badgeStyle)}>
                             {track.companyProfile}
                           </span>
+                          {isCustom && (
+                            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                              CUSTOM IMPORT
+                            </span>
+                          )}
                           <span className="neu-active-pill px-2.5 py-0.5 text-[10px] font-bold text-neutral-300">
-                            {track.problemIds.length} PROBLEMS
+                            {track.problemIds.length} {track.problemIds.length === 1 ? "PROBLEM" : "PROBLEMS"}
                           </span>
                           <span className="text-[11px] text-neutral-400">
                             100 TOTAL POINTS
@@ -142,9 +207,22 @@ export default function OALobbyPage() {
                         </p>
                       </div>
 
-                      <div className="flex items-center gap-1.5 font-mono text-xs text-neutral-300 shrink-0 neu-inset px-3.5 py-2">
-                        <Clock className="w-3.5 h-3.5 text-amber-400" />
-                        <span className="font-bold text-white">{durationMins} MINS</span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <div className="flex items-center gap-1.5 font-mono text-xs text-neutral-300 neu-inset px-3.5 py-2">
+                          <Clock className="w-3.5 h-3.5 text-amber-400" />
+                          <span className="font-bold text-white">{durationMins} MINS</span>
+                        </div>
+
+                        {isCustom && (
+                          <button
+                            type="button"
+                            onClick={(e) => handleDeleteCustomTrack(track.id, e)}
+                            title="Delete custom imported track"
+                            className="p-2 rounded-xl text-neutral-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        )}
                       </div>
                     </div>
 
@@ -222,6 +300,15 @@ export default function OALobbyPage() {
           </div>
         </div>
       </div>
+
+      {/* In-App Import Modal */}
+      <ImportOAModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onTrackImported={() => {
+          refreshCustomData();
+        }}
+      />
     </div>
   );
 }
