@@ -2,6 +2,8 @@ import {
   OAAssessmentResult,
   OAMultiAssessmentResult,
   OAMultiAssessmentSession,
+  OAProblem,
+  OACompanyTrack,
 } from "@/types/oa";
 
 const OA_RESULTS_KEY = "evalforge_oa_results";
@@ -143,3 +145,73 @@ export function getOAResultById(id: string): OAAssessmentResult | null {
   const all = getOAResults();
   return all[id] || null;
 }
+
+// ----------------------------------------------------------------------------
+// Custom / User-Imported OA Questions & Assessment Tracks
+// ----------------------------------------------------------------------------
+
+const CUSTOM_OA_PROBLEMS_KEY = "evalforge_custom_oa_problems";
+const CUSTOM_OA_TRACKS_KEY = "evalforge_custom_oa_tracks";
+
+export function getCustomOAProblems(): OAProblem[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(CUSTOM_OA_PROBLEMS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveCustomOAProblem(problem: OAProblem): void {
+  if (typeof window === "undefined") return;
+  try {
+    const existing = getCustomOAProblems().filter((p) => p.id !== problem.id);
+    existing.unshift(problem);
+    localStorage.setItem(CUSTOM_OA_PROBLEMS_KEY, JSON.stringify(existing));
+  } catch (e) {
+    console.error("Error saving custom OA problem:", e);
+  }
+}
+
+export function deleteCustomOAProblem(problemId: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    const filtered = getCustomOAProblems().filter((p) => p.id !== problemId);
+    localStorage.setItem(CUSTOM_OA_PROBLEMS_KEY, JSON.stringify(filtered));
+  } catch (e) {
+    console.error("Error deleting custom OA problem:", e);
+  }
+}
+
+export function getCustomOATracks(): OACompanyTrack[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(CUSTOM_OA_TRACKS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveCustomOATrack(track: OACompanyTrack): void {
+  if (typeof window === "undefined") return;
+  try {
+    const existing = getCustomOATracks().filter((t) => t.id !== track.id);
+    existing.unshift(track);
+    localStorage.setItem(CUSTOM_OA_TRACKS_KEY, JSON.stringify(existing));
+  } catch (e) {
+    console.error("Error saving custom OA track:", e);
+  }
+}
+
+export function deleteCustomOATrack(trackId: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    const filtered = getCustomOATracks().filter((t) => t.id !== trackId);
+    localStorage.setItem(CUSTOM_OA_TRACKS_KEY, JSON.stringify(filtered));
+  } catch (e) {
+    console.error("Error deleting custom OA track:", e);
+  }
+}
+
