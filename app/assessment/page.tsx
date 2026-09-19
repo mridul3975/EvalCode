@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { SEED_QUESTIONS } from "@/data/seed-questions";
@@ -8,29 +8,16 @@ import { saveActiveAssessmentSession, getActiveAssessmentSession } from "@/lib/s
 import { AssessmentSession } from "@/types/submission";
 import {
   Timer,
-  ShieldAlert,
-  CheckCircle2,
-  AlertOctagon,
   ArrowRight,
-  Flame,
   Layers,
   Sparkles,
-  Zap,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function AssessmentOnboardingPage() {
   const router = useRouter();
-  const [selectedTrack, setSelectedTrack] = useState<"general" | "python" | "javascript" | "cpp">("general");
 
   const handleStartAssessment = () => {
-    let eligible = SEED_QUESTIONS;
-    if (selectedTrack !== "general") {
-      const matchTrack = SEED_QUESTIONS.filter((q) => q.language === selectedTrack);
-      if (matchTrack.length >= 3) eligible = matchTrack;
-    }
-
-    const questionIds = eligible.slice(0, 5).map((q) => q.id);
+    const questionIds = SEED_QUESTIONS.slice(0, 5).map((q) => q.id);
 
     const newSession: AssessmentSession = {
       id: `session_${Date.now()}`,
@@ -129,41 +116,18 @@ export default function AssessmentOnboardingPage() {
           </div>
         </div>
 
-        {/* Track Selection & Launch Pod */}
-        <div className="obsidian-card p-8 sm:p-12 space-y-8">
+        {/* Launch Pod */}
+        <div className="obsidian-card p-8 sm:p-12 space-y-6">
           <div className="space-y-2">
             <span className="text-xs font-mono font-bold text-[#b9cbc1] uppercase tracking-widest">
-              STEP 2: CHOOSE FOCUS AREA
+              READY TO BEGIN
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-              SELECT CODING LANGUAGE
+              COMMENCE TIMED EVALUATION
             </h2>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
-            {[
-              { key: "general", label: "GENERAL (ALL)" },
-              { key: "python", label: "PYTHON TRACK" },
-              { key: "javascript", label: "JAVASCRIPT" },
-              { key: "cpp", label: "C++ TRACK" },
-            ].map((track) => {
-              const isActive = selectedTrack === track.key;
-              return (
-                <button
-                  key={track.key}
-                  type="button"
-                  onClick={() => setSelectedTrack(track.key as any)}
-                  className={cn(
-                    "p-4 rounded-xl font-bold uppercase text-xs sm:text-sm transition-all cursor-pointer",
-                    isActive
-                      ? "bg-[#00ffc2] text-[#002116] shadow-[0_4px_16px_rgba(0,255,194,0.3)] font-black"
-                      : "obsidian-inset text-[#b9cbc1] hover:text-white hover:border-[rgba(255,255,255,0.1)]"
-                  )}
-                >
-                  {track.label}
-                </button>
-              );
-            })}
+            <p className="text-xs sm:text-sm text-[#b9cbc1] font-sans">
+              You will be presented with 5 code evaluation tasks. Language selection is available directly within each question.
+            </p>
           </div>
 
           <button
