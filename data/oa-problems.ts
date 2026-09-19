@@ -817,10 +817,809 @@ std::vector<int> simulate_ring_buffer(int capacity, const std::vector<std::pair<
       reasoning: "Fixed-size circular array with head, tail, and count pointers wrapped modulo capacity.",
     },
   },
+  {
+    id: "oa_stripe_fraud",
+    title: "Rule-Driven Transaction Fraud Detection",
+    companyProfile: "Stripe",
+    difficulty: "Medium",
+    topic: "Rules Engine & Real-Time Classification",
+    tags: ["Stripe Core", "FinTech", "Rules Engine", "Hash Maps"],
+    description: `### Financial Fraud Shield Context
+At **Stripe Radar**, payment operations streams are evaluated against an active registry of merchant and compliance risk rules in sub-millisecond response windows.
+
+### Problem Requirement
+Process a finite chronological sequence of operations:
+* \`["UPSERT", ruleId, "AMOUNT_AT_LEAST", value]\`: Inserts or replaces a rule flagging transactions where \`amount >= value\`.
+* \`["UPSERT", ruleId, "COUNTRY_IS", value]\`: Inserts or replaces a rule flagging transactions where \`country == value\`.
+* \`["UPSERT", ruleId, "MERCHANT_IS", value]\`: Inserts or replaces a rule flagging transactions where \`merchant == value\`.
+* \`["DELETE", ruleId]\`: Removes the rule with given ID. Deleting a non-existent ID is a no-op.
+* \`["EVAL", amount, country, merchant]\`: Evaluates the transaction against all currently active rules.
+
+A transaction is **fraudulent** (\`true\`) if *at least one* active rule matches. Otherwise, it is allowed (\`false\`). Return a list of booleans corresponding to each \`EVAL\` operation in chronological order.`,
+    constraints: [
+      "1 <= operations.length <= 200,000",
+      "At least one EVAL operation exists",
+      "Amounts are non-negative integers up to 10^9",
+      "Time complexity must be O(R + E * active_rules) or O(1) evaluation lookup",
+    ],
+    examples: [
+      {
+        input: `operations = [
+  ["UPSERT", "r1", "AMOUNT_AT_LEAST", "1000"],
+  ["UPSERT", "r2", "COUNTRY_IS", "RU"],
+  ["EVAL", "900", "US", "books"],
+  ["EVAL", "1200", "US", "books"],
+  ["EVAL", "20", "RU", "coffee"]
+]`,
+        output: `[false, true, true]`,
+        explanation: "Transaction 1 matches neither rule. Transaction 2 exceeds $1000. Transaction 3 originates from RU.",
+      },
+      {
+        input: `operations = [
+  ["UPSERT", "risk", "AMOUNT_AT_LEAST", "100"],
+  ["EVAL", "100", "US", "safe"],
+  ["UPSERT", "risk", "MERCHANT_IS", "risky"],
+  ["EVAL", "100", "US", "safe"],
+  ["EVAL", "1", "US", "risky"],
+  ["DELETE", "risk"],
+  ["EVAL", "1", "US", "risky"]
+]`,
+        output: `[true, false, true, false]`,
+        explanation: "Reusing ID 'risk' overwrites the rule. Deletion leaves no active rules for the final EVAL.",
+      },
+    ],
+    functionName: "classifyTransactions",
+    starterCode: {
+      python: `from typing import List
+
+def classifyTransactions(operations: List[List[str]]) -> List[bool]:
+    """
+    Stripe Radar Assessment:
+    Evaluate transaction operations stream against dynamic rule state.
+    """
+    results = []
+    # Write your solution below
+    return results
+`,
+      typescript: `function classifyTransactions(operations: string[][]): boolean[] {
+  const results: boolean[] = [];
+  // Write your solution below
+  return results;
+}
+`,
+      cpp: `#include <vector>
+#include <string>
+
+std::vector<bool> classifyTransactions(const std::vector<std::vector<std::string>>& operations) {
+    std::vector<bool> results;
+    // Write your solution below
+    return results;
+}
+`,
+    },
+    testCases: [
+      {
+        id: "stripe_tc_1",
+        description: "Standard upsert and mixed EVAL",
+        input: `operations = [["UPSERT","r1","AMOUNT_AT_LEAST","1000"],["UPSERT","r2","COUNTRY_IS","RU"],["EVAL","900","US","books"],["EVAL","1200","US","books"],["EVAL","20","RU","coffee"]]`,
+        rawInputArgs: [[
+          ["UPSERT", "r1", "AMOUNT_AT_LEAST", "1000"],
+          ["UPSERT", "r2", "COUNTRY_IS", "RU"],
+          ["EVAL", "900", "US", "books"],
+          ["EVAL", "1200", "US", "books"],
+          ["EVAL", "20", "RU", "coffee"],
+        ]],
+        expected: [false, true, true],
+      },
+      {
+        id: "stripe_tc_2",
+        description: "Rule overwrite and deletion lifecycle",
+        input: `operations = [["UPSERT","risk","AMOUNT_AT_LEAST","100"],["EVAL","100","US","safe"],["UPSERT","risk","MERCHANT_IS","risky"],["EVAL","100","US","safe"],["EVAL","1","US","risky"],["DELETE","risk"],["EVAL","1","US","risky"]]`,
+        rawInputArgs: [[
+          ["UPSERT", "risk", "AMOUNT_AT_LEAST", "100"],
+          ["EVAL", "100", "US", "safe"],
+          ["UPSERT", "risk", "MERCHANT_IS", "risky"],
+          ["EVAL", "100", "US", "safe"],
+          ["EVAL", "1", "US", "risky"],
+          ["DELETE", "risk"],
+          ["EVAL", "1", "US", "risky"],
+        ]],
+        expected: [true, false, true, false],
+      },
+      {
+        id: "stripe_tc_hidden",
+        description: "Unknown delete tolerance & multi-eval baseline",
+        input: `[Hidden Suite: Unknown rule deletion & zero amount eval]`,
+        rawInputArgs: [[
+          ["EVAL", "0", "US", "outlet"],
+          ["UPSERT", "c", "COUNTRY_IS", "CA"],
+          ["UPSERT", "m", "MERCHANT_IS", "outlet"],
+          ["EVAL", "0", "US", "outlet"],
+          ["EVAL", "0", "CA", "shop"],
+          ["DELETE", "missing"],
+          ["DELETE", "m"],
+          ["EVAL", "0", "US", "outlet"],
+        ]],
+        expected: [false, true, true, false],
+        isHidden: true,
+      },
+    ],
+    optimalComplexity: {
+      time: "O(N) total processing time",
+      space: "O(R) where R is unique active rules",
+      reasoning: "Hash table indexed by ruleId with bucketed attribute matching.",
+    },
+  },
+  {
+    id: "oa_stripe_splittender",
+    title: "Split Tender Transactions",
+    companyProfile: "Stripe",
+    difficulty: "Hard",
+    topic: "Greedy Priority & Payment Settlement",
+    tags: ["Financial Ledger", "Greedy", "State Machine", "Stripe Core"],
+    description: `### Multi-Instrument Settlement Context
+In global checkout, buyers often fund purchases across multiple instruments (e.g. gift cards, rewards points, credit cards).
+
+### Problem Requirement
+Given a target integer charge \`total_amount\` and an ordered list of available payment instruments \`instruments\`:
+Each instrument is represented as an object: \`{"id": str, "balance": int}\`.
+
+Instruments must be depleted in strict priority order (first in array to last).
+* If the sum of all available balances is strictly less than \`total_amount\`, return an empty list \`[]\` (cannot complete charge).
+* Otherwise, return a list of charge objects: \`[{"id": str, "charged": int}]\` reflecting how much was deducted from each instrument used. Only include instruments that were charged at least 1 unit.`,
+    constraints: [
+      "total_amount >= 1",
+      "1 <= len(instruments) <= 1,000",
+      "Each instrument balance >= 0",
+    ],
+    examples: [
+      {
+        input: `total_amount = 150, instruments = [{"id": "gift_card", "balance": 100}, {"id": "credit_card", "balance": 200}]`,
+        output: `[{"id": "gift_card", "charged": 100}, {"id": "credit_card", "charged": 50}]`,
+        explanation: "100 taken from gift card, remaining 50 charged to credit card.",
+      },
+    ],
+    functionName: "splitTender",
+    starterCode: {
+      python: `from typing import List, Dict, Any
+
+def splitTender(total_amount: int, instruments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Stripe Multi-Instrument Settlement:
+    Greedily allocate total_amount across instruments in priority order.
+    """
+    # Write your solution below
+    return []
+`,
+      typescript: `interface Instrument {
+  id: string;
+  balance: number;
+}
+
+interface ChargeAllocation {
+  id: string;
+  charged: number;
+}
+
+function splitTender(total_amount: number, instruments: Instrument[]): ChargeAllocation[] {
+  // Write your solution below
+  return [];
+}
+`,
+      cpp: `#include <vector>
+#include <string>
+
+struct Instrument {
+    std::string id;
+    int balance;
+};
+
+struct ChargeAllocation {
+    std::string id;
+    int charged;
+};
+
+std::vector<ChargeAllocation> splitTender(int total_amount, const std::vector<Instrument>& instruments) {
+    // Write your solution below
+    return {};
+}
+`,
+    },
+    testCases: [
+      {
+        id: "stripe_st_1",
+        description: "Multi-instrument full and partial depletion",
+        input: `total_amount = 150, instruments = [{"id": "gift_card", "balance": 100}, {"id": "credit_card", "balance": 200}]`,
+        rawInputArgs: [
+          150,
+          [{ id: "gift_card", balance: 100 }, { id: "credit_card", balance: 200 }],
+        ],
+        expected: [
+          { id: "gift_card", charged: 100 },
+          { id: "credit_card", charged: 50 },
+        ],
+      },
+      {
+        id: "stripe_st_2",
+        description: "Insufficient total balance returns empty array",
+        input: `total_amount = 300, instruments = [{"id": "store_credit", "balance": 50}]`,
+        rawInputArgs: [
+          300,
+          [{ id: "store_credit", balance: 50 }],
+        ],
+        expected: [],
+      },
+      {
+        id: "stripe_st_hidden",
+        description: "Exact sum multi-source split",
+        input: `[Hidden Suite: Exact multi-instrument exhaustion]`,
+        rawInputArgs: [
+          80,
+          [{ id: "promo", balance: 50 }, { id: "debit", balance: 30 }],
+        ],
+        expected: [
+          { id: "promo", charged: 50 },
+          { id: "debit", charged: 30 },
+        ],
+        isHidden: true,
+      },
+    ],
+    optimalComplexity: {
+      time: "O(K) where K is instrument count",
+      space: "O(K) allocation response",
+      reasoning: "Single forward pass greedily allocating min(balance, remaining).",
+    },
+  },
+  {
+    id: "oa_amazon_lru",
+    title: "LRU Query Result Cache",
+    companyProfile: "Amazon",
+    difficulty: "Medium",
+    topic: "LRU Cache & Time-Series Eviction",
+    tags: ["Amazon AWS", "Doubly Linked List", "Caching", "System Performance"],
+    description: `### High-Throughput Search Cache Context
+At **Amazon AWS Search**, search result aggregations are cached in low-latency memory to reduce downstream Aurora / DynamoDB query volume.
+
+### Problem Requirement
+Implement an LRU cache with integer \`capacity\` responding to operations:
+* \`["PUT", key, val]\`: Inserts or updates the value for \`key\`. If the number of keys exceeds \`capacity\`, evict the least recently used key.
+* \`["GET", key]\`: Returns the value of \`key\` if present, or \`-1\` if not found. Accessing a key refreshes its recency.
+
+Return an array containing the outputs of all \`GET\` operations.`,
+    constraints: [
+      "1 <= capacity <= 3,000",
+      "1 <= operations.length <= 50,000",
+      "All keys and values are non-empty strings/ints",
+    ],
+    examples: [
+      {
+        input: `capacity = 2, operations = [["PUT", "q1", 10], ["PUT", "q2", 20], ["GET", "q1"], ["PUT", "q3", 30], ["GET", "q2"], ["GET", "q3"]]`,
+        output: `[10, -1, 30]`,
+        explanation: "q1 is read (making q2 least recent). q3 evicts q2. GET q2 returns -1, GET q3 returns 30.",
+      },
+    ],
+    functionName: "processQueries",
+    starterCode: {
+      python: `from typing import List, Any
+
+def processQueries(capacity: int, operations: List[List[Any]]) -> List[int]:
+    """
+    Amazon AWS LRU Cache Assessment:
+    Process sequence of PUT and GET operations under fixed LRU capacity.
+    """
+    # Write your solution below
+    return []
+`,
+      typescript: `function processQueries(capacity: number, operations: any[][]): number[] {
+  // Write your solution below
+  return [];
+}
+`,
+      cpp: `#include <vector>
+#include <string>
+
+std::vector<int> processQueries(int capacity, const std::vector<std::vector<std::string>>& operations) {
+    // Write your solution below
+    return {};
+}
+`,
+    },
+    testCases: [
+      {
+        id: "amz_lru_1",
+        description: "Standard eviction and recency update",
+        input: `capacity = 2, operations = [["PUT", "q1", 10], ["PUT", "q2", 20], ["GET", "q1"], ["PUT", "q3", 30], ["GET", "q2"], ["GET", "q3"]]`,
+        rawInputArgs: [
+          2,
+          [["PUT", "q1", 10], ["PUT", "q2", 20], ["GET", "q1"], ["PUT", "q3", 30], ["GET", "q2"], ["GET", "q3"]],
+        ],
+        expected: [10, -1, 30],
+      },
+      {
+        id: "amz_lru_2",
+        description: "Single capacity rapid turnover",
+        input: `capacity = 1, operations = [["PUT", "a", 1], ["GET", "a"], ["PUT", "b", 2], ["GET", "a"]]`,
+        rawInputArgs: [
+          1,
+          [["PUT", "a", 1], ["GET", "a"], ["PUT", "b", 2], ["GET", "a"]],
+        ],
+        expected: [1, -1],
+      },
+      {
+        id: "amz_lru_hidden",
+        description: "Multi-element cache capacity 3",
+        input: `[Hidden Suite: Capacity 3 operations]`,
+        rawInputArgs: [
+          3,
+          [["PUT", "x", 100], ["PUT", "y", 200], ["PUT", "z", 300], ["GET", "x"], ["PUT", "w", 400], ["GET", "y"]],
+        ],
+        expected: [100, -1],
+        isHidden: true,
+      },
+    ],
+    optimalComplexity: {
+      time: "O(1) average per operation",
+      space: "O(C) where C is capacity",
+      reasoning: "Doubly linked list paired with hash table for O(1) recency eviction.",
+    },
+  },
+  {
+    id: "oa_amazon_courseorder",
+    title: "Service Deployment Dependency Order",
+    companyProfile: "Amazon",
+    difficulty: "Medium",
+    topic: "Topological Sort & Cycle Detection",
+    tags: ["Amazon AWS", "Graph Theory", "Topological Sort", "Kahn's Algorithm"],
+    description: `### AWS Microservices Deployment Pipeline
+In continuous deployment at **AWS ECS**, microservices have strict boot dependencies. If Service B depends on Service A, Service A must be fully initialized before Service B starts.
+
+### Problem Requirement
+Given \`numServices\` (labeled from \`0\` to \`numServices - 1\`) and an array of prerequisite pairs \`dependencies\` where \`dependencies[i] = [b, a]\` indicates that service \`a\` must be booted before service \`b\`:
+* Return a valid deployment sequence that satisfies all boot dependencies.
+* If a deadlock cycle exists making deployment impossible, return an empty array \`[]\`.`,
+    constraints: [
+      "1 <= numServices <= 2,000",
+      "0 <= dependencies.length <= numServices * (numServices - 1) / 2",
+      "All dependency pairs are distinct",
+    ],
+    examples: [
+      {
+        input: `numServices = 4, dependencies = [[1, 0], [2, 0], [3, 1], [3, 2]]`,
+        output: `[0, 1, 2, 3]`,
+        explanation: "0 has no dependencies. 1 and 2 need 0. 3 needs both 1 and 2. [0, 2, 1, 3] is also valid.",
+      },
+      {
+        input: `numServices = 2, dependencies = [[1, 0], [0, 1]]`,
+        output: `[]`,
+        explanation: "Circular deadlock between service 0 and service 1.",
+      },
+    ],
+    functionName: "findDeploymentOrder",
+    starterCode: {
+      python: `from typing import List
+
+def findDeploymentOrder(numServices: int, dependencies: List[List[int]]) -> List[int]:
+    """
+    AWS Deployment Order Assessment:
+    Topologically sort service dependencies using Kahn's algorithm.
+    """
+    # Write your solution below
+    return []
+`,
+      typescript: `function findDeploymentOrder(numServices: number, dependencies: number[][]): number[] {
+  // Write your solution below
+  return [];
+}
+`,
+      cpp: `#include <vector>
+
+std::vector<int> findDeploymentOrder(int numServices, const std::vector<std::vector<int>>& dependencies) {
+    // Write your solution below
+    return {};
+}
+`,
+    },
+    testCases: [
+      {
+        id: "amz_dep_1",
+        description: "Valid diamond dependency graph",
+        input: `numServices = 4, dependencies = [[1, 0], [2, 0], [3, 1], [3, 2]]`,
+        rawInputArgs: [
+          4,
+          [[1, 0], [2, 0], [3, 1], [3, 2]],
+        ],
+        expected: [0, 1, 2, 3],
+      },
+      {
+        id: "amz_dep_2",
+        description: "Circular deadlock between 2 services",
+        input: `numServices = 2, dependencies = [[1, 0], [0, 1]]`,
+        rawInputArgs: [
+          2,
+          [[1, 0], [0, 1]],
+        ],
+        expected: [],
+      },
+      {
+        id: "amz_dep_hidden",
+        description: "Linear 3-node dependency chain",
+        input: `[Hidden Suite: Linear chain]`,
+        rawInputArgs: [
+          3,
+          [[1, 0], [2, 1]],
+        ],
+        expected: [0, 1, 2],
+        isHidden: true,
+      },
+    ],
+    optimalComplexity: {
+      time: "O(V + E)",
+      space: "O(V + E)",
+      reasoning: "Kahn's BFS in-degree topological sort.",
+    },
+  },
+  {
+    id: "oa_anthropic_profiling",
+    title: "Consecutive Stack Sample Trace Events",
+    companyProfile: "Anthropic",
+    difficulty: "Hard",
+    topic: "Call Stack Reconstruction & Interval Traces",
+    tags: ["AI Profiling", "Stack Machine", "Trace Events", "Anthropic Systems"],
+    description: `### Model Training Telemetry Context
+At **Anthropic**, kernel telemetry captures discrete call stack snapshots during distributed model training. To visualize GPU kernels in Google Chrome / Perfetto Tracing, these periodic snapshots must be translated into continuous duration events.
+
+### Problem Requirement
+You are given a chronological list of \`samples\` where each sample is an object:
+\`{"ts": int, "stack": string[]}\`
+* \`ts\`: Timestamp of the periodic sample.
+* \`stack\`: Call stack from root to top frame (e.g. \`["main", "attention_forward", "flash_attn"]\`).
+
+Generate the ordered sequence of Chrome Trace events:
+* \`["B", ts, functionName]\`: Begin event when a function enters the stack.
+* \`["E", ts, functionName]\`: End event when a function exits the stack.
+When functions exit, they exit top-to-bottom. When functions enter, they enter bottom-to-top.`,
+    constraints: [
+      "1 <= samples.length <= 10,000",
+      "Timestamps are strictly increasing",
+      "0 <= stack.length <= 50",
+    ],
+    examples: [
+      {
+        input: `samples = [
+  {"ts": 10, "stack": ["main", "foo"]},
+  {"ts": 20, "stack": ["main", "bar"]},
+  {"ts": 30, "stack": ["main"]}
+]`,
+        output: `[["B", 10, "main"], ["B", 10, "foo"], ["E", 20, "foo"], ["B", 20, "bar"], ["E", 30, "bar"], ["E", 30, "main"]]`,
+        explanation: "At t=10, main and foo begin. At t=20, foo ends and bar begins. At t=30, bar ends and execution completes.",
+      },
+    ],
+    functionName: "convertStackSamplesToTraceEvents",
+    starterCode: {
+      python: `from typing import List, Dict, Any
+
+def convertStackSamplesToTraceEvents(samples: List[Dict[str, Any]]) -> List[List[Any]]:
+    """
+    Anthropic Profiling Engine:
+    Reconstruct function lifecycle Begin/End events from sampled stacks.
+    """
+    events = []
+    # Write your solution below
+    return events
+`,
+      typescript: `function convertStackSamplesToTraceEvents(samples: { ts: number; stack: string[] }[]): any[][] {
+  const events: any[][] = [];
+  // Write your solution below
+  return events;
+}
+`,
+      cpp: `#include <vector>
+#include <string>
+
+struct Sample {
+    int ts;
+    std::vector<std::string> stack;
+};
+
+std::vector<std::vector<std::string>> convertStackSamplesToTraceEvents(const std::vector<Sample>& samples) {
+    // Write your solution below
+    return {};
+}
+`,
+    },
+    testCases: [
+      {
+        id: "anthropic_trace_1",
+        description: "Reconstruction of stack frame switches",
+        input: `samples = [{"ts": 10, "stack": ["main", "foo"]}, {"ts": 20, "stack": ["main", "bar"]}, {"ts": 30, "stack": ["main"]}]`,
+        rawInputArgs: [[
+          { ts: 10, stack: ["main", "foo"] },
+          { ts: 20, stack: ["main", "bar"] },
+          { ts: 30, stack: ["main"] },
+        ]],
+        expected: [
+          ["B", 10, "main"],
+          ["B", 10, "foo"],
+          ["E", 20, "foo"],
+          ["B", 20, "bar"],
+          ["E", 30, "bar"],
+          ["E", 30, "main"],
+        ],
+      },
+      {
+        id: "anthropic_trace_2",
+        description: "Simple single-function lifetime",
+        input: `samples = [{"ts": 5, "stack": ["init"]}, {"ts": 15, "stack": []}]`,
+        rawInputArgs: [[
+          { ts: 5, stack: ["init"] },
+          { ts: 15, stack: [] },
+        ]],
+        expected: [
+          ["B", 5, "init"],
+          ["E", 15, "init"],
+        ],
+      },
+    ],
+    optimalComplexity: {
+      time: "O(S * D) where S is sample count and D is max stack depth",
+      space: "O(D) auxiliary stack state",
+      reasoning: "Compare common prefix between consecutive stacks to emit exit and entry transitions.",
+    },
+  },
+  {
+    id: "oa_openai_infection",
+    title: "Sparse Plant Infection Simulation",
+    companyProfile: "OpenAI",
+    difficulty: "Hard",
+    topic: "Multi-Source BFS & Coordinate Expansion",
+    tags: ["Frontier AI", "BFS", "Coordinate Compression", "Simulation"],
+    description: `### Bio-Simulation Context
+In reinforcement learning benchmarks for physical systems at **OpenAI**, models simulate pathogen containment across large botanical agricultural grids.
+
+### Problem Requirement
+Given initial coordinates of infected plants \`initial_plants\` as a list of \`[x, y]\` integer pairs on an infinite 2D plane:
+Every time unit ($T = 1, 2, \\dots$), infection spreads from every currently infected plant to its 4 orthogonal neighbors \`(x+1, y), (x-1, y), (x, y+1), (x, y-1)\`.
+
+Calculate the total number of unique infected plants after \`time_limit\` elapsed time steps.`,
+    constraints: [
+      "1 <= len(initial_plants) <= 1,000",
+      "-10^6 <= x, y <= 10^6",
+      "0 <= time_limit <= 50",
+    ],
+    examples: [
+      {
+        input: `initial_plants = [[0, 0]], time_limit = 1`,
+        output: `5`,
+        explanation: "At T=0: (0,0). At T=1: (0,0) plus (1,0), (-1,0), (0,1), (0,-1) = 5 plants.",
+      },
+    ],
+    functionName: "simulateInfection",
+    starterCode: {
+      python: `from typing import List
+
+def simulateInfection(initial_plants: List[List[int]], time_limit: int) -> int:
+    """
+    OpenAI Multi-Agent Simulation:
+    Compute total infected grid coordinates after time_limit iterations.
+    """
+    # Write your solution below
+    return 0
+`,
+      typescript: `function simulateInfection(initial_plants: number[][], time_limit: number): number {
+  // Write your solution below
+  return 0;
+}
+`,
+      cpp: `#include <vector>
+
+int simulateInfection(const std::vector<std::vector<int>>& initial_plants, int time_limit) {
+    // Write your solution below
+    return 0;
+}
+`,
+    },
+    testCases: [
+      {
+        id: "openai_inf_1",
+        description: "Single seed radius 1 expansion",
+        input: `initial_plants = [[0, 0]], time_limit = 1`,
+        rawInputArgs: [
+          [[0, 0]],
+          1,
+        ],
+        expected: 5,
+      },
+      {
+        id: "openai_inf_2",
+        description: "Zero elapsed time base case",
+        input: `initial_plants = [[0, 0], [1, 0]], time_limit = 0`,
+        rawInputArgs: [
+          [[0, 0], [1, 0]],
+          0,
+        ],
+        expected: 2,
+      },
+      {
+        id: "openai_inf_hidden",
+        description: "Single seed radius 2 expansion",
+        input: `[Hidden Suite: Radius 2 expansion]`,
+        rawInputArgs: [
+          [[0, 0]],
+          2,
+        ],
+        expected: 13,
+        isHidden: true,
+      },
+    ],
+    optimalComplexity: {
+      time: "O(K * T^2) or BFS queue bounded by frontier",
+      space: "O(K * T^2) visited coordinates set",
+      reasoning: "Multi-source level-order BFS tracking visited set on 2D coordinates.",
+    },
+  },
+  {
+    id: "oa_waymo_obstacle",
+    title: "Obstacle-Aware Return to Origin",
+    companyProfile: "Waymo",
+    difficulty: "Medium",
+    topic: "Trajectory Kinematics & Collision Checks",
+    tags: ["Waymo Robotics", "Trajectory Simulation", "Autonomous Vehicles", "Geometry"],
+    description: `### Autonomous Navigation Safe Return Context
+At **Waymo Driver**, an autonomous vehicle in a depot follows a programmed testing path consisting of cardinal movements (\`'U'\`, \`'D'\`, \`'L'\`, \`'R'\`).
+
+### Problem Requirement
+The vehicle starts at coordinate \`(0, 0)\` at time step 0.
+You are given a command string \`moves\` and a list of obstacle coordinates \`obstacles\` (\`[x, y]\`).
+* In each step, the vehicle executes the move:
+  - \`'U'\`: \`y += 1\`
+  - \`'D'\`: \`y -= 1\`
+  - \`'L'\`: \`x -= 1\`
+  - \`'R'\`: \`x += 1\`
+* If the vehicle steps on ANY obstacle coordinate at any point along the path, it halts and reports \`false\`.
+* If it completes all moves without collision and finishes exactly at the origin \`(0, 0)\`, return \`true\`. Otherwise return \`false\`.`,
+    constraints: [
+      "1 <= moves.length <= 50,000",
+      "moves contains only 'U', 'D', 'L', 'R'",
+      "0 <= obstacles.length <= 10,000",
+      "Origin (0,0) will never contain an obstacle",
+    ],
+    examples: [
+      {
+        input: `moves = "UDLR", obstacles = [[5, 5]]`,
+        output: `true`,
+        explanation: "Vehicle moves (0,0)->(0,1)->(0,0)->(-1,0)->(0,0). Never hits obstacle, returns to (0,0).",
+      },
+      {
+        input: `moves = "UURRDDLL", obstacles = [[1, 1]]`,
+        output: `false`,
+        explanation: "Vehicle passes through (1,1) during its perimeter loop and encounters an obstacle.",
+      },
+    ],
+    functionName: "canReturnToOrigin",
+    starterCode: {
+      python: `from typing import List
+
+def canReturnToOrigin(moves: str, obstacles: List[List[int]]) -> bool:
+    """
+    Waymo Trajectory Simulation:
+    Verify vehicle executes path without collision and terminates at origin (0,0).
+    """
+    # Write your solution below
+    return False
+`,
+      typescript: `function canReturnToOrigin(moves: string, obstacles: number[][]): boolean {
+  // Write your solution below
+  return false;
+}
+`,
+      cpp: `#include <string>
+#include <vector>
+
+bool canReturnToOrigin(const std::string& moves, const std::vector<std::vector<int>>& obstacles) {
+    // Write your solution below
+    return false;
+}
+`,
+    },
+    testCases: [
+      {
+        id: "waymo_rt_1",
+        description: "Clear path returning to origin",
+        input: `moves = "UDLR", obstacles = [[5, 5]]`,
+        rawInputArgs: [
+          "UDLR",
+          [[5, 5]],
+        ],
+        expected: true,
+      },
+      {
+        id: "waymo_rt_2",
+        description: "Path intersects obstacle",
+        input: `moves = "UURRDDLL", obstacles = [[1, 1]]`,
+        rawInputArgs: [
+          "UURRDDLL",
+          [[1, 1]],
+        ],
+        expected: false,
+      },
+      {
+        id: "waymo_rt_hidden",
+        description: "Path does not return to origin",
+        input: `[Hidden Suite: Open-ended trajectory]`,
+        rawInputArgs: [
+          "UUU",
+          [],
+        ],
+        expected: false,
+        isHidden: true,
+      },
+    ],
+    optimalComplexity: {
+      time: "O(M + O) where M is moves length and O is obstacles count",
+      space: "O(O) obstacle coordinate hash set",
+      reasoning: "Store obstacles in a set for O(1) collision checks at each step.",
+    },
+  },
 ];
 
 // Presets matching HackerRank, CodeSignal, and Karat multi-question specifications
 export const OA_TRACKS: OACompanyTrack[] = [
+  {
+    id: "stripe-payments-swe",
+    companyProfile: "Stripe",
+    title: "Stripe Core Engineering Assessment",
+    subtitle: "Real-Time Fraud Rules & Multi-Instrument Settlement",
+    description: "Evaluated against Stripe Core Systems hiring bar. Implements streaming transaction risk filters and greedy multi-instrument ledger settlement.",
+    totalTimeSeconds: 4500, // 75 minutes
+    problemIds: ["oa_stripe_fraud", "oa_stripe_splittender"],
+    problemWeights: {
+      oa_stripe_fraud: 50,
+      oa_stripe_splittender: 50,
+    },
+    tags: ["Stripe Radar", "Ledger Accounting", "Rule Engine", "Fintech"],
+  },
+  {
+    id: "amazon-aws-systems",
+    companyProfile: "Amazon",
+    title: "Amazon AWS Cloud Platform",
+    subtitle: "Query Result Caching & Service Dependency Scheduling",
+    description: "Screening modeled after AWS SDE II infrastructure evaluations. Focuses on low-latency LRU eviction and cycle-free topological service boot orders.",
+    totalTimeSeconds: 4200, // 70 minutes
+    problemIds: ["oa_amazon_lru", "oa_amazon_courseorder"],
+    problemWeights: {
+      oa_amazon_lru: 50,
+      oa_amazon_courseorder: 50,
+    },
+    tags: ["AWS SDE", "LRU Cache", "Topological Sort", "Distributed Systems"],
+  },
+  {
+    id: "frontier-ai-anthropic-openai",
+    companyProfile: "Anthropic",
+    title: "Frontier AI Systems (Anthropic & OpenAI)",
+    subtitle: "Kernel Profiling & Large-Scale Coordinate Simulation",
+    description: "Evaluated against Frontier AI research engineering benchmarks. Reconstructs trace intervals from discrete stack telemetry and simulates sparse spatial automata.",
+    totalTimeSeconds: 4800, // 80 minutes
+    problemIds: ["oa_anthropic_profiling", "oa_openai_infection"],
+    problemWeights: {
+      oa_anthropic_profiling: 55,
+      oa_openai_infection: 45,
+    },
+    tags: ["Frontier AI", "Trace Profiler", "BFS", "Perfetto Events"],
+  },
+  {
+    id: "waymo-robotics-planning",
+    companyProfile: "Waymo",
+    title: "Waymo Autonomous Systems",
+    subtitle: "Trajectory Kinematics & Sliding Window Throttling",
+    description: "Screening modeled after Waymo Driver autonomy standards. Tests collision-free kinematic return paths and high-throughput sliding window rate limiting.",
+    totalTimeSeconds: 4500, // 75 minutes
+    problemIds: ["oa_waymo_obstacle", "oa_google_ratelimit"],
+    problemWeights: {
+      oa_waymo_obstacle: 50,
+      oa_google_ratelimit: 50,
+    },
+    tags: ["Waymo Driver", "Robotics", "Collision Checks", "Kinematics"],
+  },
   {
     id: "citadel-quant-swe",
     companyProfile: "Citadel",
