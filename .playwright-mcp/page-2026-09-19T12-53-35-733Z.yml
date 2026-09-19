@@ -1,0 +1,136 @@
+- main [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - generic [ref=f1e5]:
+        - button "Exit Assessment" [ref=f1e6] [cursor=pointer]
+        - generic [ref=f1e11]:
+          - generic [ref=f1e12]: Stripe OA
+          - heading "Stripe Core Engineering Assessment" [level=1] [ref=f1e13]
+      - generic [ref=f1e14]:
+        - button "Q1 (0/2) •" [ref=f1e15] [cursor=pointer]:
+          - generic [ref=f1e16]: Q1
+          - generic [ref=f1e17]:
+            - generic [ref=f1e18]: (0/2)
+            - generic [ref=f1e19]: •
+        - button "Q2 (0/2) •" [ref=f1e20] [cursor=pointer]:
+          - generic [ref=f1e21]: Q2
+          - generic [ref=f1e22]:
+            - generic [ref=f1e23]: (0/2)
+            - generic [ref=f1e24]: •
+        - button "Open Question Matrix Drawer" [ref=f1e25] [cursor=pointer]
+      - generic [ref=f1e31]:
+        - 'generic "Deadline: 01:15:00" [ref=f1e32]': 01:15:00
+        - button "Run" [ref=f1e37] [cursor=pointer]
+        - button "Finish Assessment" [ref=f1e41] [cursor=pointer]
+    - main [ref=f1e46]:
+      - generic [ref=f1e47]:
+        - generic [ref=f1e48]:
+          - generic [ref=f1e49]: Problem Specification
+          - generic [ref=f1e53]: Rules Engine & Real-Time Classification
+        - generic [ref=f1e54]:
+          - generic [ref=f1e55]:
+            - generic [ref=f1e56]:
+              - generic [ref=f1e57]: Medium
+              - generic [ref=f1e58]: 50 Points
+            - heading "Rule-Driven Transaction Fraud Detection" [level=2] [ref=f1e59]
+            - generic [ref=f1e60]:
+              - generic [ref=f1e61]: "#Stripe Core"
+              - generic [ref=f1e62]: "#FinTech"
+              - generic [ref=f1e63]: "#Rules Engine"
+              - generic [ref=f1e64]: "#Hash Maps"
+          - generic [ref=f1e65]:
+            - heading "Financial Fraud Shield Context" [level=3] [ref=f1e66]
+            - paragraph [ref=f1e67]:
+              - text: At
+              - strong [ref=f1e68]: Stripe Radar
+              - text: ", payment operations streams are evaluated against an active registry of merchant and compliance risk rules in sub-millisecond response windows."
+            - heading "Problem Requirement" [level=3] [ref=f1e69]
+            - paragraph [ref=f1e70]: "Process a finite chronological sequence of operations:"
+            - list [ref=f1e71]:
+              - listitem [ref=f1e72]:
+                - code [ref=f1e73]: "[\"UPSERT\", ruleId, \"AMOUNT_AT_LEAST\", value]"
+                - text: ": Inserts or replaces a rule flagging transactions where"
+                - code [ref=f1e74]: amount >= value
+                - text: .
+              - listitem [ref=f1e75]:
+                - code [ref=f1e76]: "[\"UPSERT\", ruleId, \"COUNTRY_IS\", value]"
+                - text: ": Inserts or replaces a rule flagging transactions where"
+                - code [ref=f1e77]: country == value
+                - text: .
+              - listitem [ref=f1e78]:
+                - code [ref=f1e79]: "[\"UPSERT\", ruleId, \"MERCHANT_IS\", value]"
+                - text: ": Inserts or replaces a rule flagging transactions where"
+                - code [ref=f1e80]: merchant == value
+                - text: .
+              - listitem [ref=f1e81]:
+                - code [ref=f1e82]: "[\"DELETE\", ruleId]"
+                - text: ": Removes the rule with given ID. Deleting a non-existent ID is a no-op."
+              - listitem [ref=f1e83]:
+                - code [ref=f1e84]: "[\"EVAL\", amount, country, merchant]"
+                - text: ": Evaluates the transaction against all currently active rules."
+            - paragraph [ref=f1e85]:
+              - text: A transaction is
+              - strong [ref=f1e86]: fraudulent
+              - text: (
+              - code [ref=f1e87]: "true"
+              - text: ) if
+              - emphasis [ref=f1e88]: at least one
+              - text: active rule matches. Otherwise, it is allowed (
+              - code [ref=f1e89]: "false"
+              - text: ). Return a list of booleans corresponding to each
+              - code [ref=f1e90]: EVAL
+              - text: operation in chronological order.
+          - generic [ref=f1e91]:
+            - generic [ref=f1e92]: Examples
+            - generic [ref=f1e93]:
+              - generic [ref=f1e94]: Example 1
+              - generic [ref=f1e95]:
+                - generic [ref=f1e96]: "Input:"
+                - generic [ref=f1e97]: operations = [ ["UPSERT", "r1", "AMOUNT_AT_LEAST", "1000"], ["UPSERT", "r2", "COUNTRY_IS", "RU"], ["EVAL", "900", "US", "books"], ["EVAL", "1200", "US", "books"], ["EVAL", "20", "RU", "coffee"] ]
+              - generic [ref=f1e98]:
+                - generic [ref=f1e99]: "Output:"
+                - generic [ref=f1e100]: "[false, true, true]"
+              - paragraph [ref=f1e101]: "Note: Transaction 1 matches neither rule. Transaction 2 exceeds $1000. Transaction 3 originates from RU."
+            - generic [ref=f1e102]:
+              - generic [ref=f1e103]: Example 2
+              - generic [ref=f1e104]:
+                - generic [ref=f1e105]: "Input:"
+                - generic [ref=f1e106]: operations = [ ["UPSERT", "risk", "AMOUNT_AT_LEAST", "100"], ["EVAL", "100", "US", "safe"], ["UPSERT", "risk", "MERCHANT_IS", "risky"], ["EVAL", "100", "US", "safe"], ["EVAL", "1", "US", "risky"], ["DELETE", "risk"], ["EVAL", "1", "US", "risky"] ]
+              - generic [ref=f1e107]:
+                - generic [ref=f1e108]: "Output:"
+                - generic [ref=f1e109]: "[true, false, true, false]"
+              - paragraph [ref=f1e110]: "Note: Reusing ID 'risk' overwrites the rule. Deletion leaves no active rules for the final EVAL."
+          - generic [ref=f1e111]:
+            - generic [ref=f1e112]: Constraints
+            - list [ref=f1e113]:
+              - listitem [ref=f1e114]: 1 <= operations.length <= 200,000
+              - listitem [ref=f1e115]: At least one EVAL operation exists
+              - listitem [ref=f1e116]: Amounts are non-negative integers up to 10^9
+              - listitem [ref=f1e117]: Time complexity must be O(R + E * active_rules) or O(1) evaluation lookup
+      - generic [ref=f1e118]:
+        - generic [ref=f1e121]:
+          - generic [ref=f1e122]:
+            - button "Python 3" [ref=f1e127] [cursor=pointer]
+            - button "TypeScript" [ref=f1e128] [cursor=pointer]
+            - button "C++" [ref=f1e129] [cursor=pointer]
+          - generic [ref=f1e130]:
+            - button "Reset to Starter Code" [ref=f1e131] [cursor=pointer]
+            - button "Copy Code" [ref=f1e135] [cursor=pointer]
+        - generic [ref=f1e142]:
+          - generic [ref=f1e144]:
+            - generic [ref=f1e145]: Test Cases
+            - button "Case 1" [ref=f1e149] [cursor=pointer]
+            - button "Case 2" [ref=f1e152] [cursor=pointer]
+          - generic [ref=f1e156]:
+            - generic [ref=f1e157]: Standard upsert and mixed EVAL
+            - generic [ref=f1e159]:
+              - generic [ref=f1e160]:
+                - generic [ref=f1e161]: INPUT PARAMETERS
+                - generic [ref=f1e162]: operations = [["UPSERT","r1","AMOUNT_AT_LEAST","1000"],["UPSERT","r2","COUNTRY_IS","RU"],["EVAL","900","US","books"],["EVAL","1200","US","books"],["EVAL","20","RU","coffee"]]
+              - generic [ref=f1e164]:
+                - generic [ref=f1e165]:
+                  - generic [ref=f1e166]: EXPECTED OUTPUT
+                  - generic [ref=f1e167]: "[ false, true, true ]"
+                - generic [ref=f1e169]:
+                  - generic [ref=f1e170]: ACTUAL OUTPUT
+                  - generic [ref=f1e171]: Click 'Run' to inspect

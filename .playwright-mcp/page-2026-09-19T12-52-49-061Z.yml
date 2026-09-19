@@ -1,0 +1,494 @@
+- generic [ref=e1]:
+  - banner [ref=e3]:
+    - link "EF EvalForge" [ref=e5] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e6]: EF
+      - generic [ref=e7]: EvalForge
+    - navigation [ref=e8]:
+      - link "PRACTICE" [ref=e9] [cursor=pointer]:
+        - /url: /practice
+      - link "MOCK" [ref=e10] [cursor=pointer]:
+        - /url: /assessment
+      - link "OA SIMULATOR" [ref=e11] [cursor=pointer]:
+        - /url: /oa
+      - link "PROFILE" [ref=e12] [cursor=pointer]:
+        - /url: /dashboard
+    - generic [ref=e13]:
+      - generic [ref=e508]:
+        - text: "READINESS:"
+        - strong [ref=e509]: 0%
+      - generic [ref=e14]:
+        - generic [ref=e510]: GUEST
+        - button "SIGN IN" [ref=e513] [cursor=pointer]
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - generic [ref=e20]:
+              - generic [ref=e21]: TIER-1 ONLINE CODING ASSESSMENTS
+              - generic [ref=e22]: •
+              - generic [ref=e23]: 9 TRACKS AVAILABLE
+            - heading "70–90 MINUTE MULTI-PROBLEM ASSESSMENTS" [level=1] [ref=e24]
+            - paragraph [ref=e25]: Realistic high-stakes technical coding screenings modeled after Citadel, Stripe, Amazon, and Tier-1 hiring standards. Allocate time across 2–4 problems under a global countdown clock, defend algorithmic invariants, and justify your code directly before a Gemini Principal Staff Bar Raiser.
+          - button "+ IMPORT OA VIA LINK / AI" [ref=e27] [cursor=pointer]
+        - generic [ref=e31]:
+          - button "ALL TRACKS" [ref=e32] [cursor=pointer]
+          - button "STRIPE" [ref=e33] [cursor=pointer]
+          - button "AMAZON AWS" [ref=e34] [cursor=pointer]
+          - button "ANTHROPIC" [ref=e35] [cursor=pointer]
+          - button "OPENAI" [ref=e36] [cursor=pointer]
+          - button "WAYMO" [ref=e37] [cursor=pointer]
+          - button "CITADEL" [ref=e38] [cursor=pointer]
+          - button "GOOGLE" [ref=e39] [cursor=pointer]
+          - button "META" [ref=e40] [cursor=pointer]
+          - button "TWO SIGMA" [ref=e41] [cursor=pointer]
+          - button "ZURICH FINTECH" [ref=e42] [cursor=pointer]
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - heading "SELECT AN ASSESSMENT TRACK" [level=2] [ref=e45]
+            - generic [ref=e51]: Showing 9 Assessment Tracks
+          - generic [ref=e52]:
+            - generic [ref=e53]:
+              - generic [ref=e54]:
+                - generic [ref=e55]:
+                  - generic [ref=e56]:
+                    - generic [ref=e57]:
+                      - generic [ref=e58]: Stripe
+                      - generic [ref=e59]: 2 PROBLEMS
+                      - generic [ref=e60]: 100 TOTAL POINTS
+                    - heading "Stripe Core Engineering Assessment" [level=3] [ref=e61]
+                    - paragraph [ref=e62]: Real-Time Fraud Rules & Multi-Instrument Settlement
+                  - generic [ref=e63]: 75 MINS
+                - paragraph [ref=e69]: Evaluated against Stripe Core Systems hiring bar. Implements streaming transaction risk filters and greedy multi-instrument ledger settlement.
+                - generic [ref=e70]:
+                  - generic [ref=e71]: "Included Assessment Problems:"
+                  - generic [ref=e72]:
+                    - generic [ref=e73]:
+                      - generic [ref=e74]:
+                        - generic [ref=e75]: "Q1:"
+                        - generic [ref=e76]: Rule-Driven Transaction Fraud Detection
+                      - generic [ref=e77]:
+                        - generic [ref=e78]: Medium
+                        - generic [ref=e79]: 50 pts
+                    - generic [ref=e80]:
+                      - generic [ref=e81]:
+                        - generic [ref=e82]: "Q2:"
+                        - generic [ref=e83]: Split Tender Transactions
+                      - generic [ref=e84]:
+                        - generic [ref=e85]: Hard
+                        - generic [ref=e86]: 50 pts
+                - generic [ref=e87]:
+                  - generic [ref=e88]: "#Stripe Radar"
+                  - generic [ref=e89]: "#Ledger Accounting"
+                  - generic [ref=e90]: "#Rule Engine"
+                  - generic [ref=e91]: "#Fintech"
+              - generic [ref=e92]:
+                - generic [ref=e93]:
+                  - generic [ref=e94]: Global Timer
+                  - generic [ref=e95]: •
+                  - generic [ref=e96]: HackerRank Standard
+                - link "START 75-MIN OA" [ref=e97] [cursor=pointer]:
+                  - /url: /oa/stripe-payments-swe
+            - generic [ref=e101]:
+              - generic [ref=e102]:
+                - generic [ref=e103]:
+                  - generic [ref=e104]:
+                    - generic [ref=e105]:
+                      - generic [ref=e106]: Amazon
+                      - generic [ref=e107]: 2 PROBLEMS
+                      - generic [ref=e108]: 100 TOTAL POINTS
+                    - heading "Amazon AWS Cloud Platform" [level=3] [ref=e109]
+                    - paragraph [ref=e110]: Query Result Caching & Service Dependency Scheduling
+                  - generic [ref=e111]: 70 MINS
+                - paragraph [ref=e117]: Screening modeled after AWS SDE II infrastructure evaluations. Focuses on low-latency LRU eviction and cycle-free topological service boot orders.
+                - generic [ref=e118]:
+                  - generic [ref=e119]: "Included Assessment Problems:"
+                  - generic [ref=e120]:
+                    - generic [ref=e121]:
+                      - generic [ref=e122]:
+                        - generic [ref=e123]: "Q1:"
+                        - generic [ref=e124]: LRU Query Result Cache
+                      - generic [ref=e125]:
+                        - generic [ref=e126]: Medium
+                        - generic [ref=e127]: 50 pts
+                    - generic [ref=e128]:
+                      - generic [ref=e129]:
+                        - generic [ref=e130]: "Q2:"
+                        - generic [ref=e131]: Service Deployment Dependency Order
+                      - generic [ref=e132]:
+                        - generic [ref=e133]: Medium
+                        - generic [ref=e134]: 50 pts
+                - generic [ref=e135]:
+                  - generic [ref=e136]: "#AWS SDE"
+                  - generic [ref=e137]: "#LRU Cache"
+                  - generic [ref=e138]: "#Topological Sort"
+                  - generic [ref=e139]: "#Distributed Systems"
+              - generic [ref=e140]:
+                - generic [ref=e141]:
+                  - generic [ref=e142]: Global Timer
+                  - generic [ref=e143]: •
+                  - generic [ref=e144]: HackerRank Standard
+                - link "START 70-MIN OA" [ref=e145] [cursor=pointer]:
+                  - /url: /oa/amazon-aws-systems
+            - generic [ref=e149]:
+              - generic [ref=e150]:
+                - generic [ref=e151]:
+                  - generic [ref=e152]:
+                    - generic [ref=e153]:
+                      - generic [ref=e154]: Anthropic
+                      - generic [ref=e155]: 2 PROBLEMS
+                      - generic [ref=e156]: 100 TOTAL POINTS
+                    - heading "Frontier AI Systems (Anthropic & OpenAI)" [level=3] [ref=e157]
+                    - paragraph [ref=e158]: Kernel Profiling & Large-Scale Coordinate Simulation
+                  - generic [ref=e159]: 80 MINS
+                - paragraph [ref=e165]: Evaluated against Frontier AI research engineering benchmarks. Reconstructs trace intervals from discrete stack telemetry and simulates sparse spatial automata.
+                - generic [ref=e166]:
+                  - generic [ref=e167]: "Included Assessment Problems:"
+                  - generic [ref=e168]:
+                    - generic [ref=e169]:
+                      - generic [ref=e170]:
+                        - generic [ref=e171]: "Q1:"
+                        - generic [ref=e172]: Consecutive Stack Sample Trace Events
+                      - generic [ref=e173]:
+                        - generic [ref=e174]: Hard
+                        - generic [ref=e175]: 55 pts
+                    - generic [ref=e176]:
+                      - generic [ref=e177]:
+                        - generic [ref=e178]: "Q2:"
+                        - generic [ref=e179]: Sparse Plant Infection Simulation
+                      - generic [ref=e180]:
+                        - generic [ref=e181]: Hard
+                        - generic [ref=e182]: 45 pts
+                - generic [ref=e183]:
+                  - generic [ref=e184]: "#Frontier AI"
+                  - generic [ref=e185]: "#Trace Profiler"
+                  - generic [ref=e186]: "#BFS"
+                  - generic [ref=e187]: "#Perfetto Events"
+              - generic [ref=e188]:
+                - generic [ref=e189]:
+                  - generic [ref=e190]: Global Timer
+                  - generic [ref=e191]: •
+                  - generic [ref=e192]: HackerRank Standard
+                - link "START 80-MIN OA" [ref=e193] [cursor=pointer]:
+                  - /url: /oa/frontier-ai-anthropic-openai
+            - generic [ref=e197]:
+              - generic [ref=e198]:
+                - generic [ref=e199]:
+                  - generic [ref=e200]:
+                    - generic [ref=e201]:
+                      - generic [ref=e202]: Waymo
+                      - generic [ref=e203]: 2 PROBLEMS
+                      - generic [ref=e204]: 100 TOTAL POINTS
+                    - heading "Waymo Autonomous Systems" [level=3] [ref=e205]
+                    - paragraph [ref=e206]: Trajectory Kinematics & Sliding Window Throttling
+                  - generic [ref=e207]: 75 MINS
+                - paragraph [ref=e213]: Screening modeled after Waymo Driver autonomy standards. Tests collision-free kinematic return paths and high-throughput sliding window rate limiting.
+                - generic [ref=e214]:
+                  - generic [ref=e215]: "Included Assessment Problems:"
+                  - generic [ref=e216]:
+                    - generic [ref=e217]:
+                      - generic [ref=e218]:
+                        - generic [ref=e219]: "Q1:"
+                        - generic [ref=e220]: Obstacle-Aware Return to Origin
+                      - generic [ref=e221]:
+                        - generic [ref=e222]: Medium
+                        - generic [ref=e223]: 50 pts
+                    - generic [ref=e224]:
+                      - generic [ref=e225]:
+                        - generic [ref=e226]: "Q2:"
+                        - generic [ref=e227]: Sliding Window Maximum Rate Limiter
+                      - generic [ref=e228]:
+                        - generic [ref=e229]: Medium
+                        - generic [ref=e230]: 50 pts
+                - generic [ref=e231]:
+                  - generic [ref=e232]: "#Waymo Driver"
+                  - generic [ref=e233]: "#Robotics"
+                  - generic [ref=e234]: "#Collision Checks"
+                  - generic [ref=e235]: "#Kinematics"
+              - generic [ref=e236]:
+                - generic [ref=e237]:
+                  - generic [ref=e238]: Global Timer
+                  - generic [ref=e239]: •
+                  - generic [ref=e240]: HackerRank Standard
+                - link "START 75-MIN OA" [ref=e241] [cursor=pointer]:
+                  - /url: /oa/waymo-robotics-planning
+            - generic [ref=e245]:
+              - generic [ref=e246]:
+                - generic [ref=e247]:
+                  - generic [ref=e248]:
+                    - generic [ref=e249]:
+                      - generic [ref=e250]: Citadel
+                      - generic [ref=e251]: 3 PROBLEMS
+                      - generic [ref=e252]: 100 TOTAL POINTS
+                    - heading "Citadel Quantitative SWE" [level=3] [ref=e253]
+                    - paragraph [ref=e254]: Low-Latency Systems & High-Frequency Streaming Depth
+                  - generic [ref=e255]: 75 MINS
+                - paragraph [ref=e261]: Multi-problem assessment evaluated against Citadel Execution Services hiring criteria. Problems span microsecond rate limiting, lock-free IPC ring buffers, and streaming order book depth aggregation.
+                - generic [ref=e262]:
+                  - generic [ref=e263]: "Included Assessment Problems:"
+                  - generic [ref=e264]:
+                    - generic [ref=e265]:
+                      - generic [ref=e266]:
+                        - generic [ref=e267]: "Q1:"
+                        - generic [ref=e268]: Sliding Window Maximum Rate Limiter
+                      - generic [ref=e269]:
+                        - generic [ref=e270]: Medium
+                        - generic [ref=e271]: 25 pts
+                    - generic [ref=e272]:
+                      - generic [ref=e273]:
+                        - generic [ref=e274]: "Q2:"
+                        - generic [ref=e275]: Lock-Free Ring Buffer
+                      - generic [ref=e276]:
+                        - generic [ref=e277]: Medium
+                        - generic [ref=e278]: 35 pts
+                    - generic [ref=e279]:
+                      - generic [ref=e280]:
+                        - generic [ref=e281]: "Q3:"
+                        - generic [ref=e282]: Order Book Volume at Price Limits
+                      - generic [ref=e283]:
+                        - generic [ref=e284]: Hard
+                        - generic [ref=e285]: 40 pts
+                - generic [ref=e286]:
+                  - generic [ref=e287]: "#High-Frequency Trading"
+                  - generic [ref=e288]: "#C++ / Python"
+                  - generic [ref=e289]: "#Streaming"
+                  - generic [ref=e290]: "#Concurrency"
+              - generic [ref=e291]:
+                - generic [ref=e292]:
+                  - generic [ref=e293]: Global Timer
+                  - generic [ref=e294]: •
+                  - generic [ref=e295]: HackerRank Standard
+                - link "START 75-MIN OA" [ref=e296] [cursor=pointer]:
+                  - /url: /oa/citadel-quant-swe
+            - generic [ref=e300]:
+              - generic [ref=e301]:
+                - generic [ref=e302]:
+                  - generic [ref=e303]:
+                    - generic [ref=e304]:
+                      - generic [ref=e305]: Google
+                      - generic [ref=e306]: 2 PROBLEMS
+                      - generic [ref=e307]: 100 TOTAL POINTS
+                    - heading "Google Core Screener" [level=3] [ref=e308]
+                    - paragraph [ref=e309]: Distributed Infrastructure & Network Resilience
+                  - generic [ref=e310]: 75 MINS
+                - paragraph [ref=e316]: Evaluates production-grade distributed algorithms under Google Cloud SLAs. Features sliding-window traffic shaping and graph bridge identification under strict asymptotic boundaries.
+                - generic [ref=e317]:
+                  - generic [ref=e318]: "Included Assessment Problems:"
+                  - generic [ref=e319]:
+                    - generic [ref=e320]:
+                      - generic [ref=e321]:
+                        - generic [ref=e322]: "Q1:"
+                        - generic [ref=e323]: Sliding Window Maximum Rate Limiter
+                      - generic [ref=e324]:
+                        - generic [ref=e325]: Medium
+                        - generic [ref=e326]: 45 pts
+                    - generic [ref=e327]:
+                      - generic [ref=e328]:
+                        - generic [ref=e329]: "Q2:"
+                        - generic [ref=e330]: Bounded-Hop Social Network Bridges
+                      - generic [ref=e331]:
+                        - generic [ref=e332]: Medium
+                        - generic [ref=e333]: 55 pts
+                - generic [ref=e334]:
+                  - generic [ref=e335]: "#Google Cloud"
+                  - generic [ref=e336]: "#Distributed Systems"
+                  - generic [ref=e337]: "#Graph Algorithms"
+              - generic [ref=e338]:
+                - generic [ref=e339]:
+                  - generic [ref=e340]: Global Timer
+                  - generic [ref=e341]: •
+                  - generic [ref=e342]: HackerRank Standard
+                - link "START 75-MIN OA" [ref=e343] [cursor=pointer]:
+                  - /url: /oa/google-core-screener
+            - generic [ref=e347]:
+              - generic [ref=e348]:
+                - generic [ref=e349]:
+                  - generic [ref=e350]:
+                    - generic [ref=e351]:
+                      - generic [ref=e352]: Fintech
+                      - generic [ref=e353]: 3 PROBLEMS
+                      - generic [ref=e354]: 100 TOTAL POINTS
+                    - heading "Zurich Quant & FinTech" [level=3] [ref=e355]
+                    - paragraph [ref=e356]: Alpha Signals, FX Arbitrage & Price Limits
+                  - generic [ref=e357]: 80 MINS
+                - paragraph [ref=e363]: Tier-1 Quantitative Desk screening focusing on streaming data filters, high-throughput order book depth, and negative-weight arbitrage graph cycles.
+                - generic [ref=e364]:
+                  - generic [ref=e365]: "Included Assessment Problems:"
+                  - generic [ref=e366]:
+                    - generic [ref=e367]:
+                      - generic [ref=e368]:
+                        - generic [ref=e369]: "Q1:"
+                        - generic [ref=e370]: Dynamic Risk-Weighted Median Filter
+                      - generic [ref=e371]:
+                        - generic [ref=e372]: Medium
+                        - generic [ref=e373]: 30 pts
+                    - generic [ref=e374]:
+                      - generic [ref=e375]:
+                        - generic [ref=e376]: "Q2:"
+                        - generic [ref=e377]: Order Book Volume at Price Limits
+                      - generic [ref=e378]:
+                        - generic [ref=e379]: Hard
+                        - generic [ref=e380]: 35 pts
+                - generic [ref=e381]:
+                  - generic [ref=e382]: "#Arbitrage"
+                  - generic [ref=e383]: "#Running Medians"
+                  - generic [ref=e384]: "#Market Microstructure"
+              - generic [ref=e385]:
+                - generic [ref=e386]:
+                  - generic [ref=e387]: Global Timer
+                  - generic [ref=e388]: •
+                  - generic [ref=e389]: HackerRank Standard
+                - link "START 80-MIN OA" [ref=e390] [cursor=pointer]:
+                  - /url: /oa/zurich-fintech-hf
+            - generic [ref=e394]:
+              - generic [ref=e395]:
+                - generic [ref=e396]:
+                  - generic [ref=e397]:
+                    - generic [ref=e398]:
+                      - generic [ref=e399]: Meta
+                      - generic [ref=e400]: 2 PROBLEMS
+                      - generic [ref=e401]: 100 TOTAL POINTS
+                    - heading "Meta Infrastructure OA" [level=3] [ref=e402]
+                    - paragraph [ref=e403]: Global Scale Topologies & Fault Tolerance
+                  - generic [ref=e404]: 70 MINS
+                - paragraph [ref=e410]: Engineering assessment testing resilient topology algorithms and ingress throttling used across Meta datacenter backbones.
+                - generic [ref=e411]:
+                  - generic [ref=e412]: "Included Assessment Problems:"
+                  - generic [ref=e413]:
+                    - generic [ref=e414]:
+                      - generic [ref=e415]:
+                        - generic [ref=e416]: "Q1:"
+                        - generic [ref=e417]: Sliding Window Maximum Rate Limiter
+                      - generic [ref=e418]:
+                        - generic [ref=e419]: Medium
+                        - generic [ref=e420]: 40 pts
+                    - generic [ref=e421]:
+                      - generic [ref=e422]:
+                        - generic [ref=e423]: "Q2:"
+                        - generic [ref=e424]: Bounded-Hop Social Network Bridges
+                      - generic [ref=e425]:
+                        - generic [ref=e426]: Medium
+                        - generic [ref=e427]: 60 pts
+                - generic [ref=e428]:
+                  - generic [ref=e429]: "#Graph Theory"
+                  - generic [ref=e430]: "#Tarjan Bridges"
+                  - generic [ref=e431]: "#Traffic Metering"
+              - generic [ref=e432]:
+                - generic [ref=e433]:
+                  - generic [ref=e434]: Global Timer
+                  - generic [ref=e435]: •
+                  - generic [ref=e436]: HackerRank Standard
+                - link "START 70-MIN OA" [ref=e437] [cursor=pointer]:
+                  - /url: /oa/meta-infra-screening
+            - generic [ref=e441]:
+              - generic [ref=e442]:
+                - generic [ref=e443]:
+                  - generic [ref=e444]:
+                    - generic [ref=e445]:
+                      - generic [ref=e446]: Two Sigma
+                      - generic [ref=e447]: 2 PROBLEMS
+                      - generic [ref=e448]: 100 TOTAL POINTS
+                    - heading "Two Sigma Alpha Research" [level=3] [ref=e449]
+                    - paragraph [ref=e450]: Dual-Heap Streaming & Continuous Order Books
+                  - generic [ref=e451]: 75 MINS
+                - paragraph [ref=e457]: Assessment designed for quantitative researchers and alpha modelers analyzing live tick feeds without statistical skew.
+                - generic [ref=e458]:
+                  - generic [ref=e459]: "Included Assessment Problems:"
+                  - generic [ref=e460]:
+                    - generic [ref=e461]:
+                      - generic [ref=e462]:
+                        - generic [ref=e463]: "Q1:"
+                        - generic [ref=e464]: Dynamic Risk-Weighted Median Filter
+                      - generic [ref=e465]:
+                        - generic [ref=e466]: Medium
+                        - generic [ref=e467]: 40 pts
+                    - generic [ref=e468]:
+                      - generic [ref=e469]:
+                        - generic [ref=e470]: "Q2:"
+                        - generic [ref=e471]: Order Book Volume at Price Limits
+                      - generic [ref=e472]:
+                        - generic [ref=e473]: Hard
+                        - generic [ref=e474]: 60 pts
+                - generic [ref=e475]:
+                  - generic [ref=e476]: "#Dual Heaps"
+                  - generic [ref=e477]: "#Alpha Modeling"
+                  - generic [ref=e478]: "#Rolling Windows"
+              - generic [ref=e479]:
+                - generic [ref=e480]:
+                  - generic [ref=e481]: Global Timer
+                  - generic [ref=e482]: •
+                  - generic [ref=e483]: HackerRank Standard
+                - link "START 75-MIN OA" [ref=e484] [cursor=pointer]:
+                  - /url: /oa/twosigma-alpha-quant
+      - generic [ref=e526]:
+        - button [ref=e527] [cursor=pointer]
+        - generic [ref=e531]:
+          - generic [ref=e532]: ONLINE ASSESSMENT INGESTION ENGINE
+          - heading "IMPORT REAL-WORLD OA" [level=2] [ref=e537]
+          - paragraph [ref=e538]: Import interview problems from the Tech-OA repo or FastPrep, or paste raw OA prompts. EvalForge synthesizes test cases, starter code in Python/TypeScript/C++, and sets up a timed assessment track.
+        - generic [ref=e539]:
+          - generic [ref=e540]:
+            - button "LINK OR SLUG" [ref=e541] [cursor=pointer]
+            - button "RAW PROMPT / CODE" [ref=e546] [cursor=pointer]
+          - generic [ref=e551]:
+            - generic [ref=e552]:
+              - generic [ref=e553]: "FASTPREP / GITHUB URL OR PROBLEM SLUG:"
+              - generic [ref=e554]: e.g. amazon-lru-query-result-cache
+            - textbox "https://www.fastprep.io/problems/amazon-lru-query-result-cache or slug" [ref=e555]: amazon-lru-query-result-cache
+            - generic [ref=e556]:
+              - generic [ref=e557]: "Quick Test Suggestions:"
+              - generic [ref=e558]:
+                - button "Amazon | LRU Query Cache" [active] [ref=e559] [cursor=pointer]
+                - button "Waymo | Obstacle-Aware Path" [ref=e560] [cursor=pointer]
+                - button "Stripe | Fraud Rule Engine" [ref=e561] [cursor=pointer]
+                - button "Citadel | Market Making Flow" [ref=e562] [cursor=pointer]
+                - button "Amazon | Course Order & Cycle" [ref=e563] [cursor=pointer]
+          - generic [ref=e564]:
+            - generic [ref=e565]:
+              - generic [ref=e566]: "COMPANY PROFILE:"
+              - combobox [ref=e567] [cursor=pointer]:
+                - option "Stripe"
+                - option "Amazon" [selected]
+                - option "Citadel"
+                - option "Anthropic"
+                - option "OpenAI"
+                - option "Waymo"
+                - option "Google"
+                - option "Meta"
+                - option "Two Sigma"
+                - option "Uber"
+                - option "Microsoft"
+                - option "Robinhood"
+            - generic [ref=e568]:
+              - generic [ref=e569]: "TOTAL TIMER DURATION:"
+              - generic [ref=e570]:
+                - button "60m" [ref=e571] [cursor=pointer]
+                - button "75m" [ref=e572] [cursor=pointer]
+                - button "90m" [ref=e573] [cursor=pointer]
+          - generic [ref=e574]:
+            - generic [ref=e575]: Outputs HackerRank-style global timed track
+            - button "IMPORT & CREATE TRACK" [ref=e576] [cursor=pointer]
+  - contentinfo [ref=e488]:
+    - generic [ref=e489]:
+      - generic [ref=e490]:
+        - generic [ref=e491]:
+          - generic [ref=e492]:
+            - generic [ref=e493]: EF
+            - generic [ref=e494]: EvalForge
+            - generic [ref=e495]: v1.0
+          - paragraph [ref=e496]: High-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.
+        - navigation [ref=e497]:
+          - link "Practice Catalog" [ref=e498] [cursor=pointer]:
+            - /url: /practice
+          - link "Mock Assessment" [ref=e499] [cursor=pointer]:
+            - /url: /assessment
+          - link "OA Simulator" [ref=e500] [cursor=pointer]:
+            - /url: /oa
+          - link "Readiness Profile" [ref=e501] [cursor=pointer]:
+            - /url: /dashboard
+      - generic [ref=e502]:
+        - paragraph [ref=e503]: © 2026 EvalForge. High-Caliber Code Evaluation Engine.
+        - generic [ref=e504]: SYSTEM OPERATIONAL
+  - button "Open Next.js Dev Tools" [ref=e520] [cursor=pointer]
+  - alert [ref=e524]
