@@ -1,0 +1,39 @@
+{
+  "id": "oa_waymo_returnssafely",
+  "title": "Obstacle-Aware Return to Origin",
+  "companyProfile": "Waymo",
+  "difficulty": "Medium",
+  "topic": "Waymo Real-Time Assessment",
+  "tags": [
+    "Waymo",
+    "Online Assessment",
+    "Production Engineering"
+  ],
+  "description": "A robot starts at (0,0) . Commands U , D , L , and R move one grid cell. Return true only when the robot never enters any coordinate in obstacles and finishes back at (0,0) . The origin is never blocked.",
+  "constraints": [
+    "0 and every character is U, D, L, or R.",
+    "0 ; obstacle coordinates are unique and exclude the origin."
+  ],
+  "examples": [
+    {
+      "input": "input = ...",
+      "output": "result",
+      "explanation": "Verify against standard test inputs."
+    }
+  ],
+  "functionName": "returnsSafely",
+  "starterCode": {
+    "python": "from typing import List, Dict, Any\n\ndef returnsSafely(*args) -> Any:\n    \"\"\"\n    Waymo Online Assessment:\n    Obstacle-Aware Return to Origin\n    \"\"\"\n    # Write your solution below\n    return None\n",
+    "typescript": "function returnsSafely(...args: any[]): any {\n  // Write your solution below\n  return null;\n}\n",
+    "cpp": "#include <vector>\n#include <string>\n\nauto returnsSafely() {\n    // Write your solution below\n    return 0;\n}\n"
+  },
+  "testCases": [
+    {
+      "id": "tc_1",
+      "description": "Example 1",
+      "input": "input = ...",
+      "rawInputArgs": [],
+      "expected": "result"
+    }
+  ]
+}
