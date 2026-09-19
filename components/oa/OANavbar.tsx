@@ -62,14 +62,22 @@ export function OANavbar({
   const isWarning = timeRemainingSeconds <= 900 && timeRemainingSeconds > 300;
   const isCritical = timeRemainingSeconds <= 300;
 
-  const companyBadgeColor = {
+  const companyBadgeColor: Record<string, string> = {
     Citadel: "border-amber-500/40 text-amber-400 bg-amber-500/10",
     Google: "border-sky-500/40 text-sky-400 bg-sky-500/10",
     Meta: "border-blue-500/40 text-blue-400 bg-blue-500/10",
     Fintech: "border-emerald-500/40 text-emerald-400 bg-emerald-500/10",
     "Two Sigma": "border-purple-500/40 text-purple-400 bg-purple-500/10",
     Amazon: "border-orange-500/40 text-orange-400 bg-orange-500/10",
-  }[companyProfile] || "border-neutral-800 text-neutral-300 bg-neutral-900";
+    Stripe: "border-indigo-500/40 text-indigo-400 bg-indigo-500/10",
+    Anthropic: "border-rose-500/40 text-rose-400 bg-rose-500/10",
+    OpenAI: "border-teal-500/40 text-teal-400 bg-teal-500/10",
+    Waymo: "border-cyan-500/40 text-cyan-400 bg-cyan-500/10",
+    Uber: "border-white/40 text-white bg-white/10",
+    Microsoft: "border-blue-400/40 text-blue-300 bg-blue-400/10",
+    Robinhood: "border-lime-500/40 text-lime-400 bg-lime-500/10",
+  };
+  const badgeStyle = companyBadgeColor[companyProfile] || "border-neutral-800 text-neutral-300 bg-neutral-900";
 
   return (
     <header className="h-[54px] w-full bg-[#0d0e11] border-b border-neutral-800/80 px-3 sm:px-4 flex items-center justify-between font-sans shrink-0 z-40 select-none">
@@ -87,7 +95,7 @@ export function OANavbar({
         <span className="h-4 w-[1px] bg-neutral-800 shrink-0" />
 
         <div className="flex items-center gap-2 min-w-0">
-          <span className={cn("px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider border shrink-0", companyBadgeColor)}>
+          <span className={cn("px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider border shrink-0", badgeStyle)}>
             {companyProfile} OA
           </span>
           <h1 className="text-xs sm:text-sm font-semibold text-white truncate max-w-[120px] sm:max-w-[200px] md:max-w-xs font-mono">
