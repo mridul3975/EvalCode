@@ -1,4 +1,4 @@
-import { EvaluationSubmission, EvaluationResult, AssessmentSession, UserProfileStats } from "@/types/submission";
+import { EvaluationSubmission, EvaluationResult, AssessmentSession, UserProfileStats, PracticeAttempt } from "@/types/submission";
 import { QuestionItem } from "@/types/question";
 import { DEFAULT_PROFILE_STATS, updateProfileWithEvaluation } from "@/lib/core/profile-analytics";
 
@@ -9,6 +9,7 @@ const KEYS = {
   PROFILE: "evalforge_user_profile_v2",
   BOOKMARKS: "evalforge_bookmarks_v2",
   CUSTOM_QUESTIONS: "evalforge_custom_questions_v2",
+  PRACTICE_ATTEMPTS: "evalforge_practice_attempts_v1",
 };
 
 // Safe localStorage access for SSR
@@ -212,6 +213,33 @@ export function toggleBookmark(questionId: string): string[] {
   }
 }
 
+export function getStoredAttempts(): Record<string, PracticeAttempt> {
+  if (!isClient()) return {};
+  try {
+    const raw = localStorage.getItem(KEYS.PRACTICE_ATTEMPTS);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    console.error("Failed to load practice attempts from localStorage", e);
+    return {};
+  }
+}
+
+export function saveStoredAttempt(questionId: string, attempt: PracticeAttempt): void {
+  if (!isClient()) return;
+  try {
+    const attempts = getStoredAttempts();
+    attempts[questionId] = attempt;
+    localStorage.setItem(KEYS.PRACTICE_ATTEMPTS, JSON.stringify(attempts));
+  } catch (e) {
+    console.error("Failed to save practice attempt to localStorage", e);
+  }
+}
+
+export function getStoredAttempt(questionId: string): PracticeAttempt | null {
+  const attempts = getStoredAttempts();
+  return attempts[questionId] || null;
+}
+
 export function clearAllProgress(): void {
   if (!isClient()) return;
   try {
@@ -220,6 +248,7 @@ export function clearAllProgress(): void {
     localStorage.removeItem(KEYS.ASSESSMENT_HISTORY);
     localStorage.removeItem(KEYS.PROFILE);
     localStorage.removeItem(KEYS.BOOKMARKS);
+    localStorage.removeItem(KEYS.PRACTICE_ATTEMPTS);
 
     fetch("/api/submissions", { method: "DELETE" }).catch(() => {});
   } catch (e) {
