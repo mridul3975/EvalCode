@@ -1,4 +1,17 @@
-export type CompanyProfile = "Citadel" | "Google" | "Meta" | "Fintech" | "Two Sigma" | "Amazon";
+export type CompanyProfile =
+  | "Citadel"
+  | "Google"
+  | "Meta"
+  | "Fintech"
+  | "Two Sigma"
+  | "Amazon"
+  | "Stripe"
+  | "Anthropic"
+  | "OpenAI"
+  | "Waymo"
+  | "Uber"
+  | "Microsoft"
+  | "Robinhood";
 
 export type OALanguage = "python" | "typescript" | "cpp";
 
