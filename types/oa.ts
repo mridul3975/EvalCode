@@ -66,6 +66,17 @@ export interface OAProblem {
     space: string;
     reasoning: string;
   };
+  followUpQuestions?: Array<{
+    id: string;
+    question: string;
+    intent?: string;
+  }>;
+  evaluationRubric?: Array<{
+    id: string;
+    criteria: string;
+    weight: number;
+    description: string;
+  }>;
 }
 
 export interface OACompanyTrack {
