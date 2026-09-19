@@ -37,4 +37,3 @@ next-env.d.ts
 *.log
 scratch/
 .system_generated/
-.playwright-mcp/
