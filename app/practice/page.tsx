@@ -167,9 +167,6 @@ export default function PracticeCatalogPage() {
         {/* Header Section */}
         <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-4 sm:pb-6 border-b border-white/[0.06]">
           <div className="space-y-2 sm:space-y-3">
-            <span className="neu-active-pill px-3 py-1 text-xs font-mono text-emerald-400 font-bold">
-              RLHF DEFECT BENCHMARKS & WORKBENCH
-            </span>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-none uppercase flex items-center gap-3 font-mono">
               <span>PRACTICE REVIEW STUDIO</span>
               <span className="text-neutral-500 font-normal text-2xl sm:text-4xl">({allQuestions.length})</span>

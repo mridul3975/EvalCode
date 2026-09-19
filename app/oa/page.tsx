@@ -84,16 +84,6 @@ export default function OALobbyPage() {
         {/* Header Hero & Action Bar */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 border-b border-white/[0.06] pb-8">
           <div className="space-y-4 max-w-4xl">
-            <div className="flex items-center gap-2 font-mono text-xs">
-              <span className="neu-active-pill px-3 py-1 text-emerald-400 font-bold">
-                TIER-1 ONLINE CODING ASSESSMENTS
-              </span>
-              <span className="text-neutral-500 font-bold">•</span>
-              <span className="text-neutral-400">
-                {allTracks.length} TRACKS AVAILABLE
-              </span>
-            </div>
-
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none font-mono">
               70–90 MINUTE MULTI-PROBLEM ASSESSMENTS
             </h1>

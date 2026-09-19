@@ -34,10 +34,6 @@ export default function LandingPage() {
         <section className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 pt-6">
           {/* Left Hero Content */}
           <div className="flex-1 space-y-6 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-neutral-900/60 text-neutral-400 text-xs font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>THE RLHF & CODE-REVIEW BENCHMARK</span>
-            </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
               STOP SOLVING.<br />
@@ -170,9 +166,7 @@ export default function LandingPage() {
         {/* COMPARISON SECTION: Side-by-Side Sleek Split Matrix */}
         <section className="space-y-8">
           <div className="space-y-3 text-center sm:text-left">
-            <span className="neu-active-pill px-3 py-1 text-xs font-mono text-neutral-300">
-              PARADIGM SHIFT
-            </span>
+
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Code Synthesis vs. Code Evaluation
             </h2>
@@ -249,9 +243,6 @@ export default function LandingPage() {
         {/* 6-DIMENSIONAL RUBRIC MATRIX: Asymmetric Bento Grid */}
         <section className="space-y-8">
           <div className="space-y-3 text-center sm:text-left">
-            <span className="neu-active-pill px-3 py-1 text-xs font-mono text-neutral-300">
-              AUDIT TAXONOMY
-            </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               The 6-Dimensional Rubric Matrix
             </h2>
@@ -341,9 +332,6 @@ export default function LandingPage() {
         {/* FINAL CALL TO ACTION: High-End Developer Banner */}
         <section className="neu-card p-10 sm:p-16 flex flex-col items-center justify-center text-center space-y-6">
           <div className="space-y-3 max-w-2xl">
-            <span className="neu-active-pill px-4 py-1 text-xs font-mono text-emerald-400 font-bold">
-              START CALIBRATION
-            </span>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-mono uppercase">
               Calibrate Your Code Audit Acuity
             </h2>
