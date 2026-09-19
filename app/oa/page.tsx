@@ -23,11 +23,16 @@ import {
 
 const COMPANY_FILTERS: Array<{ key: string; label: string }> = [
   { key: "all", label: "ALL TRACKS" },
+  { key: "Stripe", label: "STRIPE" },
+  { key: "Amazon", label: "AMAZON AWS" },
+  { key: "Anthropic", label: "ANTHROPIC" },
+  { key: "OpenAI", label: "OPENAI" },
+  { key: "Waymo", label: "WAYMO" },
   { key: "Citadel", label: "CITADEL" },
   { key: "Google", label: "GOOGLE" },
-  { key: "Fintech", label: "ZURICH FINTECH" },
   { key: "Meta", label: "META" },
   { key: "Two Sigma", label: "TWO SIGMA" },
+  { key: "Fintech", label: "ZURICH FINTECH" },
 ];
 
 export default function OALobbyPage() {
@@ -85,14 +90,22 @@ export default function OALobbyPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {filteredTracks.map((track) => {
-              const companyBadgeColor = {
+              const companyBadgeColor: Record<string, string> = {
                 Citadel: "border-amber-500/40 text-amber-400 bg-amber-500/10",
                 Google: "border-sky-500/40 text-sky-400 bg-sky-500/10",
                 Meta: "border-blue-500/40 text-blue-400 bg-blue-500/10",
                 Fintech: "border-emerald-500/40 text-emerald-400 bg-emerald-500/10",
                 "Two Sigma": "border-purple-500/40 text-purple-400 bg-purple-500/10",
                 Amazon: "border-orange-500/40 text-orange-400 bg-orange-500/10",
-              }[track.companyProfile] || "border-white/20 text-white bg-white/10";
+                Stripe: "border-indigo-500/40 text-indigo-400 bg-indigo-500/10",
+                Anthropic: "border-rose-500/40 text-rose-400 bg-rose-500/10",
+                OpenAI: "border-teal-500/40 text-teal-400 bg-teal-500/10",
+                Waymo: "border-cyan-500/40 text-cyan-400 bg-cyan-500/10",
+                Uber: "border-white/40 text-white bg-white/10",
+                Microsoft: "border-blue-400/40 text-blue-300 bg-blue-400/10",
+                Robinhood: "border-lime-500/40 text-lime-400 bg-lime-500/10",
+              };
+              const badgeStyle = companyBadgeColor[track.companyProfile] || "border-white/20 text-white bg-white/10";
 
               const trackProblems = track.problemIds
                 .map((id) => OA_PROBLEMS.find((p) => p.id === id))
@@ -110,7 +123,7 @@ export default function OALobbyPage() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-1.5">
                         <div className="flex items-center gap-2 flex-wrap font-mono">
-                          <span className={cn("px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border", companyBadgeColor)}>
+                          <span className={cn("px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border", badgeStyle)}>
                             {track.companyProfile}
                           </span>
                           <span className="neu-active-pill px-2.5 py-0.5 text-[10px] font-bold text-neutral-300">
