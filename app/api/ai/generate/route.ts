@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
     if (!keyToUse) {
       return NextResponse.json(
-        { error: "No Gemini API Key found. Please add GEMINI_API_KEY to .env.local or enter your custom API key in Settings." },
+        { error: "No Gemini API Key found. Please click 'API Key' to enter your Google Gemini API key and activate the copilot." },
         { status: 400 }
       );
     }
