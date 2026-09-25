@@ -7,6 +7,7 @@ import { EvaluationSubmission, EvaluationResult } from "@/types/submission";
 import { DiscrepancyDiffChart } from "@/components/infographics/DiscrepancyDiffChart";
 import { CodeDiffViewer } from "@/components/review-studio/CodeDiffViewer";
 import { getCodeForLanguage } from "@/lib/language-utils";
+import { useGeminiApiKey } from "@/lib/gemini";
 import { cn } from "@/lib/utils";
 import {
   CheckCircle2,
@@ -16,6 +17,7 @@ import {
   ArrowRight,
   Sparkles,
   Award,
+  Key,
 } from "lucide-react";
 
 export function DisagreementMatrix({
@@ -26,6 +28,7 @@ export function DisagreementMatrix({
   nextQuestionId,
   selectedLanguage = "python",
   onOpenAssistant,
+  onOpenKeyModal,
 }: {
   question: QuestionItem;
   submission: EvaluationSubmission;
@@ -34,7 +37,9 @@ export function DisagreementMatrix({
   nextQuestionId?: string;
   selectedLanguage?: QuestionLanguage;
   onOpenAssistant?: () => void;
+  onOpenKeyModal?: () => void;
 }) {
+  const { hasKey } = useGeminiApiKey();
   const scorePct = (result.overall_score * 10).toFixed(0);
   const isPass = result.overall_score >= 8.0;
   const originalCode = getCodeForLanguage(question, selectedLanguage);
@@ -139,18 +144,49 @@ export function DisagreementMatrix({
 
       {/* Assistant Quick Banner */}
       {onOpenAssistant && (
-        <div className="neu-inset p-4 flex items-center justify-between gap-4 font-mono text-xs">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
-            <span className="text-neutral-300">Have questions on this ground truth or Big-O analysis?</span>
+        <div className="neu-inset p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
+          <div className="flex items-center gap-2.5">
+            <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div>
+              <span className="text-neutral-200 block font-semibold">
+                Have questions on this ground truth or Big-O analysis?
+              </span>
+              <span className="text-[11px] text-neutral-400 font-sans block">
+                Audit subtleties, counterexamples, and line-by-line defects with Gemini 2.5 Flash
+              </span>
+            </div>
           </div>
-          <button
-            type="button"
-            onClick={onOpenAssistant}
-            className="neu-button px-4 py-2 text-white font-bold transition-all cursor-pointer shrink-0"
-          >
-            Ask Gemini Studio
-          </button>
+          <div className="flex items-center gap-2 shrink-0">
+            {onOpenKeyModal && (
+              <button
+                type="button"
+                onClick={onOpenKeyModal}
+                className={cn(
+                  "neu-button px-3.5 py-2 flex items-center gap-1.5 transition-all cursor-pointer text-xs font-mono",
+                  hasKey
+                    ? "text-neutral-300 hover:text-white"
+                    : "text-amber-300 border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20"
+                )}
+                title="Configure Gemini API Key"
+              >
+                <Key className="w-3.5 h-3.5 text-amber-400" />
+                <span>{hasKey ? "Key Set" : "API Key"}</span>
+                <span
+                  className={cn(
+                    "w-1.5 h-1.5 rounded-full",
+                    hasKey ? "bg-emerald-400" : "bg-amber-400 animate-pulse"
+                  )}
+                />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={onOpenAssistant}
+              className="neu-button px-4 py-2 bg-emerald-500 text-black hover:bg-emerald-400 font-bold transition-all cursor-pointer shrink-0 shadow-sm"
+            >
+              Ask Gemini Studio
+            </button>
+          </div>
         </div>
       )}
 
