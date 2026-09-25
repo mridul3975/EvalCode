@@ -16,6 +16,8 @@ import { getStoredSubmissions, saveStoredSubmission, getCustomQuestions } from "
 import { evaluateSubmission } from "@/lib/scoring-engine";
 import { getCodeForLanguage, getAvailableLanguages } from "@/lib/language-utils";
 import { WorkspaceSkeleton } from "@/components/boneyard/WorkspaceSkeleton";
+import { GeminiApiKeyModal } from "@/components/practice/GeminiApiKeyModal";
+import { useGeminiApiKey } from "@/lib/gemini";
 import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
@@ -26,6 +28,7 @@ import {
   Sparkles,
   ShieldAlert,
   Terminal,
+  Key,
 } from "lucide-react";
 
 function ReviewStudioContent() {
@@ -48,6 +51,8 @@ function ReviewStudioContent() {
   const [selectedLanguage, setSelectedLanguage] = useState<QuestionLanguage>("python");
   const [mobileTab, setMobileTab] = useState<"code" | "form" | "assistant">("code");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
+  const { hasKey } = useGeminiApiKey();
 
   useEffect(() => {
     const customQuestions = getCustomQuestions();
@@ -179,8 +184,31 @@ function ReviewStudioContent() {
           </button>
         </div>
 
-        {/* Right Tools: Share & Gemini Copilot */}
+        {/* Right Tools: API Key, Share & Gemini Copilot */}
         <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => setIsKeyModalOpen(true)}
+            className={cn(
+              "p-1.5 px-2.5 rounded transition-all flex items-center gap-1.5 cursor-pointer font-mono text-xs",
+              hasKey
+                ? "bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white"
+                : "bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20"
+            )}
+            title="Configure Gemini API Key"
+          >
+            <Key className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden sm:inline font-semibold">
+              {hasKey ? "API Key Set" : "API Key"}
+            </span>
+            <span
+              className={cn(
+                "w-1.5 h-1.5 rounded-full",
+                hasKey ? "bg-emerald-400" : "bg-amber-400 animate-pulse"
+              )}
+            />
+          </button>
+
           <button
             onClick={handleShare}
             className="p-1.5 px-2.5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
@@ -311,6 +339,7 @@ function ReviewStudioContent() {
                   }
                   selectedLanguage={selectedLanguage}
                   onOpenAssistant={() => setIsSidebarOpen(true)}
+                  onOpenKeyModal={() => setIsKeyModalOpen(true)}
                 />
               ) : (
                 <EvaluationForm
@@ -356,6 +385,12 @@ function ReviewStudioContent() {
           </aside>
         )}
       </div>
+
+      {/* API Key Modal */}
+      <GeminiApiKeyModal
+        isOpen={isKeyModalOpen}
+        onClose={() => setIsKeyModalOpen(false)}
+      />
     </div>
   );
 }
