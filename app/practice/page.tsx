@@ -13,6 +13,8 @@ import {
   getStoredAttempts,
 } from "@/lib/storage";
 import { AddQuestionModal } from "@/components/practice/AddQuestionModal";
+import { GeminiApiKeyModal } from "@/components/practice/GeminiApiKeyModal";
+import { useGeminiApiKey } from "@/lib/gemini";
 import { getDefectMeta } from "@/lib/core/defect-pipeline";
 import { getAvailableLanguages, getLanguageLabel } from "@/lib/language-utils";
 import { cn } from "@/lib/utils";
@@ -27,6 +29,7 @@ import {
   Code2,
   ShieldAlert,
   CheckCircle2,
+  Key,
 } from "lucide-react";
 
 export default function PracticeCatalogPage() {
@@ -38,6 +41,8 @@ export default function PracticeCatalogPage() {
   const [selectedStatus, setSelectedStatus] = useState<"all" | "attempted" | "audited" | "bookmarked">("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
+  const { hasKey } = useGeminiApiKey();
 
   const ITEMS_PER_PAGE = 6;
 
@@ -174,6 +179,26 @@ export default function PracticeCatalogPage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => setIsKeyModalOpen(true)}
+              className={cn(
+                "w-full sm:w-auto neu-button px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-center space-x-2 transition-all cursor-pointer font-mono",
+                hasKey
+                  ? "text-neutral-300 hover:text-white"
+                  : "text-amber-300 border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20"
+              )}
+              title="Configure Gemini API Key"
+            >
+              <Key className="w-4 h-4 text-amber-400" />
+              <span>{hasKey ? "API KEY CONFIGURED" : "GEMINI API KEY"}</span>
+              <span
+                className={cn(
+                  "w-2 h-2 rounded-full",
+                  hasKey ? "bg-emerald-400 shadow-[0_0_6px_#34d399]" : "bg-amber-400 animate-pulse"
+                )}
+              />
+            </button>
+
             <button
               onClick={() => setIsAddModalOpen(true)}
               className="w-full sm:w-auto neu-button px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-center space-x-2 text-white hover:text-white transition-all cursor-pointer"
@@ -502,6 +527,12 @@ export default function PracticeCatalogPage() {
           onQuestionAdded={handleQuestionAdded}
         />
       )}
+
+      {/* Gemini API Key Configuration Modal */}
+      <GeminiApiKeyModal
+        isOpen={isKeyModalOpen}
+        onClose={() => setIsKeyModalOpen(false)}
+      />
     </div>
   );
 }
