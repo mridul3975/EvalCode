@@ -9,9 +9,11 @@ import { INTERVALS_GREEDY_QUESTIONS } from "./questions/intervals-greedy";
 import { ARRAYS_STRINGS_QUESTIONS } from "./questions/arrays-strings";
 import { DP_QUESTIONS } from "./questions/dp";
 import { ADVANCED_GRAPHS_QUESTIONS } from "./questions/advanced-graphs";
+import { FRONTIER_DEFECT_QUESTIONS } from "./questions/frontier-defects";
 
-// Master Curated Dataset containing 65+ Calibrated LeetCode & Blind 75 Evaluation Problems
+// Master Curated Dataset containing 70+ Calibrated LeetCode & Frontier RLHF Evaluation Problems
 export const SEED_QUESTIONS: QuestionItem[] = [
+  ...FRONTIER_DEFECT_QUESTIONS,
   ...LINKED_LIST_QUESTIONS,
   ...STACKS_QUEUES_QUESTIONS,
   ...TREE_QUESTIONS,
@@ -23,3 +25,4 @@ export const SEED_QUESTIONS: QuestionItem[] = [
   ...DP_QUESTIONS,
   ...ADVANCED_GRAPHS_QUESTIONS,
 ];
+
