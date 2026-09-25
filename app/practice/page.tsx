@@ -14,6 +14,7 @@ import {
 } from "@/lib/storage";
 import { AddQuestionModal } from "@/components/practice/AddQuestionModal";
 import { GeminiApiKeyModal } from "@/components/practice/GeminiApiKeyModal";
+import { DefectBadge } from "@/components/practice/DefectBadge";
 import { useGeminiApiKey } from "@/lib/gemini";
 import { getDefectMeta } from "@/lib/core/defect-pipeline";
 import { getAvailableLanguages, getLanguageLabel } from "@/lib/language-utils";
@@ -30,7 +31,22 @@ import {
   ShieldAlert,
   CheckCircle2,
   Key,
+  Compass,
+  Zap,
+  Trophy,
+  BarChart3,
+  Award,
+  Layers,
+  RotateCcw,
 } from "lucide-react";
+
+const FOUNDATIONAL_5_IDS = [
+  "q_ll_001",
+  "q_slide_001",
+  "q_dp_001",
+  "q_mut_001",
+  "q_expl_001",
+];
 
 export default function PracticeCatalogPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,6 +58,7 @@ export default function PracticeCatalogPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
+  const [isFoundationalPath, setIsFoundationalPath] = useState(false);
   const { hasKey } = useGeminiApiKey();
 
   const ITEMS_PER_PAGE = 6;
@@ -69,7 +86,15 @@ export default function PracticeCatalogPage() {
   // Reset page to 1 when any filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedTopic, selectedLanguage, selectedDifficulty, selectedDefect, selectedStatus]);
+  }, [
+    searchQuery,
+    selectedTopic,
+    selectedLanguage,
+    selectedDifficulty,
+    selectedDefect,
+    selectedStatus,
+    isFoundationalPath,
+  ]);
 
   const handleBookmarkToggle = (e: React.MouseEvent, qId: string) => {
     e.preventDefault();
@@ -100,7 +125,17 @@ export default function PracticeCatalogPage() {
       matchesStatus = bookmarks.includes(q.id);
     }
 
-    return matchesSearch && matchesTopic && matchesLanguage && matchesDifficulty && matchesDefect && matchesStatus;
+    const matchesFoundational = !isFoundationalPath || FOUNDATIONAL_5_IDS.includes(q.id);
+
+    return (
+      matchesSearch &&
+      matchesTopic &&
+      matchesLanguage &&
+      matchesDifficulty &&
+      matchesDefect &&
+      matchesStatus &&
+      matchesFoundational
+    );
   });
 
   const totalPages = Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE) || 1;
@@ -160,18 +195,40 @@ export default function PracticeCatalogPage() {
     return pages;
   };
 
-  const getDifficultyColor = (diff: string) => {
-    if (diff === "easy") return "text-emerald-400";
-    if (diff === "medium") return "text-amber-400";
-    return "text-rose-400";
+  const auditedCount = Object.keys(submissions).length;
+  const attemptedCount = Object.keys(attempts).length;
+  const savedCount = bookmarks.length;
+  const totalCount = allQuestions.length;
+  const auditedPct = totalCount > 0 ? Math.round((auditedCount / totalCount) * 100) : 0;
+  const attemptedPct = totalCount > 0 ? Math.round((attemptedCount / totalCount) * 100) : 0;
+  const completedTotal = Math.min(totalCount, auditedCount + attemptedCount);
+  const totalCoveragePct = totalCount > 0 ? Math.round((completedTotal / totalCount) * 100) : 0;
+
+  const getTierLabel = () => {
+    if (auditedCount === 0 && attemptedCount === 0) return "UNBENCHMARKED • TIER 0";
+    if (auditedCount < 5) return "NOVICE AUDITOR • TIER 1";
+    if (auditedCount < 15) return "PROFICIENT EVALUATOR • TIER 2";
+    return "FRONTIER RLHF SPECIALIST • TIER 3";
+  };
+
+  const getDifficultyBadge = (diff: string) => {
+    if (diff === "easy")
+      return "text-emerald-400 bg-emerald-500/10 border-emerald-500/30 shadow-[0_0_8px_rgba(16,185,129,0.15)]";
+    if (diff === "medium")
+      return "text-amber-400 bg-amber-500/10 border-amber-500/30 shadow-[0_0_8px_rgba(245,158,11,0.15)]";
+    return "text-rose-400 bg-rose-500/10 border-rose-500/30 shadow-[0_0_8px_rgba(244,63,94,0.15)]";
   };
 
   return (
     <div className="min-h-screen bg-[#0c0d10] text-white flex flex-col font-['Hanken_Grotesk'] antialiased">
-      <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col space-y-6 sm:space-y-10 py-6 sm:py-10">
+      <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col space-y-6 sm:space-y-8 py-6 sm:py-10">
         {/* Header Section */}
         <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-4 sm:pb-6 border-b border-white/[0.06]">
           <div className="space-y-2 sm:space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full neu-inset text-emerald-400 font-mono text-[11px] font-bold uppercase tracking-wider">
+              <Trophy className="w-3.5 h-3.5" />
+              <span>FRONTIER CODE AUDITING CATALOG</span>
+            </div>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-none uppercase flex items-center gap-3 font-mono">
               <span>PRACTICE REVIEW STUDIO</span>
               <span className="text-neutral-500 font-normal text-2xl sm:text-4xl">({allQuestions.length})</span>
@@ -217,11 +274,113 @@ export default function PracticeCatalogPage() {
           </div>
         </header>
 
+        {/* Progress Feedback Momentum Meter */}
+        <section className="neu-card p-6 sm:p-7 space-y-4 border border-neutral-700/60 shadow-xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.06] pb-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-emerald-400" />
+                <span className="text-xs font-mono font-bold uppercase text-emerald-400 tracking-wider">
+                  CALIBRATION MOMENTUM
+                </span>
+                <span className="text-neutral-600 font-mono">•</span>
+                <span className="text-[11px] font-mono text-neutral-300 uppercase font-bold">
+                  {getTierLabel()}
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-white font-mono uppercase tracking-tight">
+                Evaluator Readiness Progress
+              </h2>
+            </div>
+
+            <div className="flex items-baseline gap-2 font-mono shrink-0">
+              <span className="text-3xl sm:text-4xl font-black text-white">
+                {totalCoveragePct}%
+              </span>
+              <span className="text-xs text-neutral-400 font-bold uppercase">
+                CALIBRATED
+              </span>
+            </div>
+          </div>
+
+          {/* Dual Segment Progress Bar */}
+          <div className="space-y-2.5 font-mono text-xs">
+            <div className="h-3 w-full bg-neutral-900 rounded-full overflow-hidden flex p-0.5 neu-inset">
+              <div
+                style={{ width: `${auditedPct}%` }}
+                className="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-l-full transition-all duration-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]"
+                title={`Audited: ${auditedCount} (${auditedPct}%)`}
+              />
+              <div
+                style={{ width: `${attemptedPct}%` }}
+                className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"
+                title={`Attempted: ${attemptedCount} (${attemptedPct}%)`}
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between text-[11px] text-neutral-400 pt-1">
+              <div className="flex flex-wrap items-center gap-4">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_4px_#f59e0b]" />
+                  <span>Audited: <strong className="text-white">{auditedCount}</strong> ({auditedPct}%)</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_4px_#10b981]" />
+                  <span>Attempted: <strong className="text-white">{attemptedCount}</strong> ({attemptedPct}%)</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-sky-400" />
+                  <span>Saved: <strong className="text-white">{savedCount}</strong></span>
+                </span>
+              </div>
+              <span className="text-neutral-500 hidden sm:inline">
+                {completedTotal} of {totalCount} Completed
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* Recommended Onboarding Path Banner */}
+        <section className="neu-card p-5 sm:p-6 border border-emerald-500/30 bg-emerald-500/5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Compass className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
+                Recommended Onboarding Path
+              </span>
+              <span className="neu-active-pill px-2 py-0.5 text-[9px] font-mono text-emerald-300 font-bold uppercase">
+                Curated 5 Benchmarks
+              </span>
+            </div>
+            <h3 className="text-base sm:text-lg font-bold text-white font-mono">
+              {isFoundationalPath
+                ? "Showing 5 Foundational Calibration Benchmarks"
+                : "New to Code Auditing? Start with the Foundational 5"}
+            </h3>
+            <p className="text-xs text-neutral-400 font-sans max-w-2xl leading-relaxed">
+              Master the 5 essential RLHF defect archetypes: pointer mutation, sliding window boundaries, dynamic programming traps, shared mutable state, and deceptive Big-O commentary before exploring all {allQuestions.length} benchmarks.
+            </p>
+          </div>
+
+          <button
+            onClick={() => setIsFoundationalPath(!isFoundationalPath)}
+            className={cn(
+              "px-5 py-3 rounded-xl font-mono font-bold text-xs uppercase transition-all shrink-0 flex items-center gap-2 cursor-pointer shadow-md",
+              isFoundationalPath
+                ? "bg-white text-black hover:bg-neutral-200"
+                : "neu-button text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/20"
+            )}
+          >
+            <Zap className="w-3.5 h-3.5" />
+            <span>{isFoundationalPath ? "View All Benchmarks" : "Start Foundational 5"}</span>
+          </button>
+        </section>
+
         {/* Filters Section */}
         <section className="neu-card p-5 sm:p-6 flex flex-col gap-4">
           {/* Status Segmented Filter */}
           <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/[0.04]">
-            <div className="flex items-center gap-1 neu-inset p-1 rounded-xl text-xs font-mono">
+            <div className="flex flex-wrap items-center gap-1 neu-inset p-1 rounded-xl text-xs font-mono">
               <button
                 type="button"
                 onClick={() => setSelectedStatus("all")}
@@ -245,7 +404,7 @@ export default function PracticeCatalogPage() {
                 )}
               >
                 <ShieldAlert className="w-3.5 h-3.5" />
-                <span>AUDITED ({Object.keys(submissions).length})</span>
+                <span>AUDITED ({auditedCount})</span>
               </button>
               <button
                 type="button"
@@ -258,7 +417,7 @@ export default function PracticeCatalogPage() {
                 )}
               >
                 <Code2 className="w-3.5 h-3.5" />
-                <span>ATTEMPTED ({Object.keys(attempts).length})</span>
+                <span>ATTEMPTED ({attemptedCount})</span>
               </button>
               <button
                 type="button"
@@ -271,7 +430,7 @@ export default function PracticeCatalogPage() {
                 )}
               >
                 <Bookmark className="w-3.5 h-3.5" />
-                <span>SAVED ({bookmarks.length})</span>
+                <span>SAVED ({savedCount})</span>
               </button>
             </div>
           </div>
@@ -349,29 +508,33 @@ export default function PracticeCatalogPage() {
               <p className="text-xs text-neutral-500">Try clearing your search query or adjusting your filters.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {paginatedQuestions.map((q) => {
                 const isBookmarked = bookmarks.includes(q.id);
                 const prevSub = submissions[q.id];
                 const prevAttempt = attempts[q.id];
                 const primaryDefect = q.ground_truth.defect_type || q.ground_truth.error_categories[0];
-                const defectMeta = getDefectMeta(primaryDefect);
                 const isCustom = q.id.startsWith("custom_");
 
                 return (
                   <div
                     key={q.id}
-                    className="neu-card group relative flex flex-col justify-between p-6 h-full transition-all duration-300 hover:-translate-y-1"
+                    className="neu-card group relative flex flex-col justify-between p-7 h-full transition-all duration-300 hover:-translate-y-1.5 border border-white/[0.06] hover:border-neutral-600/70 shadow-xl"
                   >
                     {/* Top Row: Meta Tags & Bookmarking */}
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2 font-mono flex-wrap gap-y-1">
-                          <span className={cn("text-xs font-black uppercase px-2 py-0.5 rounded-md neu-inset", getDifficultyColor(q.difficulty))}>
+                          <span
+                            className={cn(
+                              "text-[10px] font-black uppercase px-2.5 py-0.5 rounded-md font-mono",
+                              getDifficultyBadge(q.difficulty)
+                            )}
+                          >
                             {q.difficulty}
                           </span>
                           <span className="text-neutral-600">•</span>
-                          <span className="text-xs text-neutral-400 font-bold uppercase">
+                          <span className="text-xs text-neutral-400 font-bold uppercase font-mono">
                             {q.topic.replace("_", " ")}
                           </span>
                           {isCustom && (
@@ -383,7 +546,8 @@ export default function PracticeCatalogPage() {
 
                         <button
                           onClick={(e) => handleBookmarkToggle(e, q.id)}
-                          className="text-neutral-500 hover:text-white transition-colors p-1 cursor-pointer"
+                          className="text-neutral-500 hover:text-white transition-colors p-1 cursor-pointer hover:scale-110 active:scale-95"
+                          title={isBookmarked ? "Remove bookmark" : "Bookmark question"}
                         >
                           {isBookmarked ? (
                             <BookmarkCheck className="w-5 h-5 text-emerald-400 fill-emerald-400" />
@@ -391,6 +555,11 @@ export default function PracticeCatalogPage() {
                             <Bookmark className="w-5 h-5" />
                           )}
                         </button>
+                      </div>
+
+                      {/* Visual Colored Bug-Type Badge */}
+                      <div className="pt-0.5">
+                        <DefectBadge defectType={primaryDefect} className="w-fit" />
                       </div>
 
                       {/* Status Badges Row if attempted or audited */}
@@ -431,33 +600,27 @@ export default function PracticeCatalogPage() {
                       </p>
                     </div>
 
-                    {/* Bottom Row: Defect Chip & Dual Action Buttons */}
-                    <div className="pt-5 mt-6 border-t border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                      <span className="font-mono text-[10px] uppercase font-bold neu-inset text-neutral-300 px-2.5 py-1 shrink-0 w-fit">
-                        {defectMeta.label}
-                      </span>
+                    {/* Bottom Row: Dual Action Buttons */}
+                    <div className="pt-5 mt-6 border-t border-white/[0.06] flex items-center justify-end gap-2.5">
+                      {/* Audit Mode Button */}
+                      <Link
+                        href={`/practice/${q.id}?mode=audit`}
+                        className="neu-button px-3.5 py-2 text-xs font-mono font-bold uppercase rounded-xl flex items-center space-x-1.5 text-neutral-300 hover:text-white cursor-pointer"
+                        title="Audit AI code for defects"
+                      >
+                        <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                        <span>{prevSub ? "RE-AUDIT" : "AUDIT"}</span>
+                      </Link>
 
-                      <div className="flex items-center gap-2 shrink-0">
-                        {/* Audit Mode Button */}
-                        <Link
-                          href={`/practice/${q.id}?mode=audit`}
-                          className="neu-button px-3 py-2 text-xs font-mono font-bold uppercase rounded-lg flex items-center space-x-1.5 text-neutral-300 hover:text-white cursor-pointer"
-                          title="Audit AI code for defects"
-                        >
-                          <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-                          <span>{prevSub ? "RE-AUDIT" : "AUDIT"}</span>
-                        </Link>
-
-                        {/* Attempt Mode Button */}
-                        <Link
-                          href={`/practice/${q.id}?mode=attempt`}
-                          className="neu-button-primary px-3.5 py-2 text-xs font-mono font-bold uppercase rounded-lg flex items-center space-x-1.5 text-emerald-300 border border-emerald-500/40 bg-emerald-950/30 hover:bg-emerald-950/60 cursor-pointer shadow-[0_0_10px_rgba(16,185,129,0.1)]"
-                          title="Solve this problem from scratch"
-                        >
-                          <Code2 className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>{prevAttempt ? "RE-ATTEMPT" : "ATTEMPT"}</span>
-                        </Link>
-                      </div>
+                      {/* Attempt Mode Button */}
+                      <Link
+                        href={`/practice/${q.id}?mode=attempt`}
+                        className="neu-button-primary px-3.5 py-2 text-xs font-mono font-bold uppercase rounded-xl flex items-center space-x-1.5 text-emerald-300 border border-emerald-500/40 bg-emerald-950/30 hover:bg-emerald-950/60 cursor-pointer shadow-[0_0_10px_rgba(16,185,129,0.1)]"
+                        title="Solve this problem from scratch"
+                      >
+                        <Code2 className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{prevAttempt ? "RE-ATTEMPT" : "ATTEMPT"}</span>
+                      </Link>
                     </div>
                   </div>
                 );
