@@ -31,7 +31,13 @@ export type DefectCategory =
   | "instruction_mismatch"
   | "pointer_bug"
   | "edge_case"
-  | "clean";
+  | "clean"
+  | "concurrency_bug"
+  | "memory_aliasing"
+  | "off_by_one"
+  | "integer_overflow"
+  | "stack_overflow"
+  | "mutable_default";
 
 export type IssueSeverity = "critical" | "major" | "minor" | "nit";
 
