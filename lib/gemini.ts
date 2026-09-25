@@ -1,22 +1,98 @@
+import { useEffect, useState } from "react";
 import { QuestionItem, DefectCategory, Verdict, IssueSeverity } from "@/types/question";
 
 export interface GeminiKeyConfig {
   apiKey?: string;
 }
 
+export const GEMINI_KEY_STORAGE_KEY = "evalforge_gemini_api_key";
+export const GEMINI_KEY_EVENT = "evalforge_gemini_key_updated";
+
 export function getStoredGeminiKey(): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem("evalforge_gemini_api_key") || null;
+  return localStorage.getItem(GEMINI_KEY_STORAGE_KEY) || null;
+}
+
+export function hasStoredGeminiKey(): boolean {
+  if (typeof window === "undefined") return false;
+  return Boolean(localStorage.getItem(GEMINI_KEY_STORAGE_KEY));
 }
 
 export function saveStoredGeminiKey(key: string): void {
   if (typeof window === "undefined") return;
-  localStorage.setItem("evalforge_gemini_api_key", key);
+  const trimmed = key.trim();
+  if (trimmed) {
+    localStorage.setItem(GEMINI_KEY_STORAGE_KEY, trimmed);
+  } else {
+    localStorage.removeItem(GEMINI_KEY_STORAGE_KEY);
+  }
+  window.dispatchEvent(
+    new CustomEvent(GEMINI_KEY_EVENT, { detail: { key: trimmed || null } })
+  );
 }
 
 export function clearStoredGeminiKey(): void {
   if (typeof window === "undefined") return;
-  localStorage.removeItem("evalforge_gemini_api_key");
+  localStorage.removeItem(GEMINI_KEY_STORAGE_KEY);
+  window.dispatchEvent(
+    new CustomEvent(GEMINI_KEY_EVENT, { detail: { key: null } })
+  );
+}
+
+export function useGeminiApiKey() {
+  const [apiKey, setApiKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    setApiKey(getStoredGeminiKey());
+    const handler = () => {
+      setApiKey(getStoredGeminiKey());
+    };
+    window.addEventListener(GEMINI_KEY_EVENT, handler);
+    window.addEventListener("storage", handler);
+    return () => {
+      window.removeEventListener(GEMINI_KEY_EVENT, handler);
+      window.removeEventListener("storage", handler);
+    };
+  }, []);
+
+  return {
+    apiKey,
+    hasKey: Boolean(apiKey),
+    saveKey: (key: string) => saveStoredGeminiKey(key),
+    clearKey: () => clearStoredGeminiKey(),
+  };
+}
+
+export async function validateGeminiApiKey(
+  key: string
+): Promise<{ valid: boolean; error?: string }> {
+  try {
+    const response = await fetch("/api/ai/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prompt: "Return 'OK' if you receive this test.",
+        apiKey: key.trim(),
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      return {
+        valid: false,
+        error:
+          data.error ||
+          `Gemini API rejected key with HTTP status ${response.status}.`,
+      };
+    }
+
+    return { valid: true };
+  } catch (err: any) {
+    return {
+      valid: false,
+      error: err?.message || "Network error while connecting to Gemini API.",
+    };
+  }
 }
 
 export async function callGeminiApi(prompt: string, customApiKey?: string): Promise<string> {
