@@ -8,9 +8,9 @@
 
 - **Review Studio**: Side-by-side IDE evaluation interface with multi-language code viewers (Python, C++, JavaScript), syntax highlighting, and inline defect tagging.
 - **Comparator Engine**: Multi-dimensional grading system that scores candidate evaluations against ground-truth expert rubrics across Correctness, Efficiency, Edge Cases, Code Style, and Explanations.
-- **75+ Real-world Benchmark Problems**: Comprehensive problem catalog spanning Linked Lists, Stacks & Queues, Binary Trees & BSTs, Graphs, Backtracking, Heaps, Intervals & Greedy, Dynamic Programming, and Advanced Graph Algorithms.
+- **Practice Problem Catalog**: Comprehensive problem catalog spanning Linked Lists, Stacks & Queues, Binary Trees & BSTs, Graphs, Backtracking, Heaps, Intervals & Greedy, Dynamic Programming, and Advanced Graph Algorithms.
 - **Adaptive Weakness Selector**: Recommends personalized practice questions targeting candidate defect blindspots.
-- **Full Analytics & Readiness Dashboard**: Visual competency radar charts, discrepancy diff breakdowns, and tier certifications.
+- **Progress Dashboard**: Explainable practice scores, skill trends, recent reviews, and mock history.
 - **Timed Mock Assessment Simulator**: Complete 3-stage timed screening assessment with automated grading and comprehensive scorecard report.
 
 ---
@@ -19,7 +19,7 @@
 
 - **Framework**: Next.js 15 (App Router, Server & Client Components)
 - **Language**: TypeScript (Strict Mode)
-- **Styling**: Vanilla Tailwind CSS with custom glassmorphism and dark themes
+- **Styling**: Tailwind CSS with a restrained dark interface and shared accessible controls
 - **Charts & Visuals**: Custom SVG Competency Radars, Readiness Gauges, and Infographic visualizers
 - **Persistence**: Client-side storage engine with localStorage synchronization
 
@@ -61,3 +61,11 @@ npm run build
 npm run start
 ```
 # EvalCode
+
+## UI and local assets
+
+See [DESIGN.md](DESIGN.md) for interface conventions. Reviews begin without reference-answer hints, and drafts are saved in the current browser. New progress profiles show an unassessed state.
+
+`npm run dev` and `npm run build` prepare Monaco assets from the installed `monaco-editor` package under `public/vendor/monaco/`. Those generated files are ignored by Git and served locally. The interface fonts are bundled locally from Next.js's packaged Geist fonts; neither feature needs a third-party CDN at runtime.
+
+The UI review, implementation notes, screenshots, and isolated browser verification helpers are in `reports/ui-review/`. The browser checks stub API traffic and use disposable browser storage.
