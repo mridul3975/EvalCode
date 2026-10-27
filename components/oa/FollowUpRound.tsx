@@ -56,7 +56,7 @@ export function FollowUpRound({
         <div className="flex items-center gap-2">
           <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
           <h3 className="text-xs font-semibold text-neutral-300">
-            Phase 3: Gemini Principal Defense Round
+            Follow-up questions
           </h3>
         </div>
         <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400">
@@ -121,6 +121,7 @@ export function FollowUpRound({
                   </p>
 
                   <textarea
+                    aria-label={q.question}
                     rows={4}
                     value={answer}
                     onChange={(e) => onResponseChange(q.id, e.target.value)}

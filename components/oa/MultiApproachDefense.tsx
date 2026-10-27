@@ -112,8 +112,8 @@ export function MultiApproachDefense({
       <div className="h-14 px-6 bg-[#121418] border-b border-neutral-800/80 flex items-center justify-between shrink-0 font-mono">
         <div className="flex items-center gap-2.5">
           <Layers className="w-4 h-4 text-sky-400" />
-          <h2 className="text-sm font-bold text-white uppercase tracking-wide">
-            Phase 2: Technical Approach & Defense Justification
+          <h2 className="text-sm font-bold text-white  tracking-wide">
+            Explain your approach
           </h2>
           <span className="text-neutral-500">•</span>
           <span className="text-xs text-neutral-400">
@@ -125,7 +125,7 @@ export function MultiApproachDefense({
           type="button"
           onClick={onProceedToGeminiDefense}
           disabled={isLoadingFollowUps}
-          className="bg-emerald-500 hover:bg-emerald-400 text-black px-4 py-1.5 rounded-lg text-xs font-bold font-mono uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)] disabled:opacity-50"
+          className="bg-emerald-500 hover:bg-emerald-400 text-black px-4 py-1.5 rounded-lg text-xs font-bold font-mono  tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)] disabled:opacity-50"
         >
           <Sparkles className="w-3.5 h-3.5" />
           <span>{isLoadingFollowUps ? "Generating Follow-Ups..." : "Enter Gemini Defense Round"}</span>
@@ -137,7 +137,7 @@ export function MultiApproachDefense({
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
         {/* Left Sidebar: Problem Selector Tabs */}
         <div className="w-full lg:w-72 bg-[#0e1013] border-r border-neutral-800/80 p-4 space-y-2 shrink-0 font-mono">
-          <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider block px-1">
+          <span className="text-[11px] font-bold text-neutral-500  tracking-wider block px-1">
             Questions To Defend:
           </span>
 
@@ -193,7 +193,7 @@ export function MultiApproachDefense({
                 <span>•</span>
                 <span>{weights[activeProblem.id] || 0} pts</span>
               </div>
-              <h3 className="text-xl font-black text-white font-mono uppercase">
+              <h3 className="text-xl font-semibold text-white font-mono ">
                 {activeProblem.title}
               </h3>
             </div>
@@ -219,13 +219,14 @@ export function MultiApproachDefense({
 
           {/* Written Approach Field */}
           <div className="space-y-2 font-mono text-xs">
-            <label className="text-xs font-bold text-neutral-200 uppercase tracking-wider block flex items-center justify-between">
+            <label className="text-xs font-bold text-neutral-200  tracking-wider block flex items-center justify-between">
               <span>Algorithmic Invariants & Solution Approach</span>
               <span className="text-[10px] text-neutral-500 lowercase">
                 ({(activeState.approach || "").length} characters)
               </span>
             </label>
             <textarea
+              aria-label="Algorithmic approach"
               value={activeState.approach || ""}
               onChange={(e) => handleApproachChange(e.target.value)}
               placeholder="Explain your approach, core data structures, amortized cost bounds, and how you addressed potential scale/concurrency issues..."
@@ -236,10 +237,11 @@ export function MultiApproachDefense({
           {/* Big-O Complexity Selectors */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs">
             <div className="space-y-2">
-              <label className="text-xs font-bold text-neutral-300 uppercase tracking-wider block">
+              <label className="text-xs font-bold text-neutral-300  tracking-wider block">
                 Claimed Time Complexity
               </label>
               <select
+                aria-label="Claimed time complexity"
                 value={activeState.claimedTime || "O(N)"}
                 onChange={(e) => handleTimeChange(e.target.value)}
                 className="w-full p-2.5 rounded-xl bg-[#0c0e10] border border-neutral-800 text-white text-xs focus:outline-none focus:border-sky-500 cursor-pointer"
@@ -253,10 +255,11 @@ export function MultiApproachDefense({
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-neutral-300 uppercase tracking-wider block">
+              <label className="text-xs font-bold text-neutral-300  tracking-wider block">
                 Claimed Space Complexity
               </label>
               <select
+                aria-label="Claimed space complexity"
                 value={activeState.claimedSpace || "O(1)"}
                 onChange={(e) => handleSpaceChange(e.target.value)}
                 className="w-full p-2.5 rounded-xl bg-[#0c0e10] border border-neutral-800 text-white text-xs focus:outline-none focus:border-sky-500 cursor-pointer"

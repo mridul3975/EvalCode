@@ -95,6 +95,8 @@ export default function OAWorkspacePage() {
   // 2. Multi-Problem State Initialization & Hydration
   const [activeProblemId, setActiveProblemId] = useState<string>(problems[0]?.id || "");
   const [currentPhase, setCurrentPhase] = useState<OAPhase>("workspace");
+  const [mobilePane, setMobilePane] = useState<"problem" | "editor">("problem");
+  const [editorReady, setEditorReady] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [isPreSubmitOpen, setIsPreSubmitOpen] = useState<boolean>(false);
 
@@ -206,8 +208,9 @@ export default function OAWorkspacePage() {
     saveActiveMultiSession(newSession);
   }, [track.id]);
 
-  // 4. Global Countdown Timer Interval
+  // Wait until an editor is usable before consuming the visible working time.
   useEffect(() => {
+    if (!editorReady || currentPhase !== "workspace") return;
     const timer = setInterval(() => {
       setTimeRemainingSeconds((prev) => {
         if (prev <= 1) {
@@ -220,7 +223,7 @@ export default function OAWorkspacePage() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [editorReady, currentPhase]);
 
   // 5. Periodic Auto-Save Every 10 Seconds
   useEffect(() => {
@@ -482,7 +485,7 @@ export default function OAWorkspacePage() {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-[#0d0e11] text-neutral-200 font-['Hanken_Grotesk'] overflow-hidden select-none">
+    <div className="h-[100dvh] w-full flex flex-col bg-[#0d0e11] text-neutral-200 font-sans overflow-hidden select-none">
       {/* 1. Global Session Top Navigation Bar */}
       <OANavbar
         companyProfile={track.companyProfile}
@@ -535,17 +538,20 @@ export default function OAWorkspacePage() {
 
       {/* 4. Phase Conditionals */}
 
+      {currentPhase === "workspace" && <nav className="grid grid-cols-2 border-b border-neutral-800 bg-[#13161c] px-3 lg:hidden" aria-label="Coding workspace views">
+        {([['problem', 'Problem'], ['editor', 'Editor & tests']] as const).map(([key, label]) => <button key={key} type="button" aria-pressed={mobilePane === key} onClick={() => setMobilePane(key)} className={`min-h-11 text-sm ${mobilePane === key ? "border-b-2 border-emerald-200 text-white" : "text-neutral-400"}`}>{label}</button>)}
+      </nav>}
       {/* PHASE 1: Multi-Question Workspace */}
       {currentPhase === "workspace" && (
         <main className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0 p-3 sm:p-4 gap-4 sm:gap-5 bg-[#0c0d10]">
-          {/* Left Pane: Active Problem Specification (40% Width) wrapped in .neu-card */}
-          <div className="w-full lg:w-[40%] h-full flex flex-col neu-card overflow-hidden">
+          {/* Left Pane: Active Problem (40% Width) wrapped in .neu-card */}
+          <div className={`w-full min-w-0 lg:w-[40%] h-full flex-col overflow-hidden surface ${mobilePane === "problem" ? "flex" : "hidden lg:flex"}`}>
             {/* Header */}
-            <div className="h-11 px-5 bg-[#101114] border-b border-white/[0.04] flex items-center justify-between shrink-0">
+            <div className="min-h-11 px-4 bg-[#101114] border-b border-white/[0.04] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-2">
                 <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="text-xs font-bold text-neutral-200 font-mono tracking-wide">
-                  Problem Specification
+                  Problem
                 </span>
               </div>
               <span className="text-[10px] font-mono text-neutral-400">
@@ -565,7 +571,7 @@ export default function OAWorkspacePage() {
                     {track.problemWeights[activeProblem.id] || 0} Points
                   </span>
                 </div>
-                <h2 className="text-xl font-bold text-white tracking-tight font-mono">
+                <h2 className="text-xl font-semibold text-white tracking-tight">
                   {activeProblem.title}
                 </h2>
                 <div className="flex flex-wrap gap-1.5 font-mono text-[11px]">
@@ -581,7 +587,7 @@ export default function OAWorkspacePage() {
               </div>
 
               {/* Description Markdown */}
-              <div className="prose prose-invert max-w-none text-sm text-neutral-300 leading-relaxed">
+              <div className="markdown">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {activeProblem.description}
                 </ReactMarkdown>
@@ -638,13 +644,14 @@ export default function OAWorkspacePage() {
           </div>
 
           {/* Right Column Container (60% Width) wrapped in .neu-card */}
-          <div className="w-full lg:w-[60%] h-full flex flex-col neu-card overflow-hidden p-4 gap-4">
+          <div className={`w-full min-w-0 lg:w-[60%] h-full flex-col overflow-hidden surface p-2 gap-2 ${mobilePane === "editor" ? "flex" : "hidden lg:flex"}`}>
             {/* Top 65%: Monaco Editor */}
-            <div className="h-[60%] lg:h-[65%] min-h-[220px] overflow-hidden rounded-xl">
+            <div className="flex-1 min-h-[280px] overflow-hidden rounded-lg">
               <MonacoCodeEditor
                 key={`${activeProblem.id}_${activeState.language}`}
                 code={activeState.code}
                 onChange={handleCodeChange}
+                onReady={() => setEditorReady(true)}
                 language={activeState.language}
                 onLanguageChange={handleLanguageChange}
                 onResetStarterCode={handleResetStarterCode}
@@ -654,7 +661,7 @@ export default function OAWorkspacePage() {
             </div>
 
             {/* Bottom 35%: Dynamic Test Case Console */}
-            <div className="h-[40%] lg:h-[35%] min-h-[180px] overflow-hidden rounded-xl">
+            <div className="h-[32%] min-h-[160px] overflow-hidden rounded-lg">
               <TestCaseConsole
                 testCases={activeProblem.testCases}
                 testResults={activeState.testResults}
