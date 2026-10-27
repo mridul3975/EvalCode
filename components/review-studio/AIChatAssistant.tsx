@@ -206,7 +206,7 @@ You can ask me to:
     <>
       <div
         className={cn(
-          "neu-card text-neutral-200 font-['Hanken_Grotesk'] flex flex-col",
+          "neu-card text-neutral-200 font-sans flex flex-col",
           isSidebar
             ? "h-full w-full rounded-2xl overflow-hidden"
             : "p-5 space-y-4 rounded-2xl",
