@@ -33,7 +33,7 @@ export function TaxonomyHeatmap({ topicStats, defectStats }: TaxonomyMatrixProps
   }
 
   return (
-    <div className="obsidian-card p-6 sm:p-10 space-y-8 font-['Hanken_Grotesk']">
+    <div className="obsidian-card p-6 sm:p-10 space-y-8 font-sans">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[rgba(255,255,255,0.06)] pb-6">
         <div>
           <h3 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mt-1">

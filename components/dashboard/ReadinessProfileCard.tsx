@@ -35,12 +35,12 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
         <div className="space-y-4">
 
 
-          <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tight leading-[0.9] text-white uppercase font-['Hanken_Grotesk']">
+          <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tight leading-[0.9] text-white uppercase font-sans">
             Eval<br />
             <span className="text-white">Acuity</span>
           </h1>
 
-          <p className="text-base sm:text-xl text-[#b9cbc1] font-normal leading-relaxed max-w-2xl font-['Hanken_Grotesk'] pt-2">
+          <p className="text-base sm:text-xl text-[#b9cbc1] font-normal leading-relaxed max-w-2xl font-sans pt-2">
             Aggregated competency across Practice Mode and Timed Mock Assessments benchmarked against Tier-1 AI evaluation rubrics.
           </p>
         </div>
@@ -51,7 +51,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             <span className="text-[11px] font-mono font-bold tracking-widest text-[#b9cbc1] uppercase">
               TARGET BENCHMARK
             </span>
-            <span className="text-3xl sm:text-4xl font-bold text-white font-['Hanken_Grotesk'] mt-1">
+            <span className="text-3xl sm:text-4xl font-bold text-white font-sans mt-1">
               90.0%+
             </span>
           </div>
@@ -60,7 +60,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             <span className="text-[11px] font-mono font-bold tracking-widest text-[#b9cbc1] uppercase">
               PERCENTILE RANK
             </span>
-            <span className="text-3xl sm:text-4xl font-bold text-white font-['Hanken_Grotesk'] mt-1">
+            <span className="text-3xl sm:text-4xl font-bold text-white font-sans mt-1">
               {percentileText}
             </span>
           </div>
@@ -75,7 +75,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             READINESS SCORE
           </span>
 
-          <div className="text-7xl sm:text-8xl font-black text-white tracking-tighter my-2 drop-shadow-[0_0_24px_rgba(255,255,255,0.15)] font-['Hanken_Grotesk']">
+          <div className="text-7xl sm:text-8xl font-black text-white tracking-tighter my-2 drop-shadow-[0_0_24px_rgba(255,255,255,0.15)] font-sans">
             {profile.readiness_score.toFixed(1)}%
           </div>
 
@@ -99,7 +99,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             <span className="text-[10px] font-mono font-bold text-[#b9cbc1] uppercase tracking-wider">
               VERDICT ACCURACY
             </span>
-            <span className="text-2xl sm:text-3xl font-bold text-white font-['Hanken_Grotesk'] mt-1">
+            <span className="text-2xl sm:text-3xl font-bold text-white font-sans mt-1">
               {profile.verdict_accuracy.toFixed(1)}%
             </span>
             <span className="text-[10px] font-mono text-[#83958c] mt-0.5">
@@ -111,7 +111,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             <span className="text-[10px] font-mono font-bold text-[#b9cbc1] uppercase tracking-wider">
               ACTIVE STREAK
             </span>
-            <span className="text-2xl sm:text-3xl font-bold text-white font-['Hanken_Grotesk'] mt-1">
+            <span className="text-2xl sm:text-3xl font-bold text-white font-sans mt-1">
               {profile.current_streak_days}D
             </span>
             <span className="text-[10px] font-mono text-[#83958c] mt-0.5">
@@ -123,7 +123,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             <span className="text-[10px] font-mono font-bold text-[#b9cbc1] uppercase tracking-wider">
               MOCK AVERAGE
             </span>
-            <span className="text-2xl sm:text-3xl font-bold text-white font-['Hanken_Grotesk'] mt-1">
+            <span className="text-2xl sm:text-3xl font-bold text-white font-sans mt-1">
               {profile.mock_average_score.toFixed(1)}%
             </span>
             <span className="text-[10px] font-mono text-[#83958c] mt-0.5">
@@ -135,7 +135,7 @@ export function ReadinessProfileCard({ profile }: { profile: UserProfileStats })
             <span className="text-[10px] font-mono font-bold text-[#b9cbc1] uppercase tracking-wider">
               PRACTICE AVERAGE
             </span>
-            <span className="text-2xl sm:text-3xl font-bold text-white font-['Hanken_Grotesk'] mt-1">
+            <span className="text-2xl sm:text-3xl font-bold text-white font-sans mt-1">
               {profile.practice_average_score.toFixed(1)}%
             </span>
             <span className="text-[10px] font-mono text-[#83958c] mt-0.5">
