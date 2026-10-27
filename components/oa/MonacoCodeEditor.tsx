@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
+import { CodeEditor as Editor } from "@/components/ui/CodeEditor";
 import { OALanguage } from "@/types/oa";
 import { cn } from "@/lib/utils";
 import {
@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 // Dynamically import Monaco Editor to ensure SSR safety
-const Editor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
+
 
 interface MonacoCodeEditorProps {
   code: string;
@@ -22,6 +22,7 @@ interface MonacoCodeEditorProps {
   onResetStarterCode: () => void;
   onRunTests: () => void;
   isRunningTests?: boolean;
+  onReady?: () => void;
 }
 
 export function MonacoCodeEditor({
@@ -30,6 +31,7 @@ export function MonacoCodeEditor({
   language,
   onLanguageChange,
   onResetStarterCode,
+  onReady,
 }: MonacoCodeEditorProps) {
   const [copied, setCopied] = useState(false);
 
@@ -44,7 +46,7 @@ export function MonacoCodeEditor({
   return (
     <div className="flex flex-col h-full bg-[#0c0d10] font-mono select-none">
       {/* 40px Tactile Header Bar */}
-      <div className="h-10 px-3 bg-[#101114] border-b border-white/[0.04] flex items-center justify-between gap-3 shrink-0">
+      <div className="min-h-12 flex-wrap py-1 px-3 bg-[#101114] border-b border-white/[0.04] flex items-center justify-between gap-3 shrink-0">
         {/* Language Selector as Neomorphic Buttons */}
         <div className="flex items-center gap-1.5">
           <Code2 className="w-3.5 h-3.5 text-neutral-500 mr-1" />
@@ -70,7 +72,7 @@ export function MonacoCodeEditor({
           <button
             type="button"
             onClick={onResetStarterCode}
-            title="Reset to Starter Code"
+            title="Reset to Starter Code" aria-label="Reset to starter code"
             className="neu-button p-1.5 rounded-lg text-neutral-400 hover:text-white cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -79,7 +81,7 @@ export function MonacoCodeEditor({
           <button
             type="button"
             onClick={handleCopy}
-            title="Copy Code"
+            title="Copy Code" aria-label="Copy code"
             className="neu-button p-1.5 rounded-lg text-neutral-400 hover:text-white cursor-pointer"
           >
             {copied ? (
@@ -93,8 +95,9 @@ export function MonacoCodeEditor({
 
       {/* Editor Viewport Nested in .neu-inset Well */}
       <div className="flex-1 w-full p-2.5 min-h-0">
-        <div className="neu-inset w-full h-full p-2 overflow-hidden">
+        <div className="w-full h-full overflow-hidden rounded-md">
           <Editor
+            onReady={onReady}
             height="100%"
             language={monacoLang}
             theme="vs-dark"
@@ -102,8 +105,8 @@ export function MonacoCodeEditor({
             onChange={(val) => onChange(val || "")}
             options={{
               minimap: { enabled: false },
-              fontSize: 13,
-              fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+              fontSize: 14,
+              fontFamily: "var(--font-code), Consolas, monospace",
               fontLigatures: true,
               scrollBeyondLastLine: false,
               automaticLayout: true,

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predev": "node scripts/prepare-editor.mjs",
+    "prebuild": "node scripts/prepare-editor.mjs"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",

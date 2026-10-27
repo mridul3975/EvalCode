@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import dynamic from "next/dynamic";
+import { CodeEditor as Editor } from "@/components/ui/CodeEditor";
 import { QuestionItem, QuestionLanguage } from "@/types/question";
 import { PracticeAttempt, PracticeTestResult } from "@/types/submission";
 import {
@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 
 // Dynamically import Monaco Editor to prevent SSR hydration mismatches
-const Editor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
+
 
 interface PracticeAttemptWorkspaceProps {
   question: QuestionItem;
@@ -168,7 +168,7 @@ export function PracticeAttemptWorkspace({
       {/* 1. Code Editor Card */}
       <div className="neu-card p-0 overflow-hidden flex flex-col border border-white/[0.06]">
         {/* Editor Toolbar */}
-        <div className="h-11 px-4 bg-[#101114] border-b border-white/[0.04] flex items-center justify-between gap-3 shrink-0">
+        <div className="min-h-12 flex-wrap py-1 px-4 bg-[#101114] border-b border-white/[0.04] flex items-center justify-between gap-3 shrink-0">
           {/* Language Selector */}
           <div className="flex items-center gap-1.5">
             <Code2 className="w-4 h-4 text-emerald-400 mr-1 shrink-0" />
@@ -194,7 +194,7 @@ export function PracticeAttemptWorkspace({
             <button
               type="button"
               onClick={handleResetStarter}
-              title="Reset to Starter Stub"
+              title="Reset to Starter Stub" aria-label="Reset to starter code"
               className="neu-button px-2.5 py-1.5 rounded-lg text-xs text-neutral-400 hover:text-white flex items-center gap-1 cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -204,7 +204,7 @@ export function PracticeAttemptWorkspace({
             <button
               type="button"
               onClick={handleCopyCode}
-              title="Copy Code"
+              title="Copy Code" aria-label="Copy code"
               className="neu-button px-2.5 py-1.5 rounded-lg text-xs text-neutral-400 hover:text-white flex items-center gap-1 cursor-pointer"
             >
               {copied ? (
@@ -224,7 +224,7 @@ export function PracticeAttemptWorkspace({
 
         {/* Monaco Editor Canvas */}
         <div className="h-[420px] w-full bg-[#0c0d10] p-2">
-          <div className="neu-inset w-full h-full p-2 overflow-hidden">
+          <div className="w-full h-full overflow-hidden rounded-md">
             <Editor
               height="100%"
               language={monacoLang}
@@ -232,7 +232,7 @@ export function PracticeAttemptWorkspace({
               value={code}
               onChange={(newVal) => setCode(newVal || "")}
               options={{
-                fontSize: 13,
+                fontSize: 14,
                 fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                 minimap: { enabled: false },
                 lineNumbers: "on",
@@ -306,7 +306,7 @@ export function PracticeAttemptWorkspace({
       {/* 2. Test Cases Console */}
       <div className="neu-card p-0 overflow-hidden flex flex-col border border-white/[0.06]">
         {/* Test Console Header Tabs */}
-        <div className="h-11 px-4 bg-[#101114] border-b border-white/[0.04] flex items-center justify-between gap-3 shrink-0">
+        <div className="min-h-12 flex-wrap py-1 px-4 bg-[#101114] border-b border-white/[0.04] flex items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-none h-full py-1">
             <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-300 mr-2 shrink-0">
               <Terminal className="w-4 h-4 text-emerald-400" />
