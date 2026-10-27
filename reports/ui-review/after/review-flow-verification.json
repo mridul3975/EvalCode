@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "checks": [
+    "comment sanitization preserves strings and source line numbers",
+    "neutral titles",
+    "practice review through feedback",
+    "mock save and question indicator",
+    "mock submission through results",
+    "populated progress",
+    "360/768/1024 widths"
+  ],
+  "errors": []
+}

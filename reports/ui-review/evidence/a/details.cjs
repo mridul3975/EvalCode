@@ -1,0 +1,23 @@
+const {chromium}=require('C:/Users/mridu/AppData/Local/npm-cache/_npx/9833c18b2d85bc59/node_modules/playwright');
+const fs=require('node:fs');
+const path=require('node:path');
+(async()=>{
+const dir=__dirname;
+const browser=await chromium.launch({headless:true,executablePath:'C:/Users/mridu/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe'});
+const context=await browser.newContext({viewport:{width:1440,height:1000}});
+const page=await context.newPage();const errors=[];page.on('requestfailed',r=>errors.push({url:r.url(),failure:r.failure()}));page.on('pageerror',e=>errors.push({pageerror:e.message}));
+const shot=async name=>{await page.screenshot({path:path.join(dir,name+'.png'),fullPage:false});console.log(name)};
+await page.goto('http://127.0.0.1:3000/practice/q_ll_001',{waitUntil:'domcontentloaded'});await page.waitForTimeout(1500);
+await page.getByRole('button',{name:'2. BUGS (1)',exact:true}).click();await shot('audit-bugs-desktop');
+await page.getByRole('button',{name:'4. BIG-O',exact:true}).click();await shot('audit-complexity-desktop');
+const computed=await page.evaluate(()=>({fonts: [...document.fonts].map(f=>({family:f.family,status:f.status})),body:getComputedStyle(document.body).fontFamily,p:getComputedStyle(document.querySelector('p')).fontFamily,codeRow:getComputedStyle(document.querySelector('tr')).height,codeCells:[...document.querySelectorAll('tr:first-child td')].map(x=>({height:getComputedStyle(x).height,padding:getComputedStyle(x).padding,font:getComputedStyle(x).fontFamily}))}));
+await page.getByRole('button',{name:'Attempt From Scratch',exact:true}).click();await page.waitForTimeout(4000);await shot('attempt-desktop');
+await page.setViewportSize({width:390,height:844});await shot('attempt-phone');
+await page.goto('http://127.0.0.1:3000/practice');await page.waitForTimeout(500);await shot('practice-phone-viewport');
+await page.setViewportSize({width:1440,height:1000});await page.goto('http://127.0.0.1:3000/assessment');await page.getByRole('button',{name:'START 50-MINUTE ASSESSMENT'}).click();await page.waitForTimeout(1000);await shot('assessment-session-desktop');
+await page.setViewportSize({width:390,height:844});await shot('assessment-session-phone');
+await page.setViewportSize({width:1440,height:1000});await page.goto('http://127.0.0.1:3000/oa/stripe-payments-swe');await page.waitForTimeout(15000);await shot('oa-editor-after-15sec');
+await page.goto('http://127.0.0.1:3000/oa/results/review-nonexistent');await page.waitForTimeout(500);await shot('oa-empty-viewport');
+fs.writeFileSync(path.join(dir,'details.json'),JSON.stringify({computed,errors},null,2));
+await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

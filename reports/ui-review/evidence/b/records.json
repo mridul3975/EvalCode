@@ -1,0 +1,3424 @@
+[
+  {
+    "name": "dashboard-desktop-settled",
+    "path": "/dashboard",
+    "viewport": 1440,
+    "width": 1440,
+    "bodyWidth": 1440,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nEVAL\nACUITY\n\nAggregated competency across Practice Mode and Timed Mock Assessments benchmarked against Tier-1 AI evaluation rubrics.\n\nTARGET BENCHMARK\n90.0%+\nPERCENTILE RANK\nUNRANKED\nREADINESS SCORE\n0.0%\nNOT READY\nVERDICT ACCURACY\n0.0%\n0 verified\nACTIVE STREAK\n0D\nBest: 0D\nMOCK AVERAGE\n0.0%\n0 taken\nPRACTICE AVERAGE\n0.0%\n0 audits\nSTART CODE AUDITING\n\nDrill on 75+ calibrated model solutions in Review Studio or take a timed 50-minute exam to calibrate your readiness index against hiring thresholds.\n\nPRACTICE CATALOG\nMOCK ASSESSMENT\nCOMPETENCY RADAR\nCORRECTNESS\nEDGE CASES\nCOMPLEXITY\nEXPLANATION\nCOMMUNICATION\nREMEDIATION\n0\n25\n50\n75\n100\nCANDIDATE COMPETENCY\nTARGET (90%)\nEVALUATION DIMENSIONS\nCOMPETENCY MATRIX\nTARGET ≥ 90.0%\nLOGIC DEBUGGING\n0.0%\nCRITICAL DEFICIT\nBOUNDARY ANALYSIS\n0.0%\nCRITICAL DEFICIT\nBIG-O INVARIANTS\n0.0%\nCRITICAL DEFICIT\nHALLUCINATION AUDITING\n0.0%\nCRITICAL DEFICIT\nREVIEW STRUCTURE\n0.0%\nCRITICAL DEFICIT\nPROPOSED FIXES\n0.0%\nCRITICAL DEFICIT\nDIMENSIONAL TAXONOMY\nEVALUATED ACROSS 75+ BENCHMARKS\nTOPIC MASTERY\nLINKED LISTS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nTREES & GRAPHS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nDYNAMIC PROGRAMMING\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nARRAYS & STRINGS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nSTACKS & QUEUES\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nDEFECT DETECTION\nSUBTLE LOGIC BUGS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nEDGE-CASE BLINDNESS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nDECEPTIVE EXPLANATIONS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nCOMPLEXITY REGRESSIONS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nZERO RECORDED EXAMS\n\nYou haven't completed any mock assessments yet. Take a timed 50-minute exam to calibrate your readiness scorecard.\n\nLAUNCH MOCK EXAM\nRESET PROFILE PROGRESS\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "buttons": [
+      {
+        "text": "SIGN IN",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 83,
+          "h": 28
+        }
+      },
+      {
+        "text": "RESET PROFILE PROGRESS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 172,
+          "h": 16
+        }
+      }
+    ],
+    "fields": [],
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "PRACTICE CATALOG",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK ASSESSMENT",
+        "href": "/assessment"
+      },
+      {
+        "text": "LAUNCH MOCK EXAM",
+        "href": "/assessment"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ]
+  },
+  {
+    "name": "practice-desktop-settled",
+    "path": "/practice",
+    "viewport": 1440,
+    "width": 1440,
+    "bodyWidth": 1440,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nFRONTIER CODE AUDITING CATALOG\nPRACTICE REVIEW STUDIO\n(84)\nGEMINI API KEY\n+ ADD QUESTION VIA AI\nLAUNCH MOCK TEST\nCALIBRATION MOMENTUM\n•\nUNBENCHMARKED • TIER 0\nEVALUATOR READINESS PROGRESS\n0%\nCALIBRATED\nAudited: 0 (0%)\nAttempted: 0 (0%)\nSaved: 0\n0 of 84 Completed\nRECOMMENDED ONBOARDING PATH\nCURATED 5 BENCHMARKS\nNew to Code Auditing? Start with the Foundational 5\n\nMaster the 5 essential RLHF defect archetypes: pointer mutation, sliding window boundaries, dynamic programming traps, shared mutable state, and deceptive Big-O commentary before exploring all 84 benchmarks.\n\nSTART FOUNDATIONAL 5\nALL (84)\nAUDITED (0)\nATTEMPTED (0)\nSAVED (0)\nALL DIFFICULTIES\nEASY\nMEDIUM\nHARD\nALL LANGUAGES\nPYTHON\nJAVASCRIPT\nC++\nALL\nLINKED LISTS\nSTACKS & QUEUES\nTREES & BST\nGRAPHS\nBACKTRACKING\nHEAPS & PQ\nINTERVALS\nGREEDY\nARRAYS\nSTRINGS\nDYNAMIC PROG\nHARD\n•\nCONCURRENCY\nCONCURRENCY / RACE CONDITION\nTHREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nGRAPHS\nCOMPLETELY CORRECT\nGRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)\n\nGiven a reference to a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node contains a `val` (int) and a list `neighbors` (List[Node]). The copy must be entirely independent: modifying any cloned node or neighbor link must NOT alter the original graph.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nSTRINGS\nOFF-BY-ONE BOUNDARY\nLONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)\n\nGiven a string `s`, find the length of the longest substring without repeating characters.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nDP\nSUBTLE LOGIC BUG\nARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)\n\nYou are building an ATM change dispenser for a fictional currency with arbitrary denominations `[1, 5, 8]`. Given integer `amount`, return the minimum number of coins needed to make change.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nARRAYS\nDECEPTIVE EXPLANATION\nSUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)\n\nGiven an array of integers `nums` and an integer `k`, return the total number of subarrays whose sum equals to `k`.\n\nAUDIT\nATTEMPT\nEASY\n•\nBINARY SEARCH\nINTEGER OVERFLOW / PRECISION\nBINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)\n\nGiven an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`. You must write an algorithm with `O(log n)` runtime complexity.\n\nAUDIT\nATTEMPT\nSHOWING 1 TO 6 OF 84 BENCHMARKS\n1\n2\n3\n...\n14\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "buttons": [
+      {
+        "text": "SIGN IN",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 83,
+          "h": 28
+        }
+      },
+      {
+        "text": "GEMINI API KEY",
+        "aria": null,
+        "title": "Configure Gemini API Key",
+        "r": {
+          "w": 195,
+          "h": 50
+        }
+      },
+      {
+        "text": "+ ADD QUESTION VIA AI",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 246,
+          "h": 50
+        }
+      },
+      {
+        "text": "START FOUNDATIONAL 5",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 196,
+          "h": 42
+        }
+      },
+      {
+        "text": "ALL (84)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 79,
+          "h": 30
+        }
+      },
+      {
+        "text": "AUDITED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 117,
+          "h": 28
+        }
+      },
+      {
+        "text": "ATTEMPTED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 28
+        }
+      },
+      {
+        "text": "SAVED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 103,
+          "h": 28
+        }
+      },
+      {
+        "text": "ALL",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 48,
+          "h": 30
+        }
+      },
+      {
+        "text": "LINKED LISTS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "STACKS & QUEUES",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 134,
+          "h": 30
+        }
+      },
+      {
+        "text": "TREES & BST",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 105,
+          "h": 30
+        }
+      },
+      {
+        "text": "GRAPHS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "BACKTRACKING",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "HEAPS & PQ",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 98,
+          "h": 30
+        }
+      },
+      {
+        "text": "INTERVALS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 91,
+          "h": 30
+        }
+      },
+      {
+        "text": "GREEDY",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "ARRAYS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "STRINGS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 76,
+          "h": 30
+        }
+      },
+      {
+        "text": "DYNAMIC PROG",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "text": "1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "14",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 34,
+          "h": 34
+        }
+      }
+    ],
+    "fields": [
+      {
+        "tag": "INPUT",
+        "placeholder": "SEARCH PROBLEMS, TOPICS, KEYWORDS...",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      }
+    ],
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "LAUNCH MOCK TEST",
+        "href": "/assessment"
+      },
+      {
+        "text": "THREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)",
+        "href": "/practice/q_conc_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_conc_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_conc_001?mode=attempt"
+      },
+      {
+        "text": "GRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)",
+        "href": "/practice/q_mem_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_mem_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_mem_001?mode=attempt"
+      },
+      {
+        "text": "LONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)",
+        "href": "/practice/q_slide_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_slide_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_slide_001?mode=attempt"
+      },
+      {
+        "text": "ARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)",
+        "href": "/practice/q_greedy_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_greedy_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_greedy_001?mode=attempt"
+      },
+      {
+        "text": "SUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)",
+        "href": "/practice/q_expl_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_expl_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_expl_001?mode=attempt"
+      },
+      {
+        "text": "BINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)",
+        "href": "/practice/q_int_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_int_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_int_001?mode=attempt"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ]
+  },
+  {
+    "name": "practice-empty-desktop",
+    "path": "/practice",
+    "viewport": 1440,
+    "width": 1440,
+    "bodyWidth": 1440,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nFRONTIER CODE AUDITING CATALOG\nPRACTICE REVIEW STUDIO\n(84)\nGEMINI API KEY\n+ ADD QUESTION VIA AI\nLAUNCH MOCK TEST\nCALIBRATION MOMENTUM\n•\nUNBENCHMARKED • TIER 0\nEVALUATOR READINESS PROGRESS\n0%\nCALIBRATED\nAudited: 0 (0%)\nAttempted: 0 (0%)\nSaved: 0\n0 of 84 Completed\nRECOMMENDED ONBOARDING PATH\nCURATED 5 BENCHMARKS\nNew to Code Auditing? Start with the Foundational 5\n\nMaster the 5 essential RLHF defect archetypes: pointer mutation, sliding window boundaries, dynamic programming traps, shared mutable state, and deceptive Big-O commentary before exploring all 84 benchmarks.\n\nSTART FOUNDATIONAL 5\nALL (84)\nAUDITED (0)\nATTEMPTED (0)\nSAVED (0)\nALL DIFFICULTIES\nEASY\nMEDIUM\nHARD\nALL LANGUAGES\nPYTHON\nJAVASCRIPT\nC++\nALL\nLINKED LISTS\nSTACKS & QUEUES\nTREES & BST\nGRAPHS\nBACKTRACKING\nHEAPS & PQ\nINTERVALS\nGREEDY\nARRAYS\nSTRINGS\nDYNAMIC PROG\n\nNO BENCHMARK QUESTIONS FOUND MATCHING YOUR FILTERS.\n\nTry clearing your search query or adjusting your filters.\n\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "buttons": [
+      {
+        "text": "SIGN IN",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 83,
+          "h": 28
+        }
+      },
+      {
+        "text": "GEMINI API KEY",
+        "aria": null,
+        "title": "Configure Gemini API Key",
+        "r": {
+          "w": 195,
+          "h": 50
+        }
+      },
+      {
+        "text": "+ ADD QUESTION VIA AI",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 246,
+          "h": 50
+        }
+      },
+      {
+        "text": "START FOUNDATIONAL 5",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 196,
+          "h": 42
+        }
+      },
+      {
+        "text": "ALL (84)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 79,
+          "h": 30
+        }
+      },
+      {
+        "text": "AUDITED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 117,
+          "h": 28
+        }
+      },
+      {
+        "text": "ATTEMPTED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 28
+        }
+      },
+      {
+        "text": "SAVED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 103,
+          "h": 28
+        }
+      },
+      {
+        "text": "ALL",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 48,
+          "h": 30
+        }
+      },
+      {
+        "text": "LINKED LISTS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "STACKS & QUEUES",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 134,
+          "h": 30
+        }
+      },
+      {
+        "text": "TREES & BST",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 105,
+          "h": 30
+        }
+      },
+      {
+        "text": "GRAPHS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "BACKTRACKING",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "HEAPS & PQ",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 98,
+          "h": 30
+        }
+      },
+      {
+        "text": "INTERVALS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 91,
+          "h": 30
+        }
+      },
+      {
+        "text": "GREEDY",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "ARRAYS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "STRINGS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 76,
+          "h": 30
+        }
+      },
+      {
+        "text": "DYNAMIC PROG",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      }
+    ],
+    "fields": [
+      {
+        "tag": "INPUT",
+        "placeholder": "SEARCH PROBLEMS, TOPICS, KEYWORDS...",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      }
+    ],
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "LAUNCH MOCK TEST",
+        "href": "/assessment"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ]
+  },
+  {
+    "name": "api-key-modal-desktop",
+    "path": "/practice",
+    "viewport": 1440,
+    "width": 1440,
+    "bodyWidth": 1440,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nFRONTIER CODE AUDITING CATALOG\nPRACTICE REVIEW STUDIO\n(84)\nGEMINI API KEY\n+ ADD QUESTION VIA AI\nLAUNCH MOCK TEST\nCALIBRATION MOMENTUM\n•\nUNBENCHMARKED • TIER 0\nEVALUATOR READINESS PROGRESS\n0%\nCALIBRATED\nAudited: 0 (0%)\nAttempted: 0 (0%)\nSaved: 0\n0 of 84 Completed\nRECOMMENDED ONBOARDING PATH\nCURATED 5 BENCHMARKS\nNew to Code Auditing? Start with the Foundational 5\n\nMaster the 5 essential RLHF defect archetypes: pointer mutation, sliding window boundaries, dynamic programming traps, shared mutable state, and deceptive Big-O commentary before exploring all 84 benchmarks.\n\nSTART FOUNDATIONAL 5\nALL (84)\nAUDITED (0)\nATTEMPTED (0)\nSAVED (0)\nALL DIFFICULTIES\nEASY\nMEDIUM\nHARD\nALL LANGUAGES\nPYTHON\nJAVASCRIPT\nC++\nALL\nLINKED LISTS\nSTACKS & QUEUES\nTREES & BST\nGRAPHS\nBACKTRACKING\nHEAPS & PQ\nINTERVALS\nGREEDY\nARRAYS\nSTRINGS\nDYNAMIC PROG\nHARD\n•\nCONCURRENCY\nCONCURRENCY / RACE CONDITION\nTHREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nGRAPHS\nCOMPLETELY CORRECT\nGRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)\n\nGiven a reference to a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node contains a `val` (int) and a list `neighbors` (List[Node]). The copy must be entirely independent: modifying any cloned node or neighbor link must NOT alter the original graph.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nSTRINGS\nOFF-BY-ONE BOUNDARY\nLONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)\n\nGiven a string `s`, find the length of the longest substring without repeating characters.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nDP\nSUBTLE LOGIC BUG\nARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)\n\nYou are building an ATM change dispenser for a fictional currency with arbitrary denominations `[1, 5, 8]`. Given integer `amount`, return the minimum number of coins needed to make change.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nARRAYS\nDECEPTIVE EXPLANATION\nSUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)\n\nGiven an array of integers `nums` and an integer `k`, return the total number of subarrays whose sum equals to `k`.\n\nAUDIT\nATTEMPT\nEASY\n•\nBINARY SEARCH\nINTEGER OVERFLOW / PRECISION\nBINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)\n\nGiven an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`. You must write an algorithm with `O(log n)` runtime complexity.\n\nAUDIT\nATTEMPT\nSHOWING 1 TO 6 OF 84 BENCHMARKS\n1\n2\n3\n...\n14\nGEMINI 2.5 FLASH ASSISTANT\nCONFIGURE GEMINI API KEY\n\nConnect your personal Google Gemini API key to activate the AI assistant in Practice Review Studio. Your key is stored securely in your browser's local storage.\n\nCURRENT STATUS\nNo API Key Set\nGOOGLE GEMINI API KEY\n\nUsually starts with AIzaSy (Google AI Studio key).\n\nDon't have an API key?\nGet Free Key at Google AI Studio\nVALIDATE & SAVE\nSAVE WITHOUT TEST\nStored exclusively in your local browser storage.\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "buttons": [
+      {
+        "text": "SIGN IN",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 83,
+          "h": 28
+        }
+      },
+      {
+        "text": "GEMINI API KEY",
+        "aria": null,
+        "title": "Configure Gemini API Key",
+        "r": {
+          "w": 195,
+          "h": 50
+        }
+      },
+      {
+        "text": "+ ADD QUESTION VIA AI",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 246,
+          "h": 50
+        }
+      },
+      {
+        "text": "START FOUNDATIONAL 5",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 196,
+          "h": 42
+        }
+      },
+      {
+        "text": "ALL (84)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 79,
+          "h": 30
+        }
+      },
+      {
+        "text": "AUDITED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 117,
+          "h": 28
+        }
+      },
+      {
+        "text": "ATTEMPTED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 28
+        }
+      },
+      {
+        "text": "SAVED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 103,
+          "h": 28
+        }
+      },
+      {
+        "text": "ALL",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 48,
+          "h": 30
+        }
+      },
+      {
+        "text": "LINKED LISTS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "STACKS & QUEUES",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 134,
+          "h": 30
+        }
+      },
+      {
+        "text": "TREES & BST",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 105,
+          "h": 30
+        }
+      },
+      {
+        "text": "GRAPHS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "BACKTRACKING",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "HEAPS & PQ",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 98,
+          "h": 30
+        }
+      },
+      {
+        "text": "INTERVALS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 91,
+          "h": 30
+        }
+      },
+      {
+        "text": "GREEDY",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "ARRAYS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "STRINGS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 76,
+          "h": 30
+        }
+      },
+      {
+        "text": "DYNAMIC PROG",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "text": "1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "14",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "text": "",
+        "aria": "Close API Key Modal",
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 36
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Show key",
+        "r": {
+          "w": 24,
+          "h": 24
+        }
+      },
+      {
+        "text": "VALIDATE & SAVE",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 295,
+          "h": 38
+        }
+      },
+      {
+        "text": "SAVE WITHOUT TEST",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 141,
+          "h": 38
+        }
+      }
+    ],
+    "fields": [
+      {
+        "tag": "INPUT",
+        "placeholder": "SEARCH PROBLEMS, TOPICS, KEYWORDS...",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "INPUT",
+        "placeholder": "AIzaSy...",
+        "aria": null,
+        "labels": [
+          "GOOGLE GEMINI API KEY"
+        ],
+        "id": "gemini-api-key-input"
+      }
+    ],
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "LAUNCH MOCK TEST",
+        "href": "/assessment"
+      },
+      {
+        "text": "THREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)",
+        "href": "/practice/q_conc_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_conc_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_conc_001?mode=attempt"
+      },
+      {
+        "text": "GRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)",
+        "href": "/practice/q_mem_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_mem_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_mem_001?mode=attempt"
+      },
+      {
+        "text": "LONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)",
+        "href": "/practice/q_slide_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_slide_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_slide_001?mode=attempt"
+      },
+      {
+        "text": "ARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)",
+        "href": "/practice/q_greedy_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_greedy_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_greedy_001?mode=attempt"
+      },
+      {
+        "text": "SUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)",
+        "href": "/practice/q_expl_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_expl_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_expl_001?mode=attempt"
+      },
+      {
+        "text": "BINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)",
+        "href": "/practice/q_int_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_int_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_int_001?mode=attempt"
+      },
+      {
+        "text": "Get Free Key at Google AI Studio",
+        "href": "https://aistudio.google.com/app/apikey"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ]
+  },
+  {
+    "name": "practice-phone",
+    "path": "/practice",
+    "viewport": 390,
+    "width": 390,
+    "bodyWidth": 390,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nSIGN IN\nFRONTIER CODE AUDITING CATALOG\nPRACTICE REVIEW STUDIO\n(84)\nGEMINI API KEY\n+ ADD QUESTION VIA AI\nLAUNCH MOCK TEST\nCALIBRATION MOMENTUM\n•\nUNBENCHMARKED • TIER 0\nEVALUATOR READINESS PROGRESS\n0%\nCALIBRATED\nAudited: 0 (0%)\nAttempted: 0 (0%)\nSaved: 0\nRECOMMENDED ONBOARDING PATH\nCURATED 5 BENCHMARKS\nNew to Code Auditing? Start with the Foundational 5\n\nMaster the 5 essential RLHF defect archetypes: pointer mutation, sliding window boundaries, dynamic programming traps, shared mutable state, and deceptive Big-O commentary before exploring all 84 benchmarks.\n\nSTART FOUNDATIONAL 5\nALL (84)\nAUDITED (0)\nATTEMPTED (0)\nSAVED (0)\nALL DIFFICULTIES\nEASY\nMEDIUM\nHARD\nALL LANGUAGES\nPYTHON\nJAVASCRIPT\nC++\nALL\nLINKED LISTS\nSTACKS & QUEUES\nTREES & BST\nGRAPHS\nBACKTRACKING\nHEAPS & PQ\nINTERVALS\nGREEDY\nARRAYS\nSTRINGS\nDYNAMIC PROG\nHARD\n•\nCONCURRENCY\nCONCURRENCY / RACE CONDITION\nTHREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nGRAPHS\nCOMPLETELY CORRECT\nGRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)\n\nGiven a reference to a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node contains a `val` (int) and a list `neighbors` (List[Node]). The copy must be entirely independent: modifying any cloned node or neighbor link must NOT alter the original graph.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nSTRINGS\nOFF-BY-ONE BOUNDARY\nLONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)\n\nGiven a string `s`, find the length of the longest substring without repeating characters.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nDP\nSUBTLE LOGIC BUG\nARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)\n\nYou are building an ATM change dispenser for a fictional currency with arbitrary denominations `[1, 5, 8]`. Given integer `amount`, return the minimum number of coins needed to make change.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nARRAYS\nDECEPTIVE EXPLANATION\nSUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)\n\nGiven an array of integers `nums` and an integer `k`, return the total number of subarrays whose sum equals to `k`.\n\nAUDIT\nATTEMPT\nEASY\n•\nBINARY SEARCH\nINTEGER OVERFLOW / PRECISION\nBINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)\n\nGiven an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`. You must write an algorithm with `O(log n)` runtime complexity.\n\nAUDIT\nATTEMPT\nSHOWING 1 TO 6 OF 84 BENCHMARKS\n1\n2\n3\n...\n14\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "buttons": [
+      {
+        "text": "SIGN IN",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 83,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": "Toggle Navigation Menu",
+        "title": null,
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "GEMINI API KEY",
+        "aria": null,
+        "title": "Configure Gemini API Key",
+        "r": {
+          "w": 358,
+          "h": 42
+        }
+      },
+      {
+        "text": "+ ADD QUESTION VIA AI",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 358,
+          "h": 42
+        }
+      },
+      {
+        "text": "START FOUNDATIONAL 5",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 196,
+          "h": 42
+        }
+      },
+      {
+        "text": "ALL (84)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 79,
+          "h": 30
+        }
+      },
+      {
+        "text": "AUDITED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 117,
+          "h": 28
+        }
+      },
+      {
+        "text": "ATTEMPTED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 28
+        }
+      },
+      {
+        "text": "SAVED (0)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 103,
+          "h": 28
+        }
+      },
+      {
+        "text": "ALL",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 48,
+          "h": 30
+        }
+      },
+      {
+        "text": "LINKED LISTS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "STACKS & QUEUES",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 134,
+          "h": 30
+        }
+      },
+      {
+        "text": "TREES & BST",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 105,
+          "h": 30
+        }
+      },
+      {
+        "text": "GRAPHS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "BACKTRACKING",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "HEAPS & PQ",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 98,
+          "h": 30
+        }
+      },
+      {
+        "text": "INTERVALS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 91,
+          "h": 30
+        }
+      },
+      {
+        "text": "GREEDY",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "ARRAYS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 30
+        }
+      },
+      {
+        "text": "STRINGS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 76,
+          "h": 30
+        }
+      },
+      {
+        "text": "DYNAMIC PROG",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Bookmark question",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "text": "1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "14",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 34,
+          "h": 34
+        }
+      }
+    ],
+    "fields": [
+      {
+        "tag": "INPUT",
+        "placeholder": "SEARCH PROBLEMS, TOPICS, KEYWORDS...",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      }
+    ],
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "LAUNCH MOCK TEST",
+        "href": "/assessment"
+      },
+      {
+        "text": "THREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)",
+        "href": "/practice/q_conc_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_conc_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_conc_001?mode=attempt"
+      },
+      {
+        "text": "GRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)",
+        "href": "/practice/q_mem_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_mem_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_mem_001?mode=attempt"
+      },
+      {
+        "text": "LONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)",
+        "href": "/practice/q_slide_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_slide_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_slide_001?mode=attempt"
+      },
+      {
+        "text": "ARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)",
+        "href": "/practice/q_greedy_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_greedy_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_greedy_001?mode=attempt"
+      },
+      {
+        "text": "SUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)",
+        "href": "/practice/q_expl_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_expl_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_expl_001?mode=attempt"
+      },
+      {
+        "text": "BINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)",
+        "href": "/practice/q_int_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_int_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_int_001?mode=attempt"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ]
+  },
+  {
+    "name": "oa-phone",
+    "path": "/oa",
+    "viewport": 390,
+    "width": 390,
+    "bodyWidth": 390,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nSIGN IN\n70–90 MINUTE MULTI-PROBLEM ASSESSMENTS\n\nRealistic high-stakes technical coding screenings modeled after Citadel, Stripe, Amazon, and Tier-1 hiring standards. Allocate time across 2–4 problems under a global countdown clock, defend algorithmic invariants, and justify your code directly before a Gemini Principal Staff Bar Raiser.\n\n+ IMPORT OA VIA LINK / AI\nALL TRACKS\nSTRIPE\nAMAZON AWS\nANTHROPIC\nOPENAI\nWAYMO\nCITADEL\nGOOGLE\nMETA\nTWO SIGMA\nZURICH FINTECH\nSELECT AN ASSESSMENT TRACK\nShowing 9 Assessment Tracks\nSTRIPE\n2 PROBLEMS\n100 TOTAL POINTS\nSTRIPE CORE ENGINEERING ASSESSMENT\n\nReal-Time Fraud Rules & Multi-Instrument Settlement\n\n75 MINS\n\nEvaluated against Stripe Core Systems hiring bar. Implements streaming transaction risk filters and greedy multi-instrument ledger settlement.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nRule-Driven Transaction Fraud Detection\nMEDIUM\n50 pts\nQ2:\nSplit Tender Transactions\nHARD\n50 pts\n#Stripe Radar\n#Ledger Accounting\n#Rule Engine\n#Fintech\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nAMAZON\n2 PROBLEMS\n100 TOTAL POINTS\nAMAZON AWS CLOUD PLATFORM\n\nQuery Result Caching & Service Dependency Scheduling\n\n70 MINS\n\nScreening modeled after AWS SDE II infrastructure evaluations. Focuses on low-latency LRU eviction and cycle-free topological service boot orders.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nLRU Query Result Cache\nMEDIUM\n50 pts\nQ2:\nService Deployment Dependency Order\nMEDIUM\n50 pts\n#AWS SDE\n#LRU Cache\n#Topological Sort\n#Distributed Systems\nGlobal Timer\n•\nHackerRank Standard\nSTART 70-MIN OA\nANTHROPIC\n2 PROBLEMS\n100 TOTAL POINTS\nFRONTIER AI SYSTEMS (ANTHROPIC & OPENAI)\n\nKernel Profiling & Large-Scale Coordinate Simulation\n\n80 MINS\n\nEvaluated against Frontier AI research engineering benchmarks. Reconstructs trace intervals from discrete stack telemetry and simulates sparse spatial automata.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nConsecutive Stack Sample Trace Events\nHARD\n55 pts\nQ2:\nSparse Plant Infection Simulation\nHARD\n45 pts\n#Frontier AI\n#Trace Profiler\n#BFS\n#Perfetto Events\nGlobal Timer\n•\nHackerRank Standard\nSTART 80-MIN OA\nWAYMO\n2 PROBLEMS\n100 TOTAL POINTS\nWAYMO AUTONOMOUS SYSTEMS\n\nTrajectory Kinematics & Sliding Window Throttling\n\n75 MINS\n\nScreening modeled after Waymo Driver autonomy standards. Tests collision-free kinematic return paths and high-throughput sliding window rate limiting.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nObstacle-Aware Return to Origin\nMEDIUM\n50 pts\nQ2:\nSliding Window Maximum Rate Limiter\nMEDIUM\n50 pts\n#Waymo Driver\n#Robotics\n#Collision Checks\n#Kinematics\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nCITADEL\n3 PROBLEMS\n100 TOTAL POINTS\nCITADEL QUANTITATIVE SWE\n\nLow-Latency Systems & High-Frequency Streaming Depth\n\n75 MINS\n\nMulti-problem assessment evaluated against Citadel Execution Services hiring criteria. Problems span microsecond rate limiting, lock-free IPC ring buffers, and streaming order book depth aggregation.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n25 pts\nQ2:\nLock-Free Ring Buffer\nMEDIUM\n35 pts\nQ3:\nOrder Book Volume at Price Limits\nHARD\n40 pts\n#High-Frequency Trading\n#C++ / Python\n#Streaming\n#Concurrency\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nGOOGLE\n2 PROBLEMS\n100 TOTAL POINTS\nGOOGLE CORE SCREENER\n\nDistributed Infrastructure & Network Resilience\n\n75 MINS\n\nEvaluates production-grade distributed algorithms under Google Cloud SLAs. Features sliding-window traffic shaping and graph bridge identification under strict asymptotic boundaries.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n45 pts\nQ2:\nBounded-Hop Social Network Bridges\nMEDIUM\n55 pts\n#Google Cloud\n#Distributed Systems\n#Graph Algorithms\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nFINTECH\n3 PROBLEMS\n100 TOTAL POINTS\nZURICH QUANT & FINTECH\n\nAlpha Signals, FX Arbitrage & Price Limits\n\n80 MINS\n\nTier-1 Quantitative Desk screening focusing on streaming data filters, high-throughput order book depth, and negative-weight arbitrage graph cycles.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nDynamic Risk-Weighted Median Filter\nMEDIUM\n30 pts\nQ2:\nOrder Book Volume at Price Limits\nHARD\n35 pts\n#Arbitrage\n#Running Medians\n#Market Microstructure\nGlobal Timer\n•\nHackerRank Standard\nSTART 80-MIN OA\nMETA\n2 PROBLEMS\n100 TOTAL POINTS\nMETA INFRASTRUCTURE OA\n\nGlobal Scale Topologies & Fault Tolerance\n\n70 MINS\n\nEngineering assessment testing resilient topology algorithms and ingress throttling used across Meta datacenter backbones.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n40 pts\nQ2:\nBounded-Hop Social Network Bridges\nMEDIUM\n60 pts\n#Graph Theory\n#Tarjan Bridges\n#Traffic Metering\nGlobal Timer\n•\nHackerRank Standard\nSTART 70-MIN OA\nTWO SIGMA\n2 PROBLEMS\n100 TOTAL POINTS\nTWO SIGMA ALPHA RESEARCH\n\nDual-Heap Streaming & Continuous Order Books\n\n75 MINS\n\nAssessment designed for quantitative researchers and alpha modelers analyzing live tick feeds without statistical skew.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nDynamic Risk-Weighted Median Filter\nMEDIUM\n40 pts\nQ2:\nOrder Book Volume at Price Limits\nHARD\n60 pts\n#Dual Heaps\n#Alpha Modeling\n#Rolling Windows\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "buttons": [
+      {
+        "text": "SIGN IN",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 83,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": "Toggle Navigation Menu",
+        "title": null,
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "+ IMPORT OA VIA LINK / AI",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 358,
+          "h": 50
+        }
+      },
+      {
+        "text": "ALL TRACKS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 100,
+          "h": 34
+        }
+      },
+      {
+        "text": "STRIPE",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 74,
+          "h": 34
+        }
+      },
+      {
+        "text": "AMAZON AWS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 100,
+          "h": 34
+        }
+      },
+      {
+        "text": "ANTHROPIC",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 93,
+          "h": 34
+        }
+      },
+      {
+        "text": "OPENAI",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 74,
+          "h": 34
+        }
+      },
+      {
+        "text": "WAYMO",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 67,
+          "h": 34
+        }
+      },
+      {
+        "text": "CITADEL",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 80,
+          "h": 34
+        }
+      },
+      {
+        "text": "GOOGLE",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 74,
+          "h": 34
+        }
+      },
+      {
+        "text": "META",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 60,
+          "h": 34
+        }
+      },
+      {
+        "text": "TWO SIGMA",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 93,
+          "h": 34
+        }
+      },
+      {
+        "text": "ZURICH FINTECH",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 126,
+          "h": 34
+        }
+      }
+    ],
+    "fields": [],
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/stripe-payments-swe"
+      },
+      {
+        "text": "START 70-MIN OA",
+        "href": "/oa/amazon-aws-systems"
+      },
+      {
+        "text": "START 80-MIN OA",
+        "href": "/oa/frontier-ai-anthropic-openai"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/waymo-robotics-planning"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/citadel-quant-swe"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/google-core-screener"
+      },
+      {
+        "text": "START 80-MIN OA",
+        "href": "/oa/zurich-fintech-hf"
+      },
+      {
+        "text": "START 70-MIN OA",
+        "href": "/oa/meta-infra-screening"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/twosigma-alpha-quant"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ]
+  },
+  {
+    "name": "practice-workspace-phone-code",
+    "path": "/practice/q_slide_001",
+    "viewport": 390,
+    "width": 391,
+    "bodyWidth": 391,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "Longest Substring Without Repeating (Window Boundary Bug)\nAUDIT\nATTEMPT\nShare\nSpec & Code\nAudit Form\nAI Assistant\nSpecification\nAI Commentary\nSTRINGS\nMEDIUM\nLongest Substring Without Repeating (Window Boundary Bug)\n\nGiven a string `s`, find the length of the longest substring without repeating characters.\n\nEXAMPLES\nInput:\ns = \"abcabcbb\"\nOutput:\n3\n\nNote: The answer is \"abc\", with the length of 3.\n\nInput:\ns = \"abba\"\nOutput:\n2\n\nNote: The answer is \"ab\" or \"ba\", with the length of 2.\n\nCONSTRAINTS & INVARIANTS\n0 <= s.length <= 5 * 10^4\n`s` consists of English letters, digits, symbols and spaces.\nAI CODE SNIPPET UNDER REVIEW\nPYTHON\nCopy\n1\tdef lengthOfLongestSubstring(s: str) -> int:\tCite L1\n2\t    last_seen = {}\tCite L2\n3\t    max_len = 0\tCite L3\n4\t    left = 0\tCite L4\n5\t    \tCite L5\n6\t    for right, char in enumerate(s):\tCite L6\n7\t        # Subtle Bug: Does not verify that last_seen index is >= left!\tCite L7\n8\t        if char in last_seen:\tCite L8\n9\t            left = last_seen[char] + 1\tCite L9\n10\t            \tCite L10\n11\t        last_seen[char] = right\tCite L11\n12\t        max_len = max(max_len, right - left + 1)\tCite L12\n13\t        \tCite L13\n14\t    return max_len\tCite L14",
+    "buttons": [
+      {
+        "text": "AUDIT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 76,
+          "h": 26
+        }
+      },
+      {
+        "text": "ATTEMPT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 88,
+          "h": 26
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Configure Gemini API Key",
+        "r": {
+          "w": 48,
+          "h": 28
+        }
+      },
+      {
+        "text": "Share",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 68,
+          "h": 30
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 40,
+          "h": 28
+        }
+      },
+      {
+        "text": "Spec & Code",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "Audit Form",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "AI Assistant",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "Specification",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 132,
+          "h": 30
+        }
+      },
+      {
+        "text": "AI Commentary",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 132,
+          "h": 30
+        }
+      },
+      {
+        "text": "Copy",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 72,
+          "h": 30
+        }
+      }
+    ],
+    "fields": [],
+    "links": [
+      {
+        "text": "",
+        "href": "/practice"
+      }
+    ]
+  },
+  {
+    "name": "practice-workspace-phone-form",
+    "path": "/practice/q_slide_001",
+    "viewport": 390,
+    "width": 391,
+    "bodyWidth": 391,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "Longest Substring Without Repeating (Window Boundary Bug)\nAUDIT\nATTEMPT\nShare\nSpec & Code\nAudit Form\nAI Assistant\n1. VERDICT\n2. BUGS (1)\n3. TESTS\n4. BIG-O\n5. FIX\nEVALUATION VERDICT\n\nSelect the classification for this AI code snippet.\n\n01 / ACCURATE\nCOMPLETELY\nCORRECT\n\nNo bugs, optimal complexity, and handles all constraints.\n\n02 / MINOR\nMINOR\nDEFECT\n\nViolates minor boundary invariants or style conventions.\n\n03 / FATAL\nFATAL\nLOGIC BUG\n\nInfinite loops, invalid pointer mutations, wrong output.\n\nRESET\nSUBMIT EVALUATION",
+    "buttons": [
+      {
+        "text": "AUDIT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 76,
+          "h": 26
+        }
+      },
+      {
+        "text": "ATTEMPT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 88,
+          "h": 26
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Configure Gemini API Key",
+        "r": {
+          "w": 48,
+          "h": 28
+        }
+      },
+      {
+        "text": "Share",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 68,
+          "h": 30
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 40,
+          "h": 28
+        }
+      },
+      {
+        "text": "Spec & Code",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "Audit Form",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "AI Assistant",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "1. VERDICT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "2. BUGS (1)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 119,
+          "h": 30
+        }
+      },
+      {
+        "text": "3. TESTS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 99,
+          "h": 30
+        }
+      },
+      {
+        "text": "4. BIG-O",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 99,
+          "h": 30
+        }
+      },
+      {
+        "text": "5. FIX",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 86,
+          "h": 30
+        }
+      },
+      {
+        "text": "01 / ACCURATE\nCOMPLETELY\nCORRECT\n\nNo bugs, optimal complexity, and handles all constraints.",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 308,
+          "h": 308
+        }
+      },
+      {
+        "text": "02 / MINOR\nMINOR\nDEFECT\n\nViolates minor boundary invariants or style conventions.",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 308,
+          "h": 308
+        }
+      },
+      {
+        "text": "03 / FATAL\nFATAL\nLOGIC BUG\n\nInfinite loops, invalid pointer mutations, wrong output.",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 308,
+          "h": 308
+        }
+      },
+      {
+        "text": "RESET",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 87,
+          "h": 34
+        }
+      },
+      {
+        "text": "SUBMIT EVALUATION",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 184,
+          "h": 42
+        }
+      }
+    ],
+    "fields": [],
+    "links": [
+      {
+        "text": "",
+        "href": "/practice"
+      }
+    ]
+  },
+  {
+    "name": "practice-form-phone-bugs",
+    "path": "/practice/q_slide_001",
+    "viewport": 390,
+    "width": 391,
+    "bodyWidth": 391,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "Longest Substring Without Repeating (Window Boundary Bug)\nAUDIT\nATTEMPT\nShare\nSpec & Code\nAudit Form\nAI Assistant\n1. VERDICT\n2. BUGS (1)\n3. TESTS\n4. BIG-O\n5. FIX\nREPORTED BUGS (1)\nADD BUG ROW\nLINE #:\nCRITICAL\nMAJOR\nMINOR\nNIT\nRESET\nSUBMIT EVALUATION",
+    "buttons": [
+      {
+        "text": "AUDIT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 76,
+          "h": 26
+        }
+      },
+      {
+        "text": "ATTEMPT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 88,
+          "h": 26
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Configure Gemini API Key",
+        "r": {
+          "w": 48,
+          "h": 28
+        }
+      },
+      {
+        "text": "Share",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 68,
+          "h": 30
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 40,
+          "h": 28
+        }
+      },
+      {
+        "text": "Spec & Code",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "Audit Form",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "AI Assistant",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 130,
+          "h": 38
+        }
+      },
+      {
+        "text": "1. VERDICT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 112,
+          "h": 30
+        }
+      },
+      {
+        "text": "2. BUGS (1)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 119,
+          "h": 30
+        }
+      },
+      {
+        "text": "3. TESTS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 99,
+          "h": 30
+        }
+      },
+      {
+        "text": "4. BIG-O",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 99,
+          "h": 30
+        }
+      },
+      {
+        "text": "5. FIX",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 86,
+          "h": 30
+        }
+      },
+      {
+        "text": "ADD BUG ROW",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 113,
+          "h": 30
+        }
+      },
+      {
+        "text": "RESET",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 87,
+          "h": 34
+        }
+      },
+      {
+        "text": "SUBMIT EVALUATION",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 184,
+          "h": 42
+        }
+      }
+    ],
+    "fields": [
+      {
+        "tag": "INPUT",
+        "placeholder": "",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "SELECT",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      },
+      {
+        "tag": "TEXTAREA",
+        "placeholder": "EXPLAIN THE EXACT BUG CAUSE OR POINTER OVERWRITE...",
+        "aria": null,
+        "labels": [],
+        "id": ""
+      }
+    ],
+    "links": [
+      {
+        "text": "",
+        "href": "/practice"
+      }
+    ]
+  },
+  {
+    "name": "practice-attempt-desktop",
+    "path": "/practice/q_slide_001",
+    "viewport": 1440,
+    "width": 1440,
+    "bodyWidth": 1440,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "Practice Catalog\nLongest Substring Without Repeating (Window Boundary Bug)\nAUDIT BUGGY CODE\nATTEMPT FROM SCRATCH\nAPI Key\nShare\nGemini Copilot\nSpecification\nAI Commentary\nSTRINGS\nMEDIUM\nLongest Substring Without Repeating (Window Boundary Bug)\n\nGiven a string `s`, find the length of the longest substring without repeating characters.\n\nEXAMPLES\nInput:\ns = \"abcabcbb\"\nOutput:\n3\n\nNote: The answer is \"abc\", with the length of 3.\n\nInput:\ns = \"abba\"\nOutput:\n2\n\nNote: The answer is \"ab\" or \"ba\", with the length of 2.\n\nCONSTRAINTS & INVARIANTS\n0 <= s.length <= 5 * 10^4\n`s` consists of English letters, digits, symbols and spaces.\nPython 3\nJavaScript\nC++\nReset\nCopy\nLoading...\nRUN TESTS\nSUBMIT SOLUTION\nTest Cases\nExample 1\nExample 2\nEdge Case: correctness\nEXAMPLE 1\nINPUT:\ns = \"abcabcbb\"\nEXPECTED OUTPUT:\n3",
+    "buttons": [
+      {
+        "text": "AUDIT BUGGY CODE",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 143,
+          "h": 26
+        }
+      },
+      {
+        "text": "ATTEMPT FROM SCRATCH",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 167,
+          "h": 26
+        }
+      },
+      {
+        "text": "API Key",
+        "aria": null,
+        "title": "Configure Gemini API Key",
+        "r": {
+          "w": 100,
+          "h": 30
+        }
+      },
+      {
+        "text": "Share",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 68,
+          "h": 30
+        }
+      },
+      {
+        "text": "Gemini Copilot",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 138,
+          "h": 30
+        }
+      },
+      {
+        "text": "Specification",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 132,
+          "h": 30
+        }
+      },
+      {
+        "text": "AI Commentary",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 132,
+          "h": 30
+        }
+      },
+      {
+        "text": "Python 3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 79,
+          "h": 26
+        }
+      },
+      {
+        "text": "JavaScript",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 92,
+          "h": 26
+        }
+      },
+      {
+        "text": "C++",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 46,
+          "h": 26
+        }
+      },
+      {
+        "text": "Reset",
+        "aria": null,
+        "title": "Reset to Starter Stub",
+        "r": {
+          "w": 70,
+          "h": 30
+        }
+      },
+      {
+        "text": "Copy",
+        "aria": null,
+        "title": "Copy Code",
+        "r": {
+          "w": 64,
+          "h": 30
+        }
+      },
+      {
+        "text": "RUN TESTS",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 125,
+          "h": 38
+        }
+      },
+      {
+        "text": "SUBMIT SOLUTION",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 173,
+          "h": 38
+        }
+      },
+      {
+        "text": "Example 1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 97,
+          "h": 26
+        }
+      },
+      {
+        "text": "Example 2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 97,
+          "h": 26
+        }
+      },
+      {
+        "text": "Edge Case: correctness",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 183,
+          "h": 26
+        }
+      }
+    ],
+    "fields": [],
+    "links": [
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      }
+    ]
+  },
+  {
+    "name": "oa-workspace-desktop",
+    "path": "/oa/stripe-payments-swe",
+    "viewport": 1440,
+    "width": 1440,
+    "bodyWidth": 1440,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "STRIPE OA\nStripe Core Engineering Assessment\nQ1\nRule-Driven Transaction Fraud Detection\n(0/2)\n•\nQ2\nSplit Tender Transactions\n(0/2)\n•\n01:14:59\nRun\nFINISH ASSESSMENT\nProblem Specification\nRules Engine & Real-Time Classification\nMEDIUM\n50 Points\nRule-Driven Transaction Fraud Detection\n#Stripe Core\n#FinTech\n#Rules Engine\n#Hash Maps\nFinancial Fraud Shield Context\n\nAt Stripe Radar, payment operations streams are evaluated against an active registry of merchant and compliance risk rules in sub-millisecond response windows.\n\nProblem Requirement\n\nProcess a finite chronological sequence of operations:\n\n[\"UPSERT\", ruleId, \"AMOUNT_AT_LEAST\", value]: Inserts or replaces a rule flagging transactions where amount >= value.\n[\"UPSERT\", ruleId, \"COUNTRY_IS\", value]: Inserts or replaces a rule flagging transactions where country == value.\n[\"UPSERT\", ruleId, \"MERCHANT_IS\", value]: Inserts or replaces a rule flagging transactions where merchant == value.\n[\"DELETE\", ruleId]: Removes the rule with given ID. Deleting a non-existent ID is a no-op.\n[\"EVAL\", amount, country, merchant]: Evaluates the transaction against all currently active rules.\n\nA transaction is fraudulent (true) if at least one active rule matches. Otherwise, it is allowed (false). Return a list of booleans corresponding to each EVAL operation in chronological order.\n\nEXAMPLES\nEXAMPLE 1\nInput:\noperations = [\n  [\"UPSERT\", \"r1\", \"AMOUNT_AT_LEAST\", \"1000\"],\n  [\"UPSERT\", \"r2\", \"COUNTRY_IS\", \"RU\"],\n  [\"EVAL\", \"900\", \"US\", \"books\"],\n  [\"EVAL\", \"1200\", \"US\", \"books\"],\n  [\"EVAL\", \"20\", \"RU\", \"coffee\"]\n]\nOutput:\n[false, true, true]\n\nNote: Transaction 1 matches neither rule. Transaction 2 exceeds $1000. Transaction 3 originates from RU.\n\nEXAMPLE 2\nInput:\noperations = [\n  [\"UPSERT\", \"risk\", \"AMOUNT_AT_LEAST\", \"100\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"UPSERT\", \"risk\", \"MERCHANT_IS\", \"risky\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"],\n  [\"DELETE\", \"risk\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"]\n]\nOutput:\n[true, false, true, false]\n\nNote: Reusing ID 'risk' overwrites the rule. Deletion leaves no active rules for the final EVAL.\n\nCONSTRAINTS\n1 <= operations.length <= 200,000\nAt least one EVAL operation exists\nAmounts are non-negative integers up to 10^9\nTime complexity must be O(R + E * active_rules) or O(1) evaluation lookup\nPython 3\nTypeScript\nC++\nLoading...\nTest Cases\nCase 1\nCase 2\nStandard upsert and mixed EVAL\nINPUT PARAMETERS\noperations = [[\"UPSERT\",\"r1\",\"AMOUNT_AT_LEAST\",\"1000\"],[\"UPSERT\",\"r2\",\"COUNTRY_IS\",\"RU\"],[\"EVAL\",\"900\",\"US\",\"books\"],[\"EVAL\",\"1200\",\"US\",\"books\"],[\"EVAL\",\"20\",\"RU\",\"coffee\"]]\nEXPECTED OUTPUT\n[\n  false,\n  true,\n  true\n]\nACTUAL OUTPUT\nClick 'Run' to inspect",
+    "buttons": [
+      {
+        "text": "",
+        "aria": null,
+        "title": "Exit Assessment",
+        "r": {
+          "w": 26,
+          "h": 26
+        }
+      },
+      {
+        "text": "Q1\nRule-Driven Transaction Fraud Detection\n(0/2)\n•",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 220,
+          "h": 36
+        }
+      },
+      {
+        "text": "Q2\nSplit Tender Transactions\n(0/2)\n•",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 220,
+          "h": 36
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Open Question Matrix Drawer",
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "Run",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 68,
+          "h": 30
+        }
+      },
+      {
+        "text": "FINISH ASSESSMENT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 172,
+          "h": 28
+        }
+      },
+      {
+        "text": "Python 3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 74,
+          "h": 27
+        }
+      },
+      {
+        "text": "TypeScript",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 86,
+          "h": 27
+        }
+      },
+      {
+        "text": "C++",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 44,
+          "h": 27
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Reset to Starter Code",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Copy Code",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "Case 1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 78,
+          "h": 26
+        }
+      },
+      {
+        "text": "Case 2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 78,
+          "h": 26
+        }
+      }
+    ],
+    "fields": [],
+    "links": []
+  },
+  {
+    "name": "oa-workspace-phone",
+    "path": "/oa/stripe-payments-swe",
+    "viewport": 390,
+    "width": 390,
+    "bodyWidth": 390,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "STRIPE OA\nStripe Core Engineering Assessment\nQ1\n(0/2)\n•\nQ2\n(0/2)\n•\n01:14:48\nFINISH\nProblem Specification\nRules Engine & Real-Time Classification\nMEDIUM\n50 Points\nRule-Driven Transaction Fraud Detection\n#Stripe Core\n#FinTech\n#Rules Engine\n#Hash Maps\nFinancial Fraud Shield Context\n\nAt Stripe Radar, payment operations streams are evaluated against an active registry of merchant and compliance risk rules in sub-millisecond response windows.\n\nProblem Requirement\n\nProcess a finite chronological sequence of operations:\n\n[\"UPSERT\", ruleId, \"AMOUNT_AT_LEAST\", value]: Inserts or replaces a rule flagging transactions where amount >= value.\n[\"UPSERT\", ruleId, \"COUNTRY_IS\", value]: Inserts or replaces a rule flagging transactions where country == value.\n[\"UPSERT\", ruleId, \"MERCHANT_IS\", value]: Inserts or replaces a rule flagging transactions where merchant == value.\n[\"DELETE\", ruleId]: Removes the rule with given ID. Deleting a non-existent ID is a no-op.\n[\"EVAL\", amount, country, merchant]: Evaluates the transaction against all currently active rules.\n\nA transaction is fraudulent (true) if at least one active rule matches. Otherwise, it is allowed (false). Return a list of booleans corresponding to each EVAL operation in chronological order.\n\nEXAMPLES\nEXAMPLE 1\nInput:\noperations = [\n  [\"UPSERT\", \"r1\", \"AMOUNT_AT_LEAST\", \"1000\"],\n  [\"UPSERT\", \"r2\", \"COUNTRY_IS\", \"RU\"],\n  [\"EVAL\", \"900\", \"US\", \"books\"],\n  [\"EVAL\", \"1200\", \"US\", \"books\"],\n  [\"EVAL\", \"20\", \"RU\", \"coffee\"]\n]\nOutput:\n[false, true, true]\n\nNote: Transaction 1 matches neither rule. Transaction 2 exceeds $1000. Transaction 3 originates from RU.\n\nEXAMPLE 2\nInput:\noperations = [\n  [\"UPSERT\", \"risk\", \"AMOUNT_AT_LEAST\", \"100\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"UPSERT\", \"risk\", \"MERCHANT_IS\", \"risky\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"],\n  [\"DELETE\", \"risk\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"]\n]\nOutput:\n[true, false, true, false]\n\nNote: Reusing ID 'risk' overwrites the rule. Deletion leaves no active rules for the final EVAL.\n\nCONSTRAINTS\n1 <= operations.length <= 200,000\nAt least one EVAL operation exists\nAmounts are non-negative integers up to 10^9\nTime complexity must be O(R + E * active_rules) or O(1) evaluation lookup\nPython 3\nTypeScript\nC++\nLoading...\nTest Cases\nCase 1\nCase 2\nStandard upsert and mixed EVAL\nINPUT PARAMETERS\noperations = [[\"UPSERT\",\"r1\",\"AMOUNT_AT_LEAST\",\"1000\"],[\"UPSERT\",\"r2\",\"COUNTRY_IS\",\"RU\"],[\"EVAL\",\"900\",\"US\",\"books\"],[\"EVAL\",\"1200\",\"US\",\"books\"],[\"EVAL\",\"20\",\"RU\",\"coffee\"]]\nEXPECTED OUTPUT\n[\n  false,\n  true,\n  true\n]\nACTUAL OUTPUT\nClick 'Run' to inspect",
+    "buttons": [
+      {
+        "text": "",
+        "aria": null,
+        "title": "Exit Assessment",
+        "r": {
+          "w": 26,
+          "h": 26
+        }
+      },
+      {
+        "text": "Q1\n(0/2)\n•",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 102,
+          "h": 36
+        }
+      },
+      {
+        "text": "Q2\n(0/2)\n•",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 102,
+          "h": 36
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Open Question Matrix Drawer",
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 42,
+          "h": 26
+        }
+      },
+      {
+        "text": "FINISH",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 93,
+          "h": 28
+        }
+      },
+      {
+        "text": "Python 3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 43
+        }
+      },
+      {
+        "text": "TypeScript",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 86,
+          "h": 27
+        }
+      },
+      {
+        "text": "C++",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 44,
+          "h": 27
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Reset to Starter Code",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Copy Code",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "Case 1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 78,
+          "h": 26
+        }
+      },
+      {
+        "text": "Case 2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 78,
+          "h": 26
+        }
+      }
+    ],
+    "fields": [],
+    "links": []
+  },
+  {
+    "name": "oa-presubmit-phone",
+    "path": "/oa/stripe-payments-swe",
+    "viewport": 390,
+    "width": 390,
+    "bodyWidth": 390,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "STRIPE OA\nStripe Core Engineering Assessment\nQ1\n(0/2)\n•\nQ2\n(0/2)\n•\n01:14:10\nFINISH\nPRE-SUBMISSION AUDIT\n74:10\nremaining\nFINISH ASSESSMENT CONFIRMATION\n✕\nAttention: Potential Unfinished Work\n\n2 question(s) have failing tests. Submitting now locks your solutions and advances to Phase 2 (Technical Defense) and Gemini scoring.\n\nSUBMISSION STATUS MATRIX:\nQ1\nRule-Driven Transaction Fraud Detection\n50 pts • Medium\n0/2 Tests Passed (Failing Tests)\nQ2\nSplit Tender Transactions\n50 pts • Hard\n0/2 Tests Passed (Failing Tests)\nReturn to Assessment\nSUBMIT ANYWAY\nProblem Specification\nRules Engine & Real-Time Classification\nMEDIUM\n50 Points\nRule-Driven Transaction Fraud Detection\n#Stripe Core\n#FinTech\n#Rules Engine\n#Hash Maps\nFinancial Fraud Shield Context\n\nAt Stripe Radar, payment operations streams are evaluated against an active registry of merchant and compliance risk rules in sub-millisecond response windows.\n\nProblem Requirement\n\nProcess a finite chronological sequence of operations:\n\n[\"UPSERT\", ruleId, \"AMOUNT_AT_LEAST\", value]: Inserts or replaces a rule flagging transactions where amount >= value.\n[\"UPSERT\", ruleId, \"COUNTRY_IS\", value]: Inserts or replaces a rule flagging transactions where country == value.\n[\"UPSERT\", ruleId, \"MERCHANT_IS\", value]: Inserts or replaces a rule flagging transactions where merchant == value.\n[\"DELETE\", ruleId]: Removes the rule with given ID. Deleting a non-existent ID is a no-op.\n[\"EVAL\", amount, country, merchant]: Evaluates the transaction against all currently active rules.\n\nA transaction is fraudulent (true) if at least one active rule matches. Otherwise, it is allowed (false). Return a list of booleans corresponding to each EVAL operation in chronological order.\n\nEXAMPLES\nEXAMPLE 1\nInput:\noperations = [\n  [\"UPSERT\", \"r1\", \"AMOUNT_AT_LEAST\", \"1000\"],\n  [\"UPSERT\", \"r2\", \"COUNTRY_IS\", \"RU\"],\n  [\"EVAL\", \"900\", \"US\", \"books\"],\n  [\"EVAL\", \"1200\", \"US\", \"books\"],\n  [\"EVAL\", \"20\", \"RU\", \"coffee\"]\n]\nOutput:\n[false, true, true]\n\nNote: Transaction 1 matches neither rule. Transaction 2 exceeds $1000. Transaction 3 originates from RU.\n\nEXAMPLE 2\nInput:\noperations = [\n  [\"UPSERT\", \"risk\", \"AMOUNT_AT_LEAST\", \"100\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"UPSERT\", \"risk\", \"MERCHANT_IS\", \"risky\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"],\n  [\"DELETE\", \"risk\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"]\n]\nOutput:\n[true, false, true, false]\n\nNote: Reusing ID 'risk' overwrites the rule. Deletion leaves no active rules for the final EVAL.\n\nCONSTRAINTS\n1 <= operations.length <= 200,000\nAt least one EVAL operation exists\nAmounts are non-negative integers up to 10^9\nTime complexity must be O(R + E * active_rules) or O(1) evaluation lookup\nPython 3\nTypeScript\nC++\nLoading...\nTest Cases\nCase 1\nCase 2\nStandard upsert and mixed EVAL\nINPUT PARAMETERS\noperations = [[\"UPSERT\",\"r1\",\"AMOUNT_AT_LEAST\",\"1000\"],[\"UPSERT\",\"r2\",\"COUNTRY_IS\",\"RU\"],[\"EVAL\",\"900\",\"US\",\"books\"],[\"EVAL\",\"1200\",\"US\",\"books\"],[\"EVAL\",\"20\",\"RU\",\"coffee\"]]\nEXPECTED OUTPUT\n[\n  false,\n  true,\n  true\n]\nACTUAL OUTPUT\nClick 'Run' to inspect",
+    "buttons": [
+      {
+        "text": "",
+        "aria": null,
+        "title": "Exit Assessment",
+        "r": {
+          "w": 26,
+          "h": 26
+        }
+      },
+      {
+        "text": "Q1\n(0/2)\n•",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 102,
+          "h": 36
+        }
+      },
+      {
+        "text": "Q2\n(0/2)\n•",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 102,
+          "h": 36
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Open Question Matrix Drawer",
+        "r": {
+          "w": 32,
+          "h": 32
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 42,
+          "h": 26
+        }
+      },
+      {
+        "text": "FINISH",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 93,
+          "h": 28
+        }
+      },
+      {
+        "text": "✕",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 21,
+          "h": 32
+        }
+      },
+      {
+        "text": "Return to Assessment",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 152,
+          "h": 54
+        }
+      },
+      {
+        "text": "SUBMIT ANYWAY",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 144,
+          "h": 52
+        }
+      },
+      {
+        "text": "Python 3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 69,
+          "h": 43
+        }
+      },
+      {
+        "text": "TypeScript",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 86,
+          "h": 27
+        }
+      },
+      {
+        "text": "C++",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 44,
+          "h": 27
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Reset to Starter Code",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": "Copy Code",
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "Case 1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 78,
+          "h": 26
+        }
+      },
+      {
+        "text": "Case 2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 78,
+          "h": 26
+        }
+      }
+    ],
+    "fields": [],
+    "links": []
+  },
+  {
+    "name": "assessment-session-phone",
+    "path": "/assessment/session",
+    "viewport": 390,
+    "width": 390,
+    "bodyWidth": 390,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "MOCK EXAM SESSION\nQ1\nQ2\nQ3\nQ4\nQ5\nFLAG\n50:00\nFINISH EXAM\nPROBLEM & CODE\nAUDIT FORM\nSpecification\nAI Commentary\nCONCURRENCY\nHARD\nThread-Safe Frequency Counter (Concurrency Race Condition)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nEXAMPLES\nInput:\n50 threads each call record_hit('user_login') 100 times\nOutput:\n5000\n\nNote: Total hits recorded must strictly equal 5,000 without lost writes.\n\nCONSTRAINTS & INVARIANTS\n1 <= event_id.length <= 64\nUp to 10,000 concurrent worker threads calling record_hit()\nOperations must be thread-safe without deadlocks or lost increments\nAI CODE SNIPPET UNDER REVIEW\nPYTHON\nCopy\n1\timport threading\tCite L1\n2\t \tCite L2\n3\tclass HitCounter:\tCite L3\n4\t    def __init__(self):\tCite L4\n5\t        self.hits = {}\tCite L5\n6\t        self.lock = threading.Lock()\tCite L6\n7\t \tCite L7\n8\t    def record_hit(self, event_id: str) -> None:\tCite L8\n9\t        # Subtle Concurrency Bug: Check-then-act race condition outside lock\tCite L9\n10\t        if event_id not in self.hits:\tCite L10\n11\t            self.hits[event_id] = 0\tCite L11\n12\t            \tCite L12\n13\t        with self.lock:\tCite L13\n14\t            self.hits[event_id] += 1\tCite L14\n15\t \tCite L15\n16\t    def get_hits(self, event_id: str) -> int:\tCite L16\n17\t        return self.hits.get(event_id, 0)\tCite L17",
+    "buttons": [
+      {
+        "text": "Q1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "Q2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "Q3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "Q4",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "Q5",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "FLAG",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 72,
+          "h": 30
+        }
+      },
+      {
+        "text": "FINISH EXAM",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 144,
+          "h": 32
+        }
+      },
+      {
+        "text": "PROBLEM & CODE",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 170,
+          "h": 36
+        }
+      },
+      {
+        "text": "AUDIT FORM",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 170,
+          "h": 36
+        }
+      },
+      {
+        "text": "Specification",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 132,
+          "h": 30
+        }
+      },
+      {
+        "text": "AI Commentary",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 132,
+          "h": 30
+        }
+      },
+      {
+        "text": "Copy",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 72,
+          "h": 30
+        }
+      }
+    ],
+    "fields": [],
+    "links": []
+  },
+  {
+    "name": "assessment-submit-modal-phone",
+    "path": "/assessment/session",
+    "viewport": 390,
+    "width": 390,
+    "bodyWidth": 390,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "MOCK EXAM SESSION\nQ1\nQ2\nQ3\nQ4\nQ5\nFLAG\n49:59\nFINISH EXAM\nPROBLEM & CODE\nAUDIT FORM\nSpecification\nAI Commentary\nCONCURRENCY\nHARD\nThread-Safe Frequency Counter (Concurrency Race Condition)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nEXAMPLES\nInput:\n50 threads each call record_hit('user_login') 100 times\nOutput:\n5000\n\nNote: Total hits recorded must strictly equal 5,000 without lost writes.\n\nCONSTRAINTS & INVARIANTS\n1 <= event_id.length <= 64\nUp to 10,000 concurrent worker threads calling record_hit()\nOperations must be thread-safe without deadlocks or lost increments\nAI CODE SNIPPET UNDER REVIEW\nPYTHON\nCopy\n1\timport threading\tCite L1\n2\t \tCite L2\n3\tclass HitCounter:\tCite L3\n4\t    def __init__(self):\tCite L4\n5\t        self.hits = {}\tCite L5\n6\t        self.lock = threading.Lock()\tCite L6\n7\t \tCite L7\n8\t    def record_hit(self, event_id: str) -> None:\tCite L8\n9\t        # Subtle Concurrency Bug: Check-then-act race condition outside lock\tCite L9\n10\t        if event_id not in self.hits:\tCite L10\n11\t            self.hits[event_id] = 0\tCite L11\n12\t            \tCite L12\n13\t        with self.lock:\tCite L13\n14\t            self.hits[event_id] += 1\tCite L14\n15\t \tCite L15\n16\t    def get_hits(self, event_id: str) -> int:\tCite L16\n17\t        return self.hits.get(event_id, 0)\tCite L17\nFINAL SUBMISSION\nCOMPLETE ASSESSMENT?\n\nYou have answered 0 of 5 questions.\n\nYou have unanswered questions. Unsubmitted problems will receive a score of 0%.\nRETURN TO TEST\nSUBMIT NOW ➔",
+    "buttons": [
+      {
+        "text": "Q1",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "Q2",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "Q3",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "Q4",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "Q5",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 32
+        }
+      },
+      {
+        "text": "FLAG",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 72,
+          "h": 30
+        }
+      },
+      {
+        "text": "FINISH EXAM",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 144,
+          "h": 32
+        }
+      },
+      {
+        "text": "PROBLEM & CODE",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 170,
+          "h": 36
+        }
+      },
+      {
+        "text": "AUDIT FORM",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 170,
+          "h": 36
+        }
+      },
+      {
+        "text": "Specification",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 132,
+          "h": 30
+        }
+      },
+      {
+        "text": "AI Commentary",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 132,
+          "h": 30
+        }
+      },
+      {
+        "text": "Copy",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 72,
+          "h": 30
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "RETURN TO TEST",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 308,
+          "h": 42
+        }
+      },
+      {
+        "text": "SUBMIT NOW ➔",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 308,
+          "h": 40
+        }
+      }
+    ],
+    "fields": [],
+    "links": []
+  },
+  {
+    "name": "practice-workspace-desktop",
+    "path": "/practice/q_slide_001",
+    "viewport": 1440,
+    "width": 1440,
+    "bodyWidth": 1440,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "",
+    "buttons": [],
+    "fields": [],
+    "links": []
+  },
+  {
+    "name": "home-phone",
+    "path": "/",
+    "viewport": 390,
+    "width": 390,
+    "bodyWidth": 390,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nSIGN IN\nTHE AI BENCHMARK & RLHF CODE EVALUATOR\nSTOP SOLVING.\nAUDIT AI CODE.\n\nScreening assessments at Alignerr, Mindrift, and Scale AI measure code evaluation: spotting subtle logic flaws, boundary regressions, and deceptive commentary.\n\nLAUNCH REVIEW STUDIO\nOA SIMULATOR\nreverse_list.py\nINTERACTIVE DEMO\n# Candidate Model: Gemini 2.5 Flash Solution\ndef reverseList(head):\nprev = None; curr = head\nwhile curr:\ncurr.next = prev\nLINE 5 (SUSPECT)\nprev = curr\ncurr = curr.next\nreturn prev\nWHAT IS YOUR VERDICT ON LINE 5?\nClick to test\nCORRECT\nFATAL POINTER BUG\nFRONTIER CALIBRATION BENCHMARKS\nALIGNED WITH RLHF & FRONTIER LAB AUDITS\n\nModeled after the exact code evaluation rubrics and adversarial screening tests used by leading AI data platforms and research labs.\n\nALIGNERR\nSCALE AI\nMINDRIFT\nOPENAI\nANTHROPIC\nGOOGLE DEEPMIND\n78%\nFAILURE RATE\nINITIAL EDGE-CASE BLINDNESS\n\nMost engineers miss boundary defects and subtle pointer mutations because traditional LeetCode does not test adversarial auditing.\n\n6.2x\nSCREENING PASS RATE\nCALIBRATED GROUND TRUTH\n\nCandidates trained on discrepancy diff scoring achieve 6.2x higher agreement with expert benchmark engineers.\n\n70+\nBENCHMARK DEFECTS\nCOMPREHENSIVE TAXONOMY\n\nCovers race conditions, memory aliasing, sliding window bounds, greedy traps, deceptive Big-O claims, and mutable arguments.\n\nCode Synthesis vs. Code Evaluation\n\nTraditional coding platforms test rote memory. Modern AI evaluations test your ability to audit, catch hallucinations, and benchmark reliability.\n\nTRADITIONAL LEETCODE\nSYNTHESIS\n✕\nWrites code from scratch with rote syntax recall.\n✕\nBinary pass/fail based solely on test-case execution.\n✕\nIgnores deceptive or hallucinated natural language AI commentary.\n✕\nZero calibration for false positives (rejecting good code).\nEVALFORGE SIMULATOR\nTHE RLHF STANDARD\n✓\nAudits pre-generated AI solutions with calibrated defects.\n✓\nDiagnostic Discrepancy Diff matches findings to Ground Truth.\n✓\nEvaluates 6 dimensions: Correctness, Edge Cases, Complexity, etc.\n✓\nReadiness Index benchmarks you against screening standards.\nThe 6-Dimensional Rubric Matrix\n\nStructured evaluation frameworks aligned with OpenAI, Anthropic, Scale AI, and Google DeepMind code assessment standards.\n\n1. Functional Correctness\n30% WEIGHT\n\nAccurately classify whether the code solves standard cases or contains fatal logic crashes, off-by-one errors, infinite loops, and unhandled branch regressions.\n\n2. Edge-Case Analysis\n25% WEIGHT\n\nIdentify boundary vulnerabilities: empty arrays, single nodes, duplicates, negative numbers, and integer overflows.\n\n3. Complexity & Big-O\n15% WEIGHT\n\nSpot asymptotic regressions: quadratic string copies, nested lookups, and unneeded heap overhead.\n\n4. Explanation Auditing\n15% WEIGHT\n\nCatch deceptive or hallucinated commentary claiming different algorithmic invariants than the code.\n\n5. Instruction Compliance\n15% WEIGHT\n\nVerify strict adherence to constraints: in-place mutations, auxiliary space bounds, and exact return types.\n\nCALIBRATE YOUR CODE AUDIT ACUITY\n\nPractice on 75+ benchmarks across calibrated defect categories or enter the timed multi-question FAANG/FinTech Online Assessment.\n\nSTART PRACTICE CATALOG\nLAUNCH OA SIMULATOR\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "buttons": [
+      {
+        "text": "SIGN IN",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 83,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": "Toggle Navigation Menu",
+        "title": null,
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "CORRECT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 292,
+          "h": 38
+        }
+      },
+      {
+        "text": "FATAL POINTER BUG",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 292,
+          "h": 38
+        }
+      }
+    ],
+    "fields": [],
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "LAUNCH REVIEW STUDIO",
+        "href": "/practice"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "START PRACTICE CATALOG",
+        "href": "/practice"
+      },
+      {
+        "text": "LAUNCH OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ]
+  },
+  {
+    "name": "auth-modal-phone",
+    "path": "/",
+    "viewport": 390,
+    "width": 390,
+    "bodyWidth": 390,
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nSIGN IN\nChoose Your Evaluator Mode\n\nTrain on 75+ AI code review benchmarks or track your persistent readiness certificate.\n\nSign In with Google\nSyncs scorecards & streak across all your devices\nOR\nTest as Guest (No Login Required)\n\nInstant evaluation access. Saves evaluations locally in this browser.\n\nTHE AI BENCHMARK & RLHF CODE EVALUATOR\nSTOP SOLVING.\nAUDIT AI CODE.\n\nScreening assessments at Alignerr, Mindrift, and Scale AI measure code evaluation: spotting subtle logic flaws, boundary regressions, and deceptive commentary.\n\nLAUNCH REVIEW STUDIO\nOA SIMULATOR\nreverse_list.py\nINTERACTIVE DEMO\n# Candidate Model: Gemini 2.5 Flash Solution\ndef reverseList(head):\nprev = None; curr = head\nwhile curr:\ncurr.next = prev\nLINE 5 (SUSPECT)\nprev = curr\ncurr = curr.next\nreturn prev\nWHAT IS YOUR VERDICT ON LINE 5?\nClick to test\nCORRECT\nFATAL POINTER BUG\nFRONTIER CALIBRATION BENCHMARKS\nALIGNED WITH RLHF & FRONTIER LAB AUDITS\n\nModeled after the exact code evaluation rubrics and adversarial screening tests used by leading AI data platforms and research labs.\n\nALIGNERR\nSCALE AI\nMINDRIFT\nOPENAI\nANTHROPIC\nGOOGLE DEEPMIND\n78%\nFAILURE RATE\nINITIAL EDGE-CASE BLINDNESS\n\nMost engineers miss boundary defects and subtle pointer mutations because traditional LeetCode does not test adversarial auditing.\n\n6.2x\nSCREENING PASS RATE\nCALIBRATED GROUND TRUTH\n\nCandidates trained on discrepancy diff scoring achieve 6.2x higher agreement with expert benchmark engineers.\n\n70+\nBENCHMARK DEFECTS\nCOMPREHENSIVE TAXONOMY\n\nCovers race conditions, memory aliasing, sliding window bounds, greedy traps, deceptive Big-O claims, and mutable arguments.\n\nCode Synthesis vs. Code Evaluation\n\nTraditional coding platforms test rote memory. Modern AI evaluations test your ability to audit, catch hallucinations, and benchmark reliability.\n\nTRADITIONAL LEETCODE\nSYNTHESIS\n✕\nWrites code from scratch with rote syntax recall.\n✕\nBinary pass/fail based solely on test-case execution.\n✕\nIgnores deceptive or hallucinated natural language AI commentary.\n✕\nZero calibration for false positives (rejecting good code).\nEVALFORGE SIMULATOR\nTHE RLHF STANDARD\n✓\nAudits pre-generated AI solutions with calibrated defects.\n✓\nDiagnostic Discrepancy Diff matches findings to Ground Truth.\n✓\nEvaluates 6 dimensions: Correctness, Edge Cases, Complexity, etc.\n✓\nReadiness Index benchmarks you against screening standards.\nThe 6-Dimensional Rubric Matrix\n\nStructured evaluation frameworks aligned with OpenAI, Anthropic, Scale AI, and Google DeepMind code assessment standards.\n\n1. Functional Correctness\n30% WEIGHT\n\nAccurately classify whether the code solves standard cases or contains fatal logic crashes, off-by-one errors, infinite loops, and unhandled branch regressions.\n\n2. Edge-Case Analysis\n25% WEIGHT\n\nIdentify boundary vulnerabilities: empty arrays, single nodes, duplicates, negative numbers, and integer overflows.\n\n3. Complexity & Big-O\n15% WEIGHT\n\nSpot asymptotic regressions: quadratic string copies, nested lookups, and unneeded heap overhead.\n\n4. Explanation Auditing\n15% WEIGHT\n\nCatch deceptive or hallucinated commentary claiming different algorithmic invariants than the code.\n\n5. Instruction Compliance\n15% WEIGHT\n\nVerify strict adherence to constraints: in-place mutations, auxiliary space bounds, and exact return types.\n\nCALIBRATE YOUR CODE AUDIT ACUITY\n\nPractice on 75+ benchmarks across calibrated defect categories or enter the timed multi-question FAANG/FinTech Online Assessment.\n\nSTART PRACTICE CATALOG\nLAUNCH OA SIMULATOR\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "buttons": [
+      {
+        "text": "SIGN IN",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 83,
+          "h": 28
+        }
+      },
+      {
+        "text": "",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 36,
+          "h": 36
+        }
+      },
+      {
+        "text": "Sign In with Google",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 274,
+          "h": 48
+        }
+      },
+      {
+        "text": "Test as Guest (No Login Required)",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 274,
+          "h": 42
+        }
+      },
+      {
+        "text": "",
+        "aria": "Toggle Navigation Menu",
+        "title": null,
+        "r": {
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "text": "CORRECT",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 292,
+          "h": 38
+        }
+      },
+      {
+        "text": "FATAL POINTER BUG",
+        "aria": null,
+        "title": null,
+        "r": {
+          "w": 292,
+          "h": 38
+        }
+      }
+    ],
+    "fields": [],
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "LAUNCH REVIEW STUDIO",
+        "href": "/practice"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "START PRACTICE CATALOG",
+        "href": "/practice"
+      },
+      {
+        "text": "LAUNCH OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ]
+  }
+]

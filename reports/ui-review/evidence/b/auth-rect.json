@@ -1,0 +1,24 @@
+{
+  "heading": {
+    "top": -90,
+    "bottom": -34
+  },
+  "modal": {
+    "top": -195,
+    "bottom": 275
+  },
+  "ancestorStyles": [
+    {
+      "tag": "DIV",
+      "class": "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200",
+      "backdrop": "blur(4px)",
+      "transform": "none"
+    },
+    {
+      "tag": "HEADER",
+      "class": "max-w-5xl mx-auto h-14 rounded-full border border-neutral-800/80 bg-neutral-950/70 backdrop-blur-md px-5 flex items-center justify-between shadow-2xl transition-all",
+      "backdrop": "blur(12px)",
+      "transform": "none"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "errors": [],
+  "checks": [
+    "routes",
+    "neutral verdict",
+    "review validation",
+    "draft persistence",
+    "self-hosted Monaco with external network blocked",
+    "phone dialog geometry",
+    "keyboard focus and Escape",
+    "phone mock form pointer access",
+    "named coding actions"
+  ]
+}

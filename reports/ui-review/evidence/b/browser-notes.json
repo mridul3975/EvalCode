@@ -1,0 +1,24 @@
+{
+  "preflight": {
+    "mutable": true,
+    "titleRestored": true
+  },
+  "modalKeyboard": {
+    "apiKeyFocusRemainsOnTrigger": true,
+    "apiKeyEscapeDismissed": false,
+    "tabIntoBackground": true,
+    "authHasDialogRole": false,
+    "authEscapeDismissed": false
+  },
+  "examMobile": {
+    "viewport": "390x844",
+    "auditTabRect": {
+      "x": 199,
+      "y": 124,
+      "width": 170,
+      "height": 36
+    },
+    "coveringElement": "FINISH EXAM",
+    "clickTrial": "Timed out because assessment header intercepted pointer events"
+  }
+}

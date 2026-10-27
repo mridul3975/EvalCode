@@ -1,0 +1,842 @@
+[
+  {
+    "route": "/",
+    "name": "home-desktop",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nTHE AI BENCHMARK & RLHF CODE EVALUATOR\nSTOP SOLVING.\nAUDIT AI CODE.\n\nScreening assessments at Alignerr, Mindrift, and Scale AI measure code evaluation: spotting subtle logic flaws, boundary regressions, and deceptive commentary.\n\nLAUNCH REVIEW STUDIO\nOA SIMULATOR\nreverse_list.py\nINTERACTIVE DEMO\n# Candidate Model: Gemini 2.5 Flash Solution\ndef reverseList(head):\nprev = None; curr = head\nwhile curr:\ncurr.next = prev\nLINE 5 (SUSPECT)\nprev = curr\ncurr = curr.next\nreturn prev\nWHAT IS YOUR VERDICT ON LINE 5?\nClick to test\nCORRECT\nFATAL POINTER BUG\nFRONTIER CALIBRATION BENCHMARKS\nALIGNED WITH RLHF & FRONTIER LAB AUDITS\n\nModeled after the exact code evaluation rubrics and adversarial screening tests used by leading AI data platforms and research labs.\n\nALIGNERR\nSCALE AI\nMINDRIFT\nOPENAI\nANTHROPIC\nGOOGLE DEEPMIND\n78%\nFAILURE RATE\nINITIAL EDGE-CASE BLINDNESS\n\nMost engineers miss boundary defects and subtle pointer mutations because traditional LeetCode does not test adversarial auditing.\n\n6.2x\nSCREENING PASS RATE\nCALIBRATED GROUND TRUTH\n\nCandidates trained on discrepancy diff scoring achieve 6.2x higher agreement with expert benchmark engineers.\n\n70+\nBENCHMARK DEFECTS\nCOMPREHENSIVE TAXONOMY\n\nCovers race conditions, memory aliasing, sliding window bounds, greedy traps, deceptive Big-O claims, and mutable arguments.\n\nCode Synthesis vs. Code Evaluation\n\nTraditional coding platforms test rote memory. Modern AI evaluations test your ability to audit, catch hallucinations, and benchmark reliability.\n\nTRADITIONAL LEETCODE\nSYNTHESIS\n✕\nWrites code from scratch with rote syntax recall.\n✕\nBinary pass/fail based solely on test-case execution.\n✕\nIgnores deceptive or hallucinated natural language AI commentary.\n✕\nZero calibration for false positives (rejecting good code).\nEVALFORGE SIMULATOR\nTHE RLHF STANDARD\n✓\nAudits pre-generated AI solutions with calibrated defects.\n✓\nDiagnostic Discrepancy Diff matches findings to Ground Truth.\n✓\nEvaluates 6 dimensions: Correctness, Edge Cases, Complexity, etc.\n✓\nReadiness Index benchmarks you against screening standards.\nThe 6-Dimensional Rubric Matrix\n\nStructured evaluation frameworks aligned with OpenAI, Anthropic, Scale AI, and Google DeepMind code assessment standards.\n\n1. Functional Correctness\n30% WEIGHT\n\nAccurately classify whether the code solves standard cases or contains fatal logic crashes, off-by-one errors, infinite loops, and unhandled branch regressions.\n\n2. Edge-Case Analysis\n25% WEIGHT\n\nIdentify boundary vulnerabilities: empty arrays, single nodes, duplicates, negative numbers, and integer overflows.\n\n3. Complexity & Big-O\n15% WEIGHT\n\nSpot asymptotic regressions: quadratic string copies, nested lookups, and unneeded heap overhead.\n\n4. Explanation Auditing\n15% WEIGHT\n\nCatch deceptive or hallucinated commentary claiming different algorithmic invariants than the code.\n\n5. Instruction Compliance\n15% WEIGHT\n\nVerify strict adherence to constraints: in-place mutations, auxiliary space bounds, and exact return types.\n\nCALIBRATE YOUR CODE AUDIT ACUITY\n\nPractice on 75+ benchmarks across calibrated defect categories or enter the timed multi-question FAANG/FinTech Online Assessment.\n\nSTART PRACTICE CATALOG\nLAUNCH OA SIMULATOR\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "LAUNCH REVIEW STUDIO",
+        "href": "/practice"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "START PRACTICE CATALOG",
+        "href": "/practice"
+      },
+      {
+        "text": "LAUNCH OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/practice",
+    "name": "practice-desktop",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nFRONTIER CODE AUDITING CATALOG\nPRACTICE REVIEW STUDIO\n(84)\nGEMINI API KEY\n+ ADD QUESTION VIA AI\nLAUNCH MOCK TEST\nCALIBRATION MOMENTUM\n•\nUNBENCHMARKED • TIER 0\nEVALUATOR READINESS PROGRESS\n0%\nCALIBRATED\nAudited: 0 (0%)\nAttempted: 0 (0%)\nSaved: 0\n0 of 84 Completed\nRECOMMENDED ONBOARDING PATH\nCURATED 5 BENCHMARKS\nNew to Code Auditing? Start with the Foundational 5\n\nMaster the 5 essential RLHF defect archetypes: pointer mutation, sliding window boundaries, dynamic programming traps, shared mutable state, and deceptive Big-O commentary before exploring all 84 benchmarks.\n\nSTART FOUNDATIONAL 5\nALL (84)\nAUDITED (0)\nATTEMPTED (0)\nSAVED (0)\nALL DIFFICULTIES\nEASY\nMEDIUM\nHARD\nALL LANGUAGES\nPYTHON\nJAVASCRIPT\nC++\nALL\nLINKED LISTS\nSTACKS & QUEUES\nTREES & BST\nGRAPHS\nBACKTRACKING\nHEAPS & PQ\nINTERVALS\nGREEDY\nARRAYS\nSTRINGS\nDYNAMIC PROG\nHARD\n•\nCONCURRENCY\nCONCURRENCY / RACE CONDITION\nTHREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nGRAPHS\nCOMPLETELY CORRECT\nGRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)\n\nGiven a reference to a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node contains a `val` (int) and a list `neighbors` (List[Node]). The copy must be entirely independent: modifying any cloned node or neighbor link must NOT alter the original graph.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nSTRINGS\nOFF-BY-ONE BOUNDARY\nLONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)\n\nGiven a string `s`, find the length of the longest substring without repeating characters.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nDP\nSUBTLE LOGIC BUG\nARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)\n\nYou are building an ATM change dispenser for a fictional currency with arbitrary denominations `[1, 5, 8]`. Given integer `amount`, return the minimum number of coins needed to make change.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nARRAYS\nDECEPTIVE EXPLANATION\nSUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)\n\nGiven an array of integers `nums` and an integer `k`, return the total number of subarrays whose sum equals to `k`.\n\nAUDIT\nATTEMPT\nEASY\n•\nBINARY SEARCH\nINTEGER OVERFLOW / PRECISION\nBINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)\n\nGiven an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`. You must write an algorithm with `O(log n)` runtime complexity.\n\nAUDIT\nATTEMPT\nSHOWING 1 TO 6 OF 84 BENCHMARKS\n1\n2\n3\n...\n14\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "LAUNCH MOCK TEST",
+        "href": "/assessment"
+      },
+      {
+        "text": "THREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)",
+        "href": "/practice/q_conc_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_conc_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_conc_001?mode=attempt"
+      },
+      {
+        "text": "GRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)",
+        "href": "/practice/q_mem_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_mem_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_mem_001?mode=attempt"
+      },
+      {
+        "text": "LONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)",
+        "href": "/practice/q_slide_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_slide_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_slide_001?mode=attempt"
+      },
+      {
+        "text": "ARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)",
+        "href": "/practice/q_greedy_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_greedy_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_greedy_001?mode=attempt"
+      },
+      {
+        "text": "SUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)",
+        "href": "/practice/q_expl_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_expl_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_expl_001?mode=attempt"
+      },
+      {
+        "text": "BINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)",
+        "href": "/practice/q_int_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_int_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_int_001?mode=attempt"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/practice/q_conc_001",
+    "name": "practice-workspace-desktop",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "Practice Catalog\nThread-Safe Frequency Counter (Concurrency Race Condition)\nAUDIT BUGGY CODE\nATTEMPT FROM SCRATCH\nAPI Key\nShare\nGemini Copilot\nSpecification\nAI Commentary\nCONCURRENCY\nHARD\nThread-Safe Frequency Counter (Concurrency Race Condition)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nEXAMPLES\nInput:\n50 threads each call record_hit('user_login') 100 times\nOutput:\n5000\n\nNote: Total hits recorded must strictly equal 5,000 without lost writes.\n\nCONSTRAINTS & INVARIANTS\n1 <= event_id.length <= 64\nUp to 10,000 concurrent worker threads calling record_hit()\nOperations must be thread-safe without deadlocks or lost increments\nAI CODE SNIPPET UNDER REVIEW\nPYTHON\nPython\nC++\nCopy\n1\timport threading\tCite L1\n2\t \tCite L2\n3\tclass HitCounter:\tCite L3\n4\t    def __init__(self):\tCite L4\n5\t        self.hits = {}\tCite L5\n6\t        self.lock = threading.Lock()\tCite L6\n7\t \tCite L7\n8\t    def record_hit(self, event_id: str) -> None:\tCite L8\n9\t        # Subtle Concurrency Bug: Check-then-act race condition outside lock\tCite L9\n10\t        if event_id not in self.hits:\tCite L10\n11\t            self.hits[event_id] = 0\tCite L11\n12\t            \tCite L12\n13\t        with self.lock:\tCite L13\n14\t            self.hits[event_id] += 1\tCite L14\n15\t \tCite L15\n16\t    def get_hits(self, event_id: str) -> int:\tCite L16\n17\t        return self.hits.get(event_id, 0)\tCite L17\n1. VERDICT\n2. BUGS (1)\n3. TESTS\n4. BIG-O\n5. FIX\nEVALUATION VERDICT\n\nSelect the classification for this AI code snippet.\n\n01 / ACCURATE\nCOMPLETELY\nCORRECT\n\nNo bugs, optimal complexity, and handles all constraints.\n\n02 / MINOR\nMINOR\nDEFECT\n\nViolates minor boundary invariants or style conventions.\n\n03 / FATAL\nFATAL\nLOGIC BUG\n\nInfinite loops, invalid pointer mutations, wrong output.\n\nRESET\nSUBMIT EVALUATION",
+    "links": [
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      }
+    ],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/oa",
+    "name": "oa-desktop",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\n70–90 MINUTE MULTI-PROBLEM ASSESSMENTS\n\nRealistic high-stakes technical coding screenings modeled after Citadel, Stripe, Amazon, and Tier-1 hiring standards. Allocate time across 2–4 problems under a global countdown clock, defend algorithmic invariants, and justify your code directly before a Gemini Principal Staff Bar Raiser.\n\n+ IMPORT OA VIA LINK / AI\nALL TRACKS\nSTRIPE\nAMAZON AWS\nANTHROPIC\nOPENAI\nWAYMO\nCITADEL\nGOOGLE\nMETA\nTWO SIGMA\nZURICH FINTECH\nSELECT AN ASSESSMENT TRACK\nShowing 9 Assessment Tracks\nSTRIPE\n2 PROBLEMS\n100 TOTAL POINTS\nSTRIPE CORE ENGINEERING ASSESSMENT\n\nReal-Time Fraud Rules & Multi-Instrument Settlement\n\n75 MINS\n\nEvaluated against Stripe Core Systems hiring bar. Implements streaming transaction risk filters and greedy multi-instrument ledger settlement.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nRule-Driven Transaction Fraud Detection\nMEDIUM\n50 pts\nQ2:\nSplit Tender Transactions\nHARD\n50 pts\n#Stripe Radar\n#Ledger Accounting\n#Rule Engine\n#Fintech\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nAMAZON\n2 PROBLEMS\n100 TOTAL POINTS\nAMAZON AWS CLOUD PLATFORM\n\nQuery Result Caching & Service Dependency Scheduling\n\n70 MINS\n\nScreening modeled after AWS SDE II infrastructure evaluations. Focuses on low-latency LRU eviction and cycle-free topological service boot orders.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nLRU Query Result Cache\nMEDIUM\n50 pts\nQ2:\nService Deployment Dependency Order\nMEDIUM\n50 pts\n#AWS SDE\n#LRU Cache\n#Topological Sort\n#Distributed Systems\nGlobal Timer\n•\nHackerRank Standard\nSTART 70-MIN OA\nANTHROPIC\n2 PROBLEMS\n100 TOTAL POINTS\nFRONTIER AI SYSTEMS (ANTHROPIC & OPENAI)\n\nKernel Profiling & Large-Scale Coordinate Simulation\n\n80 MINS\n\nEvaluated against Frontier AI research engineering benchmarks. Reconstructs trace intervals from discrete stack telemetry and simulates sparse spatial automata.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nConsecutive Stack Sample Trace Events\nHARD\n55 pts\nQ2:\nSparse Plant Infection Simulation\nHARD\n45 pts\n#Frontier AI\n#Trace Profiler\n#BFS\n#Perfetto Events\nGlobal Timer\n•\nHackerRank Standard\nSTART 80-MIN OA\nWAYMO\n2 PROBLEMS\n100 TOTAL POINTS\nWAYMO AUTONOMOUS SYSTEMS\n\nTrajectory Kinematics & Sliding Window Throttling\n\n75 MINS\n\nScreening modeled after Waymo Driver autonomy standards. Tests collision-free kinematic return paths and high-throughput sliding window rate limiting.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nObstacle-Aware Return to Origin\nMEDIUM\n50 pts\nQ2:\nSliding Window Maximum Rate Limiter\nMEDIUM\n50 pts\n#Waymo Driver\n#Robotics\n#Collision Checks\n#Kinematics\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nCITADEL\n3 PROBLEMS\n100 TOTAL POINTS\nCITADEL QUANTITATIVE SWE\n\nLow-Latency Systems & High-Frequency Streaming Depth\n\n75 MINS\n\nMulti-problem assessment evaluated against Citadel Execution Services hiring criteria. Problems span microsecond rate limiting, lock-free IPC ring buffers, and streaming order book depth aggregation.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n25 pts\nQ2:\nLock-Free Ring Buffer\nMEDIUM\n35 pts\nQ3:\nOrder Book Volume at Price Limits\nHARD\n40 pts\n#High-Frequency Trading\n#C++ / Python\n#Streaming\n#Concurrency\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nGOOGLE\n2 PROBLEMS\n100 TOTAL POINTS\nGOOGLE CORE SCREENER\n\nDistributed Infrastructure & Network Resilience\n\n75 MINS\n\nEvaluates production-grade distributed algorithms under Google Cloud SLAs. Features sliding-window traffic shaping and graph bridge identification under strict asymptotic boundaries.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n45 pts\nQ2:\nBounded-Hop Social Network Bridges\nMEDIUM\n55 pts\n#Google Cloud\n#Distributed Systems\n#Graph Algorithms\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nFINTECH\n3 PROBLEMS\n100 TOTAL POINTS\nZURICH QUANT & FINTECH\n\nAlpha Signals, FX Arbitrage & Price Limits\n\n80 MINS\n\nTier-1 Quantitative Desk screening focusing on streaming data filters, high-throughput order book depth, and negative-weight arbitrage graph cycles.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nDynamic Risk-Weighted Median Filter\nMEDIUM\n30 pts\nQ2:\nOrder Book Volume at Price Limits\nHARD\n35 pts\n#Arbitrage\n#Running Medians\n#Market Microstructure\nGlobal Timer\n•\nHackerRank Standard\nSTART 80-MIN OA\nMETA\n2 PROBLEMS\n100 TOTAL POINTS\nMETA INFRASTRUCTURE OA\n\nGlobal Scale Topologies & Fault Tolerance\n\n70 MINS\n\nEngineering assessment testing resilient topology algorithms and ingress throttling used across Meta datacenter backbones.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n40 pts\nQ2:\nBounded-Hop Social Network Bridges\nMEDIUM\n60 pts\n#Graph Theory\n#Tarjan Bridges\n#Traffic Metering\nGlobal Timer\n•\nHackerRank Standard\nSTART 70-MIN OA\nTWO SIGMA\n2 PROBLEMS\n100 TOTAL POINTS\nTWO SIGMA ALPHA RESEARCH\n\nDual-Heap Streaming & Continuous Order Books\n\n75 MINS\n\nAssessment designed for quantitative researchers and alpha modelers analyzing live tick feeds without statistical skew.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nDynamic Risk-Weighted Median Filter\nMEDIUM\n40 pts\nQ2:\nOrder Book Volume at Price Limits\nHARD\n60 pts\n#Dual Heaps\n#Alpha Modeling\n#Rolling Windows\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/stripe-payments-swe"
+      },
+      {
+        "text": "START 70-MIN OA",
+        "href": "/oa/amazon-aws-systems"
+      },
+      {
+        "text": "START 80-MIN OA",
+        "href": "/oa/frontier-ai-anthropic-openai"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/waymo-robotics-planning"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/citadel-quant-swe"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/google-core-screener"
+      },
+      {
+        "text": "START 80-MIN OA",
+        "href": "/oa/zurich-fintech-hf"
+      },
+      {
+        "text": "START 70-MIN OA",
+        "href": "/oa/meta-infra-screening"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/twosigma-alpha-quant"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/oa/stripe-payments-swe",
+    "name": "oa-workspace-desktop",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "STRIPE OA\nStripe Core Engineering Assessment\nQ1\nRule-Driven Transaction Fraud Detection\n(0/2)\n•\nQ2\nSplit Tender Transactions\n(0/2)\n•\n01:15:00\nRun\nFINISH ASSESSMENT\nProblem Specification\nRules Engine & Real-Time Classification\nMEDIUM\n50 Points\nRule-Driven Transaction Fraud Detection\n#Stripe Core\n#FinTech\n#Rules Engine\n#Hash Maps\nFinancial Fraud Shield Context\n\nAt Stripe Radar, payment operations streams are evaluated against an active registry of merchant and compliance risk rules in sub-millisecond response windows.\n\nProblem Requirement\n\nProcess a finite chronological sequence of operations:\n\n[\"UPSERT\", ruleId, \"AMOUNT_AT_LEAST\", value]: Inserts or replaces a rule flagging transactions where amount >= value.\n[\"UPSERT\", ruleId, \"COUNTRY_IS\", value]: Inserts or replaces a rule flagging transactions where country == value.\n[\"UPSERT\", ruleId, \"MERCHANT_IS\", value]: Inserts or replaces a rule flagging transactions where merchant == value.\n[\"DELETE\", ruleId]: Removes the rule with given ID. Deleting a non-existent ID is a no-op.\n[\"EVAL\", amount, country, merchant]: Evaluates the transaction against all currently active rules.\n\nA transaction is fraudulent (true) if at least one active rule matches. Otherwise, it is allowed (false). Return a list of booleans corresponding to each EVAL operation in chronological order.\n\nEXAMPLES\nEXAMPLE 1\nInput:\noperations = [\n  [\"UPSERT\", \"r1\", \"AMOUNT_AT_LEAST\", \"1000\"],\n  [\"UPSERT\", \"r2\", \"COUNTRY_IS\", \"RU\"],\n  [\"EVAL\", \"900\", \"US\", \"books\"],\n  [\"EVAL\", \"1200\", \"US\", \"books\"],\n  [\"EVAL\", \"20\", \"RU\", \"coffee\"]\n]\nOutput:\n[false, true, true]\n\nNote: Transaction 1 matches neither rule. Transaction 2 exceeds $1000. Transaction 3 originates from RU.\n\nEXAMPLE 2\nInput:\noperations = [\n  [\"UPSERT\", \"risk\", \"AMOUNT_AT_LEAST\", \"100\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"UPSERT\", \"risk\", \"MERCHANT_IS\", \"risky\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"],\n  [\"DELETE\", \"risk\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"]\n]\nOutput:\n[true, false, true, false]\n\nNote: Reusing ID 'risk' overwrites the rule. Deletion leaves no active rules for the final EVAL.\n\nCONSTRAINTS\n1 <= operations.length <= 200,000\nAt least one EVAL operation exists\nAmounts are non-negative integers up to 10^9\nTime complexity must be O(R + E * active_rules) or O(1) evaluation lookup\nPython 3\nTypeScript\nC++\nLoading...\nTest Cases\nCase 1\nCase 2\nStandard upsert and mixed EVAL\nINPUT PARAMETERS\noperations = [[\"UPSERT\",\"r1\",\"AMOUNT_AT_LEAST\",\"1000\"],[\"UPSERT\",\"r2\",\"COUNTRY_IS\",\"RU\"],[\"EVAL\",\"900\",\"US\",\"books\"],[\"EVAL\",\"1200\",\"US\",\"books\"],[\"EVAL\",\"20\",\"RU\",\"coffee\"]]\nEXPECTED OUTPUT\n[\n  false,\n  true,\n  true\n]\nACTUAL OUTPUT\nClick 'Run' to inspect",
+    "links": [],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/dashboard",
+    "name": "dashboard-desktop",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nEVAL\nACUITY\n\nAggregated competency across Practice Mode and Timed Mock Assessments benchmarked against Tier-1 AI evaluation rubrics.\n\nTARGET BENCHMARK\n90.0%+\nPERCENTILE RANK\nUNRANKED\nREADINESS SCORE\n0.0%\nNOT READY\nVERDICT ACCURACY\n0.0%\n0 verified\nACTIVE STREAK\n0D\nBest: 0D\nMOCK AVERAGE\n0.0%\n0 taken\nPRACTICE AVERAGE\n0.0%\n0 audits\nSTART CODE AUDITING\n\nDrill on 75+ calibrated model solutions in Review Studio or take a timed 50-minute exam to calibrate your readiness index against hiring thresholds.\n\nPRACTICE CATALOG\nMOCK ASSESSMENT\nCOMPETENCY RADAR\nCORRECTNESS\nEDGE CASES\nCOMPLEXITY\nEXPLANATION\nCOMMUNICATION\nREMEDIATION\n0\n25\n50\n75\n100\nCANDIDATE COMPETENCY\nTARGET (90%)\nEVALUATION DIMENSIONS\nCOMPETENCY MATRIX\nTARGET ≥ 90.0%\nLOGIC DEBUGGING\n0.0%\nCRITICAL DEFICIT\nBOUNDARY ANALYSIS\n0.0%\nCRITICAL DEFICIT\nBIG-O INVARIANTS\n0.0%\nCRITICAL DEFICIT\nHALLUCINATION AUDITING\n0.0%\nCRITICAL DEFICIT\nREVIEW STRUCTURE\n0.0%\nCRITICAL DEFICIT\nPROPOSED FIXES\n0.0%\nCRITICAL DEFICIT\nDIMENSIONAL TAXONOMY\nEVALUATED ACROSS 75+ BENCHMARKS\nTOPIC MASTERY\nLINKED LISTS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nTREES & GRAPHS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nDYNAMIC PROGRAMMING\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nARRAYS & STRINGS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nSTACKS & QUEUES\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nDEFECT DETECTION\nSUBTLE LOGIC BUGS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nEDGE-CASE BLINDNESS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nDECEPTIVE EXPLANATIONS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nCOMPLEXITY REGRESSIONS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nZERO RECORDED EXAMS\n\nYou haven't completed any mock assessments yet. Take a timed 50-minute exam to calibrate your readiness scorecard.\n\nLAUNCH MOCK EXAM\nRESET PROFILE PROGRESS\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "PRACTICE CATALOG",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK ASSESSMENT",
+        "href": "/assessment"
+      },
+      {
+        "text": "LAUNCH MOCK EXAM",
+        "href": "/assessment"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/assessment",
+    "name": "assessment-desktop",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nTIMED MOCK ASSESSMENT\n\nSimulate standard 50-minute code evaluation screening tests for platforms like Mindrift, Alignerr, and Scale AI.\n\n01 / STRICT DURATION\n50-MINUTE TIMER\n\nGlobal countdown timer with autosave across page refreshes. The session auto-submits upon timer expiration.\n\n02 / CURATED FORMAT\n5 CODE AUDITS\n\nBalanced distribution across Easy, Medium, and Hard benchmarks covering logic bugs, edge cases, and Big-O regressions.\n\n03 / BENCHMARK SCORING\nREADINESS INDEX\n\nSubmissions are scored using weighted Discrepancy Diffs against Ground Truth benchmarks with a 90% target threshold.\n\nREADY TO BEGIN\nCOMMENCE TIMED EVALUATION\n\nYou will be presented with 5 code evaluation tasks. Language selection is available directly within each question.\n\nSTART 50-MINUTE ASSESSMENT\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/assessment/results",
+    "name": "assessment-results-empty",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nNo Assessment Completed Yet\n\nYou have not finished a 5-question mock assessment session. Take a timed test to generate your comprehensive scorecard and Readiness Index $R$.\n\nLaunch Mock Assessment\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "Launch Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/oa/results/review-nonexistent",
+    "name": "oa-results-empty",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nPRACTICE\nMOCK\nOA SIMULATOR\nPROFILE\nREADINESS: 0%\nGUEST\nSIGN IN\nNO OA ASSESSMENT RESULT FOUND\n\nThe requested assessment report could not be found in local or remote storage.\n\nRETURN TO OA SIMULATOR\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "RETURN TO OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  {
+    "route": "/",
+    "name": "home-phone",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nSIGN IN\nTHE AI BENCHMARK & RLHF CODE EVALUATOR\nSTOP SOLVING.\nAUDIT AI CODE.\n\nScreening assessments at Alignerr, Mindrift, and Scale AI measure code evaluation: spotting subtle logic flaws, boundary regressions, and deceptive commentary.\n\nLAUNCH REVIEW STUDIO\nOA SIMULATOR\nreverse_list.py\nINTERACTIVE DEMO\n# Candidate Model: Gemini 2.5 Flash Solution\ndef reverseList(head):\nprev = None; curr = head\nwhile curr:\ncurr.next = prev\nLINE 5 (SUSPECT)\nprev = curr\ncurr = curr.next\nreturn prev\nWHAT IS YOUR VERDICT ON LINE 5?\nClick to test\nCORRECT\nFATAL POINTER BUG\nFRONTIER CALIBRATION BENCHMARKS\nALIGNED WITH RLHF & FRONTIER LAB AUDITS\n\nModeled after the exact code evaluation rubrics and adversarial screening tests used by leading AI data platforms and research labs.\n\nALIGNERR\nSCALE AI\nMINDRIFT\nOPENAI\nANTHROPIC\nGOOGLE DEEPMIND\n78%\nFAILURE RATE\nINITIAL EDGE-CASE BLINDNESS\n\nMost engineers miss boundary defects and subtle pointer mutations because traditional LeetCode does not test adversarial auditing.\n\n6.2x\nSCREENING PASS RATE\nCALIBRATED GROUND TRUTH\n\nCandidates trained on discrepancy diff scoring achieve 6.2x higher agreement with expert benchmark engineers.\n\n70+\nBENCHMARK DEFECTS\nCOMPREHENSIVE TAXONOMY\n\nCovers race conditions, memory aliasing, sliding window bounds, greedy traps, deceptive Big-O claims, and mutable arguments.\n\nCode Synthesis vs. Code Evaluation\n\nTraditional coding platforms test rote memory. Modern AI evaluations test your ability to audit, catch hallucinations, and benchmark reliability.\n\nTRADITIONAL LEETCODE\nSYNTHESIS\n✕\nWrites code from scratch with rote syntax recall.\n✕\nBinary pass/fail based solely on test-case execution.\n✕\nIgnores deceptive or hallucinated natural language AI commentary.\n✕\nZero calibration for false positives (rejecting good code).\nEVALFORGE SIMULATOR\nTHE RLHF STANDARD\n✓\nAudits pre-generated AI solutions with calibrated defects.\n✓\nDiagnostic Discrepancy Diff matches findings to Ground Truth.\n✓\nEvaluates 6 dimensions: Correctness, Edge Cases, Complexity, etc.\n✓\nReadiness Index benchmarks you against screening standards.\nThe 6-Dimensional Rubric Matrix\n\nStructured evaluation frameworks aligned with OpenAI, Anthropic, Scale AI, and Google DeepMind code assessment standards.\n\n1. Functional Correctness\n30% WEIGHT\n\nAccurately classify whether the code solves standard cases or contains fatal logic crashes, off-by-one errors, infinite loops, and unhandled branch regressions.\n\n2. Edge-Case Analysis\n25% WEIGHT\n\nIdentify boundary vulnerabilities: empty arrays, single nodes, duplicates, negative numbers, and integer overflows.\n\n3. Complexity & Big-O\n15% WEIGHT\n\nSpot asymptotic regressions: quadratic string copies, nested lookups, and unneeded heap overhead.\n\n4. Explanation Auditing\n15% WEIGHT\n\nCatch deceptive or hallucinated commentary claiming different algorithmic invariants than the code.\n\n5. Instruction Compliance\n15% WEIGHT\n\nVerify strict adherence to constraints: in-place mutations, auxiliary space bounds, and exact return types.\n\nCALIBRATE YOUR CODE AUDIT ACUITY\n\nPractice on 75+ benchmarks across calibrated defect categories or enter the timed multi-question FAANG/FinTech Online Assessment.\n\nSTART PRACTICE CATALOG\nLAUNCH OA SIMULATOR\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "LAUNCH REVIEW STUDIO",
+        "href": "/practice"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "START PRACTICE CATALOG",
+        "href": "/practice"
+      },
+      {
+        "text": "LAUNCH OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 390,
+    "scrollWidth": 390
+  },
+  {
+    "route": "/practice",
+    "name": "practice-phone",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nSIGN IN\nFRONTIER CODE AUDITING CATALOG\nPRACTICE REVIEW STUDIO\n(84)\nGEMINI API KEY\n+ ADD QUESTION VIA AI\nLAUNCH MOCK TEST\nCALIBRATION MOMENTUM\n•\nUNBENCHMARKED • TIER 0\nEVALUATOR READINESS PROGRESS\n0%\nCALIBRATED\nAudited: 0 (0%)\nAttempted: 0 (0%)\nSaved: 0\nRECOMMENDED ONBOARDING PATH\nCURATED 5 BENCHMARKS\nNew to Code Auditing? Start with the Foundational 5\n\nMaster the 5 essential RLHF defect archetypes: pointer mutation, sliding window boundaries, dynamic programming traps, shared mutable state, and deceptive Big-O commentary before exploring all 84 benchmarks.\n\nSTART FOUNDATIONAL 5\nALL (84)\nAUDITED (0)\nATTEMPTED (0)\nSAVED (0)\nALL DIFFICULTIES\nEASY\nMEDIUM\nHARD\nALL LANGUAGES\nPYTHON\nJAVASCRIPT\nC++\nALL\nLINKED LISTS\nSTACKS & QUEUES\nTREES & BST\nGRAPHS\nBACKTRACKING\nHEAPS & PQ\nINTERVALS\nGREEDY\nARRAYS\nSTRINGS\nDYNAMIC PROG\nHARD\n•\nCONCURRENCY\nCONCURRENCY / RACE CONDITION\nTHREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nGRAPHS\nCOMPLETELY CORRECT\nGRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)\n\nGiven a reference to a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node contains a `val` (int) and a list `neighbors` (List[Node]). The copy must be entirely independent: modifying any cloned node or neighbor link must NOT alter the original graph.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nSTRINGS\nOFF-BY-ONE BOUNDARY\nLONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)\n\nGiven a string `s`, find the length of the longest substring without repeating characters.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nDP\nSUBTLE LOGIC BUG\nARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)\n\nYou are building an ATM change dispenser for a fictional currency with arbitrary denominations `[1, 5, 8]`. Given integer `amount`, return the minimum number of coins needed to make change.\n\nAUDIT\nATTEMPT\nMEDIUM\n•\nARRAYS\nDECEPTIVE EXPLANATION\nSUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)\n\nGiven an array of integers `nums` and an integer `k`, return the total number of subarrays whose sum equals to `k`.\n\nAUDIT\nATTEMPT\nEASY\n•\nBINARY SEARCH\nINTEGER OVERFLOW / PRECISION\nBINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)\n\nGiven an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`. You must write an algorithm with `O(log n)` runtime complexity.\n\nAUDIT\nATTEMPT\nSHOWING 1 TO 6 OF 84 BENCHMARKS\n1\n2\n3\n...\n14\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "LAUNCH MOCK TEST",
+        "href": "/assessment"
+      },
+      {
+        "text": "THREAD-SAFE FREQUENCY COUNTER (CONCURRENCY RACE CONDITION)",
+        "href": "/practice/q_conc_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_conc_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_conc_001?mode=attempt"
+      },
+      {
+        "text": "GRAPH CLONE (SHALLOW VS DEEP COPY ALIASING TRAP)",
+        "href": "/practice/q_mem_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_mem_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_mem_001?mode=attempt"
+      },
+      {
+        "text": "LONGEST SUBSTRING WITHOUT REPEATING (WINDOW BOUNDARY BUG)",
+        "href": "/practice/q_slide_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_slide_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_slide_001?mode=attempt"
+      },
+      {
+        "text": "ARBITRARY COIN DISPENSER (GREEDY VS DP HEURISTIC FAILURE)",
+        "href": "/practice/q_greedy_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_greedy_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_greedy_001?mode=attempt"
+      },
+      {
+        "text": "SUBARRAY SUM EQUALS K (DECEPTIVE O(N LOG N) CLAIM)",
+        "href": "/practice/q_expl_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_expl_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_expl_001?mode=attempt"
+      },
+      {
+        "text": "BINARY SEARCH MIDPOINT (32-BIT INTEGER OVERFLOW)",
+        "href": "/practice/q_int_001"
+      },
+      {
+        "text": "AUDIT",
+        "href": "/practice/q_int_001?mode=audit"
+      },
+      {
+        "text": "ATTEMPT",
+        "href": "/practice/q_int_001?mode=attempt"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 390,
+    "scrollWidth": 390
+  },
+  {
+    "route": "/practice/q_conc_001",
+    "name": "practice-workspace-phone",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "Thread-Safe Frequency Counter (Concurrency Race Condition)\nAUDIT\nATTEMPT\nShare\nSpec & Code\nAudit Form\nAI Assistant\nSpecification\nAI Commentary\nCONCURRENCY\nHARD\nThread-Safe Frequency Counter (Concurrency Race Condition)\n\nImplement a concurrent `HitCounter` service that tracks the frequency of event IDs across multiple worker threads. The service must support: - `record_hit(event_id: str)`: increments the hit count for the given event ID. - `get_hits(event_id: str) -> int`: returns current total hits for the event ID. All operations must execute safely across high-throughput concurrent threads without lost updates.\n\nEXAMPLES\nInput:\n50 threads each call record_hit('user_login') 100 times\nOutput:\n5000\n\nNote: Total hits recorded must strictly equal 5,000 without lost writes.\n\nCONSTRAINTS & INVARIANTS\n1 <= event_id.length <= 64\nUp to 10,000 concurrent worker threads calling record_hit()\nOperations must be thread-safe without deadlocks or lost increments\nAI CODE SNIPPET UNDER REVIEW\nPYTHON\nPython\nC++\nCopy\n1\timport threading\tCite L1\n2\t \tCite L2\n3\tclass HitCounter:\tCite L3\n4\t    def __init__(self):\tCite L4\n5\t        self.hits = {}\tCite L5\n6\t        self.lock = threading.Lock()\tCite L6\n7\t \tCite L7\n8\t    def record_hit(self, event_id: str) -> None:\tCite L8\n9\t        # Subtle Concurrency Bug: Check-then-act race condition outside lock\tCite L9\n10\t        if event_id not in self.hits:\tCite L10\n11\t            self.hits[event_id] = 0\tCite L11\n12\t            \tCite L12\n13\t        with self.lock:\tCite L13\n14\t            self.hits[event_id] += 1\tCite L14\n15\t \tCite L15\n16\t    def get_hits(self, event_id: str) -> int:\tCite L16\n17\t        return self.hits.get(event_id, 0)\tCite L17",
+    "links": [
+      {
+        "text": "",
+        "href": "/practice"
+      }
+    ],
+    "width": 390,
+    "scrollWidth": 391
+  },
+  {
+    "route": "/oa",
+    "name": "oa-phone",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nSIGN IN\n70–90 MINUTE MULTI-PROBLEM ASSESSMENTS\n\nRealistic high-stakes technical coding screenings modeled after Citadel, Stripe, Amazon, and Tier-1 hiring standards. Allocate time across 2–4 problems under a global countdown clock, defend algorithmic invariants, and justify your code directly before a Gemini Principal Staff Bar Raiser.\n\n+ IMPORT OA VIA LINK / AI\nALL TRACKS\nSTRIPE\nAMAZON AWS\nANTHROPIC\nOPENAI\nWAYMO\nCITADEL\nGOOGLE\nMETA\nTWO SIGMA\nZURICH FINTECH\nSELECT AN ASSESSMENT TRACK\nShowing 9 Assessment Tracks\nSTRIPE\n2 PROBLEMS\n100 TOTAL POINTS\nSTRIPE CORE ENGINEERING ASSESSMENT\n\nReal-Time Fraud Rules & Multi-Instrument Settlement\n\n75 MINS\n\nEvaluated against Stripe Core Systems hiring bar. Implements streaming transaction risk filters and greedy multi-instrument ledger settlement.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nRule-Driven Transaction Fraud Detection\nMEDIUM\n50 pts\nQ2:\nSplit Tender Transactions\nHARD\n50 pts\n#Stripe Radar\n#Ledger Accounting\n#Rule Engine\n#Fintech\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nAMAZON\n2 PROBLEMS\n100 TOTAL POINTS\nAMAZON AWS CLOUD PLATFORM\n\nQuery Result Caching & Service Dependency Scheduling\n\n70 MINS\n\nScreening modeled after AWS SDE II infrastructure evaluations. Focuses on low-latency LRU eviction and cycle-free topological service boot orders.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nLRU Query Result Cache\nMEDIUM\n50 pts\nQ2:\nService Deployment Dependency Order\nMEDIUM\n50 pts\n#AWS SDE\n#LRU Cache\n#Topological Sort\n#Distributed Systems\nGlobal Timer\n•\nHackerRank Standard\nSTART 70-MIN OA\nANTHROPIC\n2 PROBLEMS\n100 TOTAL POINTS\nFRONTIER AI SYSTEMS (ANTHROPIC & OPENAI)\n\nKernel Profiling & Large-Scale Coordinate Simulation\n\n80 MINS\n\nEvaluated against Frontier AI research engineering benchmarks. Reconstructs trace intervals from discrete stack telemetry and simulates sparse spatial automata.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nConsecutive Stack Sample Trace Events\nHARD\n55 pts\nQ2:\nSparse Plant Infection Simulation\nHARD\n45 pts\n#Frontier AI\n#Trace Profiler\n#BFS\n#Perfetto Events\nGlobal Timer\n•\nHackerRank Standard\nSTART 80-MIN OA\nWAYMO\n2 PROBLEMS\n100 TOTAL POINTS\nWAYMO AUTONOMOUS SYSTEMS\n\nTrajectory Kinematics & Sliding Window Throttling\n\n75 MINS\n\nScreening modeled after Waymo Driver autonomy standards. Tests collision-free kinematic return paths and high-throughput sliding window rate limiting.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nObstacle-Aware Return to Origin\nMEDIUM\n50 pts\nQ2:\nSliding Window Maximum Rate Limiter\nMEDIUM\n50 pts\n#Waymo Driver\n#Robotics\n#Collision Checks\n#Kinematics\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nCITADEL\n3 PROBLEMS\n100 TOTAL POINTS\nCITADEL QUANTITATIVE SWE\n\nLow-Latency Systems & High-Frequency Streaming Depth\n\n75 MINS\n\nMulti-problem assessment evaluated against Citadel Execution Services hiring criteria. Problems span microsecond rate limiting, lock-free IPC ring buffers, and streaming order book depth aggregation.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n25 pts\nQ2:\nLock-Free Ring Buffer\nMEDIUM\n35 pts\nQ3:\nOrder Book Volume at Price Limits\nHARD\n40 pts\n#High-Frequency Trading\n#C++ / Python\n#Streaming\n#Concurrency\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nGOOGLE\n2 PROBLEMS\n100 TOTAL POINTS\nGOOGLE CORE SCREENER\n\nDistributed Infrastructure & Network Resilience\n\n75 MINS\n\nEvaluates production-grade distributed algorithms under Google Cloud SLAs. Features sliding-window traffic shaping and graph bridge identification under strict asymptotic boundaries.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n45 pts\nQ2:\nBounded-Hop Social Network Bridges\nMEDIUM\n55 pts\n#Google Cloud\n#Distributed Systems\n#Graph Algorithms\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nFINTECH\n3 PROBLEMS\n100 TOTAL POINTS\nZURICH QUANT & FINTECH\n\nAlpha Signals, FX Arbitrage & Price Limits\n\n80 MINS\n\nTier-1 Quantitative Desk screening focusing on streaming data filters, high-throughput order book depth, and negative-weight arbitrage graph cycles.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nDynamic Risk-Weighted Median Filter\nMEDIUM\n30 pts\nQ2:\nOrder Book Volume at Price Limits\nHARD\n35 pts\n#Arbitrage\n#Running Medians\n#Market Microstructure\nGlobal Timer\n•\nHackerRank Standard\nSTART 80-MIN OA\nMETA\n2 PROBLEMS\n100 TOTAL POINTS\nMETA INFRASTRUCTURE OA\n\nGlobal Scale Topologies & Fault Tolerance\n\n70 MINS\n\nEngineering assessment testing resilient topology algorithms and ingress throttling used across Meta datacenter backbones.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nSliding Window Maximum Rate Limiter\nMEDIUM\n40 pts\nQ2:\nBounded-Hop Social Network Bridges\nMEDIUM\n60 pts\n#Graph Theory\n#Tarjan Bridges\n#Traffic Metering\nGlobal Timer\n•\nHackerRank Standard\nSTART 70-MIN OA\nTWO SIGMA\n2 PROBLEMS\n100 TOTAL POINTS\nTWO SIGMA ALPHA RESEARCH\n\nDual-Heap Streaming & Continuous Order Books\n\n75 MINS\n\nAssessment designed for quantitative researchers and alpha modelers analyzing live tick feeds without statistical skew.\n\nINCLUDED ASSESSMENT PROBLEMS:\nQ1:\nDynamic Risk-Weighted Median Filter\nMEDIUM\n40 pts\nQ2:\nOrder Book Volume at Price Limits\nHARD\n60 pts\n#Dual Heaps\n#Alpha Modeling\n#Rolling Windows\nGlobal Timer\n•\nHackerRank Standard\nSTART 75-MIN OA\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/stripe-payments-swe"
+      },
+      {
+        "text": "START 70-MIN OA",
+        "href": "/oa/amazon-aws-systems"
+      },
+      {
+        "text": "START 80-MIN OA",
+        "href": "/oa/frontier-ai-anthropic-openai"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/waymo-robotics-planning"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/citadel-quant-swe"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/google-core-screener"
+      },
+      {
+        "text": "START 80-MIN OA",
+        "href": "/oa/zurich-fintech-hf"
+      },
+      {
+        "text": "START 70-MIN OA",
+        "href": "/oa/meta-infra-screening"
+      },
+      {
+        "text": "START 75-MIN OA",
+        "href": "/oa/twosigma-alpha-quant"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 390,
+    "scrollWidth": 390
+  },
+  {
+    "route": "/oa/stripe-payments-swe",
+    "name": "oa-workspace-phone",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "STRIPE OA\nStripe Core Engineering Assessment\nQ1\n(0/2)\n•\nQ2\n(0/2)\n•\n01:14:26\nFINISH\nProblem Specification\nRules Engine & Real-Time Classification\nMEDIUM\n50 Points\nRule-Driven Transaction Fraud Detection\n#Stripe Core\n#FinTech\n#Rules Engine\n#Hash Maps\nFinancial Fraud Shield Context\n\nAt Stripe Radar, payment operations streams are evaluated against an active registry of merchant and compliance risk rules in sub-millisecond response windows.\n\nProblem Requirement\n\nProcess a finite chronological sequence of operations:\n\n[\"UPSERT\", ruleId, \"AMOUNT_AT_LEAST\", value]: Inserts or replaces a rule flagging transactions where amount >= value.\n[\"UPSERT\", ruleId, \"COUNTRY_IS\", value]: Inserts or replaces a rule flagging transactions where country == value.\n[\"UPSERT\", ruleId, \"MERCHANT_IS\", value]: Inserts or replaces a rule flagging transactions where merchant == value.\n[\"DELETE\", ruleId]: Removes the rule with given ID. Deleting a non-existent ID is a no-op.\n[\"EVAL\", amount, country, merchant]: Evaluates the transaction against all currently active rules.\n\nA transaction is fraudulent (true) if at least one active rule matches. Otherwise, it is allowed (false). Return a list of booleans corresponding to each EVAL operation in chronological order.\n\nEXAMPLES\nEXAMPLE 1\nInput:\noperations = [\n  [\"UPSERT\", \"r1\", \"AMOUNT_AT_LEAST\", \"1000\"],\n  [\"UPSERT\", \"r2\", \"COUNTRY_IS\", \"RU\"],\n  [\"EVAL\", \"900\", \"US\", \"books\"],\n  [\"EVAL\", \"1200\", \"US\", \"books\"],\n  [\"EVAL\", \"20\", \"RU\", \"coffee\"]\n]\nOutput:\n[false, true, true]\n\nNote: Transaction 1 matches neither rule. Transaction 2 exceeds $1000. Transaction 3 originates from RU.\n\nEXAMPLE 2\nInput:\noperations = [\n  [\"UPSERT\", \"risk\", \"AMOUNT_AT_LEAST\", \"100\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"UPSERT\", \"risk\", \"MERCHANT_IS\", \"risky\"],\n  [\"EVAL\", \"100\", \"US\", \"safe\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"],\n  [\"DELETE\", \"risk\"],\n  [\"EVAL\", \"1\", \"US\", \"risky\"]\n]\nOutput:\n[true, false, true, false]\n\nNote: Reusing ID 'risk' overwrites the rule. Deletion leaves no active rules for the final EVAL.\n\nCONSTRAINTS\n1 <= operations.length <= 200,000\nAt least one EVAL operation exists\nAmounts are non-negative integers up to 10^9\nTime complexity must be O(R + E * active_rules) or O(1) evaluation lookup\nPython 3\nTypeScript\nC++\nLoading...\nTest Cases\nCase 1\nCase 2\nStandard upsert and mixed EVAL\nINPUT PARAMETERS\noperations = [[\"UPSERT\",\"r1\",\"AMOUNT_AT_LEAST\",\"1000\"],[\"UPSERT\",\"r2\",\"COUNTRY_IS\",\"RU\"],[\"EVAL\",\"900\",\"US\",\"books\"],[\"EVAL\",\"1200\",\"US\",\"books\"],[\"EVAL\",\"20\",\"RU\",\"coffee\"]]\nEXPECTED OUTPUT\n[\n  false,\n  true,\n  true\n]\nACTUAL OUTPUT\nClick 'Run' to inspect",
+    "links": [],
+    "width": 390,
+    "scrollWidth": 390
+  },
+  {
+    "route": "/dashboard",
+    "name": "dashboard-phone",
+    "title": "EvalForge — AI Evaluation & Code Review Assessment Simulator",
+    "text": "EF\nEvalForge\nSIGN IN\nEVAL\nACUITY\n\nAggregated competency across Practice Mode and Timed Mock Assessments benchmarked against Tier-1 AI evaluation rubrics.\n\nTARGET BENCHMARK\n90.0%+\nPERCENTILE RANK\nUNRANKED\nREADINESS SCORE\n0.0%\nNOT READY\nVERDICT ACCURACY\n0.0%\n0 verified\nACTIVE STREAK\n0D\nBest: 0D\nMOCK AVERAGE\n0.0%\n0 taken\nPRACTICE AVERAGE\n0.0%\n0 audits\nSTART CODE AUDITING\n\nDrill on 75+ calibrated model solutions in Review Studio or take a timed 50-minute exam to calibrate your readiness index against hiring thresholds.\n\nPRACTICE CATALOG\nMOCK ASSESSMENT\nCOMPETENCY RADAR\nCORRECTNESS\nEDGE CASES\nCOMPLEXITY\nEXPLANATION\nCOMMUNICATION\nREMEDIATION\n0\n25\n50\n75\n100\nCANDIDATE COMPETENCY\nTARGET (90%)\nEVALUATION DIMENSIONS\nCOMPETENCY MATRIX\nTARGET ≥ 90.0%\nLOGIC DEBUGGING\n0.0%\nCRITICAL DEFICIT\nBOUNDARY ANALYSIS\n0.0%\nCRITICAL DEFICIT\nBIG-O INVARIANTS\n0.0%\nCRITICAL DEFICIT\nHALLUCINATION AUDITING\n0.0%\nCRITICAL DEFICIT\nREVIEW STRUCTURE\n0.0%\nCRITICAL DEFICIT\nPROPOSED FIXES\n0.0%\nCRITICAL DEFICIT\nDIMENSIONAL TAXONOMY\nEVALUATED ACROSS 75+ BENCHMARKS\nTOPIC MASTERY\nLINKED LISTS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nTREES & GRAPHS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nDYNAMIC PROGRAMMING\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nARRAYS & STRINGS\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nSTACKS & QUEUES\n0 EVALUATIONS LOGGED\n0%\nNOT STARTED\nDEFECT DETECTION\nSUBTLE LOGIC BUGS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nEDGE-CASE BLINDNESS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nDECEPTIVE EXPLANATIONS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nCOMPLEXITY REGRESSIONS\nTARGET ≥ 85% RECALL\n0%\nNOT STARTED\nZERO RECORDED EXAMS\n\nYou haven't completed any mock assessments yet. Take a timed 50-minute exam to calibrate your readiness scorecard.\n\nLAUNCH MOCK EXAM\nRESET PROFILE PROGRESS\nEF\nEvalForge\nv1.0\n\nHigh-stakes AI-Evaluation & Code-Review Assessment Simulator. Calibrating engineers for RLHF, Tier-1 FinTech, and FAANG standards.\n\nPractice Catalog\nMock Assessment\nOA Simulator\nReadiness Profile\n\n© 2026 EvalForge. High-Caliber Code Evaluation Engine.\n\nSYSTEM OPERATIONAL",
+    "links": [
+      {
+        "text": "EF\nEvalForge",
+        "href": "/"
+      },
+      {
+        "text": "PRACTICE",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA SIMULATOR",
+        "href": "/oa"
+      },
+      {
+        "text": "PROFILE",
+        "href": "/dashboard"
+      },
+      {
+        "text": "PRACTICE CATALOG",
+        "href": "/practice"
+      },
+      {
+        "text": "MOCK ASSESSMENT",
+        "href": "/assessment"
+      },
+      {
+        "text": "LAUNCH MOCK EXAM",
+        "href": "/assessment"
+      },
+      {
+        "text": "Practice Catalog",
+        "href": "/practice"
+      },
+      {
+        "text": "Mock Assessment",
+        "href": "/assessment"
+      },
+      {
+        "text": "OA Simulator",
+        "href": "/oa"
+      },
+      {
+        "text": "Readiness Profile",
+        "href": "/dashboard"
+      }
+    ],
+    "width": 390,
+    "scrollWidth": 390
+  }
+]
