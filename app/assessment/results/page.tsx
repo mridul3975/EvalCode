@@ -14,7 +14,10 @@ export default function AssessmentResultsPage() {
 
   useEffect(() => {
     const history = getAssessmentHistory();
-    if (history.length > 0) {
+    const requestedId = new URLSearchParams(window.location.search).get("session");
+    if (requestedId) {
+      setSession(history.find(item => item.id === requestedId) || null);
+    } else if (history.length > 0) {
       setSession(history[0]);
     } else {
       const active = getActiveAssessmentSession();
@@ -35,16 +38,16 @@ export default function AssessmentResultsPage() {
         <div className="w-12 h-12 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mx-auto text-zinc-400">
           <ShieldAlert className="w-6 h-6" />
         </div>
-        <h2 className="text-2xl font-bold text-white">No Assessment Completed Yet</h2>
+        <h2 className="text-2xl font-bold text-white">No mock result to show</h2>
         <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
-          You have not finished a 5-question mock assessment session. Take a timed test to generate your comprehensive scorecard and Readiness Index $R$.
+          Complete a review mock to see your saved judgments and feedback here.
         </p>
         <Link
           href="/assessment"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-lg transition-colors"
         >
           <Timer className="w-4 h-4" />
-          <span>Launch Mock Assessment</span>
+          <span>Explore review mocks</span>
         </Link>
       </div>
     );
