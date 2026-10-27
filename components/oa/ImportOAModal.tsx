@@ -1,4 +1,5 @@
 "use client";
+import { Dialog } from "@/components/ui/Dialog";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -143,11 +144,12 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
-      <div className="relative w-full max-w-2xl neu-card p-6 sm:p-9 space-y-6 font-['Hanken_Grotesk'] text-[#e2e2e5] border border-white/10 shadow-2xl">
+    <Dialog label="Import a coding assessment" onClose={handleClose} busy={isLoading} className="max-w-2xl">
+      <div className="relative w-full max-w-2xl neu-card p-6 sm:p-9 space-y-6 font-sans text-[#e2e2e5] border border-white/10 shadow-2xl">
         {/* Close Button */}
         <button
           onClick={handleClose}
+          aria-label="Close dialog"
           disabled={isLoading}
           className="absolute top-5 right-5 p-1.5 rounded-lg text-neutral-400 hover:text-white transition-colors cursor-pointer"
         >
@@ -157,13 +159,13 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
         {/* Modal Header */}
         <div className="space-y-2 border-b border-white/[0.08] pb-4">
           <div className="flex items-center gap-2">
-            <span className="neu-active-pill px-2.5 py-0.5 text-[11px] font-mono font-bold text-emerald-400 flex items-center gap-1.5">
+            <span className="neu-active-pill px-2.5 py-0.5 text-xs font-mono font-bold text-emerald-400 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>ONLINE ASSESSMENT INGESTION ENGINE</span>
+              <span></span>
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight font-mono">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-white  tracking-tight font-mono">
             IMPORT REAL-WORLD OA
           </h2>
           <p className="text-xs sm:text-sm font-sans text-neutral-400 leading-relaxed">
@@ -181,10 +183,10 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
                   <CheckCircle2 className="w-6 h-6 text-emerald-400" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400 block">
+                  <span className="text-xs font-mono font-bold  tracking-wider text-emerald-400 block">
                     SUCCESSFULLY IMPORTED & CALIBRATED
                   </span>
-                  <h3 className="text-lg sm:text-xl font-black text-white font-mono uppercase">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white font-mono ">
                     {importedProblem.title}
                   </h3>
                 </div>
@@ -192,19 +194,19 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs font-mono">
                 <div className="neu-card p-2.5">
-                  <span className="text-neutral-500 text-[10px] block">COMPANY</span>
+                  <span className="text-neutral-500 text-xs block">COMPANY</span>
                   <span className="font-bold text-white">{importedTrack.companyProfile}</span>
                 </div>
                 <div className="neu-card p-2.5">
-                  <span className="text-neutral-500 text-[10px] block">TIME ALLOCATED</span>
+                  <span className="text-neutral-500 text-xs block">TIME ALLOCATED</span>
                   <span className="font-bold text-amber-400">{Math.round(importedTrack.totalTimeSeconds / 60)} MINS</span>
                 </div>
                 <div className="neu-card p-2.5">
-                  <span className="text-neutral-500 text-[10px] block">TEST CASES</span>
+                  <span className="text-neutral-500 text-xs block">TEST CASES</span>
                   <span className="font-bold text-emerald-400">{importedProblem.testCases.length} SUITES</span>
                 </div>
                 <div className="neu-card p-2.5">
-                  <span className="text-neutral-500 text-[10px] block">STATUS</span>
+                  <span className="text-neutral-500 text-xs block">STATUS</span>
                   <span className="font-bold text-sky-400">READY IN LOBBY</span>
                 </div>
               </div>
@@ -214,7 +216,7 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
               <button
                 type="button"
                 onClick={handleClose}
-                className="w-full sm:w-auto neu-button px-6 py-3 rounded-xl font-mono text-xs font-bold uppercase text-neutral-300 hover:text-white cursor-pointer"
+                className="w-full sm:w-auto neu-button px-6 py-3 rounded-xl font-mono text-xs font-bold  text-neutral-300 hover:text-white cursor-pointer"
               >
                 VIEW IN OA LOBBY
               </button>
@@ -225,7 +227,7 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
                   handleClose();
                   router.push(`/oa/${importedTrack.id}`);
                 }}
-                className="w-full sm:w-auto neu-button bg-white text-black hover:bg-neutral-200 px-6 py-3 rounded-xl font-mono text-xs font-black uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+                className="w-full sm:w-auto neu-button bg-white text-black hover:bg-neutral-200 px-6 py-3 rounded-xl font-mono text-xs font-semibold  flex items-center justify-center gap-2 cursor-pointer shadow-lg"
               >
                 <span>LAUNCH ASSESSMENT NOW</span>
                 <ArrowRight className="w-4 h-4" />
@@ -241,9 +243,9 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
                 type="button"
                 onClick={() => setMode("link")}
                 className={cn(
-                  "py-2 px-3 rounded-lg font-bold uppercase transition-all flex items-center justify-center gap-2 cursor-pointer",
+                  "py-2 px-3 rounded-lg font-bold  transition-all flex items-center justify-center gap-2 cursor-pointer",
                   mode === "link"
-                    ? "neu-inset text-white font-black border border-white/10"
+                    ? "neu-inset text-white font-semibold border border-white/10"
                     : "text-neutral-400 hover:text-white"
                 )}
               >
@@ -255,9 +257,9 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
                 type="button"
                 onClick={() => setMode("prompt")}
                 className={cn(
-                  "py-2 px-3 rounded-lg font-bold uppercase transition-all flex items-center justify-center gap-2 cursor-pointer",
+                  "py-2 px-3 rounded-lg font-bold  transition-all flex items-center justify-center gap-2 cursor-pointer",
                   mode === "prompt"
-                    ? "neu-inset text-white font-black border border-white/10"
+                    ? "neu-inset text-white font-semibold border border-white/10"
                     : "text-neutral-400 hover:text-white"
                 )}
               >
@@ -277,7 +279,7 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
             {/* Link Mode Input */}
             {mode === "link" && (
               <div className="space-y-3 font-mono">
-                <label className="text-xs font-bold text-white uppercase flex items-center justify-between">
+                <label className="text-xs font-bold text-white  flex items-center justify-between">
                   <span>FASTPREP / GITHUB URL OR PROBLEM SLUG:</span>
                   <span className="text-neutral-400 font-normal">e.g. amazon-lru-query-result-cache</span>
                 </label>
@@ -292,14 +294,14 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
 
                 {/* Popular Quick Suggestions */}
                 <div className="space-y-1.5 pt-1">
-                  <span className="text-[10px] text-neutral-500 uppercase block">Quick Test Suggestions:</span>
+                  <span className="text-xs text-neutral-500  block">Quick Test Suggestions:</span>
                   <div className="flex flex-wrap gap-1.5">
                     {POPULAR_SLUGS.map((item) => (
                       <button
                         key={item.slug}
                         type="button"
                         onClick={() => setUrlOrSlug(item.slug)}
-                        className="px-2.5 py-1 rounded-md text-[10px] font-mono neu-button hover:text-emerald-400 text-neutral-300 border border-white/5 cursor-pointer transition-colors"
+                        className="px-2.5 py-1 rounded-md text-xs font-mono neu-button hover:text-emerald-400 text-neutral-300 border border-white/5 cursor-pointer transition-colors"
                       >
                         {item.label}
                       </button>
@@ -312,7 +314,7 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
             {/* Prompt Mode Input */}
             {mode === "prompt" && (
               <div className="space-y-2 font-mono">
-                <label className="text-xs font-bold text-white uppercase flex items-center justify-between">
+                <label className="text-xs font-bold text-white  flex items-center justify-between">
                   <span>PASTE OA PROMPT OR INTERVIEW NOTES:</span>
                   <span className="text-neutral-400 font-normal">LEETCODE / OA SPEC</span>
                 </label>
@@ -330,7 +332,7 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
             {/* Track Settings Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs pt-1">
               <div className="space-y-1.5">
-                <label className="font-bold text-neutral-300 uppercase block">
+                <label className="font-bold text-neutral-300  block">
                   COMPANY PROFILE:
                 </label>
                 <select
@@ -348,7 +350,7 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-bold text-neutral-300 uppercase block">
+                <label className="font-bold text-neutral-300  block">
                   TOTAL TIMER DURATION:
                 </label>
                 <div className="grid grid-cols-3 gap-1.5">
@@ -358,9 +360,9 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
                       type="button"
                       onClick={() => setDurationMins(mins)}
                       className={cn(
-                        "py-2 px-2 rounded-lg text-center font-bold uppercase transition-all cursor-pointer",
+                        "py-2 px-2 rounded-lg text-center font-bold  transition-all cursor-pointer",
                         durationMins === mins
-                          ? "neu-inset text-white font-black border border-white/10"
+                          ? "neu-inset text-white font-semibold border border-white/10"
                           : "neu-button text-neutral-400 hover:text-white"
                       )}
                     >
@@ -373,7 +375,7 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
 
             {/* Footer Submit Action */}
             <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between gap-4">
-              <div className="text-neutral-500 text-[11px] font-mono">
+              <div className="text-neutral-500 text-xs font-mono">
                 {isLoading ? (
                   <span className="flex items-center gap-2 text-emerald-400 animate-pulse">
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -387,7 +389,7 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
               <button
                 type="submit"
                 disabled={isLoading || (mode === "link" ? !urlOrSlug.trim() : !rawText.trim())}
-                className="neu-button bg-white text-black hover:bg-neutral-200 px-6 py-3 rounded-xl font-mono text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-40 cursor-pointer shadow-lg shrink-0"
+                className="neu-button bg-white text-black hover:bg-neutral-200 px-6 py-3 rounded-xl font-mono text-xs font-semibold  tracking-wider flex items-center justify-center gap-2 disabled:opacity-40 cursor-pointer shadow-lg shrink-0"
               >
                 {isLoading ? (
                   <>
@@ -405,6 +407,6 @@ export function ImportOAModal({ isOpen, onClose, onTrackImported }: ImportOAModa
           </form>
         )}
       </div>
-    </div>
+    </Dialog>
   );
 }

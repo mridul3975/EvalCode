@@ -1,4 +1,5 @@
 "use client";
+import { Dialog } from "@/components/ui/Dialog";
 
 import React from "react";
 import { OAProblem, OAQuestionState, QuestionSubmissionState } from "@/types/oa";
@@ -74,7 +75,7 @@ export function QuestionDrawer({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-sm animate-in fade-in duration-200 select-none">
+    <Dialog label="Assessment overview" onClose={onClose}>
       <div
         className="w-full max-w-md h-full bg-[#0e1013] border-l border-neutral-800 flex flex-col shadow-2xl animate-in slide-in-from-right duration-200 font-sans"
         onClick={(e) => e.stopPropagation()}
@@ -84,7 +85,7 @@ export function QuestionDrawer({
           <div className="flex items-center gap-2.5">
             <Code2 className="w-4 h-4 text-emerald-400" />
             <h2 className="text-sm font-bold text-white font-mono uppercase tracking-wider">
-              Assessment Matrix
+              Assessment overview
             </h2>
           </div>
           <button
@@ -124,6 +125,9 @@ export function QuestionDrawer({
             return (
               <div
                 key={prob.id}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelectProblem(prob.id); onClose(); } }}
                 onClick={() => {
                   onSelectProblem(prob.id);
                   onClose();
@@ -193,9 +197,9 @@ export function QuestionDrawer({
         {/* Drawer Footer Tip */}
         <div className="p-4 border-t border-neutral-800 bg-[#121418] text-[11px] font-mono text-neutral-400 flex items-center gap-2">
           <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
-          <span>You can switch between questions at any time. Code and test outputs are saved continuously.</span>
+          <span>You can switch between questions at any time. Work is saved periodically in this browser.</span>
         </div>
       </div>
-    </div>
+    </Dialog>
   );
 }

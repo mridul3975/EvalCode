@@ -1,4 +1,5 @@
 "use client";
+import { Dialog } from "@/components/ui/Dialog";
 
 import React, { useState } from "react";
 import { QuestionItem } from "@/types/question";
@@ -69,11 +70,12 @@ export function AddQuestionModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-      <div className="relative w-full max-w-2xl obsidian-card p-6 sm:p-10 space-y-6 font-['Hanken_Grotesk'] text-[#e2e2e5]">
+    <Dialog label="Add a practice question" onClose={onClose} busy={isGenerating} className="max-w-2xl">
+      <div className="relative w-full max-w-2xl obsidian-card p-6 sm:p-10 space-y-6 font-sans text-[#e2e2e5]">
         {/* Close Button */}
         <button
           onClick={onClose}
+          aria-label="Close dialog"
           disabled={isGenerating}
           className="absolute top-5 right-5 p-1.5 rounded-lg text-[#b9cbc1] hover:text-white transition-colors cursor-pointer"
         >
@@ -85,7 +87,7 @@ export function AddQuestionModal({
           <div className="flex items-center justify-between">
             <span className="obsidian-chip-optimal flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>GEMINI AI QUESTION BENCHMARK INGESTION</span>
+              <span></span>
             </span>
 
             <button
@@ -98,8 +100,8 @@ export function AddQuestionModal({
             </button>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-            ADD QUESTION VIA AI PASTE
+          <h2 className="text-2xl sm:text-3xl font-semibold text-white  tracking-tight">
+            Add a practice question
           </h2>
           <p className="text-xs sm:text-sm font-mono text-[#b9cbc1]">
             Paste any raw problem prompt or buggy code snippet. Gemini AI will format the spec, generate a calibrated defect, and add it to your Practice Catalog.
@@ -109,7 +111,7 @@ export function AddQuestionModal({
         {/* API Key Drawer Option */}
         {showKeyInput && (
           <div className="obsidian-inset p-4 space-y-3 font-mono text-xs border border-[#282a2c]">
-            <span className="font-bold text-white uppercase block">CUSTOM GEMINI API KEY (OPTIONAL)</span>
+            <span className="font-bold text-white  block">CUSTOM GEMINI API KEY (OPTIONAL)</span>
             <p className="text-[#b9cbc1]">
               By default, EvalForge uses the server key in <code>.env.local</code>. Enter your own key below if needed:
             </p>
@@ -124,7 +126,7 @@ export function AddQuestionModal({
               <button
                 type="button"
                 onClick={handleSaveKey}
-                className="obsidian-btn-primary px-4 py-2 text-xs font-bold uppercase cursor-pointer"
+                className="obsidian-btn-primary px-4 py-2 text-xs font-bold  cursor-pointer"
               >
                 SAVE KEY
               </button>
@@ -143,7 +145,7 @@ export function AddQuestionModal({
         {/* Form Body */}
         <form onSubmit={handleGenerate} className="space-y-4">
           <div className="space-y-2">
-            <label className="text-xs font-mono font-bold text-white uppercase flex items-center justify-between">
+            <label className="text-xs font-mono font-bold text-white  flex items-center justify-between">
               <span>PASTE RAW PROBLEM TEXT OR CODE:</span>
               <span className="text-[#83958c]">LEETCODE / PROMPT / CODE</span>
             </label>
@@ -159,7 +161,7 @@ export function AddQuestionModal({
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs pt-2">
             <div className="flex items-center gap-3">
-              <span className="font-bold text-[#b9cbc1] uppercase">LANGUAGE:</span>
+              <span className="font-bold text-[#b9cbc1] ">LANGUAGE:</span>
               {[
                 { key: "python", label: "PYTHON" },
                 { key: "javascript", label: "JAVASCRIPT" },
@@ -170,9 +172,9 @@ export function AddQuestionModal({
                   type="button"
                   onClick={() => setPreferredLanguage(lang.key)}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer",
+                    "px-3 py-1.5 rounded-lg text-xs font-bold  transition-all cursor-pointer",
                     preferredLanguage === lang.key
-                      ? "bg-white text-[#121416] font-black"
+                      ? "bg-white text-[#121416] font-semibold"
                       : "obsidian-inset text-[#b9cbc1] hover:text-white"
                   )}
                 >
@@ -184,7 +186,7 @@ export function AddQuestionModal({
             <button
               type="submit"
               disabled={isGenerating || !rawText.trim()}
-              className="w-full sm:w-auto obsidian-btn-primary px-8 py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-40 cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.25)]"
+              className="w-full sm:w-auto obsidian-btn-primary px-8 py-3.5 text-xs font-bold  tracking-wider flex items-center justify-center gap-2 disabled:opacity-40 cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.25)]"
             >
               {isGenerating ? (
                 <>
@@ -201,6 +203,6 @@ export function AddQuestionModal({
           </div>
         </form>
       </div>
-    </div>
+    </Dialog>
   );
 }

@@ -1,4 +1,5 @@
 "use client";
+import { Dialog } from "@/components/ui/Dialog";
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -84,6 +85,7 @@ export default function ActiveAssessmentSessionPage() {
   const activeSubmission = session.submissions[activeQuestionId];
 
   const handleSelectQuestion = (index: number) => {
+    setSelectedLineForCite(null);
     const updated = { ...session, active_question_index: index };
     setSession(updated);
     saveActiveAssessmentSession(updated);
@@ -159,8 +161,9 @@ export default function ActiveAssessmentSessionPage() {
   const answeredIds = Object.keys(session.submissions);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#121416] text-[#e2e2e5] font-['Hanken_Grotesk']">
+    <div className="flex flex-col min-h-screen bg-[#121416] text-[#e2e2e5] font-sans">
       {/* Top Assessment Navigation Header */}
+      <div className="sticky top-0 z-40 bg-[#0c0e12]">
       <AssessmentHeader
         remainingSeconds={session.remaining_seconds}
         totalSeconds={session.duration_seconds}
@@ -168,6 +171,7 @@ export default function ActiveAssessmentSessionPage() {
         onSubmitSession={() => setShowSubmitModal(true)}
         activeQuestionIndex={session.active_question_index}
         totalQuestions={session.question_ids.length}
+        questionIds={session.question_ids}
         flaggedQuestions={session.flagged_questions}
         answeredQuestionIds={answeredIds}
         currentQuestionId={activeQuestionId}
@@ -175,35 +179,10 @@ export default function ActiveAssessmentSessionPage() {
         onToggleFlag={handleToggleFlag}
       />
 
-      {/* Mobile Tab Switcher (< lg) */}
-      <div className="lg:hidden flex border-b border-[rgba(255,255,255,0.08)] bg-[#16181a] px-4 py-2 sticky top-[106px] z-20 font-mono text-xs">
-        <div className="grid grid-cols-2 w-full gap-2 p-1 bg-[#121416] rounded-xl border border-black/40">
-          <button
-            onClick={() => setMobileTab("code")}
-            className={cn(
-              "flex items-center justify-center gap-1.5 py-2.5 rounded-lg font-bold uppercase transition-all",
-              mobileTab === "code"
-                ? "bg-white text-[#121416] shadow-sm font-black"
-                : "text-[#b9cbc1] hover:text-white"
-            )}
-          >
-            <Code2 className="w-3.5 h-3.5" />
-            <span>PROBLEM & CODE</span>
-          </button>
-
-          <button
-            onClick={() => setMobileTab("form")}
-            className={cn(
-              "flex items-center justify-center gap-1.5 py-2.5 rounded-lg font-bold uppercase transition-all",
-              mobileTab === "form"
-                ? "bg-white text-[#121416] shadow-sm font-black"
-                : "text-[#b9cbc1] hover:text-white"
-            )}
-          >
-            <FileEdit className="w-3.5 h-3.5" />
-            <span>AUDIT FORM {activeSubmission ? "(SAVED)" : ""}</span>
-          </button>
-        </div>
+      <nav className="grid grid-cols-2 gap-2 border-b border-neutral-800 px-4 py-2 lg:hidden" aria-label="Mock workspace views">
+        <button type="button" aria-pressed={mobileTab === "code"} onClick={() => setMobileTab("code")} className={`min-h-11 rounded-md text-sm ${mobileTab === "code" ? "bg-neutral-700/60 text-white" : "text-neutral-400"}`}>Problem & code</button>
+        <button type="button" aria-pressed={mobileTab === "form"} onClick={() => setMobileTab("form")} className={`min-h-11 rounded-md text-sm ${mobileTab === "form" ? "bg-neutral-700/60 text-white" : "text-neutral-400"}`}>Audit form{activeSubmission ? " · Saved" : ""}</button>
+      </nav>
       </div>
 
       {/* Main Split Test Workspace */}
@@ -241,6 +220,8 @@ export default function ActiveAssessmentSessionPage() {
             key={activeQuestion.id}
             question={activeQuestion}
             initialValues={activeSubmission}
+            draftStorageKey={`evalforge_mock_draft_${session.id}_${activeQuestion.id}`}
+            submitLabel="Save review & next"
             onSubmit={handleSaveFormDraft}
             onLineCiteRequested={selectedLineForCite}
           />
@@ -249,19 +230,20 @@ export default function ActiveAssessmentSessionPage() {
 
       {/* Final Submit Confirmation Modal */}
       {showSubmitModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
+        <Dialog label="Finish review mock" onClose={() => setShowSubmitModal(false)}>
           <div className="relative w-full max-w-md obsidian-card p-6 sm:p-8 space-y-6">
             <button
               onClick={() => setShowSubmitModal(false)}
+              aria-label="Close submission dialog"
               className="absolute top-5 right-5 p-1 text-[#b9cbc1] hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="space-y-2">
-              <span className="obsidian-chip-optimal">FINAL SUBMISSION</span>
+
               <h3 className="text-xl sm:text-2xl font-bold text-white uppercase">
-                COMPLETE ASSESSMENT?
+                Finish your mock?
               </h3>
               <p className="text-xs sm:text-sm font-mono text-[#b9cbc1]">
                 You have answered <strong>{answeredIds.length}</strong> of <strong>{session.question_ids.length}</strong> questions.
@@ -283,18 +265,18 @@ export default function ActiveAssessmentSessionPage() {
                 onClick={() => setShowSubmitModal(false)}
                 className="w-full sm:flex-1 obsidian-btn-secondary py-3 text-xs font-bold uppercase tracking-wider cursor-pointer text-center"
               >
-                RETURN TO TEST
+                Return to mock
               </button>
               <button
                 type="button"
                 onClick={() => handleFinalSubmit(session)}
                 className="w-full sm:flex-1 obsidian-btn-primary py-3 text-xs font-bold uppercase tracking-wider cursor-pointer text-center"
               >
-                SUBMIT NOW ➔
+                Submit mock
               </button>
             </div>
           </div>
-        </div>
+        </Dialog>
       )}
     </div>
   );

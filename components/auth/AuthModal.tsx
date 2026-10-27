@@ -1,4 +1,5 @@
 "use client";
+import { Dialog } from "@/components/ui/Dialog";
 
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
@@ -33,11 +34,12 @@ export function AuthModal({ isOpen, onClose, onContinueGuest }: AuthModalProps) 
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+    <Dialog label="Sign in" onClose={onClose} busy={isLoading} className="max-w-2xl">
       <div className="relative w-full max-w-md bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
         {/* Close Button */}
         <button
           onClick={onClose}
+          aria-label="Close dialog"
           className="absolute top-5 right-5 p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
         >
           <X className="w-5 h-5" />
@@ -49,10 +51,10 @@ export function AuthModal({ isOpen, onClose, onContinueGuest }: AuthModalProps) 
             <ShieldCheck className="w-6 h-6" />
           </div>
           <h3 className="text-xl font-extrabold text-white tracking-tight">
-            Choose Your Evaluator Mode
+            Keep your progress with you
           </h3>
           <p className="text-xs text-zinc-400 max-w-xs mx-auto">
-            Train on 75+ AI code review benchmarks or track your persistent readiness certificate.
+            Sign in to sync your reviews, or keep practicing in this browser.
           </p>
         </div>
 
@@ -105,7 +107,7 @@ export function AuthModal({ isOpen, onClose, onContinueGuest }: AuthModalProps) 
             className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-zinc-800/80 hover:bg-zinc-800 text-zinc-200 hover:text-white font-semibold text-xs border border-zinc-700/60 shadow-sm transition-all cursor-pointer group"
           >
             <UserCheck className="w-4 h-4 text-zinc-400 group-hover:text-emerald-400 transition-colors" />
-            <span>Test as Guest (No Login Required)</span>
+            <span>Continue without signing in</span>
             <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:translate-x-0.5 transition-transform" />
           </button>
           <p className="text-[10px] text-center text-zinc-500 leading-tight">
@@ -113,6 +115,6 @@ export function AuthModal({ isOpen, onClose, onContinueGuest }: AuthModalProps) 
           </p>
         </div>
       </div>
-    </div>
+    </Dialog>
   );
 }

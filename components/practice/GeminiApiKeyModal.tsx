@@ -1,4 +1,5 @@
 "use client";
+import { Dialog } from "@/components/ui/Dialog";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -143,14 +144,9 @@ export function GeminiApiKeyModal({
   };
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="gemini-api-key-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
-    >
+    <Dialog label="AI assistant settings" onClose={onClose} busy={isVerifying} className="max-w-2xl">
       <div
-        className="relative w-full max-w-lg neu-card p-6 sm:p-8 space-y-6 text-neutral-200 font-['Hanken_Grotesk'] border border-neutral-700/60 shadow-2xl"
+        className="relative w-full max-w-lg neu-card p-6 sm:p-8 space-y-6 text-neutral-200 font-sans border border-neutral-700/60 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -169,21 +165,20 @@ export function GeminiApiKeyModal({
             <span className="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
               <Key className="w-4 h-4" />
             </span>
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-400">
-              Gemini 2.5 Flash Assistant
+            <span className="text-xs font-mono font-bold  tracking-wider text-emerald-400">
+              Optional AI assistant
             </span>
           </div>
 
           <h3
             id="gemini-api-key-modal-title"
-            className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight font-mono"
+            className="text-xl sm:text-2xl font-semibold text-white  tracking-tight font-mono"
           >
-            Configure Gemini API Key
+            AI assistant settings
           </h3>
           <p className="text-xs text-neutral-400 leading-relaxed font-sans">
             Connect your personal Google Gemini API key to activate the AI
-            assistant in Practice Review Studio. Your key is stored securely in
-            your browser&apos;s local storage.
+            assistant in Practice Review Studio. Your key is saved in this browser. Only use a key you trust on this device.
           </p>
         </div>
 
@@ -197,7 +192,7 @@ export function GeminiApiKeyModal({
               )}
             />
             <div>
-              <span className="text-[10px] text-neutral-500 uppercase block font-bold">
+              <span className="text-xs text-neutral-500  block font-bold">
                 Current Status
               </span>
               <span className="text-white font-bold">
@@ -208,7 +203,7 @@ export function GeminiApiKeyModal({
 
           {existingKey && (
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-neutral-400 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800">
+              <span className="text-xs text-neutral-400 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800">
                 {maskKey(existingKey)}
               </span>
               <button
@@ -251,7 +246,7 @@ export function GeminiApiKeyModal({
           <div className="space-y-1.5">
             <label
               htmlFor="gemini-api-key-input"
-              className="text-[11px] font-bold text-neutral-300 uppercase tracking-wider block"
+              className="text-xs font-bold text-neutral-300  tracking-wider block"
             >
               Google Gemini API Key
             </label>
@@ -280,7 +275,7 @@ export function GeminiApiKeyModal({
                 )}
               </button>
             </div>
-            <p className="text-[11px] text-neutral-500 font-sans">
+            <p className="text-xs text-neutral-500 font-sans">
               Usually starts with <code>AIzaSy</code> (Google AI Studio key).
             </p>
           </div>
@@ -294,7 +289,7 @@ export function GeminiApiKeyModal({
               rel="noreferrer"
               className="text-emerald-400 hover:text-emerald-300 font-medium inline-flex items-center gap-1 transition-colors"
             >
-              <span>Get Free Key at Google AI Studio</span>
+              <span>Open Google AI Studio</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
@@ -304,7 +299,7 @@ export function GeminiApiKeyModal({
             <button
               type="submit"
               disabled={isVerifying || !keyInput.trim()}
-              className="w-full sm:flex-1 neu-button py-2.5 px-4 bg-emerald-500 text-black hover:bg-emerald-400 font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-40"
+              className="w-full sm:flex-1 neu-button py-2.5 px-4 bg-emerald-500 text-black hover:bg-emerald-400 font-bold  tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-40"
             >
               {isVerifying ? (
                 <>
@@ -323,7 +318,7 @@ export function GeminiApiKeyModal({
               type="button"
               onClick={handleSaveWithoutVerify}
               disabled={isVerifying || !keyInput.trim()}
-              className="w-full sm:w-auto neu-button py-2.5 px-4 text-neutral-300 hover:text-white font-mono uppercase tracking-tight transition-all cursor-pointer disabled:opacity-40"
+              className="w-full sm:w-auto neu-button py-2.5 px-4 text-neutral-300 hover:text-white font-mono  tracking-tight transition-all cursor-pointer disabled:opacity-40"
             >
               <span>Save Without Test</span>
             </button>
@@ -331,11 +326,11 @@ export function GeminiApiKeyModal({
         </form>
 
         {/* Security Notice */}
-        <div className="flex items-center gap-2 text-[10px] text-neutral-500 font-mono pt-1">
+        <div className="flex items-center gap-2 text-xs text-neutral-500 font-mono pt-1">
           <Sparkles className="w-3 h-3 text-neutral-500 shrink-0" />
           <span>Stored exclusively in your local browser storage.</span>
         </div>
       </div>
-    </div>
+    </Dialog>
   );
 }

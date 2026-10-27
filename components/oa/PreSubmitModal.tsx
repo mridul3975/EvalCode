@@ -1,4 +1,5 @@
 "use client";
+import { Dialog } from "@/components/ui/Dialog";
 
 import React from "react";
 import { OAProblem, OAQuestionState } from "@/types/oa";
@@ -93,7 +94,7 @@ export function PreSubmitModal({
   const hasWarnings = unattemptedCount > 0 || failingCount > 0;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 select-none animate-in fade-in duration-200">
+    <Dialog label="Review your assessment before submitting" onClose={onClose} busy={isSubmitting} className="max-w-2xl">
       <div
         className="w-full max-w-xl rounded-2xl bg-[#0e1013] border border-neutral-800 p-6 sm:p-7 space-y-6 shadow-2xl animate-in zoom-in-95 duration-200 font-sans"
         onClick={(e) => e.stopPropagation()}
@@ -103,7 +104,7 @@ export function PreSubmitModal({
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 font-mono">
               <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-white/10 text-neutral-200 border border-white/10">
-                Pre-Submission Audit
+                Review before submitting
               </span>
               <span className="text-[11px] text-neutral-400 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-amber-400" />
@@ -111,13 +112,14 @@ export function PreSubmitModal({
               </span>
             </div>
             <h2 className="text-xl font-black text-white uppercase tracking-tight font-mono">
-              Finish Assessment Confirmation
+              Finish this assessment?
             </h2>
           </div>
 
           <button
             type="button"
             onClick={onClose}
+            aria-label="Close submission summary"
             className="text-neutral-400 hover:text-white p-1 rounded-lg hover:bg-neutral-800 transition-colors"
           >
             ✕
@@ -129,7 +131,7 @@ export function PreSubmitModal({
           <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-3">
             <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
             <div className="space-y-1 leading-relaxed">
-              <span className="font-bold block">Attention: Potential Unfinished Work</span>
+              <span className="font-bold block">Some work is unfinished</span>
               <p className="text-amber-200/90 text-[11px]">
                 {unattemptedCount > 0 && `${unattemptedCount} question(s) unattempted. `}
                 {failingCount > 0 && `${failingCount} question(s) have failing tests. `}
@@ -142,7 +144,7 @@ export function PreSubmitModal({
         {/* Question Matrix Table */}
         <div className="space-y-2 font-mono text-xs">
           <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">
-            Submission Status Matrix:
+            Your questions
           </span>
 
           <div className="space-y-2">
@@ -196,6 +198,6 @@ export function PreSubmitModal({
           </button>
         </div>
       </div>
-    </div>
+    </Dialog>
   );
 }
