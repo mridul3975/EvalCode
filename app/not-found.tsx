@@ -11,9 +11,9 @@ export default function NotFound() {
         </div>
 
         <div className="space-y-2">
-          <h2 className="text-xl font-bold text-white">404 — Problem Not Found</h2>
+          <h2 className="text-xl font-bold text-white">Page not found</h2>
           <p className="text-xs text-zinc-400 leading-relaxed">
-            The requested assessment problem or page does not exist or has been relocated.
+            This page isn’t available. Return to practice to choose another question.
           </p>
         </div>
 

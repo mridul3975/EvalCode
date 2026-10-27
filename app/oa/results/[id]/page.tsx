@@ -5,9 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
   getMultiOAResultById,
-  getMultiOAResults,
   getOAResultById,
-  getOAResults,
 } from "@/lib/oa/storage";
 import {
   OAMultiAssessmentResult,
@@ -55,43 +53,26 @@ export default function OAResultsPage() {
       return;
     }
 
-    // 2. Fallback to any recent multi-question result
-    const allMulti = getMultiOAResults();
-    const firstMulti = Object.values(allMulti)[0];
-    if (firstMulti) {
-      setMultiResult(firstMulti);
-      if (firstMulti.questions.length > 0) {
-        setActiveCodeTab(firstMulti.questions[0].problemId);
-      }
-      return;
-    }
-
-    // 3. Fallback to legacy single result
     const legacy = getOAResultById(resultId);
     if (legacy) {
       setLegacyResult(legacy);
       return;
     }
 
-    const allLegacy = getOAResults();
-    const firstLegacy = Object.values(allLegacy)[0];
-    if (firstLegacy) {
-      setLegacyResult(firstLegacy);
-    }
   }, [resultId]);
 
   if (!multiResult && !legacyResult) {
     return (
       <div className="min-h-screen bg-[#121416] text-white flex flex-col items-center justify-center p-6 font-mono space-y-4">
-        <h2 className="text-xl font-bold uppercase">NO OA ASSESSMENT RESULT FOUND</h2>
+        <h2 className="text-xl font-bold uppercase">No coding assessment result to show</h2>
         <p className="text-xs text-[#b9cbc1]">
-          The requested assessment report could not be found in local or remote storage.
+          This report isn’t available in this browser. Return to the assessment catalog to continue.
         </p>
         <Link
           href="/oa"
           className="obsidian-btn-primary px-6 py-2.5 text-xs font-bold uppercase"
         >
-          RETURN TO OA SIMULATOR
+          View coding assessments
         </Link>
       </div>
     );
@@ -103,28 +84,28 @@ export default function OAResultsPage() {
     { label: string; sub: string; color: string; bg: string; border: string }
   > = {
     STRONG_PASS: {
-      label: "STRONG PASS — TIER-1 HIRED",
-      sub: "Exceeded the Bar-Raiser benchmark across algorithmic optimality, code modularity, and technical defense.",
+      label: "Strong practice result",
+      sub: "Strong performance across the exercise’s tests, code quality, and explanations.",
       color: "text-emerald-400",
       bg: "bg-emerald-500/10",
       border: "border-emerald-500/40",
     },
     PASS: {
-      label: "PASS — ADVANCE TO ONSITE",
-      sub: "Satisfies hiring expectations for algorithmic correctness and defense reasoning under time pressure.",
+      label: "Practice target met",
+      sub: "Your solution meets this exercise’s practice targets.",
       color: "text-emerald-400",
       bg: "bg-emerald-500/10",
       border: "border-emerald-500/30",
     },
     BORDERLINE: {
-      label: "BORDERLINE — COMMITTEE REVIEW",
+      label: "Keep building consistency",
       sub: "Partially passed test harness or showed minor asymptotic fragility in the follow-up defense.",
       color: "text-amber-400",
       bg: "bg-amber-500/10",
       border: "border-amber-500/40",
     },
     FAIL: {
-      label: "NOT READY — CRITICAL GAPS",
+      label: "More practice recommended",
       sub: "Failed key hidden edge-case suites or demonstrated sub-optimal Big-O complexity under scale.",
       color: "text-rose-400",
       bg: "bg-rose-500/10",
@@ -164,7 +145,7 @@ export default function OAResultsPage() {
     };
 
     return (
-      <div className="min-h-screen bg-[#121416] text-[#e2e2e5] font-['Hanken_Grotesk'] antialiased py-10 sm:py-14 select-none">
+      <div className="min-h-screen bg-[#121416] text-[#e2e2e5] font-sans antialiased py-10 sm:py-14 select-none">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           {/* Executive Header */}
           <div className="space-y-4">
@@ -185,7 +166,7 @@ export default function OAResultsPage() {
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
-                <h1 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight font-mono">
+                <h1 className="text-2xl sm:text-3xl font-semibold text-white uppercase tracking-tight font-mono">
                   {multiResult.trackTitle}
                 </h1>
                 <p className="text-sm text-[#b9cbc1] font-sans mt-1">
@@ -193,7 +174,7 @@ export default function OAResultsPage() {
                 </p>
               </div>
 
-              {/* Hiring Bar Verdict Badge */}
+              {/* Practice assessment Badge */}
               <div
                 className={cn(
                   "p-4 sm:p-5 rounded-2xl border flex items-center gap-4 shrink-0 font-mono",
@@ -451,13 +432,13 @@ export default function OAResultsPage() {
             </div>
           </div>
 
-          {/* Section 2: Senior Staff Bar-Raiser Critique */}
+          {/* Section 2: Senior Staff Review feedback Critique */}
           <div className="obsidian-card p-6 sm:p-8 space-y-6 font-mono">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4 text-emerald-400" />
                 <h3 className="text-sm font-black uppercase text-white tracking-wider">
-                  2. SENIOR STAFF BAR-RAISER HOLISTIC AUDIT
+                  2. SENIOR STAFF Review feedback HOLISTIC AUDIT
                 </h3>
               </div>
               <span className="obsidian-chip-optimal text-[10px]">PRINCIPAL AUDIT</span>
@@ -558,7 +539,7 @@ export default function OAResultsPage() {
                     {fu.feedback && (
                       <div className="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/30 text-emerald-400 text-xs font-sans">
                         <span className="font-bold font-mono text-[10px] uppercase block">
-                          BAR-RAISER FEEDBACK:
+                          Review feedback FEEDBACK:
                         </span>
                         {fu.feedback}
                       </div>
@@ -624,7 +605,7 @@ export default function OAResultsPage() {
 
             <Link
               href="/dashboard"
-              className="w-full sm:w-auto neu-extruded bg-white text-black px-8 py-3 rounded-lg font-black uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-zinc-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+              className="w-full sm:w-auto btn-primary px-8 py-3 rounded-lg font-black uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-zinc-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)]"
             >
               <span>VIEW CANDIDATE PROFILE</span>
               <ArrowRight className="w-4 h-4" />
@@ -637,7 +618,7 @@ export default function OAResultsPage() {
 
   // Fallback Single Question Result View
   return (
-    <div className="min-h-screen bg-[#121416] text-[#e2e2e5] font-['Hanken_Grotesk'] antialiased py-10 sm:py-14 select-none">
+    <div className="min-h-screen bg-[#121416] text-[#e2e2e5] font-sans antialiased py-10 sm:py-14 select-none">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <h1 className="text-3xl font-black font-mono text-white uppercase">
           {legacyResult?.problemTitle} Assessment Report
@@ -648,7 +629,7 @@ export default function OAResultsPage() {
           </p>
         </div>
         <Link href="/oa" className="obsidian-btn-secondary px-6 py-3 font-mono text-xs inline-block">
-          RETURN TO OA SIMULATOR
+          View coding assessments
         </Link>
       </div>
     </div>

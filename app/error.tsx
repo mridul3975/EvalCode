@@ -25,7 +25,7 @@ export default function Error({
         <div className="space-y-2">
           <h2 className="text-xl font-bold text-white">Something went wrong</h2>
           <p className="text-xs text-zinc-400 leading-relaxed font-mono">
-            {error?.message || "An unexpected error occurred during execution."}
+            This view couldn’t load. Try again or return to practice.
           </p>
         </div>
 
