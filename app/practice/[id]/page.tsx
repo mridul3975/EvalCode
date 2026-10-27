@@ -1,4 +1,5 @@
 "use client";
+import { reviewTitle } from "@/lib/review-presentation";
 
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
@@ -117,6 +118,7 @@ function ReviewStudioContent() {
   };
 
   const handleRetry = () => {
+    localStorage.removeItem(`evalforge_review_draft_${question.id}`);
     setSubmission(null);
     setResult(null);
     setSelectedLineForCite(null);
@@ -132,10 +134,10 @@ function ReviewStudioContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0d0e11] text-neutral-200 font-['Hanken_Grotesk'] antialiased flex flex-col">
+    <div className="min-h-screen bg-[#0d0e11] text-neutral-200 font-sans antialiased flex flex-col">
       {/* Top Navigation Strip */}
-      <header className="h-12 border-b border-neutral-800/80 bg-neutral-950/70 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 font-mono text-xs gap-3">
-        <div className="flex items-center gap-3 min-w-0">
+      <header className="min-h-14 flex-wrap py-2 border-b border-neutral-800/80 bg-neutral-950/70 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 text-sm gap-x-3 gap-y-1">
+        <div className="flex basis-full items-center gap-3 min-w-0 lg:basis-auto lg:flex-1">
           <Link
             href="/practice"
             className="text-neutral-400 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
@@ -147,7 +149,7 @@ function ReviewStudioContent() {
           <span className="h-4 w-[1px] bg-neutral-800 shrink-0" />
 
           <span className="font-semibold text-white truncate max-w-xs sm:max-w-md">
-            {question.title}
+            {reviewTitle(question)}
           </span>
         </div>
 
@@ -164,7 +166,7 @@ function ReviewStudioContent() {
             )}
           >
             <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden md:inline">Audit Buggy Code</span>
+            <span className="hidden md:inline">Review code</span>
             <span className="md:hidden">Audit</span>
           </button>
 
@@ -179,12 +181,12 @@ function ReviewStudioContent() {
             )}
           >
             <Code2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden md:inline">Attempt From Scratch</span>
+            <span className="hidden md:inline">Solve it yourself</span>
             <span className="md:hidden">Attempt</span>
           </button>
         </div>
 
-        {/* Right Tools: API Key, Share & Gemini Copilot */}
+        {/* Right Tools: API Key, Share & AI assistant */}
         <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
@@ -195,7 +197,7 @@ function ReviewStudioContent() {
                 ? "bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white"
                 : "bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20"
             )}
-            title="Configure Gemini API Key"
+            title="Configure Gemini API Key" aria-label="AI assistant settings"
           >
             <Key className="w-3.5 h-3.5 text-amber-400" />
             <span className="hidden sm:inline font-semibold">
@@ -210,6 +212,7 @@ function ReviewStudioContent() {
           </button>
 
           <button
+            aria-label="Copy question link"
             onClick={handleShare}
             className="p-1.5 px-2.5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
           >
@@ -221,13 +224,15 @@ function ReviewStudioContent() {
             ) : (
               <>
                 <Share2 className="w-3 h-3" />
-                <span className="text-[11px]">Share</span>
+                <span className="hidden sm:inline text-[11px]">Share</span>
               </>
             )}
           </button>
 
           <button
             type="button"
+            aria-label="Toggle AI assistant"
+            aria-expanded={isSidebarOpen}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className={cn(
               "px-3 py-1.5 rounded flex items-center gap-1.5 transition-all cursor-pointer font-semibold",
@@ -237,7 +242,7 @@ function ReviewStudioContent() {
             )}
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Gemini Copilot</span>
+            <span className="hidden sm:inline">AI assistant</span>
           </button>
         </div>
       </header>
@@ -286,7 +291,7 @@ function ReviewStudioContent() {
           )}
         >
           <Sparkles className="w-3.5 h-3.5" />
-          <span>AI Assistant</span>
+          <span>Assistant</span>
         </button>
       </div>
 
@@ -296,7 +301,7 @@ function ReviewStudioContent() {
           {/* Left Column (5 Cols) */}
           <div
             className={cn(
-              "lg:col-span-5 flex flex-col gap-6",
+              "min-w-0 lg:col-span-6 flex flex-col gap-6",
               mobileTab === "code" ? "flex" : "hidden lg:flex"
             )}
           >
@@ -309,7 +314,7 @@ function ReviewStudioContent() {
               <CodeViewer
                 code={currentCode}
                 language={selectedLanguage.toUpperCase()}
-                onSelectLine={(line) => setSelectedLineForCite(line)}
+                onSelectLine={(line) => { setSelectedLineForCite(line); setMobileTab("form"); }}
                 availableLanguages={availableLangs}
                 selectedLanguage={selectedLanguage}
                 onLanguageChange={(lang) => setSelectedLanguage(lang)}
@@ -320,7 +325,7 @@ function ReviewStudioContent() {
           {/* Right Column (7 Cols) */}
           <div
             className={cn(
-              "lg:col-span-7 flex flex-col gap-6",
+              "min-w-0 lg:col-span-6 flex flex-col gap-6",
               mobileTab === "form" ? "flex" : "hidden lg:flex"
             )}
           >
@@ -343,6 +348,7 @@ function ReviewStudioContent() {
                 />
               ) : (
                 <EvaluationForm
+                  key={question.id}
                   question={question}
                   initialValues={submission || undefined}
                   onSubmit={handleSubmitEvaluation}
@@ -361,7 +367,7 @@ function ReviewStudioContent() {
 
           {/* Mobile Dedicated Tab for Assistant */}
           {mobileTab === "assistant" && (
-            <div className="lg:hidden col-span-12 h-[calc(100vh-120px)]">
+            <div className="lg:hidden col-span-1 h-[calc(100dvh-150px)]">
               <AIChatAssistant
                 question={question}
                 candidateCode={currentCode}
@@ -372,7 +378,7 @@ function ReviewStudioContent() {
           )}
         </main>
 
-        {/* Right Collapsible Desktop Sidebar for Gemini Copilot */}
+        {/* Right Collapsible Desktop Sidebar for AI assistant */}
         {isSidebarOpen && (
           <aside className="hidden lg:block w-[400px] shrink-0 border-l border-neutral-800/80 bg-neutral-950 p-4 h-[calc(100vh-48px)] sticky top-12 z-20 animate-in slide-in-from-right-4 duration-200">
             <AIChatAssistant

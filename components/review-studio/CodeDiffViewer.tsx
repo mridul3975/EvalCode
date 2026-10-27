@@ -30,11 +30,11 @@ export function CodeDiffViewer({
   return (
     <div className="flex flex-col neu-card p-4 overflow-hidden font-mono text-xs gap-3">
       {/* Header with Mode Toggle & Copy */}
-      <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+      <div className="flex flex-wrap gap-3 items-center justify-between pb-3 border-b border-white/[0.06]">
         <div className="flex items-center gap-2">
           <GitCompare className="w-3.5 h-3.5 text-emerald-400" />
           <span className="text-xs font-bold text-white uppercase tracking-wide">
-            Ground-Truth Fix Diff
+            Reference comparison
           </span>
           <span className="neu-active-pill text-[10px] font-mono text-neutral-300 px-2.5 py-0.5 uppercase">
             {language}
