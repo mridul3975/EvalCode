@@ -1,355 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;900&family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: #0c0d10;
-    --foreground: #e2e2e5;
-    --surface: #121316;
-    --surface-container-low: #18191d;
-    --surface-container: #1e2022;
-    --surface-container-high: #282a2c;
-    --surface-container-highest: #333537;
-    --primary: #ffffff;
-    --primary-foreground: #0c0d10;
-    --secondary: #ffb3ae;
-    --secondary-container: #a90219;
-    --card: #121316;
-    --card-foreground: #e2e2e5;
-    --border: #282a2c;
+    color-scheme: dark;
+    --background:#0c0e12; --foreground:#e8ebef; --surface:#13161c;
+    --surface-container-low:#181c23; --surface-container:#1c2129;
+    --surface-container-high:#252b35; --surface-container-highest:#303947;
+    --primary:#b3f5d1; --primary-foreground:#10221a;
+    --secondary:#fca5a5; --secondary-container:#531d28;
+    --card:#13161c; --card-foreground:#e8ebef; --border:#2a303a;
+    --muted:#1c2129; --muted-foreground:#a9b2c1; --accent:#24372e;
+    --accent-foreground:#b3f5d1; --destructive:#e66b7d;
+    --destructive-foreground:#fff; --input:#414b5a; --ring:#8de8b7;
+    --popover:#181c23; --popover-foreground:#e8ebef;
   }
+  body { background:var(--background); color:var(--foreground); font-family:var(--font-ui),Arial,sans-serif; font-size:15px; line-height:1.6; }
+  h1,h2,h3,h4 { font-family:var(--font-ui),Arial,sans-serif; letter-spacing:-.025em; line-height:1.22; text-wrap:balance; }
+  h1 { font-weight:650; } h2,h3,h4 { font-weight:600; }
+  button,a,input,select,textarea { -webkit-tap-highlight-color:transparent; }
+  button { cursor:pointer; } button:disabled { cursor:not-allowed; opacity:.45; }
+  :focus-visible { outline:2px solid var(--ring)!important; outline-offset:4px; }
+  input,select,textarea { accent-color:#8de8b7; caret-color:#b3f5d1; }
+  input::placeholder,textarea::placeholder { color:#929cab; opacity:1; }
+  select { color-scheme:dark; }
+  ::selection { background:#315a46; color:#fff; }
+  code,pre,kbd { font-family:var(--font-code),Consolas,monospace; }
 }
-
-body {
-  background-color: #0c0d10;
-  color: #e2e2e5;
-  font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  overflow-x: hidden;
+@layer components {
+  .page-shell { @apply mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-14; }
+  .page-heading { @apply text-3xl font-semibold tracking-tight sm:text-4xl; }
+  .page-description { @apply mt-3 max-w-2xl text-base leading-relaxed text-neutral-400; }
+  .surface,.neu-card,.obsidian-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; box-shadow:none; }
+  .neu-inset,.obsidian-inset,.code-inset,.contrast-card-inset { background:#0e1117; border:1px solid var(--border); border-radius:8px; box-shadow:none; }
+  .neu-button,.obsidian-btn-secondary { background-color:#202630; background-image:none; color:#e4e9f0; border:1px solid #414a58; border-radius:8px; box-shadow:none; transition:background-color .15s,color .15s; }
+  .neu-button:hover,.obsidian-btn-secondary:hover { background-color:#2a323e; color:#fff; box-shadow:none; transform:none; }
+  .neu-button.bg-white,.neu-button.bg-emerald-500,.neu-button-primary,.obsidian-btn-primary,.btn-primary { background:#b3f5d1; color:#10221a; border:1px solid transparent; border-radius:8px; box-shadow:none; }
+  .neu-button.bg-white:hover,.neu-button.bg-emerald-500:hover,.obsidian-btn-primary:hover,.btn-primary:hover { background:#d0fbe2; color:#10221a; box-shadow:none; transform:none; }
+  .btn-primary,.btn-secondary { @apply inline-flex min-h-11 items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold; }
+  .btn-secondary { @apply neu-button; }
+  .icon-button { @apply inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-white/5 hover:text-white; }
+  .field { @apply min-h-11 w-full rounded-lg border border-neutral-700 bg-[#0e1117] px-3 py-2.5 text-sm text-neutral-100; }
+  .field-label { @apply mb-1.5 block text-sm font-medium text-neutral-300; }
+  .neu-selected,.contrast-card { background:#1c3027; color:#e8fff1; border:1px solid #68b78b; border-radius:10px; box-shadow:none; }
+  .neu-active-pill { background:#1b2722; border:1px solid #34513f; border-radius:5px; box-shadow:none; }
+  .obsidian-chip-critical,.obsidian-chip-optimal,.obsidian-chip-neutral { @apply inline-flex items-center rounded px-2 py-1 text-xs font-medium; letter-spacing:0; box-shadow:none; }
+  .obsidian-chip-critical { color:#fdb2bb; background:#382029; }
+  .obsidian-chip-optimal { color:#b3f5d1; background:#1b3025; }
+  .obsidian-chip-neutral { color:#b7c0cc; background:#252c35; }
+  .dialog-backdrop { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:20px; background:rgba(3,6,10,.8); }
+  .dialog-panel { width:100%; max-width:560px; max-height:calc(100dvh - 40px); overflow-y:auto; overscroll-behavior:contain; border-radius:14px; background:#151a21; border:1px solid #3d4654; box-shadow:0 24px 70px rgba(0,0,0,.4); }
+  .dialog-panel > div { max-width:none; border:0; border-radius:0; background:transparent; box-shadow:none; }
+  .markdown { @apply text-sm leading-7 text-neutral-300; }
+  .markdown p + p { margin-top:12px; } .markdown ul { list-style:disc; padding-left:22px; } .markdown ol { list-style:decimal; padding-left:22px; }
+  .markdown code { font-size:.9em; background:#252c35; border-radius:4px; padding:2px 4px; color:#e4eaf2; }
+  .code-fallback { width:100%; min-height:260px; resize:vertical; border:0; border-radius:0; background:#0e1117; color:#e2e8f0; padding:16px; font:14px/1.7 var(--font-code),Consolas,monospace; tab-size:4; }
+  .skip-link { position:fixed; left:16px; top:-60px; z-index:200; padding:10px 16px; background:#b3f5d1; color:#10221a; border-radius:6px; }
+  .skip-link:focus { top:12px; }
+  .stat-number { font-variant-numeric:tabular-nums; }
 }
-
-h1, h2, h3, h4, .display-text {
-  font-family: 'Hanken Grotesk', sans-serif;
-  letter-spacing: -0.02em;
-}
-
-/* =========================================================================
-   Dark Neomorphism & Neu-Brutalism Design System Utilities
-   High-contrast physical bevels, extruded dual-shadows, and carved wells
-   ========================================================================= */
-
-@layer utilities {
-  /* 1. Extruded 3D Neomorphic Card (Elevated Surface with Physical Light Bevel) */
-  .neu-card {
-    background: linear-gradient(145deg, #171920, #0f1014);
-    border-radius: 1.25rem;
-    border-width: 1px;
-    border-style: solid;
-    border-top-color: rgba(255, 255, 255, 0.16);
-    border-left-color: rgba(255, 255, 255, 0.12);
-    border-bottom-color: rgba(0, 0, 0, 0.85);
-    border-right-color: rgba(0, 0, 0, 0.7);
-    box-shadow: 
-      12px 12px 28px #000000,
-      5px 5px 12px rgba(0, 0, 0, 0.9),
-      -6px -6px 18px rgba(255, 255, 255, 0.05),
-      -2px -2px 6px rgba(255, 255, 255, 0.08),
-      inset 1px 1px 1px rgba(255, 255, 255, 0.15),
-      inset -1px -1px 2px rgba(0, 0, 0, 0.7);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* 2. Interactive Neomorphic Button (Tactile Raised Surface) */
-  .neu-button {
-    background: linear-gradient(145deg, #1f222a, #131418);
-    border-radius: 0.75rem;
-    border-width: 1px;
-    border-style: solid;
-    border-top-color: rgba(255, 255, 255, 0.22);
-    border-left-color: rgba(255, 255, 255, 0.16);
-    border-bottom-color: rgba(0, 0, 0, 0.85);
-    border-right-color: rgba(0, 0, 0, 0.75);
-    box-shadow: 
-      6px 6px 16px #000000,
-      2px 2px 6px rgba(0, 0, 0, 0.9),
-      -3px -3px 8px rgba(255, 255, 255, 0.06),
-      inset 1px 1px 1px rgba(255, 255, 255, 0.2);
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .neu-button:hover {
-    background: linear-gradient(145deg, #252933, #16181e);
-    border-top-color: rgba(255, 255, 255, 0.3);
-    border-left-color: rgba(255, 255, 255, 0.22);
-    box-shadow: 
-      8px 8px 20px #000000,
-      -4px -4px 10px rgba(255, 255, 255, 0.09),
-      inset 1px 1px 1px rgba(255, 255, 255, 0.28);
-    transform: translateY(-1px);
-  }
-  .neu-button:active {
-    background: #0a0b0e;
-    border-top-color: rgba(0, 0, 0, 0.9);
-    border-left-color: rgba(0, 0, 0, 0.8);
-    border-bottom-color: rgba(255, 255, 255, 0.08);
-    border-right-color: rgba(255, 255, 255, 0.06);
-    box-shadow: 
-      inset 4px 4px 10px #000000,
-      inset -2px -2px 6px rgba(255, 255, 255, 0.04);
-    transform: translateY(1px);
-  }
-
-  /* 3. Inset Neomorphic Recessed Well (Carved into the Canvas) */
-  .neu-inset {
-    background: #08090c;
-    border-radius: 0.875rem;
-    border-width: 1px;
-    border-style: solid;
-    border-top-color: rgba(0, 0, 0, 0.95);
-    border-left-color: rgba(0, 0, 0, 0.85);
-    border-bottom-color: rgba(255, 255, 255, 0.08);
-    border-right-color: rgba(255, 255, 255, 0.06);
-    box-shadow: 
-      inset 6px 6px 14px #000000,
-      inset 2px 2px 6px rgba(0, 0, 0, 0.95),
-      inset -4px -4px 10px rgba(255, 255, 255, 0.03),
-      inset -1px -1px 3px rgba(255, 255, 255, 0.07);
-  }
-
-  /* 4. Highlight Pill / Active Tab (Neomorphic Glow with Tactile Extrusion) */
-  .neu-active-pill {
-    background: linear-gradient(145deg, #1b2024, #101215);
-    border-radius: 9999px;
-    border-width: 1px;
-    border-style: solid;
-    border-top-color: rgba(16, 185, 129, 0.5);
-    border-left-color: rgba(16, 185, 129, 0.35);
-    border-bottom-color: rgba(0, 0, 0, 0.8);
-    border-right-color: rgba(0, 0, 0, 0.7);
-    box-shadow: 
-      4px 4px 10px #000000,
-      -2px -2px 6px rgba(255, 255, 255, 0.05),
-      inset 1px 1px 1px rgba(255, 255, 255, 0.2),
-      inset 0 0 12px rgba(16, 185, 129, 0.12);
-  }
-
-  /* 5. Active Tactile Selected State */
-  .neu-selected {
-    background: #090a0d;
-    border-width: 1px;
-    border-style: solid;
-    border-top-color: rgba(0, 0, 0, 0.95);
-    border-left-color: rgba(0, 0, 0, 0.85);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-    border-right-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 
-      inset 4px 4px 10px #000000,
-      inset -2px -2px 6px rgba(255, 255, 255, 0.05),
-      0 0 16px rgba(16, 185, 129, 0.15);
-  }
-}
-
-/* Tactile Contrast Selection Tile (Replacing flat white) */
-.contrast-card {
-  background: linear-gradient(145deg, #222630, #15171d) !important;
-  color: #ffffff !important;
-  border-width: 1px;
-  border-style: solid;
-  border-top-color: rgba(255, 255, 255, 0.35) !important;
-  border-left-color: rgba(255, 255, 255, 0.25) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.9) !important;
-  border-right-color: rgba(0, 0, 0, 0.8) !important;
-  box-shadow: 
-    12px 12px 28px #000000,
-    -5px -5px 15px rgba(255, 255, 255, 0.07),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.3) !important;
-  border-radius: 1rem;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.contrast-card-inset {
-  background: #08090c !important;
-  color: #e2e2e5 !important;
-  box-shadow: inset 4px 4px 10px #000000, inset -2px -2px 6px rgba(255, 255, 255, 0.04);
-  border-radius: 0.5rem;
-}
-
-.code-inset {
-  background: #08090c !important;
-  color: #e2e2e5 !important;
-  box-shadow: inset 5px 5px 12px #000000, inset -2px -2px 6px rgba(255, 255, 255, 0.05);
-  border-radius: 0.5rem;
-}
-
-/* Primary Crisp White Button */
-.obsidian-btn-primary {
-  background-color: #ffffff;
-  color: #121416;
-  font-family: 'Hanken Grotesk', sans-serif;
-  font-weight: 700;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
-  transition: all 0.2s ease;
-}
-
-.obsidian-btn-primary:hover {
-  background-color: #e2e2e5;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
-}
-
-.obsidian-btn-primary:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-}
-
-/* Secondary Extruded Button */
-.obsidian-btn-secondary {
-  background-color: #1e2022;
-  color: #e2e2e5;
-  font-family: 'Hanken Grotesk', sans-serif;
-  font-weight: 600;
-  border-radius: 0.75rem;
-  box-shadow: -3px -3px 8px rgba(255, 255, 255, 0.03), 4px 4px 10px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  transition: all 0.2s ease;
-}
-
-.obsidian-btn-secondary:hover {
-  background-color: #282a2c;
-  color: #ffffff;
-  box-shadow: -4px -4px 10px rgba(255, 255, 255, 0.045), 6px 6px 14px rgba(0, 0, 0, 0.7);
-}
-
-/* Obsidian Card & Inset Aliases */
-.obsidian-card {
-  background: linear-gradient(145deg, #171920, #0f1014);
-  border-radius: 1.25rem;
-  border-width: 1px;
-  border-style: solid;
-  border-top-color: rgba(255, 255, 255, 0.16);
-  border-left-color: rgba(255, 255, 255, 0.12);
-  border-bottom-color: rgba(0, 0, 0, 0.85);
-  border-right-color: rgba(0, 0, 0, 0.7);
-  box-shadow: 
-    12px 12px 28px #000000,
-    5px 5px 12px rgba(0, 0, 0, 0.9),
-    -6px -6px 18px rgba(255, 255, 255, 0.05),
-    -2px -2px 6px rgba(255, 255, 255, 0.08),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.15),
-    inset -1px -1px 2px rgba(0, 0, 0, 0.7);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.obsidian-card:hover {
-  border-top-color: rgba(255, 255, 255, 0.25);
-  border-left-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 
-    16px 16px 36px #000000,
-    6px 6px 14px rgba(0, 0, 0, 0.95),
-    -7px -7px 20px rgba(255, 255, 255, 0.08),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.22);
-}
-
-.obsidian-inset {
-  background: #08090c;
-  border-radius: 0.875rem;
-  border-width: 1px;
-  border-style: solid;
-  border-top-color: rgba(0, 0, 0, 0.95);
-  border-left-color: rgba(0, 0, 0, 0.85);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-  border-right-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 
-    inset 6px 6px 14px #000000,
-    inset 2px 2px 6px rgba(0, 0, 0, 0.95),
-    inset -4px -4px 10px rgba(255, 255, 255, 0.03),
-    inset -1px -1px 3px rgba(255, 255, 255, 0.07);
-}
-
-/* Status Badges */
-.obsidian-chip-critical {
-  background-color: #a90219;
-  color: #ffdad6;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  padding: 3px 8px;
-  border-radius: 0.375rem;
-  box-shadow: 0 2px 8px rgba(169, 2, 25, 0.35);
-}
-
-.obsidian-chip-optimal {
-  background-color: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  padding: 3px 8px;
-  border-radius: 0.375rem;
-}
-
-.obsidian-chip-neutral {
-  background-color: #282a2c;
-  color: #b9cbc1;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  padding: 3px 8px;
-  border-radius: 0.375rem;
-}
-
-/* 70/30 Neumorphic Practice Catalog Cards */
-.neu-convex-white {
-  background-color: #ffffff !important;
-  color: #121416 !important;
-  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5), -6px -6px 12px rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.neu-convex-white:hover {
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5), -10px -10px 20px rgba(255, 255, 255, 0.05);
-}
-
-.neu-badge-light {
-  background-color: #f8f9fa;
-  color: #374151;
-  box-shadow: 2px 2px 4px #d1d5db, -2px -2px 4px #ffffff;
-}
-
-.neu-button-light {
-  background-color: #ffffff;
-  color: #121416;
-  box-shadow: 4px 4px 8px #d1d5db, -4px -4px 8px #ffffff;
-  transition: all 0.15s ease-in-out;
-}
-
-.neu-button-light:hover {
-  background-color: #121416;
-  color: #ffffff;
-}
-
-/* Technical scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #121416;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #282a2c;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #333537;
-}
+::-webkit-scrollbar { width:8px; height:8px; }
+::-webkit-scrollbar-track { background:#0e1117; }
+::-webkit-scrollbar-thumb { background:#465160; border-radius:8px; border:2px solid #0e1117; }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } }

@@ -37,3 +37,6 @@ next-env.d.ts
 *.log
 scratch/
 .system_generated/
+
+# Generated locally from the installed editor package.
+/public/vendor/monaco/
