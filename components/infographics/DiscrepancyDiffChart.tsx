@@ -19,51 +19,18 @@ export function DiscrepancyDiffChart({
   const hallPct = total > 0 ? (hallucinatedCount / total) * 100 : 0;
 
   return (
-    <div className="obsidian-inset p-6 space-y-4 font-mono">
-      <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-[#b9cbc1]">
-        <span>DIAGNOSTIC DISCREPANCY RATIO</span>
-        <span className="text-[#83958c]">{matchedCount} MATCHED / {total} ITEMS</span>
+    <div className="border-y border-neutral-800 py-4">
+      <h4 className="text-sm font-medium text-neutral-300">Finding agreement</h4>
+      <div className="mt-3 flex h-1.5 overflow-hidden rounded bg-neutral-800" aria-hidden="true">
+        <span className="bg-emerald-200" style={{ width: `${matchPct}%` }} />
+        <span className="bg-rose-300" style={{ width: `${missedPct}%` }} />
+        <span className="bg-amber-200" style={{ width: `${hallPct}%` }} />
       </div>
-
-      {/* Recessed Segmented Progress Track */}
-      <div className="h-4 w-full bg-[#0c0e10] rounded-full overflow-hidden flex gap-1 p-0.5 border border-black/40 shadow-[inset_2px_2px_4px_rgba(0,0,0,0.8)]">
-        {matchPct > 0 && (
-          <div
-            style={{ width: `${matchPct}%` }}
-            className="bg-white rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-            title={`Matched: ${matchedCount}`}
-          />
-        )}
-        {missedPct > 0 && (
-          <div
-            style={{ width: `${missedPct}%` }}
-            className="bg-[#ff4d4d] rounded-full transition-all duration-500"
-            title={`Missed: ${missedCount}`}
-          />
-        )}
-        {hallPct > 0 && (
-          <div
-            style={{ width: `${hallPct}%` }}
-            className="bg-[#ffe149] rounded-full transition-all duration-500"
-            title={`Hallucinated: ${hallucinatedCount}`}
-          />
-        )}
-      </div>
-
-      <div className="flex items-center justify-between text-xs pt-2 border-t border-[rgba(255,255,255,0.06)] font-mono font-bold uppercase">
-        <div className="flex items-center gap-1.5 text-white">
-          <CheckCircle2 className="w-3.5 h-3.5" />
-          <span>MATCHED: {matchedCount}</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-[#ff8080]">
-          <XCircle className="w-3.5 h-3.5" />
-          <span>MISSED (FN): {missedCount}</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-[#ffe149]">
-          <AlertTriangle className="w-3.5 h-3.5" />
-          <span>PHANTOM (FP): {hallucinatedCount}</span>
-        </div>
-      </div>
+      <dl className="mt-4 grid grid-cols-3 gap-2 text-xs">
+        <div><dt className="text-neutral-400">Matched</dt><dd className="mt-1 font-mono text-emerald-200">{matchedCount}</dd></div>
+        <div><dt className="text-neutral-400">Missed</dt><dd className="mt-1 font-mono text-rose-200">{missedCount}</dd></div>
+        <div><dt className="text-neutral-400">Unsupported</dt><dd className="mt-1 font-mono text-amber-200">{hallucinatedCount}</dd></div>
+      </dl>
     </div>
   );
 }
@@ -85,7 +52,7 @@ export function ReadinessProgressBar({
   const isOptimal = value >= target;
 
   return (
-    <div className={cn("flex flex-col py-3 border-b border-[rgba(255,255,255,0.05)] font-['Hanken_Grotesk']", className)}>
+    <div className={cn("flex flex-col py-3 border-b border-[rgba(255,255,255,0.05)] font-sans", className)}>
       <div className="flex justify-between items-center mb-2.5">
         <span className="text-sm sm:text-base font-bold text-white uppercase tracking-tight">
           {label}

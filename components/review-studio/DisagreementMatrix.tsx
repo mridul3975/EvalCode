@@ -50,37 +50,37 @@ export function DisagreementMatrix({
   const hallucinatedCount = result.hallucinated_issues?.length || 0;
 
   return (
-    <div className="neu-card p-6 sm:p-8 flex flex-col gap-6 font-['Hanken_Grotesk'] text-neutral-200">
+    <div className="neu-card min-w-0 w-full p-6 sm:p-8 flex flex-col gap-6 font-sans text-neutral-200">
       {/* Score Header & Metric Badges */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/[0.06] pb-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <Award className="w-4 h-4 text-emerald-400" />
-            <span className="text-xs font-mono uppercase text-neutral-400 font-bold">
-              Diagnostic Audit Score
+            <span className="text-xs font-sans  text-neutral-400 font-bold">
+              Review score
             </span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight font-mono">
-            Calibration Assessment
+          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight font-sans">
+            Review feedback
           </h3>
         </div>
 
         {/* Elevated Diagnostic Discrepancy Score Card with Physical Badge */}
-        <div className="neu-card p-4 sm:p-5 flex items-center gap-4 shrink-0">
-          <div className="flex items-baseline gap-1.5 font-mono">
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="flex items-baseline gap-1.5 font-sans">
             <span className="text-3xl font-black text-white">{scorePct}%</span>
-            <span className="text-[10px] text-neutral-400 font-bold">ACCURACY</span>
+            <span className="text-xs text-neutral-400 font-bold">SCORE</span>
           </div>
 
           <span
             className={cn(
-              "neu-active-pill px-4 py-2 text-xs font-mono font-bold uppercase",
+              "neu-active-pill px-4 py-2 text-xs font-sans font-bold ",
               isPass
                 ? "text-emerald-400 border-emerald-500/40"
                 : "text-rose-400 border-rose-500/40"
             )}
           >
-            {isPass ? "Benchmark Met" : "Misaligned"}
+            {isPass ? "Practice target met" : "Keep practicing"}
           </span>
         </div>
       </div>
@@ -93,9 +93,9 @@ export function DisagreementMatrix({
       />
 
       {/* Ground Truth Feedback List */}
-      <div className="space-y-3 font-mono text-xs">
-        <span className="text-xs font-bold text-neutral-200 uppercase tracking-wider block font-mono">
-          Ground Truth Finding Breakdown
+      <div className="space-y-3 font-sans text-xs">
+        <span className="text-xs font-bold text-neutral-200  tracking-wider block font-sans">
+          Reference findings
         </span>
         <div className="space-y-2.5">
           {result.discrepancy_items?.map((item, idx) => (
@@ -118,15 +118,15 @@ export function DisagreementMatrix({
                 <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
               )}
               <div className="flex-1 space-y-1 font-sans">
-                <div className="flex justify-between items-center font-mono text-[10px]">
-                  <span className="font-bold uppercase tracking-wider">
+                <div className="flex justify-between items-center font-sans text-xs">
+                  <span className="font-bold  tracking-wider">
                     {item.status === "matched"
-                      ? "✓ MATCHED GROUND TRUTH"
+                      ? "Matched"
                       : item.status === "missed"
-                      ? "✕ MISSED VULNERABILITY"
-                      : "⚠ FALSE POSITIVE (HALLUCINATION)"}
+                      ? "Missed"
+                      : "Needs stronger evidence"}
                   </span>
-                  <span className="text-neutral-400 uppercase font-mono">{item.category}</span>
+                  <span className="text-neutral-400  font-sans">{item.category}</span>
                 </div>
                 <p className="text-xs leading-relaxed text-neutral-200">{item.explanation || item.ground_truth_item || item.user_finding}</p>
               </div>
@@ -144,7 +144,7 @@ export function DisagreementMatrix({
 
       {/* Assistant Quick Banner */}
       {onOpenAssistant && (
-        <div className="neu-inset p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
+        <div className="neu-inset p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-sans text-xs">
           <div className="flex items-center gap-2.5">
             <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
             <div>
@@ -162,7 +162,7 @@ export function DisagreementMatrix({
                 type="button"
                 onClick={onOpenKeyModal}
                 className={cn(
-                  "neu-button px-3.5 py-2 flex items-center gap-1.5 transition-all cursor-pointer text-xs font-mono",
+                  "neu-button px-3.5 py-2 flex items-center gap-1.5 transition-all cursor-pointer text-xs font-sans",
                   hasKey
                     ? "text-neutral-300 hover:text-white"
                     : "text-amber-300 border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20"
@@ -191,7 +191,7 @@ export function DisagreementMatrix({
       )}
 
       {/* Actions */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/[0.06] font-mono text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/[0.06] font-sans text-xs">
         <button
           type="button"
           onClick={onRetry}

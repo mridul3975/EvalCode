@@ -1,532 +1,110 @@
 "use client";
-
-import React, { useState, useEffect } from "react";
-import { QuestionItem, Verdict, IssueSeverity } from "@/types/question";
-import { EvaluationSubmission, ReportedBug, FailingTestCase } from "@/types/submission";
+import { useEffect, useId, useRef, useState } from "react";
+import type { QuestionItem, Verdict, IssueSeverity } from "@/types/question";
+import type { EvaluationSubmission, ReportedBug, FailingTestCase } from "@/types/submission";
 import { cn } from "@/lib/utils";
-import {
-  CheckCircle2,
-  Bug,
-  TestTube,
-  Clock,
-  Wrench,
-  Send,
-  RotateCcw,
-  Plus,
-  Trash2,
-  AlertTriangle,
-  XCircle,
-} from "lucide-react";
+import { ArrowRight, Check, Plus, Trash2 } from "lucide-react";
 
-export function EvaluationForm({
-  question,
-  initialValues,
-  onSubmit,
-  isSubmitting = false,
-  onLineCiteRequested,
-}: {
-  question: QuestionItem;
-  initialValues?: EvaluationSubmission;
-  onSubmit: (sub: EvaluationSubmission) => void;
-  isSubmitting?: boolean;
-  onLineCiteRequested?: number | null;
+type Section = "verdict" | "bugs" | "tests" | "complexity" | "fix";
+interface Draft {
+  verdict: Verdict | ""; bugs: ReportedBug[]; tests: FailingTestCase[];
+  time: string; space: string; justification: string;
+  accurate: "" | "yes" | "no"; notes: string; fix: string;
+}
+function blank(initial?: EvaluationSubmission): Draft {
+  return { verdict: initial?.verdict || "", bugs: initial?.reported_bugs || [], tests: initial?.failing_test_cases || [],
+    time: initial?.assessed_complexity.time || "", space: initial?.assessed_complexity.space || "",
+    justification: initial?.assessed_complexity.justification || "", accurate: initial ? (initial.explanation_audit.is_accurate ? "yes" : "no") : "",
+    notes: initial?.explanation_audit.notes || "", fix: initial?.suggested_fix || "" };
+}
+export function EvaluationForm({ question, initialValues, onSubmit, isSubmitting = false, onLineCiteRequested,
+  draftStorageKey, submitLabel = "Submit review" }: {
+  question: QuestionItem; initialValues?: EvaluationSubmission; onSubmit: (submission: EvaluationSubmission) => void;
+  isSubmitting?: boolean; onLineCiteRequested?: number | null; draftStorageKey?: string; submitLabel?: string;
 }) {
-  const [activeTab, setActiveTab] = useState<"verdict" | "bugs" | "tests" | "bigo" | "fix">("verdict");
-  const [verdict, setVerdict] = useState<Verdict>(
-    initialValues?.verdict || "major_bug"
-  );
-  const [reportedBugs, setReportedBugs] = useState<ReportedBug[]>(
-    initialValues?.reported_bugs || [
-      {
-        line_reference: question.ground_truth.expected_issues[0]?.line_numbers[0] || 1,
-        severity: "major",
-        description: "",
-      },
-    ]
-  );
-  const [testCases, setTestCases] = useState<FailingTestCase[]>(
-    initialValues?.failing_test_cases || [{ input: "", expected: "", actual: "" }]
-  );
-  const [assessedComplexity, setAssessedComplexity] = useState(
-    initialValues?.assessed_complexity || {
-      time: question.ground_truth.optimal_complexity.time || "O(N)",
-      space: question.ground_truth.optimal_complexity.space || "O(1)",
-      justification: "",
-    }
-  );
-  const [explanationAudit, setExplanationAudit] = useState(
-    initialValues?.explanation_audit || {
-      is_accurate: true,
-      notes: "",
-    }
-  );
-  const [suggestedFix, setSuggestedFix] = useState(initialValues?.suggested_fix || "");
-
-  // Auto-populate cited line number into bug row if requested
+  const id = useId();
+  const [section, setSection] = useState<Section>("verdict");
+  const [draft, setDraft] = useState<Draft>(() => blank(initialValues));
+  const [loaded, setLoaded] = useState(false);
+  const [saveStatus, setSaveStatus] = useState("");
+  const [error, setError] = useState("");
+  const lastCite = useRef<number | null>(null);
+  const storageKey = draftStorageKey || `evalforge_review_draft_${question.id}`;
   useEffect(() => {
-    if (onLineCiteRequested !== null && onLineCiteRequested !== undefined) {
-      setActiveTab("bugs");
-      setReportedBugs((prev) => {
-        const copy = [...prev];
-        if (copy.length > 0) {
-          copy[0] = { ...copy[0], line_reference: onLineCiteRequested };
-        } else {
-          copy.push({ line_reference: onLineCiteRequested, severity: "major", description: "" });
-        }
-        return copy;
-      });
-    }
-  }, [onLineCiteRequested]);
-
-  const handleAddBugRow = () => {
-    setReportedBugs([...reportedBugs, { line_reference: 1, severity: "major", description: "" }]);
-  };
-
-  const handleRemoveBugRow = (index: number) => {
-    setReportedBugs(reportedBugs.filter((_, i) => i !== index));
-  };
-
-  const handleAddTestRow = () => {
-    setTestCases([...testCases, { input: "", expected: "", actual: "" }]);
-  };
-
-  const handleRemoveTestRow = (index: number) => {
-    setTestCases(testCases.filter((_, i) => i !== index));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const submissionData: EvaluationSubmission = {
-      question_id: question.id,
-      verdict,
-      reported_bugs: reportedBugs.filter((b) => b.description.trim() !== "" || b.line_reference !== undefined),
-      failing_test_cases: testCases.filter((t) => t.input.trim() !== ""),
-      assessed_complexity: assessedComplexity,
-      explanation_audit: explanationAudit,
-      suggested_fix: suggestedFix,
-    };
-    onSubmit(submissionData);
-  };
-
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className="neu-card p-6 sm:p-8 flex flex-col h-full font-['Hanken_Grotesk'] text-[#e2e2e5]"
-    >
-      {/* Neumorphic Verdict Step Tabs */}
-      <div className="flex flex-wrap gap-2 border-b border-white/[0.06] pb-4 mb-6 font-mono text-xs">
-        <button
-          type="button"
-          onClick={() => setActiveTab("verdict")}
-          className={cn(
-            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
-            activeTab === "verdict"
-              ? "neu-inset text-white font-black border border-white/20"
-              : "neu-button text-neutral-400 hover:text-white"
-          )}
-        >
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-          <span>1. VERDICT</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab("bugs")}
-          className={cn(
-            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
-            activeTab === "bugs"
-              ? "neu-inset text-white font-black border border-white/20"
-              : "neu-button text-neutral-400 hover:text-white"
-          )}
-        >
-          <Bug className="w-3.5 h-3.5 text-rose-400" />
-          <span>2. BUGS ({reportedBugs.length})</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab("tests")}
-          className={cn(
-            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
-            activeTab === "tests"
-              ? "neu-inset text-white font-black border border-white/20"
-              : "neu-button text-neutral-400 hover:text-white"
-          )}
-        >
-          <TestTube className="w-3.5 h-3.5 text-sky-400" />
-          <span>3. TESTS</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab("bigo")}
-          className={cn(
-            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
-            activeTab === "bigo"
-              ? "neu-inset text-white font-black border border-white/20"
-              : "neu-button text-neutral-400 hover:text-white"
-          )}
-        >
-          <Clock className="w-3.5 h-3.5 text-amber-400" />
-          <span>4. BIG-O</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab("fix")}
-          className={cn(
-            "flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-bold uppercase",
-            activeTab === "fix"
-              ? "neu-inset text-white font-black border border-white/20"
-              : "neu-button text-neutral-400 hover:text-white"
-          )}
-        >
-          <Wrench className="w-3.5 h-3.5 text-purple-400" />
-          <span>5. FIX</span>
-        </button>
+    if (!initialValues) { try { const saved = localStorage.getItem(storageKey); if (saved) setDraft({ ...blank(), ...JSON.parse(saved) }); } catch {} }
+    setLoaded(true);
+  }, [storageKey]);
+  useEffect(() => {
+    if (!loaded) return;
+    try { localStorage.setItem(storageKey, JSON.stringify(draft)); setSaveStatus("Draft saved in this browser"); }
+    catch { setSaveStatus("Draft could not be saved. Keep this page open."); }
+  }, [draft, loaded, storageKey]);
+  useEffect(() => {
+    if (!onLineCiteRequested || !loaded || lastCite.current === onLineCiteRequested) return;
+    lastCite.current = onLineCiteRequested; setSection("bugs");
+    setDraft(value => ({ ...value, bugs: [...value.bugs, { line_reference: onLineCiteRequested, severity: "major", description: "" }] }));
+  }, [onLineCiteRequested, loaded]);
+  const update = (values: Partial<Draft>) => setDraft(value => ({ ...value, ...values }));
+  const updateBug = (index: number, values: Partial<ReportedBug>) => update({ bugs: draft.bugs.map((bug, i) => i === index ? { ...bug, ...values } : bug) });
+  const updateTest = (index: number, values: Partial<FailingTestCase>) => update({ tests: draft.tests.map((test, i) => i === index ? { ...test, ...values } : test) });
+  const sections: { key: Section; label: string; done: boolean }[] = [
+    { key: "verdict", label: "Verdict", done: !!draft.verdict },
+    { key: "bugs", label: "Findings", done: draft.verdict === "correct" || draft.bugs.some(bug => !!bug.description.trim()) },
+    { key: "tests", label: "Evidence", done: draft.tests.some(test => !!test.input.trim()) },
+    { key: "complexity", label: "Complexity", done: !!draft.time.trim() && !!draft.space.trim() && !!draft.accurate },
+    { key: "fix", label: "Suggested fix", done: !!draft.fix.trim() },
+  ];
+  return <form className="surface flex w-full min-w-0 flex-col self-start overflow-hidden" noValidate onSubmit={event => {
+    event.preventDefault();
+    if (!draft.verdict) { setError("Choose a verdict before submitting your review."); setSection("verdict"); return; }
+    if (draft.verdict !== "correct" && !draft.bugs.some(bug => bug.description.trim())) { setError("Describe at least one finding to support your verdict."); setSection("bugs"); return; }
+    if (!draft.time.trim() || !draft.space.trim() || !draft.accurate) { setError("Assess time, space, and the explanation before submitting."); setSection("complexity"); return; }
+    setError("");
+    onSubmit({ question_id: question.id, verdict: draft.verdict, reported_bugs: draft.bugs.filter(bug => !!bug.description.trim()),
+      failing_test_cases: draft.tests.filter(test => !!test.input.trim()), assessed_complexity: { time: draft.time, space: draft.space, justification: draft.justification },
+      explanation_audit: { is_accurate: draft.accurate === "yes", notes: draft.notes }, suggested_fix: draft.fix });
+  }}>
+    <div className="border-b border-neutral-800 px-5 pt-5">
+      <h2 className="text-lg font-semibold">Your review</h2><p className="mt-1 text-sm text-neutral-400">Make your judgment, then support it with evidence.</p>
+      <div className="mt-4 flex gap-1 overflow-x-auto pb-3" aria-label="Review sections">
+        {sections.map(item => <button key={item.key} type="button" aria-pressed={section === item.key} onClick={() => setSection(item.key)}
+          className={cn("inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-md px-3 text-sm", section === item.key ? "bg-neutral-700/60 text-white" : "text-neutral-400 hover:text-white")}>
+          {item.done && <Check size={13} className="text-emerald-300" />}{item.label}</button>)}
       </div>
-
-      {/* Tab 1: Tactile 3D Verdict Tiles Grid */}
-      {activeTab === "verdict" && (
-        <div className="flex flex-col flex-grow space-y-4">
-          <div>
-            <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-1">
-              EVALUATION VERDICT
-            </h3>
-            <p className="text-xs text-neutral-400 font-sans">
-              Select the classification for this AI code snippet.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {/* Square Option 1: Completely Correct */}
-            <button
-              type="button"
-              onClick={() => setVerdict("correct")}
-              className={cn(
-                "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
-                verdict === "correct"
-                  ? "neu-card border-2 border-emerald-500/60 shadow-[0_0_20px_rgba(16,185,129,0.2)]"
-                  : "neu-inset opacity-80 hover:opacity-100 hover:border-white/10"
-              )}
-            >
-              <div className="flex justify-between items-start w-full">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                  01 / ACCURATE
-                </span>
-                <CheckCircle2 className={cn("w-5 h-5", verdict === "correct" ? "text-emerald-400" : "text-neutral-500")} />
-              </div>
-
-              <div>
-                <h4 className="text-base font-black uppercase tracking-tight mb-1 leading-snug text-white font-mono">
-                  COMPLETELY<br />CORRECT
-                </h4>
-                <p className="text-xs leading-relaxed font-sans text-neutral-300">
-                  No bugs, optimal complexity, and handles all constraints.
-                </p>
-              </div>
-            </button>
-
-            {/* Square Option 2: Minor Issue */}
-            <button
-              type="button"
-              onClick={() => setVerdict("minor_issue")}
-              className={cn(
-                "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
-                verdict === "minor_issue"
-                  ? "neu-card border-2 border-amber-500/60 shadow-[0_0_20px_rgba(245,158,11,0.2)]"
-                  : "neu-inset opacity-80 hover:opacity-100 hover:border-white/10"
-              )}
-            >
-              <div className="flex justify-between items-start w-full">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                  02 / MINOR
-                </span>
-                <AlertTriangle className={cn("w-5 h-5", verdict === "minor_issue" ? "text-amber-400" : "text-neutral-500")} />
-              </div>
-
-              <div>
-                <h4 className="text-base font-black uppercase tracking-tight mb-1 leading-snug text-white font-mono">
-                  MINOR<br />DEFECT
-                </h4>
-                <p className="text-xs leading-relaxed font-sans text-neutral-300">
-                  Violates minor boundary invariants or style conventions.
-                </p>
-              </div>
-            </button>
-
-            {/* Square Option 3: Major Bug */}
-            <button
-              type="button"
-              onClick={() => setVerdict("major_bug")}
-              className={cn(
-                "aspect-square p-5 rounded-2xl text-left transition-all cursor-pointer font-['Hanken_Grotesk'] flex flex-col justify-between relative overflow-hidden",
-                verdict === "major_bug"
-                  ? "neu-card border-2 border-rose-500/60 shadow-[0_0_20px_rgba(244,63,94,0.2)]"
-                  : "neu-inset opacity-80 hover:opacity-100 hover:border-white/10"
-              )}
-            >
-              <div className="flex justify-between items-start w-full">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-400">
-                  03 / FATAL
-                </span>
-                <Bug className={cn("w-5 h-5", verdict === "major_bug" ? "text-rose-400" : "text-neutral-500")} />
-              </div>
-
-              <div>
-                <h4 className="text-base font-black uppercase tracking-tight mb-1 leading-snug text-white font-mono">
-                  FATAL<br />LOGIC BUG
-                </h4>
-                <p className="text-xs leading-relaxed font-sans text-neutral-300">
-                  Infinite loops, invalid pointer mutations, wrong output.
-                </p>
-              </div>
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Tab 2: Reported Bugs */}
-      {activeTab === "bugs" && (
-        <div className="flex flex-col flex-grow space-y-4 font-mono text-xs">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-white uppercase">REPORTED BUGS ({reportedBugs.length})</span>
-            <button
-              type="button"
-              onClick={handleAddBugRow}
-              className="neu-button px-3 py-1.5 rounded-lg text-[11px] font-bold text-white flex items-center gap-1.5 cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5 text-emerald-400" /> ADD BUG ROW
-            </button>
-          </div>
-
-          <div className="space-y-3 flex-1 overflow-y-auto max-h-[360px] pr-1">
-            {reportedBugs.map((bug, idx) => (
-              <div key={idx} className="neu-inset p-4 rounded-xl space-y-3">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-neutral-400 font-bold">LINE #:</span>
-                    <input
-                      type="number"
-                      value={bug.line_reference || ""}
-                      onChange={(e) => {
-                        const copy = [...reportedBugs];
-                        copy[idx].line_reference = parseInt(e.target.value) || undefined;
-                        setReportedBugs(copy);
-                      }}
-                      className="w-16 py-1 px-2 rounded-lg neu-inset text-white text-center font-bold"
-                    />
-                  </div>
-
-                  <select
-                    value={bug.severity}
-                    onChange={(e) => {
-                      const copy = [...reportedBugs];
-                      copy[idx].severity = e.target.value as IssueSeverity;
-                      setReportedBugs(copy);
-                    }}
-                    className="neu-button py-1.5 px-3 rounded-lg text-white text-xs uppercase cursor-pointer"
-                  >
-                    <option value="critical">CRITICAL</option>
-                    <option value="major">MAJOR</option>
-                    <option value="minor">MINOR</option>
-                    <option value="nit">NIT</option>
-                  </select>
-
-                  {reportedBugs.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveBugRow(idx)}
-                      className="text-rose-400 hover:text-rose-300 p-1 cursor-pointer"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  )}
-                </div>
-
-                <textarea
-                  placeholder="EXPLAIN THE EXACT BUG CAUSE OR POINTER OVERWRITE..."
-                  value={bug.description}
-                  onChange={(e) => {
-                    const copy = [...reportedBugs];
-                    copy[idx].description = e.target.value;
-                    setReportedBugs(copy);
-                  }}
-                  rows={2}
-                  className="w-full p-3 rounded-lg neu-inset text-white text-xs font-sans focus:outline-none"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Tab 3: Test Cases */}
-      {activeTab === "tests" && (
-        <div className="flex flex-col flex-grow space-y-4 font-mono text-xs">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-white uppercase">FAILING TEST CASES ({testCases.length})</span>
-            <button
-              type="button"
-              onClick={handleAddTestRow}
-              className="neu-button px-3 py-1.5 rounded-lg text-[11px] font-bold text-white flex items-center gap-1.5 cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5 text-emerald-400" /> ADD TEST CASE
-            </button>
-          </div>
-
-          <div className="space-y-3 flex-1 overflow-y-auto max-h-[360px] pr-1">
-            {testCases.map((test, idx) => (
-              <div key={idx} className="neu-inset p-4 rounded-xl space-y-2.5">
-                <div className="flex items-center justify-between text-neutral-400 font-bold">
-                  <span>TEST CASE #{idx + 1}</span>
-                  {testCases.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveTestRow(idx)}
-                      className="text-rose-400 hover:text-rose-300 p-1 cursor-pointer"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  <input
-                    placeholder="Input e.g. [1,2,3]"
-                    value={test.input}
-                    onChange={(e) => {
-                      const copy = [...testCases];
-                      copy[idx].input = e.target.value;
-                      setTestCases(copy);
-                    }}
-                    className="p-2.5 rounded-lg neu-inset text-white text-xs font-mono"
-                  />
-                  <input
-                    placeholder="Expected Output"
-                    value={test.expected}
-                    onChange={(e) => {
-                      const copy = [...testCases];
-                      copy[idx].expected = e.target.value;
-                      setTestCases(copy);
-                    }}
-                    className="p-2.5 rounded-lg neu-inset text-white text-xs font-mono"
-                  />
-                  <input
-                    placeholder="Actual AI Output"
-                    value={test.actual}
-                    onChange={(e) => {
-                      const copy = [...testCases];
-                      copy[idx].actual = e.target.value;
-                      setTestCases(copy);
-                    }}
-                    className="p-2.5 rounded-lg neu-inset text-white text-xs font-mono"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Tab 4: Big-O Complexity */}
-      {activeTab === "bigo" && (
-        <div className="flex flex-col flex-grow space-y-5 font-mono text-xs">
-          <div>
-            <span className="text-xs font-bold text-white uppercase block mb-1">ASYMPTOTIC ANALYSIS</span>
-            <p className="text-xs text-neutral-400 font-sans">
-              Audit the AI's claimed Time & Space complexities against the actual implementation.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-neutral-400 font-bold block text-[11px]">ASSESSED TIME COMPLEXITY</label>
-              <input
-                value={assessedComplexity.time}
-                onChange={(e) => setAssessedComplexity({ ...assessedComplexity, time: e.target.value })}
-                placeholder="e.g. O(N), O(N log N)"
-                className="w-full p-3 rounded-lg neu-inset text-white font-mono text-xs"
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-neutral-400 font-bold block text-[11px]">ASSESSED SPACE COMPLEXITY</label>
-              <input
-                value={assessedComplexity.space}
-                onChange={(e) => setAssessedComplexity({ ...assessedComplexity, space: e.target.value })}
-                placeholder="e.g. O(1), O(N)"
-                className="w-full p-3 rounded-lg neu-inset text-white font-mono text-xs"
-              />
-            </div>
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="text-neutral-400 font-bold block text-[11px]">JUSTIFICATION & INVARIANTS</label>
-            <textarea
-              value={assessedComplexity.justification}
-              onChange={(e) => setAssessedComplexity({ ...assessedComplexity, justification: e.target.value })}
-              placeholder="Explain auxiliary memory allocations, call stack frames, or inner loop bounds..."
-              rows={3}
-              className="w-full p-3 rounded-lg neu-inset text-white font-sans text-xs"
-            />
-          </div>
-
-          <div className="neu-inset p-4 rounded-xl flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <input
-                type="checkbox"
-                id="explanation_accurate"
-                checked={explanationAudit.is_accurate}
-                onChange={(e) => setExplanationAudit({ ...explanationAudit, is_accurate: e.target.checked })}
-                className="w-4 h-4 rounded neu-inset accent-emerald-500 cursor-pointer"
-              />
-              <label htmlFor="explanation_accurate" className="text-white font-bold cursor-pointer text-xs">
-                AI CLAIMED EXPLANATION & COMPLEXITY ARE ACCURATE
-              </label>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab 5: Suggested Fix */}
-      {activeTab === "fix" && (
-        <div className="flex flex-col flex-grow space-y-4 font-mono text-xs">
-          <span className="text-xs font-bold text-white uppercase">CORRECTED REMEDIATION CODE</span>
-
-          <textarea
-            placeholder="PASTE OR WRITE CORRECTED IMPLEMENTATION HERE..."
-            value={suggestedFix}
-            onChange={(e) => setSuggestedFix(e.target.value)}
-            rows={8}
-            className="w-full p-3.5 rounded-xl neu-inset text-white font-mono text-xs leading-relaxed"
-          />
-        </div>
-      )}
-
-      {/* Form Action Controls */}
-      <div className="border-t border-white/[0.06] pt-4 flex items-center justify-between mt-auto">
-        <button
-          type="button"
-          onClick={() => {
-            setVerdict("major_bug");
-            setReportedBugs([]);
-            setTestCases([]);
-          }}
-          className="neu-button px-4 py-2 flex items-center gap-1.5 text-xs font-mono font-bold text-neutral-400 hover:text-white transition-all cursor-pointer"
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-          <span>RESET</span>
-        </button>
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="neu-button bg-white text-black hover:bg-neutral-200 px-6 py-3 rounded-xl font-mono font-black text-xs uppercase transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] cursor-pointer disabled:opacity-50"
-        >
-          <Send className="w-3.5 h-3.5" />
-          <span>{isSubmitting ? "AUDITING..." : "SUBMIT EVALUATION"}</span>
-        </button>
-      </div>
-    </form>
-  );
+    </div>
+    <div className="space-y-5 p-5 sm:p-6">
+      {error && <p role="alert" className="rounded-lg bg-rose-500/10 p-3 text-sm text-rose-200">{error}</p>}
+      {section === "verdict" && <fieldset className="space-y-3"><legend className="mb-3 font-medium">How would you assess this implementation?</legend>
+        {([
+          ["correct", "Correct", "Meets the specification and handles the required cases."],
+          ["minor_issue", "Minor issue", "Mostly works, with a limited quality or correctness issue."],
+          ["major_bug", "Major issue", "Fails required cases, returns wrong results, or violates constraints."],
+        ] as const).map(([value, title, detail]) => <label key={value} className={cn("flex cursor-pointer items-start gap-3 rounded-lg border p-4", draft.verdict === value ? "border-emerald-400/60 bg-emerald-400/5" : "border-neutral-700 hover:border-neutral-500")}>
+          <input type="radio" name={`${id}-verdict`} value={value} checked={draft.verdict === value} onChange={() => update({ verdict: value })} className="mt-1 h-4 w-4 shrink-0" />
+          <span><span className="block text-sm font-medium text-neutral-100">{title}</span><span className="mt-1 block text-sm text-neutral-400">{detail}</span></span></label>)}
+        <p className="pt-1 text-xs text-neutral-400">Some examples are correct. Review the code without assuming a defect.</p>
+      </fieldset>}
+      {section === "bugs" && <div className="space-y-4">
+        <div className="flex items-center justify-between gap-3"><h3 className="font-medium">Findings</h3><button type="button" className="btn-secondary" onClick={() => update({ bugs: [...draft.bugs, { severity: "major", description: "" }] })}><Plus size={15} />Add finding</button></div>
+        {draft.bugs.length === 0 && <p className="text-sm text-neutral-400">No findings yet. Add an issue or cite a line from the code. A correct implementation may have none.</p>}
+        {draft.bugs.map((bug, index) => <div key={index} className="space-y-3 border-t border-neutral-800 pt-4"><div className="flex items-end gap-3">
+          <label className="w-24"><span className="field-label">Line</span><input aria-label={`Finding ${index + 1} line`} className="field" type="number" min="1" value={bug.line_reference || ""} onChange={event => updateBug(index, { line_reference: Number(event.target.value) || undefined })} /></label>
+          <label className="flex-1"><span className="field-label">Severity</span><select className="field" value={bug.severity} onChange={event => updateBug(index, { severity: event.target.value as IssueSeverity })}>{(["critical", "major", "minor", "nit"] as const).map(value => <option key={value} value={value}>{value[0].toUpperCase() + value.slice(1)}</option>)}</select></label>
+          <button type="button" aria-label={`Remove finding ${index + 1}`} className="icon-button" onClick={() => update({ bugs: draft.bugs.filter((_, i) => i !== index) })}><Trash2 size={16} /></button></div>
+          <label className="block"><span className="field-label">What happens, and why?</span><textarea className="field min-h-28" rows={3} value={bug.description} onChange={event => updateBug(index, { description: event.target.value })} placeholder="Describe the cause and its effect on the output." /></label></div>)}
+      </div>}
+      {section === "tests" && <div className="space-y-4"><div className="flex items-center justify-between gap-3"><h3 className="font-medium">Test evidence</h3><button type="button" className="btn-secondary" onClick={() => update({ tests: [...draft.tests, { input: "", expected: "", actual: "" }] })}><Plus size={15} />Add test</button></div>
+        <p className="text-sm text-neutral-400">Use a concrete input to demonstrate a finding. This section is optional.</p>
+        {draft.tests.map((test, index) => <div key={index} className="space-y-3 border-t border-neutral-800 pt-3"><div className="flex items-center justify-between"><h4 className="text-sm">Test {index + 1}</h4><button type="button" className="icon-button" aria-label={`Remove test ${index + 1}`} onClick={() => update({ tests: draft.tests.filter((_, i) => i !== index) })}><Trash2 size={16} /></button></div>
+          {(["input", "expected", "actual"] as const).map(field => <label key={field} className="block"><span className="field-label">{field === "input" ? "Input" : field === "expected" ? "Expected output" : "Actual output"}</span><input className="field font-mono" value={test[field]} onChange={event => updateTest(index, { [field]: event.target.value })} /></label>)}</div>)}
+      </div>}
+      {section === "complexity" && <div className="space-y-5"><h3 className="font-medium">Complexity and explanation</h3><p className="text-sm text-neutral-400">Assess the implementation, then check whether its explanation agrees.</p>
+        <div className="grid gap-4 sm:grid-cols-2"><label><span className="field-label">Time complexity</span><input className="field font-mono" value={draft.time} placeholder="e.g. O(n)" onChange={event => update({ time: event.target.value })} /></label><label><span className="field-label">Space complexity</span><input className="field font-mono" value={draft.space} placeholder="e.g. O(1)" onChange={event => update({ space: event.target.value })} /></label></div>
+        <label className="block"><span className="field-label">Reasoning</span><textarea className="field" rows={3} value={draft.justification} onChange={event => update({ justification: event.target.value })} placeholder="Consider loop bounds, allocations, and the call stack." /></label>
+        <label className="block"><span className="field-label">Is the supplied explanation accurate?</span><select className="field" value={draft.accurate} onChange={event => update({ accurate: event.target.value as Draft["accurate"] })}><option value="">Choose an assessment</option><option value="yes">Yes, it matches the code</option><option value="no">No, it makes inaccurate claims</option></select></label>
+        <label className="block"><span className="field-label">Explanation notes (optional)</span><textarea className="field" rows={2} value={draft.notes} onChange={event => update({ notes: event.target.value })} /></label></div>}
+      {section === "fix" && <label className="block"><span className="field-label">Suggested fix (optional)</span><span className="mb-3 block text-sm text-neutral-400">Describe a repair or provide a corrected implementation.</span><textarea className="field min-h-60 font-mono" rows={10} spellCheck={false} value={draft.fix} onChange={event => update({ fix: event.target.value })} /></label>}
+    </div>
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-neutral-800 px-5 py-4"><p className="text-xs text-neutral-400" role="status">{saveStatus || "Your judgment is not submitted yet"}</p><button type="submit" className="btn-primary" disabled={isSubmitting || !loaded}>{isSubmitting ? "Comparing your review…" : submitLabel}<ArrowRight size={16} /></button></div>
+  </form>;
 }
