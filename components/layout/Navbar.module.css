@@ -1,0 +1,2 @@
+.homeNav { max-width: 1280px; min-height: 76px; }
+@media (max-width: 480px) { .homeNav { min-height: 68px; } }

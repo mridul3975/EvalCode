@@ -1,0 +1,30 @@
+{
+  "widths": [
+    {
+      "viewport": 360,
+      "document": 360
+    },
+    {
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "viewport": 768,
+      "document": 768
+    },
+    {
+      "viewport": 1024,
+      "document": 1024
+    },
+    {
+      "viewport": 1440,
+      "document": 1440
+    }
+  ],
+  "errors": [],
+  "reducedMotion": {
+    "visible": "1",
+    "animations": 0
+  },
+  "passed": true
+}

@@ -1,0 +1,1134 @@
+{
+  "captured": "2026-11-04",
+  "errors": [
+    "Invalid or unexpected token"
+  ],
+  "status": 200,
+  "theme": "dark",
+  "palette": "whitebox-dark",
+  "headings": [
+    "Distinguish yourselfin the AI era.the AI era.",
+    "Core Catalog",
+    "I'm single.",
+    "A DSA roadmap for deriving solutions, not memorizing them",
+    "More than a problem bank",
+    "An adaptive AI coach that remembers you",
+    "Guides that teach you how to get good",
+    "A community that has been through it",
+    "Interview intel you can practice",
+    "Know your limits. (Easy version)",
+    "See your resume the way a recruiter does.",
+    "Built on how people actually learn",
+    "Passive learning feels better. Active learning works better.",
+    "Get stuck before you read the editorial. You’ll understand it better.",
+    "You can’t memorize your way through a follow-up question.",
+    "Choose your WhiteBox plan",
+    "Free",
+    "Ultra Premium"
+  ],
+  "buttons": [
+    {
+      "text": "",
+      "label": "Dismiss holiday offer",
+      "title": null
+    },
+    {
+      "text": "Beyond DSA",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Learn",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "White Room",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "More",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Search Ctrl K",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Description",
+      "label": null,
+      "title": "Description"
+    },
+    {
+      "text": "Solutions",
+      "label": null,
+      "title": "Solutions"
+    },
+    {
+      "text": "Submissions",
+      "label": null,
+      "title": "Submissions"
+    },
+    {
+      "text": "Solvers 17",
+      "label": "Solvers, 17",
+      "title": "Solvers, 17"
+    },
+    {
+      "text": "Statement",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Constructor",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "",
+      "label": "Collapse code",
+      "title": "Collapse code"
+    },
+    {
+      "text": "",
+      "label": "Copy code",
+      "title": "Copy code"
+    },
+    {
+      "text": "Methods",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "",
+      "label": "Collapse code",
+      "title": "Collapse code"
+    },
+    {
+      "text": "",
+      "label": "Copy code",
+      "title": "Copy code"
+    },
+    {
+      "text": "",
+      "label": "Collapse code",
+      "title": "Collapse code"
+    },
+    {
+      "text": "",
+      "label": "Copy code",
+      "title": "Copy code"
+    },
+    {
+      "text": "Notes",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "",
+      "label": "Hide problem panel",
+      "title": null
+    },
+    {
+      "text": "C++ 17",
+      "label": "Language: C++ 17",
+      "title": null
+    },
+    {
+      "text": "Whiteboard",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "",
+      "label": "Reset to starter code",
+      "title": null
+    },
+    {
+      "text": "",
+      "label": "Editor settings",
+      "title": null
+    },
+    {
+      "text": "Execute",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Submit",
+      "label": "Submit",
+      "title": null
+    },
+    {
+      "text": "Testcase",
+      "label": null,
+      "title": "Drag to reorder or dock"
+    },
+    {
+      "text": "Test Result",
+      "label": null,
+      "title": "Drag to reorder or dock"
+    },
+    {
+      "text": "Console",
+      "label": null,
+      "title": "Drag to reorder or dock"
+    },
+    {
+      "text": "Tsuki",
+      "label": "Tsuki",
+      "title": "Open Tsuki (⌘I)"
+    },
+    {
+      "text": "",
+      "label": "Expand panel",
+      "title": "Expand panel"
+    },
+    {
+      "text": "BFS & DFS   0/34",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Complete Search   0/32",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Recursion   0/26",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Disjoint Union Set (DSU)   0/16",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Prefix Sums   0/36",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Stacks & Queues   0/11",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "More Graph Algorithms   0/26",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "LCA & Tree Queries   0/1",
+      "label": null,
+      "title": "LCA & Tree Queries is below your roadmap mode"
+    },
+    {
+      "text": "Network Flow",
+      "label": null,
+      "title": "Network Flow is below your roadmap mode"
+    },
+    {
+      "text": "Getting Started   0/22",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Maps & Sets   0/11",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Two Pointers   0/12",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Sliding Window   0/20",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Heaps & Priority Queues   0/14",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Fenwick Tree (BIT)   0/3",
+      "label": null,
+      "title": "Fenwick Tree (BIT) is below your roadmap mode"
+    },
+    {
+      "text": "Range Queries",
+      "label": null,
+      "title": "Range Queries is below your roadmap mode"
+    },
+    {
+      "text": "Binary Search   0/20",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Trees & Binary Trees   0/11",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Tries   0/11",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Segment Trees   0/3",
+      "label": null,
+      "title": "Segment Trees is below your roadmap mode"
+    },
+    {
+      "text": "Advanced Graphs",
+      "label": null,
+      "title": "Advanced Graphs is below your roadmap mode"
+    },
+    {
+      "text": "Stuff you'll probably never use",
+      "label": null,
+      "title": "Stuff you'll probably never use is below your roadmap mode"
+    },
+    {
+      "text": "Sorting   0/10",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Greedy   0/10",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "DP Level 2   0/4",
+      "label": null,
+      "title": "DP Level 2 is below your roadmap mode"
+    },
+    {
+      "text": "DP Level 4   0/1",
+      "label": null,
+      "title": "DP Level 4 is below your roadmap mode"
+    },
+    {
+      "text": "DP Level 1   0/38",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "DP Level 3",
+      "label": null,
+      "title": "DP Level 3 is below your roadmap mode"
+    },
+    {
+      "text": "Akuna Capital      Easy 1.5 Know your limits. (Easy version) BasicsData StructuresNetworking",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Anthropic      Normal+ 4.5 Hashring BasicsData Structures",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "HRT      Normal+ 4 We live in a simulation. Math",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Millennium      Easy 1.5 It's over for you. (if you can't do this) Basics",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Statement",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Constructor",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "",
+      "label": "Collapse code",
+      "title": "Collapse code"
+    },
+    {
+      "text": "",
+      "label": "Copy code",
+      "title": "Copy code"
+    },
+    {
+      "text": "Methods",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "",
+      "label": "Collapse code",
+      "title": "Collapse code"
+    },
+    {
+      "text": "",
+      "label": "Copy code",
+      "title": "Copy code"
+    },
+    {
+      "text": "",
+      "label": "Collapse code",
+      "title": "Collapse code"
+    },
+    {
+      "text": "",
+      "label": "Copy code",
+      "title": "Copy code"
+    },
+    {
+      "text": "Notes",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "",
+      "label": "Pause auto-advance",
+      "title": "Pause auto-advance"
+    },
+    {
+      "text": "Annual",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Monthly",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Start for free",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "See what's inside",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "Start 5-day free trial",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "See what's inside",
+      "label": null,
+      "title": null
+    },
+    {
+      "text": "See DSA Premium",
+      "label": null,
+      "title": null
+    }
+  ],
+  "sections": [
+    {
+      "class": "hero svelte-1uha8ag",
+      "y": 24,
+      "height": 1000,
+      "heading": "Distinguish yourselfin the AI era.the AI era."
+    },
+    {
+      "class": "credibility svelte-1ntsp8v",
+      "y": 1024,
+      "height": 146
+    },
+    {
+      "class": "tour svelte-1fidvn1",
+      "y": 1170,
+      "height": 1162,
+      "heading": "Core Catalog"
+    },
+    {
+      "class": "problem-section  svelte-pu9wki",
+      "y": 1649,
+      "height": 126
+    },
+    {
+      "class": "problem-section  svelte-pu9wki",
+      "y": 1776,
+      "height": 349
+    },
+    {
+      "class": "problem-section  svelte-pu9wki",
+      "y": 2124,
+      "height": 713
+    },
+    {
+      "class": "problem-section  svelte-pu9wki",
+      "y": 2837,
+      "height": 982
+    },
+    {
+      "class": "dsa-section svelte-z92jal",
+      "y": 2332,
+      "height": 789,
+      "heading": "A DSA roadmap for deriving solutions, not memorizing them"
+    },
+    {
+      "class": "why-section svelte-1mt26rd",
+      "y": 3121,
+      "height": 1585,
+      "heading": "More than a problem bank"
+    },
+    {
+      "class": "sourcing svelte-1vnoxdc",
+      "y": 4706,
+      "height": 1191,
+      "heading": "Interview intel you can practice"
+    },
+    {
+      "class": "problem-section  svelte-pu9wki",
+      "y": 5205,
+      "height": 145
+    },
+    {
+      "class": "problem-section  svelte-pu9wki",
+      "y": 5349,
+      "height": 300
+    },
+    {
+      "class": "problem-section  svelte-pu9wki",
+      "y": 5649,
+      "height": 498
+    },
+    {
+      "class": "problem-section  svelte-pu9wki",
+      "y": 6148,
+      "height": 174
+    },
+    {
+      "class": "resume-section svelte-7f8lzd",
+      "y": 5897,
+      "height": 905,
+      "heading": "See your resume the way a recruiter does."
+    },
+    {
+      "class": "learning svelte-14t0klt",
+      "y": 6802,
+      "height": 992,
+      "heading": "Built on how people actually learn"
+    },
+    {
+      "class": "pricing svelte-2mfh9y holiday-pricing halloween",
+      "y": 7794,
+      "height": 1507,
+      "heading": "Choose your WhiteBox plan"
+    },
+    {
+      "class": "svelte-nbs0zk",
+      "y": 9944,
+      "height": 0
+    }
+  ],
+  "overflow": {
+    "viewport": 1440,
+    "document": 1440
+  },
+  "heroTransformBefore": "matrix(1, 0, 0, 1, 0, 0)",
+  "heroTransformAfter": "matrix3d(0.997124, -0.00529318, 0.0756023, 0, 0, 0.997558, 0.0698425, 0, -0.0757874, -0.0696416, 0.994689, 0, 0, 0, 0, 1)",
+  "navigationOpen": "WhiteBox\nBeyond DSA\nLearn\nRoadmap\nStart from zero and work through each topic\nLibrary\nCurated resources, tier lists, and problem sets\nGuides\nReal takes worth your time reading\nWhite Room\nMore\nSearch\nCtrl K\nLogin\nSign up\nLog in\n\nBeyond DSA\n\nCore Catalog\nSystem Design\nDomain Knowledge\nResume Reviewer\n\nLearn\n\nRoadmap\nLibrary\nGuides\n\nWhite Room\n\nWhite Room\nWhite Room DSA\nAbout White Room\n\nMore\n\nLeaderboard\nRefer & Earn\nShop\nInterview Intel\nJob Boards\nSandbox\nChangelog\nContributors",
+  "searchOpen": "on of your own. It is defined in the judge.\n\nInput format: The first line contains N, the number of operations. Each of the next N lines is one operation. The operation name maps to methods as follows:\n\nADD server_id → add_server(server_id)\nADD server_id v → add_server(server_id, v)\nREMOVE server_id → remove_server(server_id)\nGET chat_id → get_server(chat_id)\nAFFINITY server_id chat_id → record_affinity(server_id, chat_id)\nGET3 chat_id k → get_server_v3(chat_id, k)\nVRAM server_id chat_id → load_to_vram(server_id, chat_id)\nRAM server_id chat_id → load_to_ram(server_id, chat_id)\nGET4 chat_id k → get_server_v4(chat_id, k)\n\nOutput format: For each GET, GET3, or GET4, print the resolved server_id on its own line. All other operations produce no output.\n\nBrowse Interview Intel\nShare your interview round\nSee your resume the way a recruiter does.\n\nSee where your resume lands across seven score bands, with evidence for each score and feedback weighted toward your target role.\n\nWhere you stand\nA score from 0 to 100, from Thin to Alien, with an estimated percentile for your career stage.\nWhat reads as strong\nSeparate scores for problem solving, experience, research, technical depth, projects, and pedigree, each backed by your resume.\nWhat to rewrite first\nThe weakest lines, each with a rewrite you can paste back in.\nReview my resume\nA real report, on a sample resume.\nBuilt on how people actually learn\n\nYou get good at solving problems by solving them, even when reading solutions feels more productive. Here’s what the studies found, and where it shows up in WhiteBox.\n\nActive vs passive\nDSA practice\nInterviews\nPassive learning feels better. Active learning works better.\n\nMost people watch the video solution, feel like they learned it, and make very little progress. The lecture students in this study fell for the same thing: they felt they learned more and scored lower.\n\nActive doesn’t mean struggling alone. Asking Tsuki, the AI chat on every plan, for the minimal hint to unblock yourself instead of the answer is scaffolding in Lev Vygotsky’s Zone of Proximal Development: just enough support to solve a problem slightly beyond what you can do alone.\n\nRead: Is NeetCode / Strivers A2Z bad?\n\nActive class versus a passive lecture\n\n−0.5 SD\nLecture\n+0.5 SD\nTest of learning\n+0.46\nFeeling of learning\n−0.56\n149 students in introductory physics, taught the same material both ways. Deslauriers et al. (2019), PNAS\nHalloween: 27% off\nChoose your WhiteBox plan\n\nEnds in\n5d 03h 15m 42s\n\nAnnual\nMonthly\nFree\n$0\n/mo\n\nEverything WhiteBox has to offer for free.\n\nStart for free\nSee what's inside\n48 original implementation problems in the Core Catalog\n912 curated DSA problems in the algorithm roadmaps\n1,900+ quiz questions across algorithms and domain knowledge\nAlgorithm roadmaps that map out what to learn next\nInterview intel from real candidates, free forever\nDaily quests, streaks, and the global leaderboard\nTsuki AI chat for hints and explanations\n36 in-depth guides and writeups, always free\nProgress that persists across every session\nUltra Premium\n27% off\n$29/mo\n$21\n/mo\n\nRenews at $21/month. Cancel any time.\n\n0.1% of your future salary.\n\nStart 5-day free trial\nSee what's inside\nEverything in Free\nWhite Room: an AI coach that plans your whole prep around your goal\nA roadmap the coach rewrites as you go\nMemory that persists across sessions and brings back your weak spots\nAdaptive DSA practice: a hand of unseen problems picked for your level\nDSA AI coaching and weekly check-ins with shared learner memory\nUnlimited AI resume reviews\nExclusive interview problems from our community members\nA private Discord channel (on request)\nAn Ultra Premium badge and card frame to show it off\n\nFor new Premium subscriptions. Keep the shown rate while your subscription stays active.\n\nOnly want DSA practice? DSA Premium, with Mindsolve, is $9/mo or $79/yr. See DSA Premium\n\nRegional pricing? Message @level5esper on Discord.\n\nWhiteBox\n\nMake the interview a mere formality.\n\n@level5esper\n@meemee.ac\nProduct\nWhite Room\nProblems\nRoadmap\nKnowledge\nLibrary\nCommunity\nInterview Intel\nContributors\nLeaderboard\nTools\nPython Notebooks\nResume Reviewer\nJob Boards\nCompany\nChangelog\nContact\n\n© 2026 WhiteBox. All rights reserved.\n\nPrivacy\nTerms\n✦\n🎃\n✦\nesc\nGo to\nCore Catalog\nAlgorithms roadmap\nWhite Room\nDan ladder\nSaved problems\nDomain knowledge\nLibrary\nGuides\nInterview Intel\nResume review\nLeaderboard\nContest calendar\nCPguessr\nAI-dle\nNotebooks\nChangelog\nPricing\nSettings\n↑\n↓\nto move\n↵\nto open",
+  "tourControls": [
+    {
+      "tag": "A",
+      "role": null,
+      "text": "filter on LeetCode",
+      "label": null
+    },
+    {
+      "tag": "A",
+      "role": null,
+      "text": "Browse problems",
+      "label": null
+    },
+    {
+      "tag": "A",
+      "role": null,
+      "text": "",
+      "label": "Back to problems"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Description",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Solutions",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Submissions",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Solvers 17",
+      "label": "Solvers, 17"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Statement",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Constructor",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Collapse code"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Copy code"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Methods",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Collapse code"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Copy code"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Collapse code"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Copy code"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Notes",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Hide problem panel"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "C++ 17",
+      "label": "Language: C++ 17"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Whiteboard",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Reset to starter code"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Editor settings"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Execute",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Submit",
+      "label": "Submit"
+    },
+    {
+      "tag": "A",
+      "role": null,
+      "text": "Sign in",
+      "label": null
+    },
+    {
+      "tag": "A",
+      "role": null,
+      "text": "Sign up",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Testcase",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Test Result",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Console",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "Tsuki",
+      "label": "Tsuki"
+    },
+    {
+      "tag": "BUTTON",
+      "role": null,
+      "text": "",
+      "label": "Expand panel"
+    },
+    {
+      "tag": "BUTTON",
+      "role": "tab",
+      "text": "Core Catalog",
+      "label": "Go to Core Catalog"
+    },
+    {
+      "tag": "BUTTON",
+      "role": "tab",
+      "text": "White Room",
+      "label": "Go to White Room"
+    },
+    {
+      "tag": "BUTTON",
+      "role": "tab",
+      "text": "Resume Reviewer",
+      "label": "Go to Resume Reviewer"
+    },
+    {
+      "tag": "BUTTON",
+      "role": "tab",
+      "text": "Domain Knowledge",
+      "label": "Go to Domain Knowledge"
+    }
+  ],
+  "mobile": {
+    "overflow": {
+      "viewport": 390,
+      "document": 390
+    },
+    "headerControls": [
+      {
+        "text": "",
+        "label": "Close menu"
+      },
+      {
+        "text": "Search Ctrl K",
+        "label": null
+      },
+      {
+        "text": "",
+        "label": "Toggle menu"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "route": "/problems",
+      "url": "https://whitebox.ac/problems",
+      "title": "Core Catalog | WhiteBox: Real Interview Problems, Not LeetCode Slop",
+      "headings": [
+        " Core Catalog"
+      ],
+      "buttons": [
+        {
+          "text": "Beyond DSA",
+          "label": null
+        },
+        {
+          "text": "Learn",
+          "label": null
+        },
+        {
+          "text": "White Room",
+          "label": null
+        },
+        {
+          "text": "More",
+          "label": null
+        },
+        {
+          "text": "Search Ctrl K",
+          "label": null
+        },
+        {
+          "text": "Sort",
+          "label": null
+        },
+        {
+          "text": "Featured",
+          "label": null
+        },
+        {
+          "text": "Difficulty (low to high)",
+          "label": null
+        },
+        {
+          "text": "Newest",
+          "label": null
+        },
+        {
+          "text": "Success rate",
+          "label": null
+        },
+        {
+          "text": "Status",
+          "label": null
+        },
+        {
+          "text": "All problems 54",
+          "label": null
+        },
+        {
+          "text": "Unsolved 54",
+          "label": null
+        },
+        {
+          "text": "Solved 0",
+          "label": null
+        },
+        {
+          "text": "Tags",
+          "label": null
+        },
+        {
+          "text": "Algorithms 5",
+          "label": null
+        },
+        {
+          "text": "Basics 21",
+          "label": null
+        },
+        {
+          "text": "Concurrency 7",
+          "label": null
+        },
+        {
+          "text": "Data Structures 27",
+          "label": null
+        },
+        {
+          "text": "Debugging 1",
+          "label": null
+        },
+        {
+          "text": "Design Patterns 11",
+          "label": null
+        },
+        {
+          "text": "Game Theory 4",
+          "label": null
+        },
+        {
+          "text": "Machine Learning 11",
+          "label": null
+        },
+        {
+          "text": "Maps 2",
+          "label": null
+        },
+        {
+          "text": "Math 14",
+          "label": null
+        },
+        {
+          "text": "Memory Management 12",
+          "label": null
+        },
+        {
+          "text": "Networking 5",
+          "label": null
+        },
+        {
+          "text": "OOP 1",
+          "label": null
+        },
+        {
+          "text": "Operating Systems 8",
+          "label": null
+        },
+        {
+          "text": "Practical 1",
+          "label": null
+        }
+      ]
+    },
+    {
+      "route": "/roadmap",
+      "url": "https://whitebox.ac/roadmap",
+      "title": "Page Not Found | WhiteBox",
+      "headings": [
+        "Why are you here?"
+      ],
+      "buttons": [
+        {
+          "text": "Beyond DSA",
+          "label": null
+        },
+        {
+          "text": "Learn",
+          "label": null
+        },
+        {
+          "text": "White Room",
+          "label": null
+        },
+        {
+          "text": "More",
+          "label": null
+        },
+        {
+          "text": "Search Ctrl K",
+          "label": null
+        },
+        {
+          "text": "Search WhiteBox Ctrl K",
+          "label": null
+        }
+      ]
+    },
+    {
+      "route": "/guides",
+      "url": "https://whitebox.ac/guides/getting-started/why-whitebox",
+      "title": "Why WhiteBox? | WhiteBox Guides",
+      "headings": [
+        "Why WhiteBox?",
+        "What WhiteBox really is#"
+      ],
+      "buttons": [
+        {
+          "text": "Beyond DSA",
+          "label": null
+        },
+        {
+          "text": "Learn",
+          "label": null
+        },
+        {
+          "text": "White Room",
+          "label": null
+        },
+        {
+          "text": "More",
+          "label": null
+        },
+        {
+          "text": "Search Ctrl K",
+          "label": null
+        },
+        {
+          "text": "Search guides ⌘K",
+          "label": "Search guides"
+        },
+        {
+          "text": "Getting Started",
+          "label": null
+        },
+        {
+          "text": "Mindset",
+          "label": null
+        },
+        {
+          "text": "Common Questions",
+          "label": null
+        },
+        {
+          "text": "Resources",
+          "label": null
+        },
+        {
+          "text": "14",
+          "label": "Like this guide"
+        }
+      ]
+    },
+    {
+      "route": "/white-room/about",
+      "url": "https://whitebox.ac/white-room/about",
+      "title": "White Room | Interview roadmap and DSA training",
+      "headings": [
+        "An AI coach that knows when to raise the bar.",
+        "Start training inWhite Room.",
+        "Choose your WhiteBox plan"
+      ],
+      "buttons": [
+        {
+          "text": "Beyond DSA",
+          "label": null
+        },
+        {
+          "text": "Learn",
+          "label": null
+        },
+        {
+          "text": "White Room",
+          "label": null
+        },
+        {
+          "text": "More",
+          "label": null
+        },
+        {
+          "text": "Search Ctrl K",
+          "label": null
+        },
+        {
+          "text": "",
+          "label": "Collapse sidebar"
+        },
+        {
+          "text": "New chat",
+          "label": "New chat"
+        },
+        {
+          "text": "Search chats Ctrl+K",
+          "label": "Search chats"
+        },
+        {
+          "text": "DSA",
+          "label": null
+        },
+        {
+          "text": "Interviews",
+          "label": null
+        },
+        {
+          "text": "Folders",
+          "label": null
+        },
+        {
+          "text": "",
+          "label": "New folder"
+        },
+        {
+          "text": "Etched AI · two-week sprint",
+          "label": null
+        },
+        {
+          "text": "",
+          "label": "New chat in Etched AI · two-week sprint"
+        },
+        {
+          "text": "",
+          "label": "Actions for Etched AI · two-week sprint"
+        },
+        {
+          "text": "Onsite moved up a week",
+          "label": null
+        },
+        {
+          "text": "",
+          "label": "Actions for Onsite moved up a week"
+        },
+        {
+          "text": "Speculative decoding review",
+          "label": null
+        },
+        {
+          "text": "",
+          "label": "Actions for Speculative decoding review"
+        },
+        {
+          "text": "Continuous batching",
+          "label": "Lesson: Continuous batching"
+        },
+        {
+          "text": "",
+          "label": "Actions for Continuous batching"
+        },
+        {
+          "text": "Quant interview prep",
+          "label": null
+        },
+        {
+          "text": "",
+          "label": "New chat in Quant interview prep"
+        },
+        {
+          "text": "",
+          "label": "Actions for Quant interview prep"
+        },
+        {
+          "text": "Lock-free queue tradeoffs",
+          "label": null
+        },
+        {
+          "text": "",
+          "label": "Actions for Lock-free queue tradeoffs"
+        },
+        {
+          "text": "lvl5esper",
+          "label": null
+        },
+        {
+          "text": "Chat",
+          "label": null
+        },
+        {
+          "text": "Roadmap",
+          "label": null
+        },
+        {
+          "text": "Practice 1",
+          "label": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": {
+    "family": "\"Overused Grotesk\", -apple-system, BlinkMacSystemFont, sans-serif",
+    "size": "67.68px",
+    "weight": "400",
+    "tracking": "-2.0304px",
+    "lineHeight": "71.064px"
+  },
+  "bodyFont": "Satoshi, -apple-system, BlinkMacSystemFont, sans-serif",
+  "mobileMenuExpanded": null,
+  "reducedMotion": {
+    "animation": "none",
+    "opacity": "1"
+  }
+}

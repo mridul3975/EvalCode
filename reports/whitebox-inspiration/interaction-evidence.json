@@ -1,0 +1,219 @@
+{
+  "errors": [],
+  "tourAfter": "White Room\n\nAn AI coach that trains you specifically for your next interview. White Room doesn't forget between sessions, adapts to your needs, and guides you to build resume-worthy projects.\n\nSee White Room\nWhite Room\nNew chat\nSearch chats\nCtrl+K\nDSA\nInterviews\nFolders\nEtched AI · two-week sprint\nOnsite moved up a week\nSpeculative decoding review\nContinuous batching\nQuant interview prep\nLock-free queue tradeoffs\nlvl5esper\nChat\nRoadmap\nPractice\n1\nStats\nMemory\n7\nNotes\nEtched AI · two-week sprint\n\nYour next session is ready. Take the speculative decoding lesson, then the queue problem on a night with the full 90 minutes.\n\nAsk your coach anything…\nAgenda\nDay 3 of 3\n3 of 5 done\nContinuous batching\n\nCut decode latency without changing what the model outputs.\n\nUp next\nSpeculative decoding\nLesson · 12 min\nContinue\nConsumerism (Hard version)\nPractice · 90 min\nOpen roadmap\nCore Catalog\nWhite Room\nResume Reviewer\nDomain Knowledge",
+  "selectedIntel": "Description\nOpen problem\nSource: Anthropic report\nHashring\n10s\n256 MB\nNormal+ 4.5\nBasics\nData Structures\nAnthropic\nStatement\n\nProblem contributed by @asdf\n\nImplement a HashRing, a consistent hashing ring that routes chat sessions to servers.\n\nDescription\n\nDesign a distributed chat load balancer using a consistent hashing ring: a circle of integers in the range [0, 2^32). Both servers and chats are assigned positions using a hash function. A chat is routed to the first server clockwise from its p",
+  "roadmapUrl": "https://whitebox.ac/algorithms",
+  "roadmapHeading": [
+    " Algorithm Roadmap"
+  ],
+  "roadmapControls": [
+    {
+      "text": "Beyond DSA",
+      "label": null
+    },
+    {
+      "text": "Learn",
+      "label": null
+    },
+    {
+      "text": "White Room",
+      "label": null
+    },
+    {
+      "text": "More",
+      "label": null
+    },
+    {
+      "text": "Search Ctrl K",
+      "label": null
+    },
+    {
+      "text": "Graph",
+      "label": null
+    },
+    {
+      "text": "List",
+      "label": null
+    },
+    {
+      "text": "Saved",
+      "label": null
+    },
+    {
+      "text": "",
+      "label": "Roadmap settings"
+    },
+    {
+      "text": "How this works",
+      "label": null
+    },
+    {
+      "text": "BFS & DFS   0/34",
+      "label": null
+    },
+    {
+      "text": "Complete Search   0/32",
+      "label": null
+    },
+    {
+      "text": "Recursion   0/26",
+      "label": null
+    },
+    {
+      "text": "Disjoint Union Set (DSU)   0/16",
+      "label": null
+    },
+    {
+      "text": "Prefix Sums   0/36",
+      "label": null
+    },
+    {
+      "text": "Stacks & Queues   0/11",
+      "label": null
+    },
+    {
+      "text": "More Graph Algorithms   0/26",
+      "label": null
+    },
+    {
+      "text": "LCA & Tree Queries   0/1",
+      "label": null
+    },
+    {
+      "text": "Network Flow",
+      "label": null
+    },
+    {
+      "text": "Getting Started   0/22",
+      "label": null
+    },
+    {
+      "text": "Maps & Sets   0/11",
+      "label": null
+    },
+    {
+      "text": "Two Pointers   0/12",
+      "label": null
+    },
+    {
+      "text": "Sliding Window   0/20",
+      "label": null
+    },
+    {
+      "text": "Heaps & Priority Queues   0/14",
+      "label": null
+    },
+    {
+      "text": "Fenwick Tree (BIT)   0/3",
+      "label": null
+    },
+    {
+      "text": "Range Queries",
+      "label": null
+    },
+    {
+      "text": "Binary Search   0/20",
+      "label": null
+    },
+    {
+      "text": "Trees & Binary Trees   0/11",
+      "label": null
+    },
+    {
+      "text": "Tries   0/11",
+      "label": null
+    },
+    {
+      "text": "Segment Trees   0/3",
+      "label": null
+    },
+    {
+      "text": "Advanced Graphs",
+      "label": null
+    },
+    {
+      "text": "Stuff you'll probably never use",
+      "label": null
+    },
+    {
+      "text": "Sorting   0/10",
+      "label": null
+    },
+    {
+      "text": "Greedy   0/10",
+      "label": null
+    },
+    {
+      "text": "DP Level 2   0/4",
+      "label": null
+    },
+    {
+      "text": "DP Level 4   0/1",
+      "label": null
+    },
+    {
+      "text": "DP Level 1   0/38",
+      "label": null
+    },
+    {
+      "text": "DP Level 3",
+      "label": null
+    },
+    {
+      "text": "Bitwise Operations   0/12",
+      "label": null
+    },
+    {
+      "text": "Basic Strings   0/5",
+      "label": null
+    },
+    {
+      "text": "Advanced Strings",
+      "label": null
+    },
+    {
+      "text": "Math Level 1   0/39",
+      "label": null
+    },
+    {
+      "text": "Math Level 2   0/10",
+      "label": null
+    },
+    {
+      "text": "Math Level 3",
+      "label": null
+    },
+    {
+      "text": "Generating Functions",
+      "label": null
+    },
+    {
+      "text": "Ad-hoc   0/8",
+      "label": null
+    },
+    {
+      "text": "Constructive Algorithms   0/1",
+      "label": null
+    },
+    {
+      "text": "Interactive",
+      "label": null
+    },
+    {
+      "text": "Divide & Conquer",
+      "label": null
+    },
+    {
+      "text": "Computational Geometry",
+      "label": null
+    }
+  ],
+  "roadmapScrollBefore": 0,
+  "roadmapScrollAfter": 720,
+  "mobileHero": "New\nLessons in White Room\nDistinguish yourself\nin \nthe AI era.\nthe AI era.\n\nInterviews moved past just LeetCode. Accelerate your learning with our long-term philosophy, backed by science, not influencer hype.\n\nCreate a free account\nGet Ultra Premium\n\nWhy WhiteBox\n·\nJoin the Discord",
+  "mobileMenu": "WhiteBox\nSign up\nLog in\n\nBeyond DSA\n\nCore Catalog\nSystem Design\nDomain Knowledge\nResume Reviewer\n\nLearn\n\nRoadmap\nLibrary\nGuides\n\nWhite Room\n\nWhite Room\nWhite Room DSA\nAbout White Room\n\nMore\n\nLeaderboard\nRefer & Earn\nShop\nInterview Intel\nJob Boards\nSandbox\nChangelog\nContributors",
+  "mobileCatalogOverflow": {
+    "viewport": 390,
+    "document": 390
+  }
+}

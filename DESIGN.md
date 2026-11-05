@@ -12,3 +12,10 @@ The interface supports careful code reading, independent judgment, and useful fe
 - Phone workspaces use explicit view navigation. Keep all essential actions named and reachable, and treat scrollable code separately from page overflow.
 - Code editors load locally generated Monaco assets. `predev` and `prebuild` run `scripts/prepare-editor.mjs`; retain the basic editor fallback for a failed enhanced-editor load.
 - Verify page widths at 360, 390, 768, 1024, and 1440px, plus keyboard, loading, empty, and feedback states. Screenshots and isolated UI regression helpers are retained under `reports/ui-review/`.
+
+## Homepage
+
+- The marketing homepage uses lighter display type, a wider 1280px composition, original geometric background artwork, and an illustrated study scene at the footer. Keep these treatments scoped to the homepage; active review workspaces prioritize code and task clarity.
+- Homepage styles live in `app/home.module.css` and the marketing components' CSS modules. Keep the shared mint/charcoal palette and locally served Geist type.
+- The review demonstration starts neutral and reveals its explanation only after a verdict. The separate three-stage worked example illustrates specification, evidence, and reference feedback; it does not save or score an attempt.
+- Artwork lives under `public/images/marketing/`. The Whitebox images in the research report are reference material, not application assets.

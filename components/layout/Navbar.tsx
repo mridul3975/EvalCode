@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Code2 } from "lucide-react";
 import { UserDropdown } from "@/components/auth/UserDropdown";
+import styles from "./Navbar.module.css";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -13,7 +14,7 @@ export function Navbar() {
   if (workspace) return null;
   const links = [["/practice", "Practice"], ["/assessment", "Review mock"], ["/oa", "Coding tests"], ["/dashboard", "Progress"]];
   return <header className="sticky top-0 z-40 border-b border-neutral-800 bg-[#0c0e12]">
-    <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+    <div className={`mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8 ${pathname === "/" ? styles.homeNav : ""}`}>
       <Link href="/" className="flex items-center gap-2.5 text-base font-semibold tracking-tight"><Code2 size={22} className="text-emerald-200" />EvalForge</Link>
       <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">{links.map(([href, label]) => <Link key={href} href={href} aria-current={pathname.startsWith(href) ? "page" : undefined} className={`rounded-md px-3 py-2 text-sm ${pathname.startsWith(href) ? "bg-white/5 text-white" : "text-neutral-400 hover:text-white"}`}>{label}</Link>)}</nav>
       <div className="flex items-center gap-1"><UserDropdown /><button className="icon-button md:hidden" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>{open ? <X size={20} /> : <Menu size={20} />}</button></div>

@@ -1,0 +1,300 @@
+.panel {
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #35413e;
+  border-radius: 12px;
+  background: #11181a;
+  color: #e8eeeb;
+  text-align: left;
+}
+
+.fileHeader {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid #293532;
+  padding: 16px 22px;
+  background: #182120;
+}
+
+.fileName {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-code), monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.fileName svg {
+  flex-shrink: 0;
+  color: #a5bbb0;
+}
+
+.language {
+  color: #a8b8b2;
+  font-size: 12px;
+}
+
+.codeViewport {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 24px 0;
+  background: #0d1416;
+  scrollbar-width: thin;
+  scrollbar-color: #465b53 #0d1416;
+}
+
+.codeViewport:focus-visible {
+  outline-offset: -3px;
+}
+
+.code {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  color: #dce6e3;
+  font-family: var(--font-code), monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2.1;
+  tab-size: 4;
+}
+
+.codeLine {
+  display: flex;
+  min-width: max-content;
+  padding-right: 24px;
+  white-space: pre;
+}
+
+.lineNumber {
+  flex: 0 0 47px;
+  padding-right: 18px;
+  color: #8da097;
+  font-size: 12px;
+  text-align: right;
+  user-select: none;
+}
+
+.keyword {
+  color: #ccbeee;
+}
+
+.functionName {
+  color: #b3f5d1;
+}
+
+.highlightedLine {
+  background: #bd87431c;
+}
+
+.highlightedLine .lineNumber {
+  color: #f2c88d;
+}
+
+.review {
+  padding: 22px;
+  border-top: 1px solid #293532;
+}
+
+.question {
+  margin: 0;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 15px;
+  font-weight: 550;
+  line-height: 1.5;
+  letter-spacing: -.01em;
+  text-wrap: pretty;
+}
+
+.prompt {
+  margin: 5px 0 18px;
+  color: #a8b8b2;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.verdicts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.verdict {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #42544c;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #1a2622;
+  color: #e4eee8;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: background-color .16s ease-out, border-color .16s ease-out;
+}
+
+.verdict:hover {
+  border-color: #8cae9c;
+  background: #24362d;
+}
+
+.verdict[aria-pressed="true"] {
+  border-color: #a4c7b4;
+  background: #2b4035;
+  color: #f1fcf5;
+}
+
+.feedback {
+  border-top: 1px solid #293532;
+  padding: 21px 22px 14px;
+  background: #151e1a;
+}
+
+.feedbackTitle {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.6;
+}
+
+.feedbackTitle svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.correctFinding {
+  color: #b3f5d1;
+}
+
+.reconsider {
+  color: #f2c88d;
+}
+
+.explanation {
+  margin: 10px 0 18px;
+  color: #b9cbc0;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.explanation code {
+  color: #dbe9e0;
+  font-size: 12px;
+}
+
+.trace {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 16px 0;
+  border-top: 1px solid #334239;
+  border-bottom: 1px solid #334239;
+}
+
+.trace dt {
+  margin-bottom: 7px;
+  color: #aabfb1;
+  font-size: 12px;
+}
+
+.trace dd {
+  margin: 0;
+  color: #dcece1;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.trace .actual {
+  color: #f2c88d;
+}
+
+.reset {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  border: 0;
+  border-radius: 4px;
+  padding: 8px 0;
+  background: transparent;
+  color: #b9cbc0;
+  font-size: 12px;
+  line-height: 1.5;
+  text-underline-offset: 4px;
+}
+
+.reset:hover {
+  color: #e4f4e9;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .fileHeader {
+    min-height: 54px;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+
+  .fileName {
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .codeViewport {
+    padding: 20px 0;
+  }
+
+  .lineNumber {
+    flex-basis: 35px;
+    padding-right: 12px;
+  }
+
+  .codeLine {
+    padding-right: 16px;
+  }
+
+  .review {
+    padding: 20px 16px;
+  }
+
+  .verdicts {
+    gap: 8px;
+  }
+
+  .verdict {
+    padding-inline: 7px;
+    font-size: 12px;
+  }
+
+  .feedback {
+    padding: 20px 16px 12px;
+  }
+
+  .trace {
+    gap: 8px;
+  }
+
+  .trace dd {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verdict {
+    transition: none;
+  }
+}
